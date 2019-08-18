@@ -1,0 +1,6 @@
+CPU = "65816"
+	.include "modules/common/data.asm"
+	.include "modules/machine/em65816.asm"
+	.include "modules/interface/common/interface_tools.asm"
+	.include "modules/interface/drivers/interface_em65816.asm"
+	.include "modules/utility/tim.asm"
