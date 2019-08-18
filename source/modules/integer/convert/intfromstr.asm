@@ -3,7 +3,7 @@
 ;
 ;		Name : 		intfromstr.asm
 ;		Purpose :	Convert String to integer
-;		Date :		15th August 2019
+;		Date :		18th August 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************

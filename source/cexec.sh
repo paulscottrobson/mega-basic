@@ -1,14 +1,11 @@
 #
 #		Build BASIC (EM4510)
 #
-rm dump.mem memory.dump uart.sock
-#pushd scripts
-#python ftestgen.py >../testing/script.inc
-#python fscript.py >../testing/script.inc
-#popd
-#pushd ../emulator
-#sh build.sh
-#popd
+rm memory.dump
+pushd scripts
+#python ftestgen.py >../modules/testing/script.inc
+python fscript.py >../modules/testing/script.inc
+popd
 python scripts/builder.py
 64tass -q -c -b basic.asm  -L rom.lst -o rom.bin
 if [ $? -eq 0 ]

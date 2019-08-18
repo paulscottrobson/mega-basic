@@ -4,7 +4,7 @@
 ;		Name : 		fptest.asm
 ;		Purpose :	Runs floating point script code, used in testing.
 ;					(not normally included in the binary)
-;		Date :		15th August 2019
+;		Date :		18th August 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************

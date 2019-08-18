@@ -3,7 +3,7 @@
 ;
 ;		Name : 		fptostr.asm
 ;		Purpose :	Convert TOXS to string at current buffer position
-;		Date :		15th August 2019
+;		Date :		18th August 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************

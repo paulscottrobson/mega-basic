@@ -3,8 +3,7 @@
 ;
 ;		Name : 		tim.asm
 ;		Purpose :	TIM Machine Language Monitor
-;		Date :		10th August 2019
-;		Reviewed : 	12th August 2019 		(Review#1)
+;		Date :		18th August 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************

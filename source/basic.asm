@@ -15,9 +15,9 @@
 StartBasic:
 		jsr 	IF_Reset 					; reset external interface
 		jsr 	IFT_ClearScreen
-		jmp 	TIM_Start
-;		jsr 	FPTTest
-;		.byte 	$02
+;		jmp 	TIM_Start
+		jsr 	FPTTest
+		.byte 	$02
 freeze:	bra 	freeze		
 
 ERR_Handler:
