@@ -12,21 +12,16 @@
 
 		.include "_include.asm"				; include generated modules file.
 
-StartBASIC:
-		jsr 	IF_Reset 					; reset external interface
-		jsr 	IFT_ClearScreen
-		jsr 	TIM_Start
 		#Exit
 
 ERR_Handler:
 		bra 	ERR_Handler
 
-NMIHandler:
+
+		* = $FFF8
+DefaultInterrupt:		
 		rti
-
-;		.include 	"testing/fptest.asm"	
-
 		* = $FFFA
-		.word	NMIHandler
+		#nmihandler
 		.word 	StartROM
-		.word 	TIM_BreakVector
+		#irqhandler

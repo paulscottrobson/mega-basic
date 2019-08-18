@@ -3,8 +3,8 @@
 #
 rm memory.dump
 pushd scripts
-python ftestgen.py >../modules/testing/script.inc
-#python fscript.py >../modules/testing/script.inc
+#python ftestgen.py >../modules/testing/script.inc
+python fscript.py >../modules/testing/script.inc
 popd
 python scripts/builder.py
 64tass -c -b basic.asm  -L rom.lst -o rom.bin

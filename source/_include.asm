@@ -1,8 +1,14 @@
 ;
 ;		 AUTOMATICALLY GENERATED.
 ;
-Boot: .macro
+boot: .macro
 	jmp FPTTest
+	.endm
+irqhandler: .macro
+	.word DefaultInterrupt
+	.endm
+nmihandler: .macro
+	.word DefaultInterrupt
 	.endm
 CPU = "65816"
 HARDWARE = "em65816"
@@ -17,4 +23,5 @@ HARDWARE = "em65816"
 	.include "modules/float/fpparts.asm"
 	.include "modules/float/fpcompare.asm"
 	.include "modules/float/fputils.asm"
+	.include "modules/utility/tim.asm"
 	.include "modules/testing/fptest.asm"

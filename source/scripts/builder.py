@@ -35,14 +35,19 @@ class BuildDefinition(object):
 		self.modules = []														# List of modules
 		self.usedFiles = {}														# Files included
 		self.defines = { "CPU":self.processor,"HARDWARE":self.hardware };
-		self.bootLabel = None
+		defaultint = ".word DefaultInterrupt"
+		self.macros = { "boot": None, "irqhandler":defaultint,"nmihandler":defaultint }
+
+	def analyse(self):
 		self.defaultsCreate()													# Standard mandatory modules
 		self.interfaceCreate()													# Character Interface Modules.
 		self.create()															# Files in this file.
-		self.generate()
+
+	def setMacro(self,macro,code):
+		self.macros[macro.lower()] = code
 
 	def boot(self,bootLabel):
-		self.bootLabel = bootLabel
+		self.setMacro("boot","jmp "+bootLabel)
 
 	def addModule(self,moduleName):
 		moduleName = BuildDefinition.MODULES+os.sep+moduleName 					# Module directory.
@@ -76,13 +81,17 @@ class BuildDefinition(object):
 		for f in [x for x in os.listdir(moduleDirectory) if x.endswith(".asm")]:# output assembly files in there.
 			self.addFile(moduleDirectory+os.sep+f,False)
 
+	def targetFile(self):
+		return BuildDefinition.SOURCE+os.sep+"_include.asm"
+
 	def generate(self):
-		tgtFile = BuildDefinition.SOURCE+os.sep+"_include.asm"
 		#print("Writing to "+tgtFile)
-		h = open(tgtFile,"w")
+		h = open(self.targetFile(),"w")
 		h.write(";\n;\t\t AUTOMATICALLY GENERATED.\n;\n")
-		if self.bootLabel is not None:
-			h.write("Boot: .macro\n\tjmp {0}\n\t.endm\n".format(self.bootLabel))
+		for k in self.macros.keys():
+			if self.macros[k] is not None:
+				h.write("{0}: .macro\n\t{1}\n\t.endm\n".format(k,self.macros[k]))
+
 		h.write("".join(['{0} = "{1}"\n'.format(k,self.defines[k]) for k in self.defines.keys()]))
 		h.write("".join(['\t.include "{0}"\n'.format(f) for f in self.modules]))
 		h.close()
@@ -109,12 +118,13 @@ BuildDefinition.MODULES = "modules"												# Modules here from source direct
 class CheckTIM(BuildDefinition):
 	def create(self):
 		self.addModule("utility.tim")											# TIM code.
+		self.setMacro("irqhandler",".word TIM_BreakVector")
 		self.boot("TIM_Start")
 
 class FloatingPointTest(BuildDefinition):
 	def create(self):
-		self.addModule("utility.tim")											# TIM code.
 		self.addModule("float.*")												# FP Stuff
+		self.addModule("utility.tim")											# nicked hex printing routines :)
 		self.addModule("testing.fptest")
 		self.boot("FPTTest")
 
@@ -137,5 +147,12 @@ class Emulated65816Machine(Hardware):
 
 
 if __name__ == "__main__":
-	#sys = CheckTIM(Emulated65816Machine())	
-	sys = FloatingPointTest(Emulated65816Machine())
+	try:
+		build = FloatingPointTest(Emulated65816Machine())
+		#build = CheckTIM(Emulated65816Machine())	
+		build.analyse()
+		build.generate()
+	except BuildException as ex:
+		print("*** "+str(ex)+" ***")
+		if os.path.isfile(build.targetFile()):
+			os.remove(build.targetFile())
