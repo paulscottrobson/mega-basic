@@ -71,7 +71,7 @@ _FPTLoadLoop:
 FPTExit:		
 		lda 	#42
 		jsr 	IFT_PrintCharacter
-		rts
+		#exit
 		;
 		;		~ Compare top two values
 		;

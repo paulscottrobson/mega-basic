@@ -12,13 +12,11 @@
 
 		.include "_include.asm"				; include generated modules file.
 
-StartBasic:
+StartBASIC:
 		jsr 	IF_Reset 					; reset external interface
 		jsr 	IFT_ClearScreen
-;		jmp 	TIM_Start
-		jsr 	FPTTest
-		.byte 	$02
-freeze:	bra 	freeze		
+		jsr 	TIM_Start
+		#Exit
 
 ERR_Handler:
 		bra 	ERR_Handler

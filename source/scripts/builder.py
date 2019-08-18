@@ -11,36 +11,45 @@
 
 import os,sys
 
+# *******************************************************************************************
+#		
+#										Exception class
+#
+# *******************************************************************************************
+
 class BuildException(Exception):
 	pass
 
+# *******************************************************************************************
+#
+#								Class that defines a specific build
+#
+# *******************************************************************************************
+
 class BuildDefinition(object):
-	def __init__(self):
-		self.processor = "65816"												# save CPU type, Machine type.
-		self.hardware = "em65816"
-		self.machine = "em65816"
+	def __init__(self,setup):
+		self.processor = setup.getProcessor()									# what CPU
+		self.hardware = setup.getHardware()										# the machine hardware, memory layout etc.
+		self.interface = setup.getInterface()									# Interface stuff.
+
 		self.modules = []														# List of modules
 		self.usedFiles = {}														# Files included
-		self.defines = { "CPU":self.processor };
-		self.defaults()															# Standard mandatory modules
-		self.interface()														# Character Interface Modules.
+		self.defines = { "CPU":self.processor,"HARDWARE":self.hardware };
+		self.bootLabel = None
+		self.defaultsCreate()													# Standard mandatory modules
+		self.interfaceCreate()													# Character Interface Modules.
 		self.create()															# Files in this file.
 		self.generate()
 
-	def defaults(self):
-		self.addModule("common.*")												# common stuff
-		self.addModule("machine.@h")											# cpu machine code
-
-	def interface(self):
-		self.addModule("interface.common.*")									# common interface
-		self.addModule("interface.drivers.interface_@m")						# specific interface for machine
+	def boot(self,bootLabel):
+		self.bootLabel = bootLabel
 
 	def addModule(self,moduleName):
 		moduleName = BuildDefinition.MODULES+os.sep+moduleName 					# Module directory.
 		moduleName = moduleName.replace(".",os.sep).strip()						# process dots
 		moduleName = moduleName.replace("/",os.sep)								# Fucking Microsoft can't even copy
 		moduleName = moduleName.replace("@c",self.processor)					# replacements
-		moduleName = moduleName.replace("@m",self.machine)
+		moduleName = moduleName.replace("@i",self.interface)
 		moduleName = moduleName.replace("@h",self.hardware)
 		if moduleName.endswith("*"):											# Use all in this module ?
 			self.loadModuleSet(moduleName[:-2])
@@ -48,7 +57,7 @@ class BuildDefinition(object):
 		self.addFile(moduleName + ".asm",False)									# actual file name.
 
 	def addFile(self,srcName,toFront):
-		print("\tIncluding "+srcName)
+		#print("\tIncluding "+srcName)
 		if not os.path.isfile(srcName):											# check it exists.
 			raise BuildException("Cannot find '{0}'".format(srcName))
 		if srcName in self.usedFiles:			
@@ -69,25 +78,64 @@ class BuildDefinition(object):
 
 	def generate(self):
 		tgtFile = BuildDefinition.SOURCE+os.sep+"_include.asm"
-		print("Writing to "+tgtFile)
+		#print("Writing to "+tgtFile)
 		h = open(tgtFile,"w")
 		h.write(";\n;\t\t AUTOMATICALLY GENERATED.\n;\n")
+		if self.bootLabel is not None:
+			h.write("Boot: .macro\n\tjmp {0}\n\t.endm\n".format(self.bootLabel))
 		h.write("".join(['{0} = "{1}"\n'.format(k,self.defines[k]) for k in self.defines.keys()]))
 		h.write("".join(['\t.include "{0}"\n'.format(f) for f in self.modules]))
 		h.close()
 
-BuildDefinition.PROJECTROOT = "/home/paulr/Projects/6502-Basic"						# Root of project
+	def defaultsCreate(self):
+		self.addModule("common.*")												# common stuff
+		self.addModule("hardware.@h")											# cpu memory layout etc.
+
+	def interfaceCreate(self):
+		self.addModule("interface.common.*")									# common interface
+		self.addModule("interface.drivers.interface_@i")						# specific interface for machine
+
+
+BuildDefinition.PROJECTROOT = "/home/paulr/Projects/6502-Basic"					# Root of project
 BuildDefinition.SOURCE = BuildDefinition.PROJECTROOT+"/source"					# Source Root
 BuildDefinition.MODULES = "modules"												# Modules here from source directory.
 
-class Emulated65816Full(BuildDefinition):
+# *******************************************************************************************
+#
+#									Some Build Definitions
+#
+# *******************************************************************************************
+
+class CheckTIM(BuildDefinition):
+	def create(self):
+		self.addModule("utility.tim")											# TIM code.
+		self.boot("TIM_Start")
+
+class FloatingPointTest(BuildDefinition):
 	def create(self):
 		self.addModule("utility.tim")											# TIM code.
 		self.addModule("float.*")												# FP Stuff
-		self.addModule("integer.*")												# INT32 Stuff.
-		self.addModule("integer.convert.*")										# INT32 conversion stuff
 		self.addModule("testing.fptest")
-	
+		self.boot("FPTTest")
+
+# *******************************************************************************************
+#
+#								Physical Hardware Definition
+#
+# *******************************************************************************************
+
+class Hardware(object):
+		pass
+
+class Emulated65816Machine(Hardware):
+	def getProcessor(self):
+		return "65816"
+	def getHardware(self):
+		return "em65816"
+	def getInterface(self):
+		return "em65816"
+
 
 if __name__ == "__main__":
-	sys = Emulated65816Full()
+	#sys = CheckTIM(Emulated65816Machine())	
+	sys = FloatingPointTest(Emulated65816Machine())

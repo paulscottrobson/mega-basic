@@ -18,8 +18,11 @@ ResetStack: 	.macro
 		txs
 		.endm
 
+
 StartROM:
 		#ResetStack
-		jmp 	StartBasic
+		jsr 	IF_Reset 					; reset external interface
+		jsr 	IFT_ClearScreen
+		#Boot
 
 

@@ -21,8 +21,12 @@ ResetStack: 	.macro
 		.as
 		.endm
 
+Exit:	.macro
+		.byte 	2
+		.endm
+
 		* = $C000
-		
+
 StartROM:
 		clc
 		xce	
@@ -35,5 +39,7 @@ StartROM:
 		tay
 		.as
 		sep 	#$30
-		jmp 	StartBasic
+		jsr 	IF_Reset 					; reset external interface
+		jsr 	IFT_ClearScreen
+		#Boot
 

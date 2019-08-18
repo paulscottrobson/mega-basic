@@ -103,7 +103,7 @@ TIM_Execute:
 		lda 	TIM_A 						; restore AXYZ
 		ldx 	TIM_X
 		ldy 	TIM_Y
-		.if 	CPU=4510 					; can we load Z ?
+		.if 	CPU="4510" 					; can we load Z ?
 		ldz 	TIM_Z
 		.endif
 		plp 								; and PS Byte.
@@ -129,7 +129,9 @@ _TIMSR_Text:
 		inx
 		cpx 	#_TIMSR_LabelEnd-_TIMSR_Label
 		bne 	_TIMSR_Text
-		ldx 	#0 							; output Register Line.
+		ldx 	#-1							; output Register Line.
+_TIMSR_Skip:
+		inx		
 _TIMSR_LoopSpace:
 		cpx 	#4 							; this checks if we need a space to
 		bcs 	_TIMSR_Space 				; batten the 16 bit registers together.
@@ -142,14 +144,22 @@ _TIMSR_Space:
 _TIMSR_NoSpace:		
 		lda 	TIM_PC,x 					; output hex value.
 		jsr 	TIM_WriteHex
-		inx 		
+		inx 	
+		.if 	CPU != "4510"	
+		cpx 	#TIM_Z-TIM_PC
+		beq 	_TIMSR_Skip	
+		.endif
 		cpx 	#TIM_SP-TIM_PC+1
 		bne 	_TimSR_LoopSpace
 		jsr 	IFT_NewLine 				; new line
 		jmp	 	TIM_NewCommand 				; new command.
 
 _TIMSR_Label:
-		.text 	"    PC   IRQ  SR AC XR YR ZR SP",13,".; "
+		.text 	"    PC   IRQ  SR AC XR YR"
+		.if 	CPU="4510" 					
+		.text 	" ZR"
+		.endif
+		.text 	" SP",13,".; "	
 _TIMSR_LabelEnd:		
 
 ; *******************************************************************************************
@@ -288,7 +298,7 @@ _TIMBreak:
 		plx
 		stx 	TIM_X
 		sty 	TIM_Y		
-		.if 	CPU=4510 					; can we save Z ?
+		.if 	CPU="4510" 					; can we save Z ?
 		stz 	TIM_Z
 		.endif
 		pla 								; get Status Register
@@ -364,3 +374,4 @@ _TIM_LMLoop:
 		;
 _TIMLMDone:
 		jmp 	TIM_NewCommand					
+
