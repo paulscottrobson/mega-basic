@@ -3,4 +3,9 @@ pushd scripts >/dev/null
 python ftestgen.py >../modules/testing/script.inc
 #python fscript.py >../modules/testing/script.inc
 popd >/dev/null
+
+pushd tokens >/dev/null
+python tokentables.py >../modules/common/header/header.inc
+popd
+
 64tass -b -q basic.asm  -L rom.lst -o rom.bin

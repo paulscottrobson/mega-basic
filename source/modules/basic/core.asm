@@ -13,6 +13,7 @@ BASIC_Start:
 		nop
 		#Exit
 
+SyntaxError:
 ERR_Handler:
 		bra 	ERR_Handler
 

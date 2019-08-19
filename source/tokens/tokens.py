@@ -25,7 +25,7 @@ class Tokens(object):
 	#		Get information table.
 	#	
 	def get(self):
-		return Token.tokens
+		return Tokens.tokens
 	#
 	#		Create tokens information table.
 	#
@@ -49,17 +49,17 @@ class Tokens(object):
 			if w in sections:												# new section ?
 				currentID = sections[w]	
 				if currentID == Tokens.KEYMINUS:							# Track sections start
-					Tokens.tokens["!firstkeyminus"] = tokenID
+					Tokens.tokens["!!firstkeyminus"] = tokenID
 				if currentID == Tokens.KEYPLUS:
-					Tokens.tokens["!firstkeyplus"] = tokenID
+					Tokens.tokens["!!firstkeyplus"] = tokenID
 				if currentID == Tokens.UNARY:
-					Tokens.tokens["!firstunary"] = tokenID				
+					Tokens.tokens["!!firstunary"] = tokenID				
 			else:
 				assert re.match("^\\[.*\\]$",w) is None,"Bad section "+w
 				assert currentID is not None,"No section"
 
 				if currentID == Tokens.UNARY:								# Track unary end.
-					Tokens.tokens["!lastunary"] = tokenID
+					Tokens.tokens["!!lastunary"] = tokenID
 				keyword = { "name":w,"type":currentID, "token":tokenID }
 				#print("{0:8} {1:2} ${2:x}".format(w,currentID,tokenID))
 
@@ -71,7 +71,7 @@ class Tokens(object):
 						tokenID = 0xF880
 					else:
 						tokenID = (tokenID & 0xFFFF) + 0x180
-		Tokens.tokens["!lasttoken"] = tokenID								# remember last token						
+		Tokens.tokens["!!lasttoken"] = tokenID								# remember last token						
 	#
 	#		Get in raw format (## are comments)
 	#

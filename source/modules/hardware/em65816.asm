@@ -26,6 +26,7 @@ Exit:	.macro
 		.endm
 
 		* = $C000
+		#HeadTables
 
 StartROM:
 		clc
@@ -42,4 +43,3 @@ StartROM:
 		jsr 	IF_Reset 					; reset external interface
 		jsr 	IFT_ClearScreen
 		#Boot
-

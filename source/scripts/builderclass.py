@@ -138,11 +138,16 @@ class BuildDefinition(object):
 			h.write(h1.read(-1))
 			h1.close()
 		h.close()
+		#
+		h = open(BuildDefinition.SOURCE+os.sep+"_files.lst","w")				# List of files.
+		h.write("::".join(self.modules))
+		h.close()
 	#
 	#		Default startup stuff for eeerything
 	#
 	def defaultsCreate(self):
 		self.addModule("common.*")												# common stuff
+		self.addModule("common.header.*")										# we need these always
 		self.addModule("hardware.@h")											# cpu memory layout etc.
 	#
 	#		Interface creation.

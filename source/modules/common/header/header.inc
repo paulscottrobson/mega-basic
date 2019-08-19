@@ -1,0 +1,208 @@
+HeadTables: .macro
+firstKeywordMinus = $92
+firstKeywordPlus = $8e
+firstUnaryFunction = $97
+lastUnaryFunction = $b1
+;
+;	Jump Vector Table
+;
+VectorTable:
+	.word NotImplemented ; $80 and
+	.word NotImplemented ; $81 or
+	.word NotImplemented ; $82 xor
+	.word NotImplemented ; $83 =
+	.word NotImplemented ; $84 <>
+	.word NotImplemented ; $85 <
+	.word NotImplemented ; $86 <=
+	.word NotImplemented ; $87 >
+	.word NotImplemented ; $88 >=
+	.word NotImplemented ; $89 +
+	.word NotImplemented ; $8a -
+	.word NotImplemented ; $8b *
+	.word NotImplemented ; $8c /
+	.word NotImplemented ; $8d ^
+	.word NotImplemented ; $8e if
+	.word NotImplemented ; $8f while
+	.word NotImplemented ; $90 repeat
+	.word NotImplemented ; $91 for
+	.word NotImplemented ; $92 then
+	.word NotImplemented ; $93 endif
+	.word NotImplemented ; $94 wend
+	.word NotImplemented ; $95 until
+	.word NotImplemented ; $96 next
+	.word NotImplemented ; $97 not
+	.word NotImplemented ; $98 fn(
+	.word NotImplemented ; $99 abs(
+	.word NotImplemented ; $9a asc(
+	.word NotImplemented ; $9b int(
+	.word NotImplemented ; $9c peek(
+	.word NotImplemented ; $9d rnd(
+	.word NotImplemented ; $9e usr(
+	.word NotImplemented ; $9f left$(
+	.word NotImplemented ; $a0 right$(
+	.word NotImplemented ; $a1 mid$(
+	.word NotImplemented ; $a2 spc(
+	.word NotImplemented ; $a3 str$(
+	.word NotImplemented ; $a4 val(
+	.word NotImplemented ; $a5 len(
+	.word NotImplemented ; $a6 hex$(
+	.word NotImplemented ; $a7 sin(
+	.word NotImplemented ; $a8 cos(
+	.word NotImplemented ; $a9 tan(
+	.word NotImplemented ; $aa atn(
+	.word NotImplemented ; $ab exp(
+	.word NotImplemented ; $ac log(
+	.word NotImplemented ; $ad sqr(
+	.word NotImplemented ; $ae dec(
+	.word NotImplemented ; $af deek(
+	.word NotImplemented ; $b0 leek(
+	.word NotImplemented ; $b1 mod(
+	.word NotImplemented ; $b2 $(
+	.word NotImplemented ; $b3 $
+	.word NotImplemented ; $b4 #(
+	.word NotImplemented ; $b5 #
+	.word NotImplemented ; $b6 %(
+	.word NotImplemented ; $b7 %
+	.word NotImplemented ; $b8 (
+	.word NotImplemented ; $b9 )
+	.word NotImplemented ; $ba ,
+	.word NotImplemented ; $bb :
+	.word NotImplemented ; $bc ;
+	.word NotImplemented ; $bd def
+	.word NotImplemented ; $be clr
+	.word NotImplemented ; $c0 data
+	.word NotImplemented ; $c1 read
+	.word NotImplemented ; $c2 dim
+	.word NotImplemented ; $c3 to
+	.word NotImplemented ; $c4 step
+	.word NotImplemented ; $c5 gosub
+	.word NotImplemented ; $c6 return
+	.word NotImplemented ; $c7 goto
+	.word NotImplemented ; $c8 input
+	.word NotImplemented ; $c9 let
+	.word NotImplemented ; $ca list
+	.word NotImplemented ; $cb new
+	.word NotImplemented ; $cc old
+	.word NotImplemented ; $cd on
+	.word NotImplemented ; $ce restore
+	.word NotImplemented ; $cf poke
+	.word NotImplemented ; $d0 print
+	.word NotImplemented ; $d1 run
+	.word NotImplemented ; $d2 stop
+	.word NotImplemented ; $d3 wait
+	.word NotImplemented ; $d4 doke
+	.word NotImplemented ; $d5 loke
+NotImplemented:
+
+	#error
+
+	.text "Syntax Error",0
+;
+;	Binary Precedence Level Table
+;
+BinaryPrecedence:
+	.byte 0    ; $80 and
+	.byte 0    ; $81 or
+	.byte 0    ; $82 xor
+	.byte 1    ; $83 =
+	.byte 1    ; $84 <>
+	.byte 1    ; $85 <
+	.byte 1    ; $86 <=
+	.byte 1    ; $87 >
+	.byte 1    ; $88 >=
+	.byte 2    ; $89 +
+	.byte 2    ; $8a -
+	.byte 3    ; $8b *
+	.byte 3    ; $8c /
+	.byte 4    ; $8d ^
+;
+;	Keyword Text
+;
+KeywordText:
+	.byte $41,$4e,$c4                      ; $80 and
+	.byte $4f,$d2                          ; $81 or
+	.byte $58,$4f,$d2                      ; $82 xor
+	.byte $bd                              ; $83 =
+	.byte $3c,$be                          ; $84 <>
+	.byte $bc                              ; $85 <
+	.byte $3c,$bd                          ; $86 <=
+	.byte $be                              ; $87 >
+	.byte $3e,$bd                          ; $88 >=
+	.byte $ab                              ; $89 +
+	.byte $ad                              ; $8a -
+	.byte $aa                              ; $8b *
+	.byte $af                              ; $8c /
+	.byte $de                              ; $8d ^
+	.byte $49,$c6                          ; $8e if
+	.byte $57,$48,$49,$4c,$c5              ; $8f while
+	.byte $52,$45,$50,$45,$41,$d4          ; $90 repeat
+	.byte $46,$4f,$d2                      ; $91 for
+	.byte $54,$48,$45,$ce                  ; $92 then
+	.byte $45,$4e,$44,$49,$c6              ; $93 endif
+	.byte $57,$45,$4e,$c4                  ; $94 wend
+	.byte $55,$4e,$54,$49,$cc              ; $95 until
+	.byte $4e,$45,$58,$d4                  ; $96 next
+	.byte $4e,$4f,$d4                      ; $97 not
+	.byte $46,$4e,$a8                      ; $98 fn(
+	.byte $41,$42,$53,$a8                  ; $99 abs(
+	.byte $41,$53,$43,$a8                  ; $9a asc(
+	.byte $49,$4e,$54,$a8                  ; $9b int(
+	.byte $50,$45,$45,$4b,$a8              ; $9c peek(
+	.byte $52,$4e,$44,$a8                  ; $9d rnd(
+	.byte $55,$53,$52,$a8                  ; $9e usr(
+	.byte $4c,$45,$46,$54,$24,$a8          ; $9f left$(
+	.byte $52,$49,$47,$48,$54,$24,$a8      ; $a0 right$(
+	.byte $4d,$49,$44,$24,$a8              ; $a1 mid$(
+	.byte $53,$50,$43,$a8                  ; $a2 spc(
+	.byte $53,$54,$52,$24,$a8              ; $a3 str$(
+	.byte $56,$41,$4c,$a8                  ; $a4 val(
+	.byte $4c,$45,$4e,$a8                  ; $a5 len(
+	.byte $48,$45,$58,$24,$a8              ; $a6 hex$(
+	.byte $53,$49,$4e,$a8                  ; $a7 sin(
+	.byte $43,$4f,$53,$a8                  ; $a8 cos(
+	.byte $54,$41,$4e,$a8                  ; $a9 tan(
+	.byte $41,$54,$4e,$a8                  ; $aa atn(
+	.byte $45,$58,$50,$a8                  ; $ab exp(
+	.byte $4c,$4f,$47,$a8                  ; $ac log(
+	.byte $53,$51,$52,$a8                  ; $ad sqr(
+	.byte $44,$45,$43,$a8                  ; $ae dec(
+	.byte $44,$45,$45,$4b,$a8              ; $af deek(
+	.byte $4c,$45,$45,$4b,$a8              ; $b0 leek(
+	.byte $4d,$4f,$44,$a8                  ; $b1 mod(
+	.byte $24,$a8                          ; $b2 $(
+	.byte $a4                              ; $b3 $
+	.byte $23,$a8                          ; $b4 #(
+	.byte $a3                              ; $b5 #
+	.byte $25,$a8                          ; $b6 %(
+	.byte $a5                              ; $b7 %
+	.byte $a8                              ; $b8 (
+	.byte $a9                              ; $b9 )
+	.byte $ac                              ; $ba ,
+	.byte $ba                              ; $bb :
+	.byte $bb                              ; $bc ;
+	.byte $44,$45,$c6                      ; $bd def
+	.byte $43,$4c,$d2                      ; $be clr
+	.byte $44,$41,$54,$c1                  ; $c0 data
+	.byte $52,$45,$41,$c4                  ; $c1 read
+	.byte $44,$49,$cd                      ; $c2 dim
+	.byte $54,$cf                          ; $c3 to
+	.byte $53,$54,$45,$d0                  ; $c4 step
+	.byte $47,$4f,$53,$55,$c2              ; $c5 gosub
+	.byte $52,$45,$54,$55,$52,$ce          ; $c6 return
+	.byte $47,$4f,$54,$cf                  ; $c7 goto
+	.byte $49,$4e,$50,$55,$d4              ; $c8 input
+	.byte $4c,$45,$d4                      ; $c9 let
+	.byte $4c,$49,$53,$d4                  ; $ca list
+	.byte $4e,$45,$d7                      ; $cb new
+	.byte $4f,$4c,$c4                      ; $cc old
+	.byte $4f,$ce                          ; $cd on
+	.byte $52,$45,$53,$54,$4f,$52,$c5      ; $ce restore
+	.byte $50,$4f,$4b,$c5                  ; $cf poke
+	.byte $50,$52,$49,$4e,$d4              ; $d0 print
+	.byte $52,$55,$ce                      ; $d1 run
+	.byte $53,$54,$4f,$d0                  ; $d2 stop
+	.byte $57,$41,$49,$d4                  ; $d3 wait
+	.byte $44,$4f,$4b,$c5                  ; $d4 doke
+	.byte $4c,$4f,$4b,$c5                  ; $d5 loke
+	.byte $00
+	.endm

@@ -1,6 +1,5 @@
 TODO
 ====
-	- factories for builder.py - build and target.
 	- 	Working Python tokeniser.
 	-	Write the expression evaluator
 	- 	Write the basic executor and tokeniser and implement ASSERT.

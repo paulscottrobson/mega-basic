@@ -12,6 +12,7 @@
 		.cpu 		"65c02"
 
 		* = $C000
+		#HeadTables
 
 ResetStack: 	.macro
 		ldx 		#$FF 					; empty stack

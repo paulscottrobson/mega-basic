@@ -13,10 +13,11 @@ nmihandler: .macro
 error: .macro
 	_error: bra _error
 	.endm
-CPU = "65816"
-HARDWARE = "em65816"
+CPU = "4510"
+HARDWARE = "mega65"
+	.include "modules/common/header/header.inc"
 	.include "modules/common/data.asm"
-	.include "modules/hardware/em65816.asm"
+	.include "modules/hardware/mega65.asm"
 	.include "modules/interface/common/interface_tools.asm"
-	.include "modules/interface/drivers/interface_em65816.asm"
+	.include "modules/interface/drivers/interface_mega65.asm"
 	.include "modules/utility/tim.asm"

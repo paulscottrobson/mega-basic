@@ -12,6 +12,7 @@
 		.cpu 		"4510"
 
 		* = $A000	 						; cannot start $C000-$E000 because of the mapping.
+		#HeadTables
 
 ResetStack: 	.macro
 		ldx 		#$FF 					; empty stack
