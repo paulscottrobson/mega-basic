@@ -1,3 +1,17 @@
-TODO:
-	- build : generating includes ? why does tass have no if/defined ?
-	- build : generating run/build scripts ? (folding cexec/mexec/fexec)
+TODO
+====
+	- factories for builder.py - build and target.
+	- 	Working Python tokeniser.
+	-	Write the expression evaluator
+	- 	Write the basic executor and tokeniser and implement ASSERT.
+	- 	variables defint a-z and # (real) % (int) $ (string)
+
+Fixes
+=====
+- 	Proper insert/delete in line editing.
+- 	Add X to Monitor (warm start BASIC)
+- 	FP optimisations for 4510 extended.
+		- Anything in FPMacros (check XYZ usage for non shifts - may not be worth it)		
+		- Integer negation in fputils.asm
+		- Mantissa subtraction in fpdivide.asm
+-	FP guard byte on subtract ????

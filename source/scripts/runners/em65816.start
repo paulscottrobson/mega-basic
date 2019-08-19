@@ -1,0 +1,5 @@
+if [ $? -eq 0 ]
+then
+	../bin/m65816 rom.bin go
+	python scripts/showxs.py
+fi

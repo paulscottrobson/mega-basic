@@ -66,6 +66,9 @@ IF_Read:
 		phy 								; save current Y
 		ldy 	IF_XPos 					; read character at current position
 		lda 	(IF_Pos),y
+		eor 	#$20
+		clc
+		adc 	#$20
 		inc 	IF_XPos 					; step right.
 		ply									; restore Y
 		rts
@@ -79,6 +82,7 @@ IF_Read:
 IF_Write:
 		phy 								; save current Y
 		ldy 	IF_XPos 					; write character at current position
+		and 	#63 						; PETSCII
 		sta 	(IF_Pos),y
 		inc 	IF_XPos 					; step right.
 		ply									; restore Y
