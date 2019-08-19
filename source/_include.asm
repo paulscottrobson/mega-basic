@@ -2,13 +2,16 @@
 ;		 AUTOMATICALLY GENERATED.
 ;
 boot: .macro
-	jmp BASIC_Start
+	jmp FPTTest
 	.endm
 irqhandler: .macro
-	.word TIM_BreakVector
+		.word DefaultInterrupt
 	.endm
 nmihandler: .macro
-	.word DefaultInterrupt
+		.word DefaultInterrupt
+	.endm
+error: .macro
+	_error: bra _error
 	.endm
 CPU = "65816"
 HARDWARE = "em65816"
@@ -17,15 +20,11 @@ HARDWARE = "em65816"
 	.include "modules/hardware/em65816.asm"
 	.include "modules/interface/common/interface_tools.asm"
 	.include "modules/interface/drivers/interface_em65816.asm"
-	.include "modules/basic/core.asm"
 	.include "modules/float/fpadd.asm"
 	.include "modules/float/fpdivide.asm"
 	.include "modules/float/fpmultiply.asm"
 	.include "modules/float/fpparts.asm"
 	.include "modules/float/fpcompare.asm"
 	.include "modules/float/fputils.asm"
-	.include "modules/float/convert/fptostr.asm"
-	.include "modules/float/convert/fpfromstr.asm"
-	.include "modules/integer/convert/inttostr.asm"
-	.include "modules/integer/convert/intfromstr.asm"
 	.include "modules/utility/tim.asm"
+	.include "modules/testing/fptest.asm"

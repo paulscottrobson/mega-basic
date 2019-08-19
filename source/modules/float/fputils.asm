@@ -189,7 +189,7 @@ _FPUToI_Exit:
 		pla
 		rts
 FP_Overflow:
-		jsr 	ERR_Handler
+		#error
 		.text 	"Floating Point overflow",0
 
 ; *******************************************************************************************
