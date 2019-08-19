@@ -169,14 +169,25 @@ class FloatingPointTest(BuildDefinition):										# Run FP Unit Test.
 		self.addModule("testing.fptest")
 		self.boot("FPTTest")
 
+class FullBasic(BuildDefinition):
+	def create(self):
+		self.addModule("basic.*")
+		self.addModule("float.*")												# FP Stuff
+		self.addModule("float.convert.*")
+		self.addModule("integer.*")
+		self.addModule("integer.convert.*")
+		self.addModule("utility.tim")											# nicked hex printing routines :)
+		self.setMacro("irqhandler",".word TIM_BreakVector")
+		self.boot("BASIC_Start")
 
 if __name__ == "__main__":
 	try:
 		hw = Emulated65816Machine()
-		hw = XEmuMachine()
-		hw = FPGAMachine()
-		build = FloatingPointTest(hw)
+		#hw = XEmuMachine()
+		#hw = FPGAMachine()
+		#build = FloatingPointTest(hw)
 		#build = CheckTIM(hw)	
+		build = FullBasic(hw)
 		build.analyse()
 		build.generate()
 	except BuildException as ex:
