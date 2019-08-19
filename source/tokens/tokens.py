@@ -125,7 +125,7 @@ class Tokens(object):
 		to 		step  	gosub 	return	goto	
 		input	let		list	new		old		on
 		restore	poke	print	run 	stop	wait
-		doke 	loke
+		doke 	loke 	assert
 
 """		
 

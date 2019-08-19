@@ -1,7 +1,9 @@
 TODO
 ====
-	- 	Working Python tokeniser.
-	-	Write the expression evaluator
+	-	Macros for processing data.
+	-	Get code into system in demo format.
+	-	Allocating storage space for variables and strings, reset these pointers.
+	- 	Write basic expression evaluator (no variables).
 	- 	Write the basic executor and tokeniser and implement ASSERT.
 	- 	variables defint a-z and # (real) % (int) $ (string)
 
