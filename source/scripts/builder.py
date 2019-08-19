@@ -40,13 +40,17 @@ class XEmuMachine(FPGAMachine):													# Xemu emulator (Mega 65)
 	def getPlatform(self):
 		return "xemu"
 
+Hardware.Classes = { 	"e816":	Emulated65816Machine,
+						"fm65":	FPGAMachine,
+						"xemu":	XEmuMachine }
+
 # *******************************************************************************************
 #
 #									Some Build Definitions
 #
 # *******************************************************************************************
 
-class CheckTIM(BuildDefinition):												# Something just running TIM
+class TIMOnlyTest(BuildDefinition):												# Something just running TIM
 	def create(self):
 		self.addModule("utility.tim")											# TIM code.
 		self.setMacro("irqhandler",".word TIM_BreakVector")
@@ -70,17 +74,33 @@ class FullBasic(BuildDefinition):
 		self.setMacro("irqhandler",".word TIM_BreakVector")
 		self.boot("BASIC_Start")
 
+BuildDefinition.Classes = {														# Class list
+		"tim":	TIMOnlyTest,
+		"fpch":	FloatingPointTest,
+		"full":	FullBasic
+}
+
 if __name__ == "__main__":
 	try:
-		hw = Emulated65816Machine()
-		classID = FloatingPointTest
-		#hw = XEmuMachine()
-		#hw = FPGAMachine()
-		build = classID()
-		#build = CheckTIM()	
-		#build = FullBasic()
+		hardwareName = "e816"													# defaults
+		buildName = "full"	
 
-		build.platform(hw)
+		for changes in [x.lower() for x in sys.argv[1:]]:
+			if changes in Hardware.Classes:
+				hardwareName = changes
+			elif changes in BuildDefinition.Classes:
+				buildName = changes
+			else:
+				print("Build    : {0}".format(" ".join(BuildDefinition.Classes.keys())))
+				print("Hardware : {0}".format(" ".join(Hardware.Classes.keys())))
+				build = FullBasic()
+
+				raise BuildException("Unknown '{0}'".format(changes))
+
+		hardware = Hardware.Classes[hardwareName]()
+		build = BuildDefinition.Classes[buildName]()
+
+		build.platform(hardware)
 		build.analyse()
 		build.generate()
 

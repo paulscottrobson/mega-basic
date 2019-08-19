@@ -3,7 +3,6 @@ pushd scripts >/dev/null
 python ftestgen.py >../modules/testing/script.inc
 #python fscript.py >../modules/testing/script.inc
 popd >/dev/null
-python scripts/builder.py
 64tass -b -q basic.asm  -L rom.lst -o rom.bin
 if [ $? -eq 0 ]
 then
