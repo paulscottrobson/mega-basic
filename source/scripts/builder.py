@@ -52,12 +52,14 @@ Hardware.Classes = { 	"e816":	Emulated65816Machine,
 
 class TIMOnlyTest(BuildDefinition):												# Something just running TIM
 	def create(self):
+		self.setMacro("DemoProgram","")											# Macro included in core.
 		self.addModule("utility.tim")											# TIM code.
 		self.setMacro("irqhandler",".word TIM_BreakVector")
 		self.boot("TIM_Start")
 
 class FloatingPointTest(BuildDefinition):										# Run FP Unit Test.
 	def create(self):
+		self.setMacro("DemoProgram","")											# Macro included in core.
 		self.addModule("float.*")												# FP Stuff
 		self.addModule("utility.tim")											# nicked hex printing routines :)
 		self.addModule("testing.fptest")
@@ -65,13 +67,17 @@ class FloatingPointTest(BuildDefinition):										# Run FP Unit Test.
 
 class FullBasic(BuildDefinition):
 	def create(self):
-		self.addModule("basic.*")
+		self.addModule("basic.*")	
+		self.addModule("basic.expressions.*")	
+		self.addModule("basic.pointer.@h.*")
 		self.addModule("float.*")												# FP Stuff
 		self.addModule("float.convert.*")
 		self.addModule("integer.*")
 		self.addModule("integer.convert.*")
 		self.addModule("utility.tim")											# nicked hex printing routines :)
 		self.setMacro("irqhandler",".word TIM_BreakVector")
+		#
+		self.addModule("basic.testcode.*")
 		self.boot("BASIC_Start")
 
 BuildDefinition.Classes = {														# Class list

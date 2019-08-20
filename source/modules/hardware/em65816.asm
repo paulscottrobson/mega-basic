@@ -25,6 +25,10 @@ Exit:	.macro
 		.byte 	2
 		.endm
 
+		* = $1000
+BasicProgram:		
+		#DemoProgram
+		
 		* = $C000
 		#HeadTables
 
@@ -32,8 +36,8 @@ StartROM:
 		clc
 		xce	
 		#ResetStack
-		sep 	#$30
-		.al
+		sep 	#$30 						; clear AXY in 16 bit.
+		.al 	
 		rep 	#$30
 		lda 	#$0000
 		tax

@@ -10,7 +10,11 @@
 ; *******************************************************************************************
 
 BASIC_Start:
-		nop
+		#s_toStart
+		#s_next
+		#s_get
+		jsr 	EvaluateExpression
+		
 		#Exit
 
 SyntaxError:

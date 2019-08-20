@@ -24,6 +24,7 @@ zTemp1:		.word ?							; temporary pointers
 zTemp2:		.word ?
 zTemp3:		.word ?
 
+zCodePtr:	.dword ? 						; code pointer.
 zLTemp1:	.dword ?						; long word (used in multiply)
 zGenPtr:	.word ? 						; general pointer.
 

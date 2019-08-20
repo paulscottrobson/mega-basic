@@ -92,6 +92,7 @@ VectorTable:
 	.word NotImplemented ; $d3 wait
 	.word NotImplemented ; $d4 doke
 	.word NotImplemented ; $d5 loke
+	.word NotImplemented ; $d6 assert
 NotImplemented:
 
 	#error
@@ -204,5 +205,6 @@ KeywordText:
 	.byte $57,$41,$49,$d4                  ; $d3 wait
 	.byte $44,$4f,$4b,$c5                  ; $d4 doke
 	.byte $4c,$4f,$4b,$c5                  ; $d5 loke
+	.byte $41,$53,$53,$45,$52,$d4          ; $d6 assert
 	.byte $00
 	.endm

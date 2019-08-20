@@ -11,9 +11,6 @@
 
 		.cpu 		"65c02"
 
-		* = $C000
-		#HeadTables
-
 ResetStack: 	.macro
 		ldx 		#$FF 					; empty stack
 		txs
@@ -26,4 +23,12 @@ StartROM:
 		jsr 	IFT_ClearScreen
 		#Boot
 
+
+
+		* = $1000
+BasicProgram:		
+		#DemoProgram
+
+		* = $C000
+		#HeadTables
 

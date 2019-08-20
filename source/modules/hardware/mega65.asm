@@ -11,9 +11,6 @@
 
 		.cpu 		"4510"
 
-		* = $A000	 						; cannot start $C000-$E000 because of the mapping.
-		#HeadTables
-
 ResetStack: 	.macro
 		ldx 		#$FF 					; empty stack
 		txs
@@ -22,6 +19,14 @@ ResetStack: 	.macro
 Exit:	.macro
 _halt:	bra 		_halt
 		.endm
+
+
+		* = $1000
+BasicProgram:		
+		#DemoProgram
+
+		* = $A000	 						; cannot start $C000-$E000 because of the mapping.
+		#HeadTables
 
 StartROM:
 		#ResetStack

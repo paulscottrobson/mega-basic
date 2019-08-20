@@ -1,10 +1,9 @@
 TODO
 ====
-	-	Macros for processing data.
-	-	Get code into system in demo format.
+	- 	Write basic expression evaluator (no variables).	
 	-	Allocating storage space for variables and strings, reset these pointers.
-	- 	Write basic expression evaluator (no variables).
-	- 	Write the basic executor and tokeniser and implement ASSERT.
+	- 	Add strings.
+	- 	Write the basic executor and tokeniser and implement ASSERT and PRINT.
 	- 	variables defint a-z and # (real) % (int) $ (string)
 
 Fixes
@@ -16,3 +15,4 @@ Fixes
 		- Integer negation in fputils.asm
 		- Mantissa subtraction in fpdivide.asm
 -	FP guard byte on subtract ????
+
