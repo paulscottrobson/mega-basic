@@ -1,7 +1,7 @@
 
 ; 64tass Turbo Assembler Macro V1.54.1900 listing file
-; 64tass -b -q -L rom.lst -o rom.bin basic.asm
-; Tue Aug 20 20:11:59 2019
+; 64tass -X -b -q -L rom.lst -o rom.bin basic.asm
+; Tue Aug 20 21:28:17 2019
 
 ;Offset	;Hex		;Monitor	;Source
 
@@ -10,14 +10,8 @@
 
 ;******  Processing file: _include.asm
 
-="65816"				CPU = "65816"
-="em65816"				HARDWARE = "em65816"
-
-;******  Processing file: modules/common/header/header.inc
-
-
-;******  Return to file: _include.asm
-
+="65816"				cpu = "65816"
+="em65816"				hardware = "em65816"
 
 ;******  Processing file: modules/common/data.asm
 
@@ -59,6 +53,18 @@
 ;******  Processing file: modules/hardware/em65816.asm
 
 .1000					BasicProgram:
+
+;******  Processing file: modules/hardware/../basic/testcode/testcode.src
+
+>1000	11 0a 00 d6 6a fd 04 35			.byte	$11,$0a,$00,$d6,$6a,$fd,$04,$35
+>1008	34 bb ff 06 68 69 20 21			.byte	$34,$bb,$ff,$06,$68,$69,$20,$21
+>1010	00 00					.byte	$00,$00
+
+;******  Return to file: modules/hardware/em65816.asm
+
+
+;******  Processing file: modules/hardware/../common/header/header.src
+
 =$92					firstKeywordMinus = $92
 =$8e					firstKeywordPlus = $8e
 =$97					firstUnaryFunction = $97
@@ -257,6 +263,9 @@
 >c1e1	4c 4f 4b c5				.byte $4c,$4f,$4b,$c5                  ; $d5 loke
 >c1e5	41 53 53 45 52 d4			.byte $41,$53,$53,$45,$52,$d4          ; $d6 assert
 >c1eb	00					.byte $00
+
+;******  Return to file: modules/hardware/em65816.asm
+
 .c1ec					StartROM:
 .c1ec	18		clc				clc
 .c1ed	fb		xce				xce

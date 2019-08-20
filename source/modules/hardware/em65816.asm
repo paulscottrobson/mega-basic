@@ -27,10 +27,9 @@ Exit:	.macro
 
 		* = $1000
 BasicProgram:		
-		#DemoProgram
-		
+		.include "../basic/testcode/testcode.src"
 		* = $C000
-		#HeadTables
+		.include "../common/header/header.src"
 
 StartROM:
 		clc

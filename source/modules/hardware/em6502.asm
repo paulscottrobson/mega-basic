@@ -17,18 +17,16 @@ ResetStack: 	.macro
 		.endm
 
 
+
+		* = $1000
+BasicProgram:		
+		.include "../basic/testcode/testcode.src"
+		* = $C000
+		.include "../common/header/header.src"
+
 StartROM:
 		#ResetStack
 		jsr 	IF_Reset 					; reset external interface
 		jsr 	IFT_ClearScreen
 		#Boot
-
-
-
-		* = $1000
-BasicProgram:		
-		#DemoProgram
-
-		* = $C000
-		#HeadTables
 

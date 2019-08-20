@@ -50,7 +50,6 @@ class BasicProgram(object):
 	#		Export in assembler format.
 	#
 	def export(self):
-		print("DemoProgram: .macro")
 		pos = 0
 		while pos < len(self.program):											# while more to do.
 			size = min(8,len(self.program)-pos)									# how big.
@@ -58,11 +57,10 @@ class BasicProgram(object):
 			data = ",".join(["${0:02x}".format(n) for n in data])				# convert it
 			print("\t.byte\t{0}".format(data))									# output it.
 			pos = pos + size													# next chunk
-		print(".endm")
 		
 if __name__ == "__main__":
 	bp = BasicProgram()
-	bp.add("assert 42:rem hi !",10)
+	bp.add("assert 42.54:rem hi !",10)
 #	bp.add("a = a + 2")
 #	bp.save("demo.bas")
 	bp.export()

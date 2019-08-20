@@ -20,13 +20,11 @@ Exit:	.macro
 _halt:	bra 		_halt
 		.endm
 
-
 		* = $1000
 BasicProgram:		
-		#DemoProgram
-
-		* = $A000	 						; cannot start $C000-$E000 because of the mapping.
-		#HeadTables
+		.include "../basic/testcode/testcode.src"
+		* = $A000
+		.include "../common/header/header.src"
 
 StartROM:
 		#ResetStack

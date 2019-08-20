@@ -91,7 +91,7 @@ class Tokeniser(object):
 	def addIntegerSequence(self,n):
 		if n > 0x3F:														# requires a shift.
 			self.addIntegerSequence(n >> 6)									# do the upper bit
-		self.byteData.append(n + 0x40)										# add the integer token.		
+		self.byteData.append((n & 0x3F) + 0x40)								# add the integer token.		
 	#
 	#		Tokenise tester.
 	#
@@ -121,6 +121,6 @@ if __name__ == "__main__":
 #		$80-$F7 	Single byte tokens.
 #		$40-$7F 	6 bit unsigned constant, shifted in (after first) - subsequent
 #					constants ; shift the whole thing left 6 and add constant to base.
-#		$01-$3F 	6 bit ASCII characters (mostly for identifiers and spaces.
+#		$01-$3F 	6 bit ASCII characters (mostly for identifiers and spaces)
 #		$00			End of line.
 #

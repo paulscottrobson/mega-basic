@@ -11,8 +11,6 @@
 
 from tokens import *
 tokens = Tokens().get()
-
-print("HeadTables: .macro")
 #
 #		Output useful constants first.
 #
@@ -65,4 +63,3 @@ for k in keywords:
 	s = ",".join(["${0:02x}".format(x) for x in kwb])
 	print("\t.byte {0:32} ; ${1:x} {2}".format(s,tokens[k]["token"],k))
 print("\t.byte $00")
-print("\t.endm")

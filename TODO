@@ -1,6 +1,13 @@
 TODO
 ====
-	- 	Write basic expression evaluator (no variables).	
+	- 	Write basic expression evaluator (no variables).
+
+			- 	Complete and Decimal/Exponents code.
+			-	+ (integer,float,either) and scanner of source for tokens.			
+			-	and (integer only).
+			- 	unary negation.
+			- 	Error if integer-only build and decimal/exponents code called.
+
 	-	Allocating storage space for variables and strings, reset these pointers.
 	- 	Add strings.
 	- 	Write the basic executor and tokeniser and implement ASSERT and PRINT.

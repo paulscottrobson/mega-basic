@@ -39,7 +39,7 @@ class BuildDefinition(object):
 
 		self.modules = []														# List of modules
 		self.usedFiles = {}														# Files included
-		self.defines = { "CPU":self.processor,"HARDWARE":self.hardware };
+		self.defines = { "cpu":self.processor,"hardware":self.hardware };
 
 		defaultint = "\t.word DefaultInterrupt"
 
@@ -55,6 +55,11 @@ class BuildDefinition(object):
 		self.defaultsCreate()													# Standard mandatory modules
 		self.interfaceCreate()													# Character Interface Modules.
 		self.create()															# Files in this file.
+	#
+	#		Assign a define value
+	#		
+	def define(self,label,value):
+		self.defines[label] = value
 	#
 	#		Assign a value to a new or current macro
 	#
@@ -125,7 +130,7 @@ class BuildDefinition(object):
 			if self.macros[k] is not None:
 				h.write("{0}: .macro\n\t{1}\n\t.endm\n".format(k,self.macros[k]))
 																				# output equates
-		h.write("".join(['{0} = "{1}"\n'.format(k,self.defines[k]) for k in self.defines.keys()]))
+		h.write("".join(['{0} = {1}\n'.format(k,self.toFormat(self.defines[k])) for k in self.defines.keys()]))
 																				# output included files.
 		h.write("".join(['\t.include "{0}"\n'.format(f) for f in self.modules]))
 		h.close()
@@ -142,6 +147,9 @@ class BuildDefinition(object):
 		h = open(BuildDefinition.SOURCE+os.sep+"_files.lst","w")				# List of files.
 		h.write("::".join(self.modules))
 		h.close()
+	#
+	def toFormat(self,v):
+		return '"'+v+'"' if isinstance(v,str) else v
 	#
 	#		Default startup stuff for eeerything
 	#
