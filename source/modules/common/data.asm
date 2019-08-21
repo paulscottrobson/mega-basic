@@ -75,6 +75,10 @@ NumBufX 	.byte 	?						; buffer index position
 NumSuppress	.byte 	?						; leading zero suppression flag
 NumConvCount .byte 	? 						; count for conversions.
 
+ExpTemp:	.byte ?							; Working temp for exponents.
+ExpCount:	.byte ? 						; Count of decimal exponents.
+SignCount:	.byte ?							; Integer Divide Sign Counts.
+
 Tim_PC:		.word ?							; program counter on BRK (Hi/Lo order)
 Tim_IRQ:	.word ?							; IRQ Vector (Hi/Lo order)
 Tim_SR:		.byte ? 						; Processor Status
@@ -84,5 +88,3 @@ Tim_Y:		.byte ?
 Tim_Z:		.byte ?
 Tim_SP:		.byte ?							; Stack Pointer
 
-ExpTemp:	.byte ?							; Working temp for exponents.
-ExpCount:	.byte ? 						; Count of decimal exponents.

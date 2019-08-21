@@ -70,3 +70,17 @@ for k in keywords:
 	s = ",".join(["${0:02x}".format(x) for x in kwb])
 	print("\t.byte {0:32} ; ${1:x} {2}".format(s,tokens[k]["token"],k))
 print("\t.byte $00")
+#
+#		Generate token constants
+#
+for k in keywords:
+	name = k.lower().strip()
+	if re.match("^[a-z]+\\($",name) is not None:
+		name = name[:-1]	
+	name = name.replace("=","equal").replace(">","greater").replace("<","less")
+	name = name.replace("+","plus").replace("-","minus").replace("*","star").replace("/","slash")
+	name = name.replace("^","hat").replace("(","lparen").replace(")","rparen")
+	name = name.replace("$","dollar").replace("#","hash").replace("%","percent").replace(",","comma")
+	name = name.replace(":","colon").replace(";","semicolon")
+	assert re.match("^[a-z\\_]+$",name) is not None,"Token convert "+name
+	print("token_{0} = ${1:x}".format(name,tokens[k]["token"]))

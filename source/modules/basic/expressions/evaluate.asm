@@ -123,10 +123,35 @@ _EVExitDrop:
 _EVExit:
 		rts		
 ;
-;		Not an integer. Check string, unary operators, unary functions and parenthesis
+;		Not an integer. unary operators, string , unary functions and parenthesis
 ;
 _EVNotInteger:
-		bra 	_EVNotInteger
+		#s_next 							; skip over token.
+		cmp 	#token_minus 				; is it unary minus ?
+		bne 	_EVNotMinus
+		jsr 	EvaluateGetAtomX 			; get a numeric value into X.
+		lda 	XS_Type,x 					; get type
+		and 	#15 						; if type bits zero, it's float.
+		beq 	_EVMinusFloat
+		jsr 	IntegerNegateAlways 		; negation
+		bra 	_EVGotAtom 					; and go back.
+;
+_EVMinusFloat:
+		lda 	XS_Type,x 					; invert the sign bit.	
+		eor 	#$80
+		sta 	XS_Type,x
+		bra 	_EVGotAtom
+;
+_EVNotMinus:
+		cmp 	#token_not 					; is it not ?
+		bne 	_EVNotNot 		
+		jsr 	EvaluateGetAtomX 			; get a numeric value into X.
+		jsr 	FPUToInteger 				; make it an integer.
+		jsr 	NotInteger 					; do the not calculation
+		bra 	_EVGotAtom
+
+_EVNotNot:		
+		nop
 ;
 ;		Discovered a variable.
 ;
@@ -203,3 +228,47 @@ _EVGDCopy:
 		.else
 		jmp 	SyntaxError
 		.endif
+
+; *******************************************************************************************
+;
+;										Logical NOT
+;
+; *******************************************************************************************
+
+NotInteger:
+		lda 	XS_Mantissa+0,x
+		eor 	#$FF
+		sta 	XS_Mantissa+0,x
+		lda 	XS_Mantissa+1,x
+		eor 	#$FF
+		sta 	XS_Mantissa+1,x
+		lda 	XS_Mantissa+2,x
+		eor 	#$FF
+		sta 	XS_Mantissa+2,x
+		lda 	XS_Mantissa+3,x
+		eor 	#$FF
+		sta 	XS_Mantissa+3,x
+		rts
+
+; *******************************************************************************************
+;
+;										Get atomic value
+;
+; *******************************************************************************************
+
+EvaluateGetAtom:
+		ldx 	#0 								; start at the bottom :)
+EvaluateGetAtomX:
+		lda 	#8 								; very high precedence so no binary operations.
+		jsr 	EvaluateExpressionXA
+		lda 	XS_Type,x 						; check type is 0 (float) 1 (integer)
+		and 	#15
+		cmp 	#2
+		bcs 	EvaluateType
+		rts
+		;
+EvaluateType:
+		#Error
+		.text 	"Wrong type of data",0
+
+

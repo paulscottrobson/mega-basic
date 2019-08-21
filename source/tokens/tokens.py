@@ -84,7 +84,7 @@ class Tokens(object):
 	##
 	##		Binary (or Binary/Unary) Keywords
 	##
-		[1]		and		or 		xor
+		[1]		and		or 		xor		eor 
 		[2]		=		<> 		< 		<=		> 		>=
 		[3] 	+ 		-
 		[4] 	* 		/

@@ -24,15 +24,12 @@ _BFDOkay:
 		sta 	zLTemp1+1 					; M/Divisor/Right in +4
 		sta 	zLTemp1+2
 		sta 	zLTemp1+3
-;		sta 	SignCount 					; Count of signs.
-;		jsr 	BFUNC_Negate 				; negate (and bump sign count)
-;		phx
-;		inx
-;		inx
-;		inx
-;		inx
-;		jsr 	BFUNC_Negate
-;		plx
+		sta 	SignCount 					; Count of signs.
+		jsr 	CheckIntegerNegate 			; negate (and bump sign count)
+		phx
+		inx6
+		jsr 	CheckIntegerNegate
+		plx
 		phy 								; Y is the counter
 		ldy 	#32 						; 32 iterations of the loop.
 _BFDLoop:
@@ -79,6 +76,33 @@ _BFDNext:									; do 32 times.
 		dey
 		bne 	_BFDLoop
 		ply 								; restore Y and exit
-;		lsr 	SignCount 					; if sign count odd,
-;		bcs		BFUNC_NegateAlways 			; negate the result
+		lsr 	SignCount 					; if sign count odd,
+		bcs		IntegerNegateAlways 			; negate the result
+		rts
+
+; *******************************************************************************************
+;
+;						Check / Negate integer, counting negations
+;
+; *******************************************************************************************
+
+CheckIntegerNegate:
+		lda 	XS_Mantissa+3,x
+		bmi 	IntegerNegateAlways
+		rts
+IntegerNegateAlways:
+		inc 	SignCount
+		sec
+		lda 	#0
+		sbc 	XS_Mantissa+0,x
+		sta 	XS_Mantissa+0,x		
+		lda 	#0
+		sbc 	XS_Mantissa+1,x
+		sta 	XS_Mantissa+1,x		
+		lda 	#0
+		sbc 	XS_Mantissa+2,x
+		sta 	XS_Mantissa+2,x		
+		lda 	#0
+		sbc 	XS_Mantissa+3,x
+		sta 	XS_Mantissa+3,x		
 		rts
