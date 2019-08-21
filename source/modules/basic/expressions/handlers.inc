@@ -9,6 +9,15 @@
 ; *******************************************************************************************
 ; *******************************************************************************************
 
+inx6 	.macro 								; add 6 to x
+		inx
+		inx
+		inx
+		inx
+		inx
+		inx
+		.endm
+
 ; *******************************************************************************************
 ;
 ;									Have Float *and* Integer
@@ -25,5 +34,11 @@ BinaryChoose:	.macro 						; <float code>,<integer code>
 _BCFloat:
 		jsr 	BinaryMakeBothFloat 		; validate they are floats, make them both float.
 		jmp 	\1 							; and execute code at \2
+		.endm
+		.endif
+
+		.if 	hasFloat==0 && hasInteger!=0
+BinaryChoose:	.macro 						; <float code>,<integer code>
+		jmp 	\2 							; so execute code at \1
 		.endm
 		.endif

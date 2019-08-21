@@ -63,17 +63,25 @@ class FloatingPointTest(BuildDefinition):										# Run FP Unit Test.
 		self.addModule("testing.fptest")
 		self.boot("FPTTest")
 
-class FullBasic(BuildDefinition):
+class IntegerBasic(BuildDefinition):
 	def create(self):
-		self.define("hasFloat",1)
+		self.define("hasFloat",0)
 		self.define("hasInteger",1)
 		self.addModule("basic.*")	
 		self.addModule("basic.expressions.*")	
 		self.addModule("basic.pointer.@h.*")
-		self.addModule("float.*")												# FP Stuff
-		self.addModule("float.convert.*")
 		self.addModule("integer.*")
 		self.addModule("integer.convert.*")
+		self.addModule("basic.testcode.*")
+		self.boot("BASIC_Start")
+
+class FullBasic(IntegerBasic):
+	def create(self):
+		IntegerBasic.create(self)
+		self.define("hasFloat",1)
+		self.define("hasInteger",1)
+		self.addModule("float.*")												# FP Stuff
+		self.addModule("float.convert.*")
 		self.addModule("utility.tim")											# nicked hex printing routines :)
 		self.setMacro("irqhandler",".word TIM_BreakVector")
 		#
@@ -83,7 +91,8 @@ class FullBasic(BuildDefinition):
 BuildDefinition.Classes = {														# Class list
 		"tim":	TIMOnlyTest,
 		"fpch":	FloatingPointTest,
-		"full":	FullBasic
+		"full":	FullBasic,
+		"intb":	IntegerBasic
 }
 
 if __name__ == "__main__":

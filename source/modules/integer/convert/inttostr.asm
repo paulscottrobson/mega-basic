@@ -22,7 +22,7 @@ INTToString:
 		bpl 		_ITSNotMinus
 		lda 		#"-"					; output a minus
 		jsr 		ITSOutputCharacter
-		jsr 		FPUNegateInteger
+		jsr 		IntegerNegateAlways 	; negate the number.
 _ITSNotMinus:		
 		;
 		lda 		#0 						; X is offset in table.

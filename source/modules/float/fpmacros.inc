@@ -37,15 +37,6 @@ ror32 	.macro 								; ror32 \1
 		ror 	0+\1
 		.endm		
 
-inx6 	.macro 								; add 6 to x
-		inx
-		inx
-		inx
-		inx
-		inx
-		inx
-		.endm
-
 add32x 	.macro 								; add \2 to \1
 		clc
 		lda 	\1+0,x

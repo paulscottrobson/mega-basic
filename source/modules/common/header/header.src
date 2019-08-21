@@ -6,10 +6,10 @@ lastUnaryFunction = $b2
 ;	Jump Vector Table
 ;
 VectorTable:
-	.word NotImplemented       ; $80 and
-	.word NotImplemented       ; $81 or
-	.word NotImplemented       ; $82 xor
-	.word NotImplemented       ; $83 eor
+	.word BinaryOp_And         ; $80 and
+	.word BinaryOp_Or          ; $81 or
+	.word BinaryOp_Xor         ; $82 xor
+	.word BinaryOp_Eor         ; $83 eor
 	.word NotImplemented       ; $84 =
 	.word NotImplemented       ; $85 <>
 	.word NotImplemented       ; $86 <

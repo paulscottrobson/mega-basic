@@ -123,12 +123,15 @@ _EVExitDrop:
 _EVExit:
 		rts		
 ;
-;		Not an integer. unary operators, string , unary functions and parenthesis
+;		Not an integer: check unary operators, string , unary functions and parenthesis
 ;
 _EVNotInteger:
 		#s_next 							; skip over token.
 		cmp 	#token_minus 				; is it unary minus ?
 		bne 	_EVNotMinus
+		;
+		;		Unary minus
+		;	
 		jsr 	EvaluateGetAtomX 			; get a numeric value into X.
 		lda 	XS_Type,x 					; get type
 		and 	#15 						; if type bits zero, it's float.
@@ -143,13 +146,32 @@ _EVMinusFloat:
 		bra 	_EVGotAtom
 ;
 _EVNotMinus:
-		cmp 	#token_not 					; is it not ?
-		bne 	_EVNotNot 		
-		jsr 	EvaluateGetAtomX 			; get a numeric value into X.
-		jsr 	FPUToInteger 				; make it an integer.
-		jsr 	NotInteger 					; do the not calculation
-		bra 	_EVGotAtom
+		cmp 	#token_lparen 				; is it left parenthesis
+		bne 	_EVNotParenthesis
+		;
+		;		Parenthesis.
+		;
+		jsr 	EvaluateExpressionX 		; full evaluate at level x.
+		#s_get								; get next character
+		#s_next
+		cmp 	#token_rparen 				; okay if right bracket.
+		beq 	_EVGotAtom
+		#Error
+		.text	"Missing closing bracket",0
 
+_EVNotParenthesis:		
+		cmp 	#token_not 					; is it not ?
+		bne 	_EVNotNot 
+		;
+		;		Logical Not (e.g. integer one's complement)
+		;		
+		jsr 	EvaluateGetAtomX 			; get expression in parenthesis.
+		.if 	hasFloat=1
+		jsr 	FPUToInteger 				; make it an integer - if possible.
+		.endif
+		jsr 	NotInteger 					; do the not calculation
+		jmp 	_EVGotAtom
+		;
 _EVNotNot:		
 		nop
 ;

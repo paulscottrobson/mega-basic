@@ -96,5 +96,8 @@ _IFSOverflow:
 		.text 	"Constant overflow",0		
 ;
 IFSX1ShiftLeft:
-		#asl32x XS_Mantissa
+		asl 	XS_Mantissa+0,x
+		rol 	XS_Mantissa+1,x
+		rol 	XS_Mantissa+2,x
+		rol 	XS_Mantissa+3,x
 		rts

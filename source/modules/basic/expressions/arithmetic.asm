@@ -90,7 +90,9 @@ BinaryMakeFloat:
 		rts
 ;
 _BMFConvert:
+		.if 	hasFloat=1
 		jmp 	FPUToFloat 					; convert to float		
+		.endif
 _BMFError:
 		#Error
 		.text 	"Numeric type required",0
