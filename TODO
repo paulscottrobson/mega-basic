@@ -1,10 +1,11 @@
 TODO
 ====
 	- 	Write basic expression evaluator (no variables).
-			- 	import integer multiply, integer divide.
+			- 	add signing to integer divide.
 			-	and (integer only) then add in or and xor.
 			- 	comparison routines
 			- 	unary negation, not, parenthesis.
+			- 	check signed division.
 	-	Allocating storage space for variables and strings, reset these pointers.
 	- 	Add strings.
 	- 	Add unary functions except trig/log etc.

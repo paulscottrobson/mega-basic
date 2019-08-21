@@ -58,9 +58,15 @@ XS_Type 	.byte ? 						; bit 7 sign (float only)
 											; bit 0 integer flag.
 											; float type when all type bits 0-3 are zero.
 
-XS2_Mantissa = XS_Mantissa+6
-XS2_Exponent = XS_Exponent+6
-XS2_Type = XS_Type+6
+XS_Size = 6
+
+XS2_Mantissa = XS_Mantissa+XS_Size
+XS2_Exponent = XS_Exponent+XS_Size
+XS2_Type = XS_Type+XS_Size
+XS3_Mantissa = XS_Mantissa+XS_Size*2
+XS3_Exponent = XS_Exponent+XS_Size*2
+XS3_Type = XS_Type+XS_Size*2
+
 
 		* = $400
 
