@@ -9,7 +9,9 @@
 # *******************************************************************************************
 # *******************************************************************************************
 
+import sys
 from tokens import *
+
 tokens = Tokens().get()
 #
 #		Output useful constants first.
@@ -29,18 +31,23 @@ for k in tokens.keys():
 		executeLabel[k] = "NotImplemented"
 		keywords.append(k)
 keywords.sort(key = lambda x:tokens[x]["token"])		
-
 #
-#		TODO: Scan files,  looking for keywords, and give each extant a label.
+#		Scan files,  looking for keywords, and give each extant a label.
 #
-
+files = [x.strip() for x in open(".."+os.sep+"_files.lst").read(-1).strip().split("::") if x.strip() != ""]
+for fName in files:
+	for l in open(".."+os.sep+fName).readlines():
+		if l.find(";;") >= 0:
+			m = re.match("^([A-Za-z0-9\\_]+)\\:\\s*\\;\\;\\s*(.*)\\s*$",l.strip())
+			assert m is not None,"Bad line "+l+" in "+fName
+			executeLabel[m.group(2).lower().strip()] = m.group(1).strip()
 #
 #		Print jump vector table. May need modding for paging.
 #
 print(";\n;\tJump Vector Table\n;")
 print("VectorTable:")
 for k in keywords:
-	print("\t.word {0:12} ; ${1:x} {2}".format(executeLabel[k],tokens[k]["token"],k))
+	print("\t.word {0:20} ; ${1:x} {2}".format(executeLabel[k],tokens[k]["token"],k))
 print("NotImplemented:\n")
 print("\t#error\n")
 print('\t.text "Syntax Error",0')

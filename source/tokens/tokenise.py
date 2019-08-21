@@ -54,8 +54,13 @@ class Tokeniser(object):
 			self.addTokenSequence(0xFE,s[:n])								# add as token sequence.
 			return s[n+1:]
 		#
-		m = re.match("^\\.(\\d+[eE]?\\-?\\d*)(.*)$",s)						# .<decimals><the rest>
+		m = re.match("^\\.(\\d+)(.*)$",s)									# .<decimals><the rest>
 		if m is not None:
+			m1 = re.match("^([Ee]\\-?\\d+)(.*)$",m.group(2))				# exponent check.
+			if m1 is not None:
+				self.addTokenSequence(0xFD,m.group(1)+m1.group(1))
+				return m1.group(2)
+			#
 			self.addTokenSequence(0xFD,m.group(1))							# add as token sequence.
 			return m.group(2)
 		#
@@ -108,6 +113,7 @@ if __name__ == "__main__":
 	tok.test('"def')
 	tok.test('41.102 42 0 0.')
 	tok.test('12.304e-4 xx')
+	tok.test('4.2-3.1')
 	tok.test("for i = 0 to 9:next i,j")
 	tok.test("name$(4)")
 	tok.test("a>b>=c")

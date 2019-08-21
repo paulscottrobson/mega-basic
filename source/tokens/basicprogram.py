@@ -60,7 +60,7 @@ class BasicProgram(object):
 		
 if __name__ == "__main__":
 	bp = BasicProgram()
-	bp.add("assert 14+44:rem hi !",10)
+	bp.add("assert 100+22.0/7.0:rem hi !",10)
 #	bp.add("a = a + 2")
 #	bp.save("demo.bas")
 	bp.export()

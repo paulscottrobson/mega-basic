@@ -92,8 +92,8 @@ _EVGotAtom:
 		plx 								; restore X
 		cmp 	zGenPtr 					; compared against the current precedence
 		bcc 	_EVExit 					; exit if too low.
+		beq 	_EVExit 					; exit if equals
 		;
-		nop
 		lda 	zGenPtr 					; push precedence
 		pha
 		#s_get 								; get and push binary token.
@@ -122,22 +122,16 @@ _EVExitDrop:
 		pla
 _EVExit:
 		rts		
+;
+;		Not an integer. Check string, unary operators, unary functions and parenthesis
+;
 _EVNotInteger:
-		;
-		; 	TODO: Check string, unary operator, unary function, parenthesis.
-		;
-
+		bra 	_EVNotInteger
 ;
 ;		Discovered a variable.
 ;
 _EVVariableHandler:
 		nop		
-
-;
-;		Unary Function
-;		
-_EVUnaryFunction:
-		nop
 
 EVGoZGenPtr:
 		jmp 	 (zGenPtr)

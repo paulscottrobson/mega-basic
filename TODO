@@ -1,16 +1,16 @@
 TODO
 ====
 	- 	Write basic expression evaluator (no variables).
-
-			-	+ (integer,float,either) and scanner of source for tokens.			
-			-	and (integer only).
-			- 	unary negation.
-			- 	Error if integer-only build and decimal/exponents code called.
-
+			- 	import integer multiply, integer divide.
+			-	and (integer only) then add in or and xor.
+			- 	comparison routines
+			- 	unary negation, not, parenthesis.
 	-	Allocating storage space for variables and strings, reset these pointers.
 	- 	Add strings.
+	- 	Add unary functions except trig/log etc.
 	- 	Write the basic executor and tokeniser and implement ASSERT and PRINT.
-	- 	variables defint a-z and # (real) % (int) $ (string)
+	- 	Write test harness.
+	- 	Design and implement variables defint a-z and # (real) % (int) $ (string)
 
 Fixes
 =====
@@ -21,7 +21,3 @@ Fixes
 		- Integer negation in fputils.asm
 		- Mantissa subtraction in fpdivide.asm
 -	FP guard byte on subtract ????
-
-TIM
-- 	Blank lines
-- 	Register editing.

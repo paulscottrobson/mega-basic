@@ -84,11 +84,11 @@ class Tokens(object):
 	##
 	##		Binary (or Binary/Unary) Keywords
 	##
-		[0]		and		or 		xor
-		[1]		=		<> 		< 		<=		> 		>=
-		[2] 	+ 		-
-		[3] 	* 		/
-		[4]		^
+		[1]		and		or 		xor
+		[2]		=		<> 		< 		<=		> 		>=
+		[3] 	+ 		-
+		[4] 	* 		/
+		[5]		^
 
 	##
 	##		Keywords that adjust structure depth.
