@@ -19,9 +19,10 @@ EVESyntax:
 ; *******************************************************************************************
 
 EvaluateExpression:
-		lda 	#0 							; start at precedence level 0.
 		ldx 	#0 							; start with stack at 0.
-
+EvaluateExpressionX:		
+		lda 	#0 							; start at precedence level 0.
+EvaluateExpressionXA:
 		pha 								; save precedence on stack.
 		;
 		#s_get 								; look at next ?
@@ -71,22 +72,60 @@ _EVCheckDecimal:
 _EVIsDecimal:		
 		jsr 	EVGetDecimal 				; extend to the decimal part.
 		bra 	_EVGotAtom 					; and continue to got atom.
-		;
-_EVNotInteger:
-		;
-		; 	TODO: Check string, unary.
-		;
-		cmp 	#firstUnaryFunction 		; check for unary function
-		bcc		EVESyntax
-		cmp 	#lastUnaryFunction+1
-		bcs 	EVESyntax
-		jmp 	_EVUnaryFunction 		
 ;
 ;		At this point, there is a valid atom in XS_xxx,x *and* the precedence
 ;		level is on the first byte of the stack.
 ;		
 _EVGotAtom:
-		#exit
+		#s_get 								; get the next token.
+		bpl 	_EVExitDrop 				; must be a token.
+		cmp 	#firstKeywordPlus  			; check it's in the binary token range (they're first)
+		bcs 	_EVExitDrop
+		pla 								; get current precedence
+		sta 	zGenPtr 					; save in zGenPtr as temp.
+		;
+		phx 								; save X
+		#s_get 								; get the binary token
+		tax 								; put in X
+		lda 	BinaryPrecedence-$80,x 		; read the binary precedence.
+		sta 	zGenPtr+1 					; save it.
+		plx 								; restore X
+		cmp 	zGenPtr 					; compared against the current precedence
+		bcc 	_EVExit 					; exit if too low.
+		;
+		nop
+		lda 	zGenPtr 					; push precedence
+		pha
+		#s_get 								; get and push binary token.
+		pha 
+		#s_next 							; go to next.
+		;
+		phx 								; save current position
+		inx6 							 	; advance to next
+		lda 	zGenPtr+1 					; get the precedence of the operator in A.
+		jsr 	EvaluateExpressionXA 		; do the RHS.
+		plx 								; restore X
+		;
+		pla 								; get the binary operator in A.
+		phx 								; save X again
+		asl 	a 							; double, lose the MSB.
+		tax									; put in X
+		lda 	VectorTable,x 				; copy address into zGenPtr
+		sta 	zGenPtr 
+		lda 	VectorTable+1,x
+		sta 	zGenPtr+1
+		plx 								; restore X
+		jsr 	EVGoZGenPtr 				; execute that function/operator
+		bra 	_EVGotAtom 					; and loop back.
+		;
+_EVExitDrop:
+		pla
+_EVExit:
+		rts		
+_EVNotInteger:
+		;
+		; 	TODO: Check string, unary operator, unary function, parenthesis.
+		;
 
 ;
 ;		Discovered a variable.
@@ -100,6 +139,8 @@ _EVVariableHandler:
 _EVUnaryFunction:
 		nop
 
+EVGoZGenPtr:
+		jmp 	 (zGenPtr)
 
 ; *******************************************************************************************
 ;
