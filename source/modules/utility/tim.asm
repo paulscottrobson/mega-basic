@@ -28,8 +28,13 @@ TIM_ShowPrompt:
 		;
 		stx 	zTemp1 						; save line read address
 		sty 	zTemp1+1
-		ldy 	#1 							; get first character after the prompt.
+		ldy 	#0 							; get first character after the prompt.
 		lda 	(zTemp1),y
+		cmp 	#"."						; if . skip it
+		bne 	TIM_NotDot
+		iny
+TIM_NotDot:
+		lda 	(zTemp1),y 					; get character		
 		cmp 	#"R"						; show registers
 		beq 	TIM_ShowRegisters
 		cmp 	#"M" 						; show memory
@@ -338,6 +343,12 @@ TIM_UpdateRegisters:
 		bcs 	_TIMURFail
 		ldx 	#0
 _TIM_URLoop:
+		.if 	CPU!="4510" 				; skip Z on non 4510
+		cpx 	#Tim_Z-Tim_SR
+		bne 	_TIM_1
+		inx
+_TIM_1:		
+		.endif
 		jsr 	TIM_GetHex 					; registers
 		bcs 	_TIMURFail
 		lda 	zTemp3

@@ -2,7 +2,6 @@ TODO
 ====
 	- 	Write basic expression evaluator (no variables).
 
-			- 	Complete and Decimal/Exponents code.
 			-	+ (integer,float,either) and scanner of source for tokens.			
 			-	and (integer only).
 			- 	unary negation.
@@ -23,3 +22,6 @@ Fixes
 		- Mantissa subtraction in fpdivide.asm
 -	FP guard byte on subtract ????
 
+TIM
+- 	Blank lines
+- 	Register editing.

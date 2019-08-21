@@ -82,7 +82,7 @@ IF_Read:
 IF_Write:
 		phy 								; save current Y
 		ldy 	IF_XPos 					; write character at current position
-		and 	#63 						; PETSCII
+		and 	#63+128 					; PETSCII
 		sta 	(IF_Pos),y
 		inc 	IF_XPos 					; step right.
 		ply									; restore Y

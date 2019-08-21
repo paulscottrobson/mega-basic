@@ -1,7 +1,7 @@
 
 ; 64tass Turbo Assembler Macro V1.54.1900 listing file
 ; 64tass -X -b -q -L rom.lst -o rom.bin basic.asm
-; Tue Aug 20 21:28:17 2019
+; Wed Aug 21 16:45:07 2019
 
 ;Offset	;Hex		;Monitor	;Source
 
@@ -56,9 +56,10 @@
 
 ;******  Processing file: modules/hardware/../basic/testcode/testcode.src
 
->1000	11 0a 00 d6 6a fd 04 35			.byte	$11,$0a,$00,$d6,$6a,$fd,$04,$35
->1008	34 bb ff 06 68 69 20 21			.byte	$34,$bb,$ff,$06,$68,$69,$20,$21
->1010	00 00					.byte	$00,$00
+>1000	18 0a 00 d6 40 fd 0b 30			.byte	$18,$0a,$00,$d6,$40,$fd,$0b,$30
+>1008	30 35 34 33 65 2d 31 33			.byte	$30,$35,$34,$33,$65,$2d,$31,$33
+>1010	bb ff 06 68 69 20 21 00			.byte	$bb,$ff,$06,$68,$69,$20,$21,$00
+>1018	00					.byte	$00
 
 ;******  Return to file: modules/hardware/em65816.asm
 
@@ -280,7 +281,7 @@
 .c1fd	e2 30		sep #$30			sep 	#$30
 .c1ff	20 a3 c3	jsr $c3a3			jsr 	IF_Reset 					; reset external interface
 .c202	20 08 c2	jsr $c208			jsr 	IFT_ClearScreen
-.c205	4c 7b c4	jmp $c47b		jmp TIM_Start
+.c205	4c 82 c4	jmp $c482		jmp TIM_Start
 
 ;******  Return to file: _include.asm
 
@@ -618,273 +619,283 @@
 .c401	20 57 c2	jsr $c257			jsr 	IFT_NewLine					; go to next line.
 .c404	86 10		stx $10				stx 	zTemp1 						; save line read address
 .c406	84 11		sty $11				sty 	zTemp1+1
-.c408	a0 01		ldy #$01			ldy 	#1 							; get first character after the prompt.
+.c408	a0 00		ldy #$00			ldy 	#0 							; get first character after the prompt.
 .c40a	b1 10		lda ($10),y			lda 	(zTemp1),y
-.c40c	c9 52		cmp #$52			cmp 	#"R"						; show registers
-.c40e	f0 6b		beq $c47b			beq 	TIM_ShowRegisters
-.c410	c9 4d		cmp #$4d			cmp 	#"M" 						; show memory
-.c412	f0 12		beq $c426			beq 	TIM_ShowMemory
-.c414	c9 47		cmp #$47			cmp 	#"G"						; execute
-.c416	f0 49		beq $c461			beq 	TIM_Execute
-.c418	c9 3a		cmp #$3a			cmp 	#":"						; load memory
-.c41a	f0 07		beq $c423			beq 	TIM_GoLoadMemory
-.c41c	c9 3b		cmp #$3b			cmp 	#";" 						; load registers
-.c41e	d0 d2		bne $c3f2			bne 	TIM_Error
-.c420	4c 9e c5	jmp $c59e			jmp 	TIM_UpdateRegisters
-.c423					TIM_GoLoadMemory:
-.c423	4c c9 c5	jmp $c5c9			jmp 	TIM_LoadMemory
-.c426					TIM_ShowMemory:
-.c426	20 1a c5	jsr $c51a			jsr 	TIM_GetHex 					; get a hex value out => zTemp3
-.c429	b0 c7		bcs $c3f2			bcs 	TIM_Error
-.c42b	a5 14		lda $14				lda 	zTemp3 						; copy zTemp3 => zTemp2
-.c42d	85 12		sta $12				sta 	zTemp2
-.c42f	a5 15		lda $15				lda 	zTemp3+1
-.c431	85 13		sta $13				sta 	zTemp2+1
-.c433	20 1a c5	jsr $c51a			jsr 	TIM_GetHex 					; get a hex value out => zTemp3
-.c436	90 08		bcc $c440			bcc 	_TIMSM_Start 				; okay, display zTemp2 ... zTemp3 as value ok
-.c438	a5 12		lda $12				lda 	zTemp2 						; single value set zTemp2 => zTemp3 so just one line.
-.c43a	85 14		sta $14				sta 	zTemp3
-.c43c	a5 13		lda $13				lda 	zTemp2+1
-.c43e	85 15		sta $15				sta 	zTemp3+1
-.c440					_TIMSM_Start:
-.c440	20 f2 c4	jsr $c4f2			jsr 	TIM_WriteLine 				; write one line of hex out
-.c443	a5 12		lda $12				lda 	zTemp2 						; bump ZTemp2 by 16
-.c445	18		clc				clc
-.c446	69 10		adc #$10			adc 	#16
-.c448	85 12		sta $12				sta 	zTemp2
-.c44a	90 02		bcc $c44e			bcc 	_TIMSM_NoCarry
-.c44c	e6 13		inc $13				inc 	zTemp2+1
-.c44e					_TIMSM_NoCarry:
-.c44e	20 dc c3	jsr $c3dc			jsr 	IF_CheckBreak 				; check CTL+C
-.c451	d0 0b		bne $c45e			bne 	_TIMSM_Ends 				; if pressed break out.
-.c453	38		sec				sec 								; check past the end address in zTemp3
-.c454	a5 14		lda $14				lda 	zTemp3
-.c456	e5 12		sbc $12				sbc 	zTemp2
-.c458	a5 15		lda $15				lda 	zTemp3+1
-.c45a	e5 13		sbc $13				sbc 	zTemp2+1
-.c45c	10 e2		bpl $c440			bpl 	_TIMSM_Start
-.c45e					_TIMSM_Ends:
-.c45e	4c f9 c3	jmp $c3f9			jmp 	TIM_NewCommand
-.c461					TIM_Execute:
-.c461	20 1a c5	jsr $c51a			jsr 	TIM_GetHex 					; get the execute address
-.c464	b0 8c		bcs $c3f2			bcs 	TIM_Error 					; not legitimate
-.c466	ae 2c 04	ldx $042c			ldx 	TIM_SP 						; set up SP
-.c469	9a		txs				txs
-.c46a	ad 27 04	lda $0427			lda 	TIM_SR 						; Status for PLP
-.c46d	48		pha				pha
-.c46e	ad 28 04	lda $0428			lda 	TIM_A 						; restore AXYZ
-.c471	ae 29 04	ldx $0429			ldx 	TIM_X
-.c474	ac 2a 04	ldy $042a			ldy 	TIM_Y
-.c477	28		plp				plp 								; and PS Byte.
-.c478	6c 14 00	jmp ($0014)			jmp 	(zTemp3)					; go execute
-.c47b					TIM_Start:
-.c47b					TIM_ShowRegisters:
-.c47b	ad fe ff	lda $fffe			lda 	$FFFE 						; copy IRQx which is in ROM.
-.c47e	8d 26 04	sta $0426			sta 	TIM_IRQ+1
-.c481	ad ff ff	lda $ffff			lda 	$FFFF
-.c484	8d 25 04	sta $0425			sta 	TIM_IRQ
-.c487	a2 00		ldx #$00			ldx 	#0 							; display register prompt
-.c489					_TIMSR_Text:
-.c489	bd b9 c4	lda $c4b9,x			lda 	_TIMSR_Label,x
-.c48c	20 3d c2	jsr $c23d			jsr 	IFT_PrintCharacter
-.c48f	e8		inx				inx
-.c490	e0 20		cpx #$20			cpx 	#_TIMSR_LabelEnd-_TIMSR_Label
-.c492	d0 f5		bne $c489			bne 	_TIMSR_Text
-.c494	a2 ff		ldx #$ff			ldx 	#-1							; output Register Line.
-.c496					_TIMSR_Skip:
+.c40c	c9 2e		cmp #$2e			cmp 	#"."						; if . skip it
+.c40e	d0 01		bne $c411			bne 	TIM_NotDot
+.c410	c8		iny				iny
+.c411					TIM_NotDot:
+.c411	b1 10		lda ($10),y			lda 	(zTemp1),y 					; get character
+.c413	c9 52		cmp #$52			cmp 	#"R"						; show registers
+.c415	f0 6b		beq $c482			beq 	TIM_ShowRegisters
+.c417	c9 4d		cmp #$4d			cmp 	#"M" 						; show memory
+.c419	f0 12		beq $c42d			beq 	TIM_ShowMemory
+.c41b	c9 47		cmp #$47			cmp 	#"G"						; execute
+.c41d	f0 49		beq $c468			beq 	TIM_Execute
+.c41f	c9 3a		cmp #$3a			cmp 	#":"						; load memory
+.c421	f0 07		beq $c42a			beq 	TIM_GoLoadMemory
+.c423	c9 3b		cmp #$3b			cmp 	#";" 						; load registers
+.c425	d0 cb		bne $c3f2			bne 	TIM_Error
+.c427	4c a5 c5	jmp $c5a5			jmp 	TIM_UpdateRegisters
+.c42a					TIM_GoLoadMemory:
+.c42a	4c d6 c5	jmp $c5d6			jmp 	TIM_LoadMemory
+.c42d					TIM_ShowMemory:
+.c42d	20 21 c5	jsr $c521			jsr 	TIM_GetHex 					; get a hex value out => zTemp3
+.c430	b0 c0		bcs $c3f2			bcs 	TIM_Error
+.c432	a5 14		lda $14				lda 	zTemp3 						; copy zTemp3 => zTemp2
+.c434	85 12		sta $12				sta 	zTemp2
+.c436	a5 15		lda $15				lda 	zTemp3+1
+.c438	85 13		sta $13				sta 	zTemp2+1
+.c43a	20 21 c5	jsr $c521			jsr 	TIM_GetHex 					; get a hex value out => zTemp3
+.c43d	90 08		bcc $c447			bcc 	_TIMSM_Start 				; okay, display zTemp2 ... zTemp3 as value ok
+.c43f	a5 12		lda $12				lda 	zTemp2 						; single value set zTemp2 => zTemp3 so just one line.
+.c441	85 14		sta $14				sta 	zTemp3
+.c443	a5 13		lda $13				lda 	zTemp2+1
+.c445	85 15		sta $15				sta 	zTemp3+1
+.c447					_TIMSM_Start:
+.c447	20 f9 c4	jsr $c4f9			jsr 	TIM_WriteLine 				; write one line of hex out
+.c44a	a5 12		lda $12				lda 	zTemp2 						; bump ZTemp2 by 16
+.c44c	18		clc				clc
+.c44d	69 10		adc #$10			adc 	#16
+.c44f	85 12		sta $12				sta 	zTemp2
+.c451	90 02		bcc $c455			bcc 	_TIMSM_NoCarry
+.c453	e6 13		inc $13				inc 	zTemp2+1
+.c455					_TIMSM_NoCarry:
+.c455	20 dc c3	jsr $c3dc			jsr 	IF_CheckBreak 				; check CTL+C
+.c458	d0 0b		bne $c465			bne 	_TIMSM_Ends 				; if pressed break out.
+.c45a	38		sec				sec 								; check past the end address in zTemp3
+.c45b	a5 14		lda $14				lda 	zTemp3
+.c45d	e5 12		sbc $12				sbc 	zTemp2
+.c45f	a5 15		lda $15				lda 	zTemp3+1
+.c461	e5 13		sbc $13				sbc 	zTemp2+1
+.c463	10 e2		bpl $c447			bpl 	_TIMSM_Start
+.c465					_TIMSM_Ends:
+.c465	4c f9 c3	jmp $c3f9			jmp 	TIM_NewCommand
+.c468					TIM_Execute:
+.c468	20 21 c5	jsr $c521			jsr 	TIM_GetHex 					; get the execute address
+.c46b	b0 85		bcs $c3f2			bcs 	TIM_Error 					; not legitimate
+.c46d	ae 2c 04	ldx $042c			ldx 	TIM_SP 						; set up SP
+.c470	9a		txs				txs
+.c471	ad 27 04	lda $0427			lda 	TIM_SR 						; Status for PLP
+.c474	48		pha				pha
+.c475	ad 28 04	lda $0428			lda 	TIM_A 						; restore AXYZ
+.c478	ae 29 04	ldx $0429			ldx 	TIM_X
+.c47b	ac 2a 04	ldy $042a			ldy 	TIM_Y
+.c47e	28		plp				plp 								; and PS Byte.
+.c47f	6c 14 00	jmp ($0014)			jmp 	(zTemp3)					; go execute
+.c482					TIM_Start:
+.c482					TIM_ShowRegisters:
+.c482	ad fe ff	lda $fffe			lda 	$FFFE 						; copy IRQx which is in ROM.
+.c485	8d 26 04	sta $0426			sta 	TIM_IRQ+1
+.c488	ad ff ff	lda $ffff			lda 	$FFFF
+.c48b	8d 25 04	sta $0425			sta 	TIM_IRQ
+.c48e	a2 00		ldx #$00			ldx 	#0 							; display register prompt
+.c490					_TIMSR_Text:
+.c490	bd c0 c4	lda $c4c0,x			lda 	_TIMSR_Label,x
+.c493	20 3d c2	jsr $c23d			jsr 	IFT_PrintCharacter
 .c496	e8		inx				inx
-.c497					_TIMSR_LoopSpace:
-.c497	e0 04		cpx #$04			cpx 	#4 							; this checks if we need a space to
-.c499	b0 04		bcs $c49f			bcs 	_TIMSR_Space 				; batten the 16 bit registers together.
-.c49b	8a		txa				txa
-.c49c	4a		lsr a				lsr 	a
-.c49d	b0 05		bcs $c4a4			bcs 	_TIMSR_NoSpace
-.c49f					_TIMSR_Space:
-.c49f	a9 20		lda #$20			lda 	#" "
-.c4a1	20 3d c2	jsr $c23d			jsr 	IFT_PrintCharacter
-.c4a4					_TIMSR_NoSpace:
-.c4a4	bd 23 04	lda $0423,x			lda 	TIM_PC,x 					; output hex value.
-.c4a7	20 d9 c4	jsr $c4d9			jsr 	TIM_WriteHex
-.c4aa	e8		inx				inx
-.c4ab	e0 08		cpx #$08			cpx 	#TIM_Z-TIM_PC
-.c4ad	f0 e7		beq $c496			beq 	_TIMSR_Skip
-.c4af	e0 0a		cpx #$0a			cpx 	#TIM_SP-TIM_PC+1
-.c4b1	d0 e4		bne $c497			bne 	_TimSR_LoopSpace
-.c4b3	20 57 c2	jsr $c257			jsr 	IFT_NewLine 				; new line
-.c4b6	4c f9 c3	jmp $c3f9			jmp	 	TIM_NewCommand 				; new command.
-.c4b9					_TIMSR_Label:
->c4b9	20 20 20 20 50 43 20 20				.text 	"    PC   IRQ  SR AC XR YR"
->c4c1	20 49 52 51 20 20 53 52 20 41 43 20 58 52 20 59
->c4d1	52
->c4d2	20 53 50 0d 2e 3b 20				.text 	" SP",13,".; "
-.c4d9					_TIMSR_LabelEnd:
-.c4d9					TIM_WriteHex:
-.c4d9	48		pha				pha 								; save A
-.c4da	4a		lsr a				lsr 	a 							; shift MSB->LSB
-.c4db	4a		lsr a				lsr 	a
-.c4dc	4a		lsr a				lsr 	a
-.c4dd	4a		lsr a				lsr 	a
-.c4de	20 e2 c4	jsr $c4e2			jsr 	_TIMWH_Nibble 				; print MSB
-.c4e1	68		pla				pla 								; restore and print LSB
-.c4e2					_TIMWH_Nibble:
-.c4e2	48		pha				pha
-.c4e3	29 0f		and #$0f			and 	#15 						; mask out
-.c4e5	c9 0a		cmp #$0a			cmp 	#10 						; convert to ASCII
-.c4e7	90 02		bcc $c4eb			bcc 	_TIMWHNoLetter
-.c4e9	69 06		adc #$06			adc 	#6
-.c4eb					_TIMWHNoLetter:
-.c4eb	69 30		adc #$30			adc 	#48
-.c4ed	20 3d c2	jsr $c23d			jsr 	IFT_PrintCharacter 			; print it out.
-.c4f0	68		pla				pla
-.c4f1	60		rts				rts
-.c4f2					TIM_WriteLine:
-.c4f2	a9 2e		lda #$2e			lda 	#"." 						; prompt
-.c4f4	20 3d c2	jsr $c23d			jsr 	IFT_PrintCharacter
-.c4f7	a9 3a		lda #$3a			lda 	#":" 						; input line command so we can edit it
-.c4f9	20 3d c2	jsr $c23d			jsr 	IFT_PrintCharacter
-.c4fc	a5 13		lda $13				lda 	zTemp2+1 					; write address
-.c4fe	20 d9 c4	jsr $c4d9			jsr 	TIM_WriteHex
-.c501	a5 12		lda $12				lda 	zTemp2
-.c503	20 d9 c4	jsr $c4d9			jsr 	TIM_WriteHex
-.c506	a0 00		ldy #$00			ldy 	#0							; write 16 bytes of data from (zTemp2)
-.c508					_TIMWL_Loop:
-.c508	a9 20		lda #$20			lda 	#" "
-.c50a	20 3d c2	jsr $c23d			jsr 	IFT_PrintCharacter
-.c50d	b1 12		lda ($12),y			lda 	(zTemp2),y
-.c50f	20 d9 c4	jsr $c4d9			jsr 	TIM_WriteHex
-.c512	c8		iny				iny
-.c513	c0 10		cpy #$10			cpy 	#16
-.c515	d0 f1		bne $c508			bne 	_TIMWL_Loop
-.c517	4c 57 c2	jmp $c257			jmp 	IFT_NewLine 				; new line and exit
-.c51a					TIM_GetHex:
-.c51a	c8		iny				iny
-.c51b	b1 10		lda ($10),y			lda 	(zTemp1),y 					; skip over spaces.
-.c51d	c9 20		cmp #$20			cmp 	#32
-.c51f	f0 f9		beq $c51a			beq 	TIM_GetHex
-.c521	c9 2c		cmp #$2c			cmp 	#"," 						; skip over commas
-.c523	f0 f5		beq $c51a			beq 	TIM_GetHex
-.c525	20 4e c5	jsr $c54e			jsr 	TIM_GetHexCharacter 		; extract one hex character.
-.c528	b0 23		bcs $c54d			bcs 	_TIMGH_Exit					; if first bad then exit now.
-.c52a	a9 00		lda #$00			lda 	#0 							; zero result
-.c52c	85 14		sta $14				sta 	zTemp3
-.c52e	85 15		sta $15				sta 	zTemp3+1
-.c530					_TIM_GHLoop:
-.c530	20 4e c5	jsr $c54e			jsr 	TIM_GetHexCharacter 		; get next character
-.c533	b0 17		bcs $c54c			bcs 	_TIMGH_Okay 				; if bad, exit as we have one good one.
-.c535	c8		iny				iny 								; skip over it.
-.c536	06 14		asl $14				asl 	zTemp3 						; x zTemp3 by 16
-.c538	26 15		rol $15				rol 	zTemp3+1
-.c53a	06 14		asl $14				asl 	zTemp3 						; now x 2
-.c53c	26 15		rol $15				rol 	zTemp3+1
-.c53e	06 14		asl $14				asl 	zTemp3						; now x 4
-.c540	26 15		rol $15				rol 	zTemp3+1
-.c542	06 14		asl $14				asl 	zTemp3 						; now x 8
-.c544	26 15		rol $15				rol 	zTemp3+1
-.c546	05 14		ora $14				ora 	zTemp3 						; OR result in
-.c548	85 14		sta $14				sta 	zTemp3
-.c54a	80 e4		bra $c530			bra 	_TIM_GHLoop 				; loop round again.
-.c54c					_TIMGH_Okay:
-.c54c	18		clc				clc
-.c54d					_TIMGH_Exit:
-.c54d	60		rts				rts
-.c54e					TIM_GetHexCharacter:
-.c54e	b1 10		lda ($10),y			lda 	(zTemp1),y
-.c550	38		sec				sec
-.c551	e9 30		sbc #$30			sbc 	#"0" 						; < 0 exit with CS
-.c553	90 0e		bcc $c563			bcc 	_TIM_GHCFail
-.c555	c9 0a		cmp #$0a			cmp 	#10 						; 0-9 exit with CC
-.c557	90 0b		bcc $c564			bcc 	_TIM_GHCExit
-.c559	c9 11		cmp #$11			cmp 	#65-48						; < A
-.c55b	90 06		bcc $c563			bcc		_TIM_GHCFail
-.c55d	e9 07		sbc #$07			sbc 	#7 							; adjust for gap from 9-A
-.c55f	c9 10		cmp #$10			cmp 	#16 						; result in range okay.
-.c561	90 01		bcc $c564			bcc		_TIM_GHCExit
-.c563					_TIM_GHCFail:
-.c563	38		sec				sec
-.c564					_TIM_GHCExit:
-.c564	60		rts				rts
-.c565					TIM_BreakVector:
-.c565	da		phx				phx									; save X/A on stack
-.c566	48		pha				pha
-.c567	ba		tsx				tsx 								; X points to S
-.c568	bd 03 01	lda $0103,x			lda 	$0103,x 					; PSW saved on stack, this retrieves it
-.c56b	29 10		and #$10			and 	#$10 						; check stacked B Flag - only set on the stacked reg
-.c56d	d0 03		bne $c572			bne 	_TIMBreak					; if set, it's BRK
-.c56f	68		pla				pla 								; abandon routine.
-.c570	fa		plx				plx
-.c571	40		rti				rti
-.c572					_TIMBreak:
-.c572	68		pla				pla 								; save A X Y and maybe Z
-.c573	8d 28 04	sta $0428			sta 	TIM_A
-.c576	fa		plx				plx
-.c577	8e 29 04	stx $0429			stx 	TIM_X
-.c57a	8c 2a 04	sty $042a			sty 	TIM_Y
-.c57d	68		pla				pla 								; get Status Register
-.c57e	8d 27 04	sta $0427			sta 	TIM_SR
-.c581	68		pla				pla
-.c582	8d 24 04	sta $0424			sta 	TIM_PC+1 					; save calling address
-.c585	68		pla				pla
-.c586	8d 23 04	sta $0423			sta 	TIM_PC 						; high byte
-.c589	ad 24 04	lda $0424			lda 	TIM_PC+1 					; dec PC to point right.
-.c58c	d0 03		bne $c591			bne 	_TIMDecrement 				; brk bumps it.
-.c58e	ce 23 04	dec $0423			dec 	TIM_PC
-.c591					_TIMDecrement:
-.c591	ce 24 04	dec $0424			dec 	TIM_PC+1
-.c594	ba		tsx				tsx 								; and copy SP
-.c595	8e 2c 04	stx $042c			stx 	TIM_SP
-.c598	a2 ff		ldx #$ff			ldx 	#$FF 						; reset SP
-.c59a	9a		txs				txs
-.c59b	4c 7b c4	jmp $c47b			jmp 	TIM_Start 					; and start up TIM monitor.
-.c59e					TIM_UpdateRegisters:
-.c59e	20 1a c5	jsr $c51a			jsr 	TIM_GetHex 					; PC
-.c5a1	b0 23		bcs $c5c6			bcs 	_TIMURFail
-.c5a3	a5 14		lda $14				lda 	zTemp3
-.c5a5	8d 24 04	sta $0424			sta 	Tim_PC+1
-.c5a8	a5 15		lda $15				lda 	zTemp3+1
-.c5aa	8d 23 04	sta $0423			sta 	Tim_PC
-.c5ad	20 1a c5	jsr $c51a			jsr 	TIM_GetHex 					; ignore IRQ
-.c5b0	b0 14		bcs $c5c6			bcs 	_TIMURFail
-.c5b2	a2 00		ldx #$00			ldx 	#0
-.c5b4					_TIM_URLoop:
-.c5b4	20 1a c5	jsr $c51a			jsr 	TIM_GetHex 					; registers
-.c5b7	b0 0d		bcs $c5c6			bcs 	_TIMURFail
-.c5b9	a5 14		lda $14				lda 	zTemp3
-.c5bb	9d 27 04	sta $0427,x			sta 	Tim_SR,x
-.c5be	e8		inx				inx
-.c5bf	e0 06		cpx #$06			cpx 	#Tim_SP-Tim_SR+1
-.c5c1	d0 f1		bne $c5b4			bne 	_TIM_URLoop
-.c5c3	4c f9 c3	jmp $c3f9			jmp 	TIM_NewCommand
-.c5c6					_TIMURFail:
-.c5c6	4c f2 c3	jmp $c3f2			jmp 	TIM_Error
-.c5c9					TIM_LoadMemory:
-.c5c9	20 1a c5	jsr $c51a			jsr 	TIM_GetHex 					; target address => zTemp2
-.c5cc	a5 14		lda $14				lda 	zTemp3
-.c5ce	85 12		sta $12				sta 	zTemp2
-.c5d0	a5 15		lda $15				lda 	zTemp3+1
-.c5d2	85 13		sta $13				sta 	zTemp2+1
-.c5d4					_TIM_LMLoop:
-.c5d4	20 1a c5	jsr $c51a			jsr 	TIM_GetHex 					; next byte ?
-.c5d7	b0 0e		bcs $c5e7			bcs 	_TIMLMDone 					; no more
-.c5d9	a2 00		ldx #$00			ldx 	#0							; write out.
-.c5db	a5 14		lda $14				lda 	zTemp3
-.c5dd	81 12		sta ($12,x)			sta 	(zTemp2,x)
-.c5df	e6 12		inc $12				inc 	zTemp2 						; bump address
-.c5e1	d0 f1		bne $c5d4			bne 	_TIM_LMLoop
-.c5e3	e6 13		inc $13				inc 	zTemp2+1
-.c5e5	80 ed		bra $c5d4			bra 	_TIM_LMLoop
-.c5e7					_TIMLMDone:
-.c5e7	4c f9 c3	jmp $c3f9			jmp 	TIM_NewCommand
+.c497	e0 20		cpx #$20			cpx 	#_TIMSR_LabelEnd-_TIMSR_Label
+.c499	d0 f5		bne $c490			bne 	_TIMSR_Text
+.c49b	a2 ff		ldx #$ff			ldx 	#-1							; output Register Line.
+.c49d					_TIMSR_Skip:
+.c49d	e8		inx				inx
+.c49e					_TIMSR_LoopSpace:
+.c49e	e0 04		cpx #$04			cpx 	#4 							; this checks if we need a space to
+.c4a0	b0 04		bcs $c4a6			bcs 	_TIMSR_Space 				; batten the 16 bit registers together.
+.c4a2	8a		txa				txa
+.c4a3	4a		lsr a				lsr 	a
+.c4a4	b0 05		bcs $c4ab			bcs 	_TIMSR_NoSpace
+.c4a6					_TIMSR_Space:
+.c4a6	a9 20		lda #$20			lda 	#" "
+.c4a8	20 3d c2	jsr $c23d			jsr 	IFT_PrintCharacter
+.c4ab					_TIMSR_NoSpace:
+.c4ab	bd 23 04	lda $0423,x			lda 	TIM_PC,x 					; output hex value.
+.c4ae	20 e0 c4	jsr $c4e0			jsr 	TIM_WriteHex
+.c4b1	e8		inx				inx
+.c4b2	e0 08		cpx #$08			cpx 	#TIM_Z-TIM_PC
+.c4b4	f0 e7		beq $c49d			beq 	_TIMSR_Skip
+.c4b6	e0 0a		cpx #$0a			cpx 	#TIM_SP-TIM_PC+1
+.c4b8	d0 e4		bne $c49e			bne 	_TimSR_LoopSpace
+.c4ba	20 57 c2	jsr $c257			jsr 	IFT_NewLine 				; new line
+.c4bd	4c f9 c3	jmp $c3f9			jmp	 	TIM_NewCommand 				; new command.
+.c4c0					_TIMSR_Label:
+>c4c0	20 20 20 20 50 43 20 20				.text 	"    PC   IRQ  SR AC XR YR"
+>c4c8	20 49 52 51 20 20 53 52 20 41 43 20 58 52 20 59
+>c4d8	52
+>c4d9	20 53 50 0d 2e 3b 20				.text 	" SP",13,".; "
+.c4e0					_TIMSR_LabelEnd:
+.c4e0					TIM_WriteHex:
+.c4e0	48		pha				pha 								; save A
+.c4e1	4a		lsr a				lsr 	a 							; shift MSB->LSB
+.c4e2	4a		lsr a				lsr 	a
+.c4e3	4a		lsr a				lsr 	a
+.c4e4	4a		lsr a				lsr 	a
+.c4e5	20 e9 c4	jsr $c4e9			jsr 	_TIMWH_Nibble 				; print MSB
+.c4e8	68		pla				pla 								; restore and print LSB
+.c4e9					_TIMWH_Nibble:
+.c4e9	48		pha				pha
+.c4ea	29 0f		and #$0f			and 	#15 						; mask out
+.c4ec	c9 0a		cmp #$0a			cmp 	#10 						; convert to ASCII
+.c4ee	90 02		bcc $c4f2			bcc 	_TIMWHNoLetter
+.c4f0	69 06		adc #$06			adc 	#6
+.c4f2					_TIMWHNoLetter:
+.c4f2	69 30		adc #$30			adc 	#48
+.c4f4	20 3d c2	jsr $c23d			jsr 	IFT_PrintCharacter 			; print it out.
+.c4f7	68		pla				pla
+.c4f8	60		rts				rts
+.c4f9					TIM_WriteLine:
+.c4f9	a9 2e		lda #$2e			lda 	#"." 						; prompt
+.c4fb	20 3d c2	jsr $c23d			jsr 	IFT_PrintCharacter
+.c4fe	a9 3a		lda #$3a			lda 	#":" 						; input line command so we can edit it
+.c500	20 3d c2	jsr $c23d			jsr 	IFT_PrintCharacter
+.c503	a5 13		lda $13				lda 	zTemp2+1 					; write address
+.c505	20 e0 c4	jsr $c4e0			jsr 	TIM_WriteHex
+.c508	a5 12		lda $12				lda 	zTemp2
+.c50a	20 e0 c4	jsr $c4e0			jsr 	TIM_WriteHex
+.c50d	a0 00		ldy #$00			ldy 	#0							; write 16 bytes of data from (zTemp2)
+.c50f					_TIMWL_Loop:
+.c50f	a9 20		lda #$20			lda 	#" "
+.c511	20 3d c2	jsr $c23d			jsr 	IFT_PrintCharacter
+.c514	b1 12		lda ($12),y			lda 	(zTemp2),y
+.c516	20 e0 c4	jsr $c4e0			jsr 	TIM_WriteHex
+.c519	c8		iny				iny
+.c51a	c0 10		cpy #$10			cpy 	#16
+.c51c	d0 f1		bne $c50f			bne 	_TIMWL_Loop
+.c51e	4c 57 c2	jmp $c257			jmp 	IFT_NewLine 				; new line and exit
+.c521					TIM_GetHex:
+.c521	c8		iny				iny
+.c522	b1 10		lda ($10),y			lda 	(zTemp1),y 					; skip over spaces.
+.c524	c9 20		cmp #$20			cmp 	#32
+.c526	f0 f9		beq $c521			beq 	TIM_GetHex
+.c528	c9 2c		cmp #$2c			cmp 	#"," 						; skip over commas
+.c52a	f0 f5		beq $c521			beq 	TIM_GetHex
+.c52c	20 55 c5	jsr $c555			jsr 	TIM_GetHexCharacter 		; extract one hex character.
+.c52f	b0 23		bcs $c554			bcs 	_TIMGH_Exit					; if first bad then exit now.
+.c531	a9 00		lda #$00			lda 	#0 							; zero result
+.c533	85 14		sta $14				sta 	zTemp3
+.c535	85 15		sta $15				sta 	zTemp3+1
+.c537					_TIM_GHLoop:
+.c537	20 55 c5	jsr $c555			jsr 	TIM_GetHexCharacter 		; get next character
+.c53a	b0 17		bcs $c553			bcs 	_TIMGH_Okay 				; if bad, exit as we have one good one.
+.c53c	c8		iny				iny 								; skip over it.
+.c53d	06 14		asl $14				asl 	zTemp3 						; x zTemp3 by 16
+.c53f	26 15		rol $15				rol 	zTemp3+1
+.c541	06 14		asl $14				asl 	zTemp3 						; now x 2
+.c543	26 15		rol $15				rol 	zTemp3+1
+.c545	06 14		asl $14				asl 	zTemp3						; now x 4
+.c547	26 15		rol $15				rol 	zTemp3+1
+.c549	06 14		asl $14				asl 	zTemp3 						; now x 8
+.c54b	26 15		rol $15				rol 	zTemp3+1
+.c54d	05 14		ora $14				ora 	zTemp3 						; OR result in
+.c54f	85 14		sta $14				sta 	zTemp3
+.c551	80 e4		bra $c537			bra 	_TIM_GHLoop 				; loop round again.
+.c553					_TIMGH_Okay:
+.c553	18		clc				clc
+.c554					_TIMGH_Exit:
+.c554	60		rts				rts
+.c555					TIM_GetHexCharacter:
+.c555	b1 10		lda ($10),y			lda 	(zTemp1),y
+.c557	38		sec				sec
+.c558	e9 30		sbc #$30			sbc 	#"0" 						; < 0 exit with CS
+.c55a	90 0e		bcc $c56a			bcc 	_TIM_GHCFail
+.c55c	c9 0a		cmp #$0a			cmp 	#10 						; 0-9 exit with CC
+.c55e	90 0b		bcc $c56b			bcc 	_TIM_GHCExit
+.c560	c9 11		cmp #$11			cmp 	#65-48						; < A
+.c562	90 06		bcc $c56a			bcc		_TIM_GHCFail
+.c564	e9 07		sbc #$07			sbc 	#7 							; adjust for gap from 9-A
+.c566	c9 10		cmp #$10			cmp 	#16 						; result in range okay.
+.c568	90 01		bcc $c56b			bcc		_TIM_GHCExit
+.c56a					_TIM_GHCFail:
+.c56a	38		sec				sec
+.c56b					_TIM_GHCExit:
+.c56b	60		rts				rts
+.c56c					TIM_BreakVector:
+.c56c	da		phx				phx									; save X/A on stack
+.c56d	48		pha				pha
+.c56e	ba		tsx				tsx 								; X points to S
+.c56f	bd 03 01	lda $0103,x			lda 	$0103,x 					; PSW saved on stack, this retrieves it
+.c572	29 10		and #$10			and 	#$10 						; check stacked B Flag - only set on the stacked reg
+.c574	d0 03		bne $c579			bne 	_TIMBreak					; if set, it's BRK
+.c576	68		pla				pla 								; abandon routine.
+.c577	fa		plx				plx
+.c578	40		rti				rti
+.c579					_TIMBreak:
+.c579	68		pla				pla 								; save A X Y and maybe Z
+.c57a	8d 28 04	sta $0428			sta 	TIM_A
+.c57d	fa		plx				plx
+.c57e	8e 29 04	stx $0429			stx 	TIM_X
+.c581	8c 2a 04	sty $042a			sty 	TIM_Y
+.c584	68		pla				pla 								; get Status Register
+.c585	8d 27 04	sta $0427			sta 	TIM_SR
+.c588	68		pla				pla
+.c589	8d 24 04	sta $0424			sta 	TIM_PC+1 					; save calling address
+.c58c	68		pla				pla
+.c58d	8d 23 04	sta $0423			sta 	TIM_PC 						; high byte
+.c590	ad 24 04	lda $0424			lda 	TIM_PC+1 					; dec PC to point right.
+.c593	d0 03		bne $c598			bne 	_TIMDecrement 				; brk bumps it.
+.c595	ce 23 04	dec $0423			dec 	TIM_PC
+.c598					_TIMDecrement:
+.c598	ce 24 04	dec $0424			dec 	TIM_PC+1
+.c59b	ba		tsx				tsx 								; and copy SP
+.c59c	8e 2c 04	stx $042c			stx 	TIM_SP
+.c59f	a2 ff		ldx #$ff			ldx 	#$FF 						; reset SP
+.c5a1	9a		txs				txs
+.c5a2	4c 82 c4	jmp $c482			jmp 	TIM_Start 					; and start up TIM monitor.
+.c5a5					TIM_UpdateRegisters:
+.c5a5	20 21 c5	jsr $c521			jsr 	TIM_GetHex 					; PC
+.c5a8	b0 29		bcs $c5d3			bcs 	_TIMURFail
+.c5aa	a5 14		lda $14				lda 	zTemp3
+.c5ac	8d 24 04	sta $0424			sta 	Tim_PC+1
+.c5af	a5 15		lda $15				lda 	zTemp3+1
+.c5b1	8d 23 04	sta $0423			sta 	Tim_PC
+.c5b4	20 21 c5	jsr $c521			jsr 	TIM_GetHex 					; ignore IRQ
+.c5b7	b0 1a		bcs $c5d3			bcs 	_TIMURFail
+.c5b9	a2 00		ldx #$00			ldx 	#0
+.c5bb	ea		nop				nop
+.c5bc					_TIM_URLoop:
+.c5bc	e0 04		cpx #$04			cpx 	#Tim_Z-Tim_SR
+.c5be	d0 01		bne $c5c1			bne 	_TIM_1
+.c5c0	e8		inx				inx
+.c5c1					_TIM_1:
+.c5c1	20 21 c5	jsr $c521			jsr 	TIM_GetHex 					; registers
+.c5c4	b0 0d		bcs $c5d3			bcs 	_TIMURFail
+.c5c6	a5 14		lda $14				lda 	zTemp3
+.c5c8	9d 27 04	sta $0427,x			sta 	Tim_SR,x
+.c5cb	e8		inx				inx
+.c5cc	e0 06		cpx #$06			cpx 	#Tim_SP-Tim_SR+1
+.c5ce	d0 ec		bne $c5bc			bne 	_TIM_URLoop
+.c5d0	4c f9 c3	jmp $c3f9			jmp 	TIM_NewCommand
+.c5d3					_TIMURFail:
+.c5d3	4c f2 c3	jmp $c3f2			jmp 	TIM_Error
+.c5d6					TIM_LoadMemory:
+.c5d6	20 21 c5	jsr $c521			jsr 	TIM_GetHex 					; target address => zTemp2
+.c5d9	a5 14		lda $14				lda 	zTemp3
+.c5db	85 12		sta $12				sta 	zTemp2
+.c5dd	a5 15		lda $15				lda 	zTemp3+1
+.c5df	85 13		sta $13				sta 	zTemp2+1
+.c5e1					_TIM_LMLoop:
+.c5e1	20 21 c5	jsr $c521			jsr 	TIM_GetHex 					; next byte ?
+.c5e4	b0 0e		bcs $c5f4			bcs 	_TIMLMDone 					; no more
+.c5e6	a2 00		ldx #$00			ldx 	#0							; write out.
+.c5e8	a5 14		lda $14				lda 	zTemp3
+.c5ea	81 12		sta ($12,x)			sta 	(zTemp2,x)
+.c5ec	e6 12		inc $12				inc 	zTemp2 						; bump address
+.c5ee	d0 f1		bne $c5e1			bne 	_TIM_LMLoop
+.c5f0	e6 13		inc $13				inc 	zTemp2+1
+.c5f2	80 ed		bra $c5e1			bra 	_TIM_LMLoop
+.c5f4					_TIMLMDone:
+.c5f4	4c f9 c3	jmp $c3f9			jmp 	TIM_NewCommand
 
 ;******  Return to file: _include.asm
 
 
 ;******  Return to file: basic.asm
 
->c5ea	02						.byte 	2
+>c5f7	02						.byte 	2
 .fff8					DefaultInterrupt:
 .fff8	40		rti				rti
 >fffa	f8 ff						.word DefaultInterrupt
 >fffc	ec c1						.word 	StartROM
->fffe	65 c5					.word TIM_BreakVector
+>fffe	6c c5					.word TIM_BreakVector
 
 ;******  End of listing

@@ -134,13 +134,37 @@ _EVSMLShift:
 ; *******************************************************************************************
 
 EVGetDecimal:
-		nop
-		;
-		;		Copy .<characters> into a buffer (Num_Buffer)
-		;		Set zGenPtr to point to that buffer,Y to 0.
-		;		Call FPFromStr to convert/add it.
-		;
-		; 		Check decimal and exponents work.
-		;
-		;
+		.if hasFloat = 1
+		lda 	#'.'							; put DP in NUM_Buffer
+		sta 	Num_Buffer
+		phx
+		#s_next 								; move forward.
+		#s_get 									; get the total length.
+		#s_next 								; skip over that
+		dec 	a								; convert to a string length.
+		dec 	a
+		ldx 	#1 								; offset in X.
+_EVGDCopy:				
+		pha 									; save count
+		#s_get 									; get and save character
+		sta 	Num_Buffer,x
+		inx 									; forward ....
+		#s_next
+		pla 									; get count
+		dec 	a 								; until zero
+		bne 	_EVGDCopy 
+		sta 	Num_Buffer,x 					; make string ASCIIZ.
+		plx 									; restore X
+
+		lda 	#Num_Buffer & $FF 				; set zGenPtr
+		sta 	zGenPtr
+		lda 	#Num_Buffer >> 8
+		sta 	zGenPtr+1
+		phy 									; save Y
+		ldy 	#0 								; start position
+		jsr 	FPFromString 					; convert current 
+		ply 									; restore Y
 		rts
+		.else
+		jmp 	SyntaxError
+		.endif
