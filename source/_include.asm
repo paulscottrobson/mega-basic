@@ -5,7 +5,7 @@ boot: .macro
 	jmp BASIC_Start
 	.endm
 irqhandler: .macro
-		.word DefaultInterrupt
+	.word TIM_BreakVector
 	.endm
 nmihandler: .macro
 		.word DefaultInterrupt
@@ -15,9 +15,10 @@ fatal: .macro
 	.endm
 cpu = "65816"
 hardware = "em65816"
-hasFloat = 0
+hasFloat = 1
 hasInteger = 1
 maxString = 253
+	.include "modules/float/fpmacros.inc"
 	.include "modules/basic/pointer/em65816/src_em65816.inc"
 	.include "modules/basic/pointer/checks.inc"
 	.include "modules/basic/expressions/handlers.inc"
@@ -42,3 +43,14 @@ maxString = 253
 	.include "modules/integer/divide.asm"
 	.include "modules/integer/convert/inttostr.asm"
 	.include "modules/integer/convert/intfromstr.asm"
+	.include "modules/float/fpadd.asm"
+	.include "modules/float/fpdivide.asm"
+	.include "modules/float/fpmultiply.asm"
+	.include "modules/float/fpparts.asm"
+	.include "modules/float/fpcompare.asm"
+	.include "modules/float/fputils.asm"
+	.include "modules/float/convert/fptostr.asm"
+	.include "modules/float/convert/fpfromstr.asm"
+	.include "modules/basic/expressions/floatonly/rnd.asm"
+	.include "modules/basic/expressions/floatonly/int.asm"
+	.include "modules/utility/tim.asm"

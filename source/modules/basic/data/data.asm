@@ -84,6 +84,8 @@ SignCount:	.byte ?							; Integer Divide Sign Counts.
 StringPtr:	.byte ? 						; Top of free memory (for string allocation)
 TempStringWriteIndex: .byte ? 				; Write offset.
 
+RandomSeed:	.dword ? 						; Random seed.
+
 Tim_PC:		.word ?							; program counter on BRK (Hi/Lo order)
 Tim_IRQ:	.word ?							; IRQ Vector (Hi/Lo order)
 Tim_SR:		.byte ? 						; Processor Status

@@ -1,16 +1,16 @@
 TODO
 ====
 	- 	Add numeric unary functions except trig/log etc. 
-				USR PEEK LEEK DEEK SPC VAL DEC MOD RND
+				USR PEEK LEEK DEEK VAL DEC MOD
 
 	- 	Add string functions.
-				LEFT$ MID$ RIGHT$ STR$ HEX$ CHR$
+				LEFT$ MID$ RIGHT$ STR$ HEX$ CHR$ SPC 
 
 	- 	Write the basic executor and tokeniser and implement ASSERT and PRINT.
 
 	- 	Write test harness module and test code for arithmetic (fp/int), logical, concat, unary, comparison
 
-	- 	Get the 6502/mega65 versions working, the latter first using (x),y then Z
+	- 	Get the 6502/mega65 versions working, the latter first using (x),y then (zp),Z
 
 	- 	Design and implement variables optional defaults and # (real) % (int) $ (string)
 
