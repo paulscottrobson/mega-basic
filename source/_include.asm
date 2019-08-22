@@ -17,6 +17,7 @@ cpu = "65816"
 hardware = "em65816"
 hasFloat = 1
 hasInteger = 1
+maxString = 253
 	.include "modules/float/fpmacros.inc"
 	.include "modules/basic/pointer/em65816/src_em65816.inc"
 	.include "modules/basic/expressions/handlers.inc"

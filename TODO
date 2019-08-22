@@ -1,6 +1,5 @@
 TODO
 ====
-	- 	Add string concatenation to add handler.
 	- 	Add three-type comparison functionality.
 	- 	Add unary functions except trig/log etc.
 	- 	Add string functions.

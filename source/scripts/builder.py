@@ -67,6 +67,7 @@ class IntegerBasic(BuildDefinition):
 	def create(self):
 		self.define("hasFloat",0)
 		self.define("hasInteger",1)
+		self.define("maxString",253)
 		self.addModule("basic.*")
 		self.addModule("basic.commands.*")	
 		self.addModule("basic.expressions.*")	
