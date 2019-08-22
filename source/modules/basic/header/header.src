@@ -1,7 +1,7 @@
 firstKeywordMinus = $93
 firstKeywordPlus = $8f
 firstUnaryFunction = $98
-lastUnaryFunction = $b3
+lastUnaryFunction = $b4
 ;
 ;	Jump Vector Table
 ;
@@ -41,7 +41,7 @@ VectorTable:
 	.word NotImplemented       ; $a0 left$(
 	.word NotImplemented       ; $a1 right$(
 	.word NotImplemented       ; $a2 mid$(
-	.word NotImplemented       ; $a3 spc(
+	.word Unary_Spc            ; $a3 spc(
 	.word NotImplemented       ; $a4 str$(
 	.word NotImplemented       ; $a5 val(
 	.word Unary_Len            ; $a6 len(
@@ -58,42 +58,43 @@ VectorTable:
 	.word NotImplemented       ; $b1 leek(
 	.word NotImplemented       ; $b2 mod(
 	.word Unary_Sgn            ; $b3 sgn(
-	.word NotImplemented       ; $b4 $(
-	.word NotImplemented       ; $b5 $
-	.word NotImplemented       ; $b6 #(
-	.word NotImplemented       ; $b7 #
-	.word NotImplemented       ; $b8 %(
-	.word NotImplemented       ; $b9 %
-	.word NotImplemented       ; $ba (
-	.word NotImplemented       ; $bb )
-	.word NotImplemented       ; $bc ,
-	.word NotImplemented       ; $bd :
-	.word NotImplemented       ; $be ;
-	.word NotImplemented       ; $bf def
-	.word CLR_Command          ; $c0 clr
-	.word NotImplemented       ; $c2 data
-	.word NotImplemented       ; $c3 read
-	.word NotImplemented       ; $c4 dim
-	.word NotImplemented       ; $c5 to
-	.word NotImplemented       ; $c6 step
-	.word NotImplemented       ; $c7 gosub
-	.word NotImplemented       ; $c8 return
-	.word NotImplemented       ; $c9 goto
-	.word NotImplemented       ; $ca input
-	.word NotImplemented       ; $cb let
-	.word NotImplemented       ; $cc list
-	.word NotImplemented       ; $cd new
-	.word NotImplemented       ; $ce old
-	.word NotImplemented       ; $cf on
-	.word NotImplemented       ; $d0 restore
-	.word NotImplemented       ; $d1 poke
-	.word NotImplemented       ; $d2 print
-	.word NotImplemented       ; $d3 run
-	.word NotImplemented       ; $d4 stop
-	.word NotImplemented       ; $d5 wait
-	.word NotImplemented       ; $d6 doke
-	.word NotImplemented       ; $d7 loke
-	.word NotImplemented       ; $d8 assert
+	.word Unary_Chr            ; $b4 chr$(
+	.word NotImplemented       ; $b5 $(
+	.word NotImplemented       ; $b6 $
+	.word NotImplemented       ; $b7 #(
+	.word NotImplemented       ; $b8 #
+	.word NotImplemented       ; $b9 %(
+	.word NotImplemented       ; $ba %
+	.word NotImplemented       ; $bb (
+	.word NotImplemented       ; $bc )
+	.word NotImplemented       ; $bd ,
+	.word NotImplemented       ; $be :
+	.word NotImplemented       ; $bf ;
+	.word NotImplemented       ; $c0 def
+	.word CLR_Command          ; $c1 clr
+	.word NotImplemented       ; $c3 data
+	.word NotImplemented       ; $c4 read
+	.word NotImplemented       ; $c5 dim
+	.word NotImplemented       ; $c6 to
+	.word NotImplemented       ; $c7 step
+	.word NotImplemented       ; $c8 gosub
+	.word NotImplemented       ; $c9 return
+	.word NotImplemented       ; $ca goto
+	.word NotImplemented       ; $cb input
+	.word NotImplemented       ; $cc let
+	.word NotImplemented       ; $cd list
+	.word NotImplemented       ; $ce new
+	.word NotImplemented       ; $cf old
+	.word NotImplemented       ; $d0 on
+	.word NotImplemented       ; $d1 restore
+	.word NotImplemented       ; $d2 poke
+	.word NotImplemented       ; $d3 print
+	.word NotImplemented       ; $d4 run
+	.word NotImplemented       ; $d5 stop
+	.word NotImplemented       ; $d6 wait
+	.word NotImplemented       ; $d7 doke
+	.word NotImplemented       ; $d8 loke
+	.word NotImplemented       ; $d9 assert
 NotImplemented:
 
 	#fatal "Not implemented"
@@ -173,42 +174,43 @@ KeywordText:
 	.byte $4c,$45,$45,$4b,$a8              ; $b1 leek(
 	.byte $4d,$4f,$44,$a8                  ; $b2 mod(
 	.byte $53,$47,$4e,$a8                  ; $b3 sgn(
-	.byte $24,$a8                          ; $b4 $(
-	.byte $a4                              ; $b5 $
-	.byte $23,$a8                          ; $b6 #(
-	.byte $a3                              ; $b7 #
-	.byte $25,$a8                          ; $b8 %(
-	.byte $a5                              ; $b9 %
-	.byte $a8                              ; $ba (
-	.byte $a9                              ; $bb )
-	.byte $ac                              ; $bc ,
-	.byte $ba                              ; $bd :
-	.byte $bb                              ; $be ;
-	.byte $44,$45,$c6                      ; $bf def
-	.byte $43,$4c,$d2                      ; $c0 clr
-	.byte $44,$41,$54,$c1                  ; $c2 data
-	.byte $52,$45,$41,$c4                  ; $c3 read
-	.byte $44,$49,$cd                      ; $c4 dim
-	.byte $54,$cf                          ; $c5 to
-	.byte $53,$54,$45,$d0                  ; $c6 step
-	.byte $47,$4f,$53,$55,$c2              ; $c7 gosub
-	.byte $52,$45,$54,$55,$52,$ce          ; $c8 return
-	.byte $47,$4f,$54,$cf                  ; $c9 goto
-	.byte $49,$4e,$50,$55,$d4              ; $ca input
-	.byte $4c,$45,$d4                      ; $cb let
-	.byte $4c,$49,$53,$d4                  ; $cc list
-	.byte $4e,$45,$d7                      ; $cd new
-	.byte $4f,$4c,$c4                      ; $ce old
-	.byte $4f,$ce                          ; $cf on
-	.byte $52,$45,$53,$54,$4f,$52,$c5      ; $d0 restore
-	.byte $50,$4f,$4b,$c5                  ; $d1 poke
-	.byte $50,$52,$49,$4e,$d4              ; $d2 print
-	.byte $52,$55,$ce                      ; $d3 run
-	.byte $53,$54,$4f,$d0                  ; $d4 stop
-	.byte $57,$41,$49,$d4                  ; $d5 wait
-	.byte $44,$4f,$4b,$c5                  ; $d6 doke
-	.byte $4c,$4f,$4b,$c5                  ; $d7 loke
-	.byte $41,$53,$53,$45,$52,$d4          ; $d8 assert
+	.byte $43,$48,$52,$24,$a8              ; $b4 chr$(
+	.byte $24,$a8                          ; $b5 $(
+	.byte $a4                              ; $b6 $
+	.byte $23,$a8                          ; $b7 #(
+	.byte $a3                              ; $b8 #
+	.byte $25,$a8                          ; $b9 %(
+	.byte $a5                              ; $ba %
+	.byte $a8                              ; $bb (
+	.byte $a9                              ; $bc )
+	.byte $ac                              ; $bd ,
+	.byte $ba                              ; $be :
+	.byte $bb                              ; $bf ;
+	.byte $44,$45,$c6                      ; $c0 def
+	.byte $43,$4c,$d2                      ; $c1 clr
+	.byte $44,$41,$54,$c1                  ; $c3 data
+	.byte $52,$45,$41,$c4                  ; $c4 read
+	.byte $44,$49,$cd                      ; $c5 dim
+	.byte $54,$cf                          ; $c6 to
+	.byte $53,$54,$45,$d0                  ; $c7 step
+	.byte $47,$4f,$53,$55,$c2              ; $c8 gosub
+	.byte $52,$45,$54,$55,$52,$ce          ; $c9 return
+	.byte $47,$4f,$54,$cf                  ; $ca goto
+	.byte $49,$4e,$50,$55,$d4              ; $cb input
+	.byte $4c,$45,$d4                      ; $cc let
+	.byte $4c,$49,$53,$d4                  ; $cd list
+	.byte $4e,$45,$d7                      ; $ce new
+	.byte $4f,$4c,$c4                      ; $cf old
+	.byte $4f,$ce                          ; $d0 on
+	.byte $52,$45,$53,$54,$4f,$52,$c5      ; $d1 restore
+	.byte $50,$4f,$4b,$c5                  ; $d2 poke
+	.byte $50,$52,$49,$4e,$d4              ; $d3 print
+	.byte $52,$55,$ce                      ; $d4 run
+	.byte $53,$54,$4f,$d0                  ; $d5 stop
+	.byte $57,$41,$49,$d4                  ; $d6 wait
+	.byte $44,$4f,$4b,$c5                  ; $d7 doke
+	.byte $4c,$4f,$4b,$c5                  ; $d8 loke
+	.byte $41,$53,$53,$45,$52,$d4          ; $d9 assert
 	.byte $00
 token_and = $80
 token_or = $81
@@ -262,39 +264,40 @@ token_deek = $b0
 token_leek = $b1
 token_mod = $b2
 token_sgn = $b3
-token_dollarlparen = $b4
-token_dollar = $b5
-token_hashlparen = $b6
-token_hash = $b7
-token_percentlparen = $b8
-token_percent = $b9
-token_lparen = $ba
-token_rparen = $bb
-token_comma = $bc
-token_colon = $bd
-token_semicolon = $be
-token_def = $bf
-token_clr = $c0
-token_data = $c2
-token_read = $c3
-token_dim = $c4
-token_to = $c5
-token_step = $c6
-token_gosub = $c7
-token_return = $c8
-token_goto = $c9
-token_input = $ca
-token_let = $cb
-token_list = $cc
-token_new = $cd
-token_old = $ce
-token_on = $cf
-token_restore = $d0
-token_poke = $d1
-token_print = $d2
-token_run = $d3
-token_stop = $d4
-token_wait = $d5
-token_doke = $d6
-token_loke = $d7
-token_assert = $d8
+token_chrdollarlparen = $b4
+token_dollarlparen = $b5
+token_dollar = $b6
+token_hashlparen = $b7
+token_hash = $b8
+token_percentlparen = $b9
+token_percent = $ba
+token_lparen = $bb
+token_rparen = $bc
+token_comma = $bd
+token_colon = $be
+token_semicolon = $bf
+token_def = $c0
+token_clr = $c1
+token_data = $c3
+token_read = $c4
+token_dim = $c5
+token_to = $c6
+token_step = $c7
+token_gosub = $c8
+token_return = $c9
+token_goto = $ca
+token_input = $cb
+token_let = $cc
+token_list = $cd
+token_new = $ce
+token_old = $cf
+token_on = $d0
+token_restore = $d1
+token_poke = $d2
+token_print = $d3
+token_run = $d4
+token_stop = $d5
+token_wait = $d6
+token_doke = $d7
+token_loke = $d8
+token_assert = $d9

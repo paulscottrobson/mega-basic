@@ -37,6 +37,8 @@ maxString = 253
 	.include "modules/basic/expressions/number/abs.asm"
 	.include "modules/basic/expressions/string/asc.asm"
 	.include "modules/basic/expressions/string/len.asm"
+	.include "modules/basic/expressions/string/chr.asm"
+	.include "modules/basic/expressions/string/spc.asm"
 	.include "modules/basic/pointer/checks.asm"
 	.include "modules/basic/stringmem/tempalloc.asm"
 	.include "modules/integer/multiply.asm"

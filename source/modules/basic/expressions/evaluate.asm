@@ -322,7 +322,7 @@ EvaluateNumber:
 		ldx 	#0
 EvaluateNumberX:
 		jsr 	EvaluateExpressionX
-		lda 	XS_Type 						; check type is 0/1
+		lda 	XS_Type,x 						; check type is 0/1
 		and 	#15 					
 		cmp 	#2
 		bcs 	EvaluateType
@@ -338,7 +338,7 @@ EvaluateString:
 		ldx 	#0
 EvaluateStringX:
 		jsr 	EvaluateExpressionX
-		lda 	XS_Type 						; check type is 2
+		lda 	XS_Type,x 						; check type is 2
 		and 	#15 					
 		cmp 	#2
 		bne 	EvaluateType

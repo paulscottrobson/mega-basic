@@ -104,7 +104,7 @@ class Tokens(object):
 		not		fn( 	abs(	asc( 	int( 	peek( 	rnd(	usr(
 		left$( 	right$(	mid$( 	spc( 	str$( 	val(	len(	hex$(
 		sin( 	cos( 	tan( 	atn(	exp(	log( 	sqr(
-		dec( 	deek(	leek(	mod( 	sgn(
+		dec( 	deek(	leek(	mod( 	sgn(	chr$(
 	##
 	##		Keywords that require a one byte token.
 	##
