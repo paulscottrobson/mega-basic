@@ -5,7 +5,7 @@ python ftestgen.py >../modules/testing/script.inc
 popd >/dev/null
 
 pushd tokens >/dev/null
-python tokentables.py >../modules/common/header/header.src
+python tokentables.py >../modules/basic/header/header.src
 python basicprogram.py >../modules/basic/testcode/testcode.src
 popd
 

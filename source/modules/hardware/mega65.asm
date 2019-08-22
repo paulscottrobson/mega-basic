@@ -27,7 +27,7 @@ HighMemory = $A000
 BasicProgram:		
 		.include "../basic/testcode/testcode.src"
 		* = $A000
-		.include "../common/header/header.src"
+		.include "../basic/header/header.src"
 
 StartROM:
 		#ResetStack

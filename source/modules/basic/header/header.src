@@ -6,20 +6,20 @@ lastUnaryFunction = $b2
 ;	Jump Vector Table
 ;
 VectorTable:
-	.word BinaryOp_And         ; $80 and
-	.word BinaryOp_Or          ; $81 or
-	.word BinaryOp_Xor         ; $82 xor
-	.word BinaryOp_Eor         ; $83 eor
-	.word Binary_Equal         ; $84 =
-	.word Binary_NotEqual      ; $85 <>
-	.word Binary_Less          ; $86 <
-	.word Binary_LessEqual     ; $87 <=
-	.word Binary_Greater       ; $88 >
-	.word Binary_GreaterEqual  ; $89 >=
-	.word BinaryOp_Add         ; $8a +
-	.word BinaryOp_Subtract    ; $8b -
-	.word BinaryOp_Multiply    ; $8c *
-	.word BinaryOp_Divide      ; $8d /
+	.word NotImplemented       ; $80 and
+	.word NotImplemented       ; $81 or
+	.word NotImplemented       ; $82 xor
+	.word NotImplemented       ; $83 eor
+	.word NotImplemented       ; $84 =
+	.word NotImplemented       ; $85 <>
+	.word NotImplemented       ; $86 <
+	.word NotImplemented       ; $87 <=
+	.word NotImplemented       ; $88 >
+	.word NotImplemented       ; $89 >=
+	.word NotImplemented       ; $8a +
+	.word NotImplemented       ; $8b -
+	.word NotImplemented       ; $8c *
+	.word NotImplemented       ; $8d /
 	.word NotImplemented       ; $8e ^
 	.word NotImplemented       ; $8f if
 	.word NotImplemented       ; $90 while
@@ -69,7 +69,7 @@ VectorTable:
 	.word NotImplemented       ; $bc :
 	.word NotImplemented       ; $bd ;
 	.word NotImplemented       ; $be def
-	.word CLR_Command          ; $bf clr
+	.word NotImplemented       ; $bf clr
 	.word NotImplemented       ; $c1 data
 	.word NotImplemented       ; $c2 read
 	.word NotImplemented       ; $c3 dim

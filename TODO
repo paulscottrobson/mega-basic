@@ -1,9 +1,7 @@
 TODO
 ====
-	- 	Complete three-type comparison functionality.
-				Integer types
-				String types
-
+	- 	Add check next character/token routines
+	
 	- 	Add numeric unary functions except trig/log etc. 
 				LEN ABS RND SGN ASC INT USR PEEK LEEK DEEK SPC VAL DEC MOD
 
@@ -12,7 +10,7 @@ TODO
 
 	- 	Write the basic executor and tokeniser and implement ASSERT and PRINT.
 
-	- 	Write test harness module and test code for arithmetic, logical, concat, unary.
+	- 	Write test harness module and test code for arithmetic (fp/int), logical, concat, unary, comparison
 
 	- 	Design and implement variables optional defaults and # (real) % (int) $ (string)
 

@@ -306,4 +306,35 @@ EvaluateGetAtomX:
 EvaluateType:
 		#Fatal	"Wrong type of data"
 
+; *******************************************************************************************
+;
+;										Get numeric value
+;
+; *******************************************************************************************
 
+EvaluateNumber:	
+		ldx 	#0
+EvaluateNumberX:
+		jsr 	EvaluateExpressionX
+		lda 	XS_Type 						; check type is 0/1
+		and 	#15 					
+		cmp 	#2
+		bcs 	EvaluateType
+		rts
+
+; *******************************************************************************************
+;
+;										Get string value
+;
+; *******************************************************************************************
+
+EvaluateString:	
+		ldx 	#0
+EvaluateStringX:
+		jsr 	EvaluateExpressionX
+		lda 	XS_Type 						; check type is 2
+		and 	#15 					
+		cmp 	#2
+		bne 	EvaluateType
+		rts
+		

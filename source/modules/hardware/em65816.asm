@@ -31,7 +31,7 @@ HighMemory = $8000
 BasicProgram:		
 		.include "../basic/testcode/testcode.src"
 		* = $C000
-		.include "../common/header/header.src"
+		.include "../basic/header/header.src"
 
 StartROM:
 		clc

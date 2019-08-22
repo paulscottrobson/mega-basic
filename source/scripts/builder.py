@@ -58,6 +58,7 @@ class TIMOnlyTest(BuildDefinition):												# Something just running TIM
 
 class FloatingPointTest(BuildDefinition):										# Run FP Unit Test.
 	def create(self):
+		self.addModule("basic.common.*")									
 		self.addModule("float.*")												# FP Stuff
 		self.addModule("utility.tim")											# nicked hex printing routines :)
 		self.addModule("testing.fptest")
@@ -68,9 +69,12 @@ class IntegerBasic(BuildDefinition):
 		self.define("hasFloat",0)
 		self.define("hasInteger",1)
 		self.define("maxString",253)
+		self.addModule("basic.header.*")									
+		self.addModule("basic.common.*")									
 		self.addModule("basic.*")
 		self.addModule("basic.commands.*")	
-		self.addModule("basic.expressions.*")	
+		self.addModule("basic.expressions.*")
+		self.addModule("basic.pointer.*")	
 		self.addModule("basic.pointer.@h.*")
 		self.addModule("basic.stringmem.*")
 		self.addModule("integer.*")

@@ -154,8 +154,7 @@ class BuildDefinition(object):
 	#		Default startup stuff for eeerything
 	#
 	def defaultsCreate(self):
-		self.addModule("common.*")												# common stuff
-		self.addModule("common.header.*")										# we need these always
+		self.addModule("basic.data.*")
 		self.addModule("hardware.@h")											# cpu memory layout etc.
 	#
 	#		Interface creation.
