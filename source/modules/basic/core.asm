@@ -10,7 +10,14 @@
 ; *******************************************************************************************
 
 BASIC_Start:
+		lda 	#USRDefault & $FF 			; reset USR vector
+		sta 	USR_Vector
+		lda 	#USRDefault >> 8
+		sta 	USR_Vector+1		
 		jsr 	ResetRunStatus 				; clear everything (CLR command)
+		;
+		; TODO: NEW, maybe.
+		;
 		lda 	#0 							; mark temp string pointer uninitialised.
 		sta 	zTempStr+1 					; (done before every base level evaluation/or command)
 

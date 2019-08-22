@@ -6,20 +6,20 @@ lastUnaryFunction = $b4
 ;	Jump Vector Table
 ;
 VectorTable:
-	.word BinaryOp_And         ; $80 and
-	.word BinaryOp_Or          ; $81 or
-	.word BinaryOp_Xor         ; $82 xor
-	.word BinaryOp_Eor         ; $83 eor
-	.word Binary_Equal         ; $84 =
-	.word Binary_NotEqual      ; $85 <>
-	.word Binary_Less          ; $86 <
-	.word Binary_LessEqual     ; $87 <=
-	.word Binary_Greater       ; $88 >
-	.word Binary_GreaterEqual  ; $89 >=
-	.word BinaryOp_Add         ; $8a +
-	.word BinaryOp_Subtract    ; $8b -
-	.word BinaryOp_Multiply    ; $8c *
-	.word BinaryOp_Divide      ; $8d /
+	.word NotImplemented       ; $80 and
+	.word NotImplemented       ; $81 or
+	.word NotImplemented       ; $82 xor
+	.word NotImplemented       ; $83 eor
+	.word NotImplemented       ; $84 =
+	.word NotImplemented       ; $85 <>
+	.word NotImplemented       ; $86 <
+	.word NotImplemented       ; $87 <=
+	.word NotImplemented       ; $88 >
+	.word NotImplemented       ; $89 >=
+	.word NotImplemented       ; $8a +
+	.word NotImplemented       ; $8b -
+	.word NotImplemented       ; $8c *
+	.word NotImplemented       ; $8d /
 	.word NotImplemented       ; $8e ^
 	.word NotImplemented       ; $8f if
 	.word NotImplemented       ; $90 while
@@ -32,20 +32,20 @@ VectorTable:
 	.word NotImplemented       ; $97 next
 	.word NotImplemented       ; $98 not
 	.word NotImplemented       ; $99 fn(
-	.word Unary_Abs            ; $9a abs(
-	.word Unary_Asc            ; $9b asc(
-	.word Unary_Int            ; $9c int(
+	.word NotImplemented       ; $9a abs(
+	.word NotImplemented       ; $9b asc(
+	.word NotImplemented       ; $9c int(
 	.word NotImplemented       ; $9d peek(
-	.word Unary_Rnd            ; $9e rnd(
+	.word NotImplemented       ; $9e rnd(
 	.word NotImplemented       ; $9f usr(
 	.word NotImplemented       ; $a0 left$(
 	.word NotImplemented       ; $a1 right$(
 	.word NotImplemented       ; $a2 mid$(
-	.word Unary_Spc            ; $a3 spc(
-	.word Unary_Str            ; $a4 str$(
-	.word Unary_Val            ; $a5 val(
-	.word Unary_Len            ; $a6 len(
-	.word Unary_Hex            ; $a7 hex$(
+	.word NotImplemented       ; $a3 spc(
+	.word NotImplemented       ; $a4 str$(
+	.word NotImplemented       ; $a5 val(
+	.word NotImplemented       ; $a6 len(
+	.word NotImplemented       ; $a7 hex$(
 	.word NotImplemented       ; $a8 sin(
 	.word NotImplemented       ; $a9 cos(
 	.word NotImplemented       ; $aa tan(
@@ -53,12 +53,12 @@ VectorTable:
 	.word NotImplemented       ; $ac exp(
 	.word NotImplemented       ; $ad log(
 	.word NotImplemented       ; $ae sqr(
-	.word Unary_Dec            ; $af dec(
+	.word NotImplemented       ; $af dec(
 	.word NotImplemented       ; $b0 deek(
 	.word NotImplemented       ; $b1 leek(
 	.word NotImplemented       ; $b2 mod(
-	.word Unary_Sgn            ; $b3 sgn(
-	.word Unary_Chr            ; $b4 chr$(
+	.word NotImplemented       ; $b3 sgn(
+	.word NotImplemented       ; $b4 chr$(
 	.word NotImplemented       ; $b5 $(
 	.word NotImplemented       ; $b6 $
 	.word NotImplemented       ; $b7 #(
@@ -71,7 +71,7 @@ VectorTable:
 	.word NotImplemented       ; $be :
 	.word NotImplemented       ; $bf ;
 	.word NotImplemented       ; $c0 def
-	.word CLR_Command          ; $c1 clr
+	.word NotImplemented       ; $c1 clr
 	.word NotImplemented       ; $c3 data
 	.word NotImplemented       ; $c4 read
 	.word NotImplemented       ; $c5 dim

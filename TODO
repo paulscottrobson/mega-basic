@@ -1,7 +1,7 @@
 TODO
 ====
 	- 	Add numeric unary functions except trig/log etc. 
-				USR PEEK LEEK DEEK MOD(a,b)
+				PEEK LEEK DEEK
 
 	- 	Add string functions.
 				LEFT$ MID$ RIGHT$
