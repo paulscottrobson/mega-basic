@@ -107,6 +107,7 @@ _EVGotAtom:
 		plx 								; restore X
 		;
 		pla 								; get the binary operator in A.
+_EVCallA:		
 		phx 								; save X again
 		asl 	a 							; double, lose the MSB.
 		tax									; put in X
@@ -187,10 +188,16 @@ _EVNotNot:
 		jmp 	_EVGotAtom
 		;
 _EVNotString:	
-		bra 	_EVNotString		
-;
-;		Discovered a variable.
-;
+		nop
+		cmp 	#firstUnaryFunction
+		bcc 	_EVBadElement
+		cmp 	#lastUnaryFunction+1
+		bcc 	_EVUnaryFunction		
+_EVBadElement:
+		jmp 	SyntaxError
+_EVUnaryFunction:		
+		jmp 	_EVCallA
+		
 _EVVariableHandler:
 		nop		
 

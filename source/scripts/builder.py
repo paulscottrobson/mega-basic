@@ -74,6 +74,8 @@ class IntegerBasic(BuildDefinition):
 		self.addModule("basic.*")
 		self.addModule("basic.commands.*")	
 		self.addModule("basic.expressions.*")
+		self.addModule("basic.expressions.number.*")
+		self.addModule("basic.expressions.string.*")
 		self.addModule("basic.pointer.*")	
 		self.addModule("basic.pointer.@h.*")
 		self.addModule("basic.stringmem.*")
