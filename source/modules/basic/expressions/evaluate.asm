@@ -156,8 +156,7 @@ _EVNotMinus:
 		#s_next
 		cmp 	#token_rparen 				; okay if right bracket.
 		beq 	_EVGotAtom
-		#Error
-		.text	"Missing closing bracket",0
+		#Fatal	"Missing closing bracket"
 
 _EVNotParenthesis:		
 		cmp 	#token_not 					; is it not ?
@@ -305,7 +304,6 @@ EvaluateGetAtomX:
 		rts
 		;
 EvaluateType:
-		#Error
-		.text 	"Wrong type of data",0
+		#Fatal	"Wrong type of data"
 
 

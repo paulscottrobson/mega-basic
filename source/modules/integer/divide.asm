@@ -15,8 +15,7 @@ DivInteger32:
 		ora 	XS2_Mantissa+2,x
 		ora 	XS2_Mantissa+3,x
 		bne 	_BFDOkay
-		#error	
-		.text "Division by Zero",0
+		#fatal	"Division by Zero"
 		;
 _BFDOkay:
 		lda 	#0 							; zLTemp1 is 'A' (and holds the remainder)

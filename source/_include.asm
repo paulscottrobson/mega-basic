@@ -10,7 +10,7 @@ irqhandler: .macro
 nmihandler: .macro
 		.word DefaultInterrupt
 	.endm
-error: .macro
+fatal: .macro
 	_error: bra _error
 	.endm
 cpu = "65816"
@@ -29,6 +29,7 @@ maxString = 253
 	.include "modules/basic/commands/clr.asm"
 	.include "modules/basic/expressions/evaluate.asm"
 	.include "modules/basic/expressions/logical.asm"
+	.include "modules/basic/expressions/compare.asm"
 	.include "modules/basic/expressions/arithmetic.asm"
 	.include "modules/basic/stringmem/tempalloc.asm"
 	.include "modules/integer/multiply.asm"

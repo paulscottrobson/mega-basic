@@ -10,12 +10,12 @@ VectorTable:
 	.word BinaryOp_Or          ; $81 or
 	.word BinaryOp_Xor         ; $82 xor
 	.word BinaryOp_Eor         ; $83 eor
-	.word NotImplemented       ; $84 =
-	.word NotImplemented       ; $85 <>
-	.word NotImplemented       ; $86 <
-	.word NotImplemented       ; $87 <=
-	.word NotImplemented       ; $88 >
-	.word NotImplemented       ; $89 >=
+	.word Binary_Equal         ; $84 =
+	.word Binary_NotEqual      ; $85 <>
+	.word Binary_Less          ; $86 <
+	.word Binary_LessEqual     ; $87 <=
+	.word Binary_Greater       ; $88 >
+	.word Binary_GreaterEqual  ; $89 >=
 	.word BinaryOp_Add         ; $8a +
 	.word BinaryOp_Subtract    ; $8b -
 	.word BinaryOp_Multiply    ; $8c *
@@ -95,9 +95,8 @@ VectorTable:
 	.word NotImplemented       ; $d7 assert
 NotImplemented:
 
-	#error
+	#fatal "Not implemented"
 
-	.text "Syntax Error",0
 ;
 ;	Binary Precedence Level Table
 ;

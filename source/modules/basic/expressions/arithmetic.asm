@@ -100,8 +100,7 @@ _BMFConvert:
 		jmp 	FPUToFloat 					; convert to float		
 		.endif
 _BMFError:
-		#Error
-		.text 	"Numeric type required",0
+		#Fatal	"Numeric type required",0
 				
 ; *******************************************************************************************
 ;
@@ -161,6 +160,5 @@ _CSCSExit:
 		rts
 
 _CSError:
-		#Error
-		.text 	"String too long"
+		#Fatal	"String too long"
 

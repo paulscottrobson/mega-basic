@@ -189,8 +189,7 @@ _FPUToI_Exit:
 		pla
 		rts
 FP_Overflow:
-		#error
-		.text 	"Floating Point overflow",0
+		#fatal 	"Floating Point overflow"
 
 ; *******************************************************************************************
 ;

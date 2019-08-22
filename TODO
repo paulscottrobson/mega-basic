@@ -1,17 +1,26 @@
 TODO
 ====
-	- 	Add three-type comparison functionality.
-	- 	Add unary functions except trig/log etc.
+	- 	Complete three-type comparison functionality.
+				Integer types
+				String types
+
+	- 	Add numeric unary functions except trig/log etc. 
+				LEN ABS RND SGN ASC INT USR PEEK LEEK DEEK SPC VAL DEC MOD
+
 	- 	Add string functions.
+				LEFT$ MID$ RIGHT$ STR$ HEX$
+
 	- 	Write the basic executor and tokeniser and implement ASSERT and PRINT.
-	- 	Write test harness.
-	- 	Design and implement variables defint a-z and # (real) % (int) $ (string)
+
+	- 	Write test harness module and test code for arithmetic, logical, concat, unary.
+
+	- 	Design and implement variables optional defaults and # (real) % (int) $ (string)
 
 Fixes
 =====
 - 	Proper insert/delete in line editing.
 - 	Add X to Monitor (warm start BASIC)
-- 	FP optimisations for 4510 extended.
+- 	FP optimisations for 4510 extended and 65816
 		- Anything in FPMacros (check XYZ usage for non shifts - may not be worth it)		
 		- Integer negation in fputils.asm
 		- Mantissa subtraction in fpdivide.asm

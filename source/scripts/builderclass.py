@@ -46,7 +46,7 @@ class BuildDefinition(object):
 		self.macros = { "boot": None, 											# What to run.
 						"irqhandler":defaultint,								# NMI/IRQ addresses
 						"nmihandler":defaultint,
-						"error":"_error: bra _error"							# Error - ASCIIZ message follows
+						"fatal":"_error: bra _error"							# Error - ASCIIZ message follows
 		}
 	#
 	#		Analyse the source requirements, add the various classes, macros.

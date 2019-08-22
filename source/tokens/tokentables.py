@@ -49,8 +49,7 @@ print("VectorTable:")
 for k in keywords:
 	print("\t.word {0:20} ; ${1:x} {2}".format(executeLabel[k],tokens[k]["token"],k))
 print("NotImplemented:\n")
-print("\t#error\n")
-print('\t.text "Syntax Error",0')
+print('\t#fatal "Not implemented"\n')
 #
 #		Print binary precedence table.
 #
