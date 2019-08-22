@@ -42,10 +42,10 @@ VectorTable:
 	.word NotImplemented       ; $a1 right$(
 	.word NotImplemented       ; $a2 mid$(
 	.word Unary_Spc            ; $a3 spc(
-	.word NotImplemented       ; $a4 str$(
+	.word Unary_Str            ; $a4 str$(
 	.word Unary_Val            ; $a5 val(
 	.word Unary_Len            ; $a6 len(
-	.word NotImplemented       ; $a7 hex$(
+	.word Unary_Hex            ; $a7 hex$(
 	.word NotImplemented       ; $a8 sin(
 	.word NotImplemented       ; $a9 cos(
 	.word NotImplemented       ; $aa tan(
@@ -53,7 +53,7 @@ VectorTable:
 	.word NotImplemented       ; $ac exp(
 	.word NotImplemented       ; $ad log(
 	.word NotImplemented       ; $ae sqr(
-	.word NotImplemented       ; $af dec(
+	.word Unary_Dec            ; $af dec(
 	.word NotImplemented       ; $b0 deek(
 	.word NotImplemented       ; $b1 leek(
 	.word NotImplemented       ; $b2 mod(
