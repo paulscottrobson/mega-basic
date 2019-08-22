@@ -1,8 +1,5 @@
 TODO
 ====
-	- 	Add numeric unary functions except trig/log etc. 
-				PEEK LEEK DEEK
-
 	- 	Add string functions.
 				LEFT$ MID$ RIGHT$
 
