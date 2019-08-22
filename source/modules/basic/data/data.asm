@@ -83,6 +83,7 @@ SignCount:	.byte ?							; Integer Divide Sign Counts.
 
 StringPtr:	.byte ? 						; Top of free memory (for string allocation)
 TempStringWriteIndex: .byte ? 				; Write offset.
+ValSign: 	.byte ? 						; sign flag for val()
 
 RandomSeed:	.dword ? 						; Random seed.
 

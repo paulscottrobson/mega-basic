@@ -35,6 +35,7 @@ maxString = 253
 	.include "modules/basic/expressions/arithmetic.asm"
 	.include "modules/basic/expressions/number/sgn.asm"
 	.include "modules/basic/expressions/number/abs.asm"
+	.include "modules/basic/expressions/string/val.asm"
 	.include "modules/basic/expressions/string/asc.asm"
 	.include "modules/basic/expressions/string/len.asm"
 	.include "modules/basic/expressions/string/chr.asm"
