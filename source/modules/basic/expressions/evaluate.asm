@@ -188,7 +188,6 @@ _EVNotNot:
 		jmp 	_EVGotAtom
 		;
 _EVNotString:	
-		nop
 		cmp 	#firstUnaryFunction
 		bcc 	_EVBadElement
 		cmp 	#lastUnaryFunction+1
@@ -343,5 +342,9 @@ EvaluateStringX:
 		and 	#15 					
 		cmp 	#2
 		bne 	EvaluateType
+		lda 	XS_Mantissa,x 					; copy to zGenPtr
+		sta 	zGenPtr
+		lda 	XS_Mantissa+1,x
+		sta 	zGenPtr+1
 		rts
 		

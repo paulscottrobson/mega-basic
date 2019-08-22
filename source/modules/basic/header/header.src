@@ -44,7 +44,7 @@ VectorTable:
 	.word NotImplemented       ; $a3 spc(
 	.word NotImplemented       ; $a4 str$(
 	.word NotImplemented       ; $a5 val(
-	.word NotImplemented       ; $a6 len(
+	.word Unary_Len            ; $a6 len(
 	.word NotImplemented       ; $a7 hex$(
 	.word NotImplemented       ; $a8 sin(
 	.word NotImplemented       ; $a9 cos(

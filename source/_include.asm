@@ -20,6 +20,7 @@ hasInteger = 1
 maxString = 253
 	.include "modules/float/fpmacros.inc"
 	.include "modules/basic/pointer/em65816/src_em65816.inc"
+	.include "modules/basic/pointer/checks.inc"
 	.include "modules/basic/expressions/handlers.inc"
 	.include "modules/basic/common/common.inc"
 	.include "modules/basic/data/data.asm"
@@ -33,6 +34,8 @@ maxString = 253
 	.include "modules/basic/expressions/compare.asm"
 	.include "modules/basic/expressions/arithmetic.asm"
 	.include "modules/basic/expressions/number/abs.asm"
+	.include "modules/basic/expressions/string/len.asm"
+	.include "modules/basic/pointer/checks.asm"
 	.include "modules/basic/stringmem/tempalloc.asm"
 	.include "modules/integer/multiply.asm"
 	.include "modules/integer/divide.asm"

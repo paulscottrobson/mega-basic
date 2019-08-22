@@ -1,11 +1,7 @@
 TODO
 ====
-	- 	Add check next character/token routines
-
-	- 	Complete and test abs( works.
-	
 	- 	Add numeric unary functions except trig/log etc. 
-				LEN RND SGN ASC INT USR PEEK LEEK DEEK SPC VAL DEC MOD
+				SGN ASC INT USR PEEK LEEK DEEK SPC VAL DEC MOD RND
 
 	- 	Add string functions.
 				LEFT$ MID$ RIGHT$ STR$ HEX$

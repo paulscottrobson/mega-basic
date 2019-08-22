@@ -1,28 +1,31 @@
 ; *******************************************************************************************
 ; *******************************************************************************************
 ;
-;		Name : 		abs.asm
-;		Purpose :	Abs( unary function
+;		Name : 		len.asm
+;		Purpose :	String length function.
 ;		Date :		22nd August 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************
 ; *******************************************************************************************
 
-Unary_Abs: 	;; abs(
-		jsr 	EvaluateNumberX 			; get value
-		jsr 	CheckNextRParen 			; check right bracket.
-		lda 	XS_Type,x 					; get type
-		and 	#15 						; if type bits zero, it's float.
-		beq 	_UAMinusFloat
-		lda 	XS_Mantissa+3,x 			; check MSB
-		bpl 	_UAExit
-		jmp 	IntegerNegateAlways 		; negation
-		
-;
-_UAMinusFloat:
-		lda 	XS_Type,x 					; clear the sign bit.	
-		and		#$7F
+Unary_Len: 	;;	len(
+		jsr 	EvaluateStringX 			; string parameter
+		jsr 	CheckNextRParen 			; right bracket.
+		phy 								; get the string length
+		ldy 	#0
+		lda 	(zGenPtr),y
+		ply
+		;
+		;		Set to integer, A
+		;
+UnarySetAInteger:		
+		sta 	XS_Mantissa,x
+		lda 	#0
+		sta 	XS_Mantissa+1,x
+		sta 	XS_Mantissa+2,x
+		sta 	XS_Mantissa+3,x
+		lda 	#1
 		sta 	XS_Type,x
-_UAExit:		
 		rts
+
