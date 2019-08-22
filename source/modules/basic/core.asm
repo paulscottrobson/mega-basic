@@ -10,6 +10,10 @@
 ; *******************************************************************************************
 
 BASIC_Start:
+		jsr 	ResetRunStatus 				; clear everything (CLR command)
+		lda 	#0 							; mark temp string pointer uninitialised.
+		sta 	zTempStr+1 					; (done before every base level evaluation/or command)
+
 		#s_toStart
 		#s_next
 		#s_get

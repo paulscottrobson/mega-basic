@@ -69,7 +69,7 @@ VectorTable:
 	.word NotImplemented       ; $bc :
 	.word NotImplemented       ; $bd ;
 	.word NotImplemented       ; $be def
-	.word NotImplemented       ; $bf clr
+	.word CLR_Command          ; $bf clr
 	.word NotImplemented       ; $c1 data
 	.word NotImplemented       ; $c2 read
 	.word NotImplemented       ; $c3 dim

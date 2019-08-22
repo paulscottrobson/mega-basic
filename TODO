@@ -1,9 +1,7 @@
 TODO
 ====
-	-	Allocating storage space for variables and strings, reset these pointers.
-	- 	Add strings as basic constants, check they trigger errors.
 	- 	Add string concatenation to add handler.
-	- 	Add comparison functionality.
+	- 	Add three-type comparison functionality.
 	- 	Add unary functions except trig/log etc.
 	- 	Add string functions.
 	- 	Write the basic executor and tokeniser and implement ASSERT and PRINT.
@@ -19,3 +17,7 @@ Fixes
 		- Integer negation in fputils.asm
 		- Mantissa subtraction in fpdivide.asm
 -	FP guard byte on subtract ????
+
+Error Checks
+============
+- 	Allocating temporary string memory (space available)

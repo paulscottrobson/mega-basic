@@ -21,7 +21,11 @@ for v in range(0,4):
 	 	mantissa = mantissa if (mantissa & 0x80000000) == 0 else mantissa - 0x100000000
 	 	print("\tInteger {0}".format(mantissa))	
 	if (szByte & 0x02):
-	 	assert False
+	 	addr = mantissa & 0xFFFF
+	 	s = ""
+	 	for i in range(0,mem[addr]):
+	 		s = s + chr(mem[addr+i+1])
+	 	print("Address ${0:04x} Length:{1} String:{2}".format(addr,mem[addr],s))
 	if (szByte & 0x0F) == 0:
 	 	fpv = 0.0
 	 	if (szByte & 0x40) == 0:

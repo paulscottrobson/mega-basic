@@ -67,9 +67,11 @@ class IntegerBasic(BuildDefinition):
 	def create(self):
 		self.define("hasFloat",0)
 		self.define("hasInteger",1)
-		self.addModule("basic.*")	
+		self.addModule("basic.*")
+		self.addModule("basic.commands.*")	
 		self.addModule("basic.expressions.*")	
 		self.addModule("basic.pointer.@h.*")
+		self.addModule("basic.stringmem.*")
 		self.addModule("integer.*")
 		self.addModule("integer.convert.*")
 		self.addModule("basic.testcode.*")

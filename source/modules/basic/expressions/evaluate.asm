@@ -172,8 +172,23 @@ _EVNotParenthesis:
 		jsr 	NotInteger 					; do the not calculation
 		jmp 	_EVGotAtom
 		;
-_EVNotNot:		
-		nop
+_EVNotNot:
+		cmp 	#$FE 
+		bne 	_EVNotString		
+		;
+		;		Quoted string.
+		;
+		jsr 	CreateTempStringCopy 		; copy of string in code in temporary memory.
+		lda 	zTempStr 					; copy address of string into mantissa
+		sta 	XS_Mantissa+0,x
+		lda 	zTempStr+1
+		sta 	XS_Mantissa+1,x
+		lda 	#2 							; set to type 2 (e.g. string)
+		sta 	XS_Type,x
+		jmp 	_EVGotAtom
+		;
+_EVNotString:	
+		bra 	_EVNotString		
 ;
 ;		Discovered a variable.
 ;

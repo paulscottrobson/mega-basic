@@ -21,6 +21,9 @@ _halt:	bra 		_halt
 		.endm
 
 		* = $1000
+
+HighMemory = $A000
+
 BasicProgram:		
 		.include "../basic/testcode/testcode.src"
 		* = $A000

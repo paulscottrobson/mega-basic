@@ -16,7 +16,7 @@ ResetStack: 	.macro
 		txs
 		.endm
 
-
+HighMemory = $8000
 
 		* = $1000
 BasicProgram:		

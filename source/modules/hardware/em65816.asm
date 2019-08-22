@@ -25,6 +25,8 @@ Exit:	.macro
 		.byte 	2
 		.endm
 
+HighMemory = $8000
+
 		* = $1000
 BasicProgram:		
 		.include "../basic/testcode/testcode.src"

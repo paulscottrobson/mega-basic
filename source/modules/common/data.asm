@@ -28,6 +28,8 @@ zCodePtr:	.dword ? 						; code pointer.
 zLTemp1:	.dword ?						; long word (used in multiply)
 zGenPtr:	.word ? 						; general pointer.
 
+zTempStr:	.word ?							; temporary string allocator. When high zero, not initialised.
+
 		* = $200
 
 ; *******************************************************************************************
@@ -78,6 +80,9 @@ NumConvCount .byte 	? 						; count for conversions.
 ExpTemp:	.byte ?							; Working temp for exponents.
 ExpCount:	.byte ? 						; Count of decimal exponents.
 SignCount:	.byte ?							; Integer Divide Sign Counts.
+
+StringPtr:	.byte ? 						; Top of free memory (for string allocation)
+TempStringWriteIndex: .byte ? 				; Write offset.
 
 Tim_PC:		.word ?							; program counter on BRK (Hi/Lo order)
 Tim_IRQ:	.word ?							; IRQ Vector (Hi/Lo order)
