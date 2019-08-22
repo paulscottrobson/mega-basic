@@ -1,10 +1,10 @@
 TODO
 ====
 	- 	Add numeric unary functions except trig/log etc. 
-				SGN ASC INT USR PEEK LEEK DEEK SPC VAL DEC MOD RND
+				USR PEEK LEEK DEEK SPC VAL DEC MOD RND
 
 	- 	Add string functions.
-				LEFT$ MID$ RIGHT$ STR$ HEX$
+				LEFT$ MID$ RIGHT$ STR$ HEX$ CHR$
 
 	- 	Write the basic executor and tokeniser and implement ASSERT and PRINT.
 

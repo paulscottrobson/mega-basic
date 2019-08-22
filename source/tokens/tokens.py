@@ -103,8 +103,8 @@ class Tokens(object):
 	[unary]
 		not		fn( 	abs(	asc( 	int( 	peek( 	rnd(	usr(
 		left$( 	right$(	mid$( 	spc( 	str$( 	val(	len(	hex$(
-		sin( 	cos( 	tan( 	atn(	exp(	log( 	sqr(	
-		dec( 	deek(	leek(	mod(
+		sin( 	cos( 	tan( 	atn(	exp(	log( 	sqr(
+		dec( 	deek(	leek(	mod( 	sgn(
 	##
 	##		Keywords that require a one byte token.
 	##
