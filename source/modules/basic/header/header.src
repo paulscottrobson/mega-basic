@@ -34,13 +34,13 @@ VectorTable:
 	.word NotImplemented       ; $99 fn(
 	.word Unary_Abs            ; $9a abs(
 	.word Unary_Asc            ; $9b asc(
-	.word Unary_Int            ; $9c int(
+	.word NotImplemented       ; $9c int(
 	.word Unary_Peek           ; $9d peek(
-	.word Unary_Rnd            ; $9e rnd(
+	.word NotImplemented       ; $9e rnd(
 	.word Unary_Usr            ; $9f usr(
-	.word NotImplemented       ; $a0 left$(
-	.word NotImplemented       ; $a1 right$(
-	.word NotImplemented       ; $a2 mid$(
+	.word Unary_Left           ; $a0 left$(
+	.word Unary_Right          ; $a1 right$(
+	.word Unary_Mid            ; $a2 mid$(
 	.word Unary_Spc            ; $a3 spc(
 	.word Unary_Str            ; $a4 str$(
 	.word Unary_Val            ; $a5 val(

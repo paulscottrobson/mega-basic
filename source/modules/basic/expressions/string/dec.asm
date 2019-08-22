@@ -20,7 +20,12 @@ Unary_Dec: 	;; dec(
 		sta 	SignCount 					; use SignCount as a counter
 		;
 		lda 	#0 							; set result to zero integer.
-		jsr 	FPUSetInteger
+		sta 	XS_Mantissa+0,x
+		sta 	XS_Mantissa+1,x
+		sta 	XS_Mantissa+2,x
+		sta 	XS_Mantissa+3,x
+		lda 	#1
+		sta 	XS_Type,x
 _UDConvertLoop:
 		phy 								; shift mantissa left 4
 		ldy 	#4 								

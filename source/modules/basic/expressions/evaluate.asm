@@ -328,6 +328,15 @@ EvaluateNumberX:
 		bcs 	EvaluateType
 		rts
 
+EvaluateInteger:
+		ldx 	#0
+EvaluateIntegerX:
+		jsr 	EvaluateNumberX
+		.if 	hasFloat=1
+		jsr 	FPUToInteger
+		.endif
+		rts
+				
 ; *******************************************************************************************
 ;
 ;										Get string value

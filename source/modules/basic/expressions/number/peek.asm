@@ -22,9 +22,8 @@ Unary_Leek:	;; 	leek(
 
 UPMain:	
 		pha 								; set bytes to copy.
-		jsr 	EvaluateNumberX 			; numeric parameter
+		jsr 	EvaluateIntegerX 			; numeric parameter
 		jsr 	CheckNextRParen 			; right bracket.
-		jsr 	FPUToInteger 				; make integer.
 		;
 		lda 	XS_Mantissa+0,x 			; copy the mantissa into ZLTemp1 (address)
 		sta 	zLTemp1

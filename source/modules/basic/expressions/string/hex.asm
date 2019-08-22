@@ -10,9 +10,8 @@
 ; *******************************************************************************************
 
 Unary_Hex: 	;; hex$(
-		jsr 	EvaluateNumberX 			; numeric parameter
+		jsr 	EvaluateIntegerX 			; numeric parameter
 		jsr 	CheckNextRParen 			; right bracket.
-		jsr 	FPUToInteger 				; convert to integer
 		lda 	#9 							; allocate 9 bytes (8 chars + length)
 		jsr 	AllocateTempString			; allocate string space
 		lda 	XS_Mantissa+3,x 			; do each byte in turn.

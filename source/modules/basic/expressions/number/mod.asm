@@ -29,8 +29,7 @@ Unary_Mod:	;; 	mod(
 		rts
 
 _UMParameter:
-		jsr 	EvaluateNumberX 			; get value
-		jsr 	FPUToInteger 				; make integer.
+		jsr 	EvaluateIntegerX 			; get value
 		lda 	XS_Mantissa+3,x 			; absolute value
 		bpl 	_UMNotSigned
 		jsr 	IntegerNegateAlways

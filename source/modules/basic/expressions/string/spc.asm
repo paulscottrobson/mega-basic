@@ -10,9 +10,8 @@
 ; *******************************************************************************************
 
 Unary_Spc: 	;;	spc(
-		jsr 	EvaluateNumberX 			; numeric parameter
+		jsr 	EvaluateIntegerX 			; numeric parameter
 		jsr 	CheckNextRParen 			; right bracket.
-		jsr 	FPUToInteger 				; make integer.
 		;
 		lda 	XS_Mantissa+1,x 			; check upper bytes 0
 		ora 	XS_Mantissa+2,x
