@@ -25,8 +25,8 @@ CLR_Command: 	;; clr
 
 ResetRunStatus:
 		;
-		;		Clear Variables
-		;		Reset Basic Stack.
+		;		TODO:Clear Variables
+		;		TODO:Reset Basic Stack.
 		;
 
 		;

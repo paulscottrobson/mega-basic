@@ -35,7 +35,7 @@ _USLoop: 									; write out A spaces
 		bne 	_USLoop		
 		bra 	UnaryReturnTempStr
 _USSize:
-		#Fatal	"Illegal Quantity"
+		jmp 	BadParamError
 
 ; *******************************************************************************************
 ;

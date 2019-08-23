@@ -130,4 +130,4 @@ SLIByteParameter:
 		lda 	XS_Mantissa+0,x
 		rts		
 SLIError:
-		#Fatal	"Bad String Slice"
+		jmp 	BadParamError

@@ -92,5 +92,5 @@ _BMIConvert:
 		jmp 	FPUToInteger 				; convert to integer		
 		.endif
 _BMIError:
-		#Fatal	"Numeric type required"
+		jmp 	TypeError
 				

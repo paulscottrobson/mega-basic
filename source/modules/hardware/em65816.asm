@@ -18,6 +18,7 @@ ResetStack: 	.macro
 		.al
 		lda 	#$01FF 						; empty stack
 		tcs
+		sep 	#$30 						
 		.as
 		.endm
 
@@ -36,9 +37,7 @@ StartROM:
 		clc
 		xce	
 		#ResetStack
-		sep 	#$30 						; clear AXY in 16 bit.
-		.al 	
-		rep 	#$30
+		rep 	#$30						; clear AXY in 16 bit.
 		lda 	#$0000
 		tax
 		tay

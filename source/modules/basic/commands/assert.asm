@@ -1,28 +1,23 @@
 ; *******************************************************************************************
 ; *******************************************************************************************
 ;
-;		Name : 		chr.asm
-;		Purpose :	String from ASCII value.
-;		Date :		22nd August 2019
+;		Name : 		assert.asm
+;		Purpose :	ASSET Command
+;		Date :		23rd August 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************
 ; *******************************************************************************************
 
-Unary_Chr: 	;;	chr$(
-		jsr 	EvaluateIntegerX			; numeric parameter
-		jsr 	CheckNextRParen 			; right bracket.
-		;
-		lda 	XS_Mantissa+1,x 			; check upper bytes 0
+
+ASSERT_Command: 	;; assert
+		jsr 	EvaluateNumber 				; calculate thing being asserted
+		lda 	XS_Mantissa,x 				; check if true (non-zero)
+		ora 	XS_Mantissa+1,x
 		ora 	XS_Mantissa+2,x
 		ora 	XS_Mantissa+3,x
-		bne 	_UCChar
-		;
-		lda 	#1 							; one character string
-		jsr 	AllocateTempString		
-		lda 	XS_Mantissa+0,x 			; get char# and write it.
-		jsr 	WriteTempString
-		jmp 	UnaryReturnTempStr
-_UCChar:
-		jmp 	BadParamError
+		beq 	_ASFail
+		rts
+_ASFail:#Fatal	"Assert"		
 
+		

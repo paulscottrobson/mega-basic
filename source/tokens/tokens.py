@@ -122,7 +122,7 @@ class Tokens(object):
 	##
 	[keyword]
 		def 	clr 	stop	data	read	dim	
-		to 		step  	gosub 	return	goto	
+		to 		step  	gosub 	return	goto	end
 		input	let		list	new		old		on
 		restore	poke	print	run 	stop	wait
 		doke 	loke 	assert

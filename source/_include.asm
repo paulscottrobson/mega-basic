@@ -11,10 +11,13 @@ nmihandler: .macro
 		.word DefaultInterrupt
 	.endm
 fatal: .macro
-	_error: bra _error
+		jsr ERR_Handler
+	.text \1,0
+
 	.endm
 cpu = "65816"
 hardware = "em65816"
+exitonend = 0
 hasFloat = 1
 hasInteger = 1
 maxString = 253
@@ -27,8 +30,12 @@ maxString = 253
 	.include "modules/hardware/em65816.asm"
 	.include "modules/interface/common/interface_tools.asm"
 	.include "modules/interface/drivers/interface_em65816.asm"
+	.include "modules/basic/common/errors.asm"
 	.include "modules/basic/core.asm"
+	.include "modules/basic/commands/end.asm"
+	.include "modules/basic/commands/assert.asm"
 	.include "modules/basic/commands/clr.asm"
+	.include "modules/basic/commands/stop.asm"
 	.include "modules/basic/expressions/evaluate.asm"
 	.include "modules/basic/expressions/logical.asm"
 	.include "modules/basic/expressions/compare.asm"

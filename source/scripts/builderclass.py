@@ -46,8 +46,9 @@ class BuildDefinition(object):
 		self.macros = { "boot": None, 											# What to run.
 						"irqhandler":defaultint,								# NMI/IRQ addresses
 						"nmihandler":defaultint,
-						"fatal":"_error: bra _error"							# Error - ASCIIZ message follows
-		}
+						"fatal":"\tjsr ERR_Handler\n\t.text \\1,0\n"			# Error - ASCIIZ message follows
+		}						
+		self.defines["exitonend"] = 0 											# if set to 1, exits on END command 						
 	#
 	#		Analyse the source requirements, add the various classes, macros.
 	#

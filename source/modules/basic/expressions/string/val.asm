@@ -82,4 +82,5 @@ _UVNotNegative:
 		rts
 ;
 _UVBadNumber:
-		#Fatal	"Bad number"
+		jmp 	BadParamError
+		

@@ -29,8 +29,13 @@ BASIC_Start:
 		;
 		jsr 	ResetRunStatus 				; clear everything (CLR command)
 		;
-		; TODO: NEW, maybe.
+		; 	TODO: NEW, maybe.
 		;
+WarmStart:
+		#ResetStack
+		;
+		;	TODO: Reset BASIC stack
+		;		
 		lda 	#0 							; mark temp string pointer uninitialised.
 		sta 	zTempStr+1 					; (done before every base level evaluation/or command)
 
@@ -40,8 +45,4 @@ BASIC_Start:
 		jsr 	EvaluateExpression
 		
 		#Exit
-
-SyntaxError:
-ERR_Handler:
-		bra 	ERR_Handler
 

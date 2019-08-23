@@ -100,7 +100,7 @@ _BMFConvert:
 		jmp 	FPUToFloat 					; convert to float		
 		.endif
 _BMFError:
-		#Fatal	"Numeric type required",0
+		jmp 	TypeError
 				
 ; *******************************************************************************************
 ;

@@ -1,25 +1,19 @@
 ; *******************************************************************************************
 ; *******************************************************************************************
 ;
-;		Name : 		asc.asm
-;		Purpose :	ASCII value first character.
-;		Date :		22nd August 2019
+;		Name : 		end.asm
+;		Purpose :	END Command
+;		Date :		23rd August 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************
 ; *******************************************************************************************
 
-Unary_Asc: 	;;	asc(
-		jsr 	EvaluateStringX 			; string parameter
-		jsr 	CheckNextRParen 			; right bracket.
-		phy 								; get the string length
-		ldy 	#0
-		lda 	(zGenPtr),y
-		beq 	_UAIllegal 					; must be at least one character
-		iny
-		lda 	(zGenPtr),y 				; read it.
-		ply
-		jmp 	UnarySetAInteger
-_UAIllegal:
-		jmp 	BadParamError
-				
+
+END_Command: 	;; end
+		.if 	exitOnEnd != 0
+		#Exit
+		.endif
+		jmp 	WarmStart
+
+		

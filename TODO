@@ -1,19 +1,23 @@
 TODO
 ====
+
 	- 	Write the basic executor and implement
-			ASSERT
-			RUN
-			END
-			STOP
+			ASSERT 	(needs testing)
+			RUN		
+			END 	(needs testing)
+			STOP	(needs testing)
 			PRINT
 
 	- 	Write test harness module and test code for 
-				arithmetic (fp/int), logical, concat, unary, comparison
+				arithmetic (fp/int)
 
 	- 	See if working on all (three) platforms
 
 	- 	Mega65 switch to (zp),Z, 65816 option of [xxxx],y, test 65C02 on 65816 (?)			
 
+	- 	Test code extend for
+			 logical, concat, unary, comparison
+			 
 	- 	Design and implement variables optional defaults and # (real) % (int) $ (string)
 			consider set/get locals def fn options.
 
