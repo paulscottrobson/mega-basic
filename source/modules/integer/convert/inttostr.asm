@@ -25,34 +25,35 @@ INTToString:
 		jsr 		IntegerNegateAlways 	; negate the number.
 _ITSNotMinus:		
 		;
-		lda 		#0 						; X is offset in table.
+		lda 		#0 						
 		sta 		NumSuppress 			; clear the suppression flag.
-		ldy 		#0 						; Y is index into dword subtraction table.
+		txy 								; use Y for the mantissa index.
+		ldx 		#0 						; X is index into dword subtraction table.
 _ITSNextSubtractor:		
 		lda 		#"0" 					; count of subtractions count in ASCII.
 		sta 		NumConvCount
 _ITSSubtract:
 		sec
-		lda 		XS_Mantissa,x 			; subtract number and push on stack
-		sbc 		_ITSSubtractors+0,y
+		lda 		XS_Mantissa,y 			; subtract number and push on stack
+		sbc 		_ITSSubtractors+0,x
 		pha
-		lda 		XS_Mantissa+1,x
-		sbc 		_ITSSubtractors+1,y
+		lda 		XS_Mantissa+1,y
+		sbc 		_ITSSubtractors+1,x
 		pha
-		lda 		XS_Mantissa+2,x
-		sbc 		_ITSSubtractors+2,y
+		lda 		XS_Mantissa+2,y
+		sbc 		_ITSSubtractors+2,x
 		pha
-		lda 		XS_Mantissa+3,x
-		sbc 		_ITSSubtractors+3,y
+		lda 		XS_Mantissa+3,y
+		sbc 		_ITSSubtractors+3,x
 		bcc 		_ITSCantSubtract 		; if CC, then gone too far.
 		;
-		sta 		XS_Mantissa+3,x 		; save subtract off stack
+		sta 		XS_Mantissa+3,y 		; save subtract off stack
 		pla 		
-		sta 		XS_Mantissa+2,x
+		sta 		XS_Mantissa+2,y
 		pla 		
-		sta 		XS_Mantissa+1,x
+		sta 		XS_Mantissa+1,y
 		pla 		
-		sta 		XS_Mantissa+0,x
+		sta 		XS_Mantissa+0,y
 		;
 		inc 		NumConvCount 			; bump count.
 		bra 		_ITSSubtract 			; go round again.
@@ -74,12 +75,13 @@ _ITSOutputDigit:
 		jsr 		ITSOutputCharacter 		; output it.
 		;
 _ITSGoNextSubtractor:
-		iny 								; next dword
-		iny
-		iny
-		iny
-		cpy 		#_ITSSubtractorsEnd-_ITSSubtractors
+		inx 								; next dword
+		inx
+		inx
+		inx
+		cpx 		#_ITSSubtractorsEnd-_ITSSubtractors
 		bne 		_ITSNextSubtractor 		; do all the subtractors.
+		tyx 								; X is back as the mantissa index
 		;
 		lda 		XS_Mantissa+0,x 		; and the last digit is left.
 		ora 		#"0"

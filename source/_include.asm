@@ -5,7 +5,7 @@ boot: .macro
 	jmp BASIC_Start
 	.endm
 irqhandler: .macro
-		.word DefaultInterrupt
+	.word TIM_BreakHandler
 	.endm
 nmihandler: .macro
 		.word DefaultInterrupt
@@ -64,3 +64,4 @@ maxString = 253
 	.include "modules/float/convert/fpfromstr.asm"
 	.include "modules/basic/expressions/floatonly/rnd.asm"
 	.include "modules/basic/expressions/floatonly/int.asm"
+	.include "modules/utility/tim.asm"

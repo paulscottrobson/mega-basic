@@ -45,4 +45,10 @@ StartROM:
 		.as
 		sep 	#$30
 		#Boot
+
+TIM_BreakHandler:
+		jmp 	TIM_BreakVector
+
+		* = $18000
+
 		.include "../basic/header/header.src"

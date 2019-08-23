@@ -50,13 +50,20 @@ Hardware.Classes = { 	"e816":	Emulated65816Machine,
 #
 # *******************************************************************************************
 
-class TIMOnlyTest(BuildDefinition):												# Something just running TIM
-	def create(self):
+class BuildDefinitionTIMOption(BuildDefinition):
+	def includeTIM(self):
 		self.addModule("utility.tim")											# TIM code.
-		self.setMacro("irqhandler",".word TIM_BreakVector")
+		if self.processor == "65816":
+			self.setMacro("irqhandler",".word TIM_BreakHandler")
+		else:
+			self.setMacro("irqhandler",".word TIM_BreakVector")
+
+class TIMOnlyTest(BuildDefinitionTIMOption):												# Something just running TIM
+	def create(self):
+		self.includeTIM()
 		self.boot("TIM_Start")
 
-class FloatingPointTest(BuildDefinition):										# Run FP Unit Test.
+class FloatingPointTest(BuildDefinitionTIMOption):										# Run FP Unit Test.
 	def create(self):
 		self.addModule("basic.common.*")									
 		self.addModule("float.*")												# FP Stuff
@@ -64,7 +71,7 @@ class FloatingPointTest(BuildDefinition):										# Run FP Unit Test.
 		self.addModule("testing.fptest")
 		self.boot("FPTTest")
 
-class IntegerBasic(BuildDefinition):
+class IntegerBasic(BuildDefinitionTIMOption):
 	def create(self):
 		self.define("hasFloat",0)
 		self.define("hasInteger",1)
@@ -93,8 +100,7 @@ class FullBasic(IntegerBasic):
 		self.addModule("float.*")												# FP Stuff
 		self.addModule("float.convert.*")
 		self.addModule("basic.expressions.floatonly.*")
-#		self.addModule("utility.tim")											# nicked hex printing routines :)
-#		self.setMacro("irqhandler",".word TIM_BreakVector")
+		self.includeTIM()
 		#
 		self.addModule("basic.testcode.*")
 		self.boot("BASIC_Start")

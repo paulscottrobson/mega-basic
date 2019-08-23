@@ -30,8 +30,11 @@ TIM_ShowPrompt:
 		sty 	zTemp1+1
 		ldy 	#0 							; get first character after the prompt.
 		lda 	(zTemp1),y
+		cmp 	#"?"
+		beq 	TIM_SkipFirst
 		cmp 	#"."						; if . skip it
 		bne 	TIM_NotDot
+TIM_SkipFirst:		
 		iny
 TIM_NotDot:
 		lda 	(zTemp1),y 					; get character		
