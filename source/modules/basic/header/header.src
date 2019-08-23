@@ -6,95 +6,95 @@ lastUnaryFunction = $b4
 ;	Jump Vector Table
 ;
 VectorTable:
-	.word BinaryOp_And         ; $80 and
-	.word BinaryOp_Or          ; $81 or
-	.word BinaryOp_Xor         ; $82 xor
-	.word BinaryOp_Eor         ; $83 eor
-	.word Binary_Equal         ; $84 =
-	.word Binary_NotEqual      ; $85 <>
-	.word Binary_Less          ; $86 <
-	.word Binary_LessEqual     ; $87 <=
-	.word Binary_Greater       ; $88 >
-	.word Binary_GreaterEqual  ; $89 >=
-	.word BinaryOp_Add         ; $8a +
-	.word BinaryOp_Subtract    ; $8b -
-	.word BinaryOp_Multiply    ; $8c *
-	.word BinaryOp_Divide      ; $8d /
-	.word NotImplemented       ; $8e ^
-	.word NotImplemented       ; $8f if
-	.word NotImplemented       ; $90 while
-	.word NotImplemented       ; $91 repeat
-	.word NotImplemented       ; $92 for
-	.word NotImplemented       ; $93 then
-	.word NotImplemented       ; $94 endif
-	.word NotImplemented       ; $95 wend
-	.word NotImplemented       ; $96 until
-	.word NotImplemented       ; $97 next
-	.word NotImplemented       ; $98 not
-	.word NotImplemented       ; $99 fn(
-	.word Unary_Abs            ; $9a abs(
-	.word Unary_Asc            ; $9b asc(
-	.word NotImplemented       ; $9c int(
-	.word Unary_Peek           ; $9d peek(
-	.word NotImplemented       ; $9e rnd(
-	.word Unary_Usr            ; $9f usr(
-	.word Unary_Left           ; $a0 left$(
-	.word Unary_Right          ; $a1 right$(
-	.word Unary_Mid            ; $a2 mid$(
-	.word Unary_Spc            ; $a3 spc(
-	.word Unary_Str            ; $a4 str$(
-	.word Unary_Val            ; $a5 val(
-	.word Unary_Len            ; $a6 len(
-	.word Unary_Hex            ; $a7 hex$(
-	.word NotImplemented       ; $a8 sin(
-	.word NotImplemented       ; $a9 cos(
-	.word NotImplemented       ; $aa tan(
-	.word NotImplemented       ; $ab atn(
-	.word NotImplemented       ; $ac exp(
-	.word NotImplemented       ; $ad log(
-	.word NotImplemented       ; $ae sqr(
-	.word Unary_Dec            ; $af dec(
-	.word Unary_Deek           ; $b0 deek(
-	.word Unary_Leek           ; $b1 leek(
-	.word Unary_Mod            ; $b2 mod(
-	.word Unary_Sgn            ; $b3 sgn(
-	.word Unary_Chr            ; $b4 chr$(
-	.word NotImplemented       ; $b5 $(
-	.word NotImplemented       ; $b6 $
-	.word NotImplemented       ; $b7 #(
-	.word NotImplemented       ; $b8 #
-	.word NotImplemented       ; $b9 %(
-	.word NotImplemented       ; $ba %
-	.word NotImplemented       ; $bb (
-	.word NotImplemented       ; $bc )
-	.word NotImplemented       ; $bd ,
-	.word NotImplemented       ; $be :
-	.word NotImplemented       ; $bf ;
-	.word NotImplemented       ; $c0 def
-	.word CLR_Command          ; $c1 clr
-	.word NotImplemented       ; $c3 data
-	.word NotImplemented       ; $c4 read
-	.word NotImplemented       ; $c5 dim
-	.word NotImplemented       ; $c6 to
-	.word NotImplemented       ; $c7 step
-	.word NotImplemented       ; $c8 gosub
-	.word NotImplemented       ; $c9 return
-	.word NotImplemented       ; $ca goto
-	.word NotImplemented       ; $cb input
-	.word NotImplemented       ; $cc let
-	.word NotImplemented       ; $cd list
-	.word NotImplemented       ; $ce new
-	.word NotImplemented       ; $cf old
-	.word NotImplemented       ; $d0 on
-	.word NotImplemented       ; $d1 restore
-	.word NotImplemented       ; $d2 poke
-	.word NotImplemented       ; $d3 print
-	.word NotImplemented       ; $d4 run
-	.word NotImplemented       ; $d5 stop
-	.word NotImplemented       ; $d6 wait
-	.word NotImplemented       ; $d7 doke
-	.word NotImplemented       ; $d8 loke
-	.word NotImplemented       ; $d9 assert
+	.word NotImplemented       & $FFFF ; $80 and
+	.word NotImplemented       & $FFFF ; $81 or
+	.word NotImplemented       & $FFFF ; $82 xor
+	.word NotImplemented       & $FFFF ; $83 eor
+	.word NotImplemented       & $FFFF ; $84 =
+	.word NotImplemented       & $FFFF ; $85 <>
+	.word NotImplemented       & $FFFF ; $86 <
+	.word NotImplemented       & $FFFF ; $87 <=
+	.word NotImplemented       & $FFFF ; $88 >
+	.word NotImplemented       & $FFFF ; $89 >=
+	.word NotImplemented       & $FFFF ; $8a +
+	.word NotImplemented       & $FFFF ; $8b -
+	.word NotImplemented       & $FFFF ; $8c *
+	.word NotImplemented       & $FFFF ; $8d /
+	.word NotImplemented       & $FFFF ; $8e ^
+	.word NotImplemented       & $FFFF ; $8f if
+	.word NotImplemented       & $FFFF ; $90 while
+	.word NotImplemented       & $FFFF ; $91 repeat
+	.word NotImplemented       & $FFFF ; $92 for
+	.word NotImplemented       & $FFFF ; $93 then
+	.word NotImplemented       & $FFFF ; $94 endif
+	.word NotImplemented       & $FFFF ; $95 wend
+	.word NotImplemented       & $FFFF ; $96 until
+	.word NotImplemented       & $FFFF ; $97 next
+	.word NotImplemented       & $FFFF ; $98 not
+	.word NotImplemented       & $FFFF ; $99 fn(
+	.word NotImplemented       & $FFFF ; $9a abs(
+	.word NotImplemented       & $FFFF ; $9b asc(
+	.word NotImplemented       & $FFFF ; $9c int(
+	.word NotImplemented       & $FFFF ; $9d peek(
+	.word NotImplemented       & $FFFF ; $9e rnd(
+	.word NotImplemented       & $FFFF ; $9f usr(
+	.word NotImplemented       & $FFFF ; $a0 left$(
+	.word NotImplemented       & $FFFF ; $a1 right$(
+	.word NotImplemented       & $FFFF ; $a2 mid$(
+	.word NotImplemented       & $FFFF ; $a3 spc(
+	.word NotImplemented       & $FFFF ; $a4 str$(
+	.word NotImplemented       & $FFFF ; $a5 val(
+	.word NotImplemented       & $FFFF ; $a6 len(
+	.word NotImplemented       & $FFFF ; $a7 hex$(
+	.word NotImplemented       & $FFFF ; $a8 sin(
+	.word NotImplemented       & $FFFF ; $a9 cos(
+	.word NotImplemented       & $FFFF ; $aa tan(
+	.word NotImplemented       & $FFFF ; $ab atn(
+	.word NotImplemented       & $FFFF ; $ac exp(
+	.word NotImplemented       & $FFFF ; $ad log(
+	.word NotImplemented       & $FFFF ; $ae sqr(
+	.word NotImplemented       & $FFFF ; $af dec(
+	.word NotImplemented       & $FFFF ; $b0 deek(
+	.word NotImplemented       & $FFFF ; $b1 leek(
+	.word NotImplemented       & $FFFF ; $b2 mod(
+	.word NotImplemented       & $FFFF ; $b3 sgn(
+	.word NotImplemented       & $FFFF ; $b4 chr$(
+	.word NotImplemented       & $FFFF ; $b5 $(
+	.word NotImplemented       & $FFFF ; $b6 $
+	.word NotImplemented       & $FFFF ; $b7 #(
+	.word NotImplemented       & $FFFF ; $b8 #
+	.word NotImplemented       & $FFFF ; $b9 %(
+	.word NotImplemented       & $FFFF ; $ba %
+	.word NotImplemented       & $FFFF ; $bb (
+	.word NotImplemented       & $FFFF ; $bc )
+	.word NotImplemented       & $FFFF ; $bd ,
+	.word NotImplemented       & $FFFF ; $be :
+	.word NotImplemented       & $FFFF ; $bf ;
+	.word NotImplemented       & $FFFF ; $c0 def
+	.word NotImplemented       & $FFFF ; $c1 clr
+	.word NotImplemented       & $FFFF ; $c3 data
+	.word NotImplemented       & $FFFF ; $c4 read
+	.word NotImplemented       & $FFFF ; $c5 dim
+	.word NotImplemented       & $FFFF ; $c6 to
+	.word NotImplemented       & $FFFF ; $c7 step
+	.word NotImplemented       & $FFFF ; $c8 gosub
+	.word NotImplemented       & $FFFF ; $c9 return
+	.word NotImplemented       & $FFFF ; $ca goto
+	.word NotImplemented       & $FFFF ; $cb input
+	.word NotImplemented       & $FFFF ; $cc let
+	.word NotImplemented       & $FFFF ; $cd list
+	.word NotImplemented       & $FFFF ; $ce new
+	.word NotImplemented       & $FFFF ; $cf old
+	.word NotImplemented       & $FFFF ; $d0 on
+	.word NotImplemented       & $FFFF ; $d1 restore
+	.word NotImplemented       & $FFFF ; $d2 poke
+	.word NotImplemented       & $FFFF ; $d3 print
+	.word NotImplemented       & $FFFF ; $d4 run
+	.word NotImplemented       & $FFFF ; $d5 stop
+	.word NotImplemented       & $FFFF ; $d6 wait
+	.word NotImplemented       & $FFFF ; $d7 doke
+	.word NotImplemented       & $FFFF ; $d8 loke
+	.word NotImplemented       & $FFFF ; $d9 assert
 NotImplemented:
 
 	#fatal "Not implemented"

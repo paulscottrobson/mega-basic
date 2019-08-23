@@ -14,12 +14,10 @@ Unary_Usr:	;; 	usr(
 		jsr 	CheckNextRParen 			; right bracket.
 		phx 								; save XY
 		phy
-		jsr 	_UUCall 					; call the USR function.
+		jsr 	UserVector 					; call the USR function.
 		ply 								; and exit
 		plx
 		rts
-;
-_UUCall:jmp 	(USR_Vector)				; jump indirect.
 ;
 USRDefault:
 		#Fatal	"No USR vector."

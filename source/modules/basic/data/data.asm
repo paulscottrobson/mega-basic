@@ -51,7 +51,9 @@ IFT_LineBuffer: .fill 100 					; line input buffer.
 
 		* = $300 							; expression stack area.
 
-USR_Vector = $2FE 							; USR(x) calls this.
+UserVector .fill 4 							; USR(x) calls this.
+LocalVector .fill 4 						; Indirect calls call this.
+
 XS_Mantissa .dword ? 						; 4 byte mantissa, bit 31 set.
 XS_Exponent .byte ?							; 1 byte exponent, 128 == 2^0 (float only)
 XS_Type 	.byte ? 						; bit 7 sign (float only)

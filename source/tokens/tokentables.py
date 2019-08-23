@@ -47,7 +47,7 @@ for fName in files:
 print(";\n;\tJump Vector Table\n;")
 print("VectorTable:")
 for k in keywords:
-	print("\t.word {0:20} ; ${1:x} {2}".format(executeLabel[k],tokens[k]["token"],k))
+	print("\t.word {0:20} & $FFFF ; ${1:x} {2}".format(executeLabel[k],tokens[k]["token"],k))
 print("NotImplemented:\n")
 print('\t#fatal "Not implemented"\n')
 #

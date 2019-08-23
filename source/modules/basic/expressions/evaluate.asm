@@ -46,7 +46,7 @@ _EVNotVariable:
 		sta 	XS_Mantissa+1,x
 		sta 	XS_Mantissa+2,x
 		sta 	XS_Mantissa+3,x
-		lda 	#1 							; set to type 1 (integer)
+		inc 	a 							; set to type 1 (integer)
 		sta 	XS_Type,x
 		;
 _EVCheckNextInteger:		
@@ -112,11 +112,11 @@ _EVCallA:
 		asl 	a 							; double, lose the MSB.
 		tax									; put in X
 		lda 	VectorTable,x 				; copy address into zGenPtr
-		sta 	zGenPtr 
+		sta 	LocalVector+1
 		lda 	VectorTable+1,x
-		sta 	zGenPtr+1
+		sta 	LocalVector+2
 		plx 								; restore X
-		jsr 	EVGoZGenPtr 				; execute that function/operator
+		jsr 	LocalVector
 		bra 	_EVGotAtom 					; and loop back.
 		;
 _EVExitDrop:
@@ -199,9 +199,6 @@ _EVUnaryFunction:
 		
 _EVVariableHandler:
 		nop		
-
-EVGoZGenPtr:
-		jmp 	 (zGenPtr)
 
 ; *******************************************************************************************
 ;

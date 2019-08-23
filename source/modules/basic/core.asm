@@ -10,10 +10,14 @@
 ; *******************************************************************************************
 
 BASIC_Start:
+		lda 	#$4C 						; JMP opcode
+		sta 	LocalVector
+		sta 	UserVector
 		lda 	#USRDefault & $FF 			; reset USR vector
-		sta 	USR_Vector
-		lda 	#USRDefault >> 8
-		sta 	USR_Vector+1		
+		sta 	UserVector+1
+		lda 	#(USRDefault >> 8) & $FF
+		sta 	UserVector+2		
+		;
 		jsr 	ResetRunStatus 				; clear everything (CLR command)
 		;
 		; TODO: NEW, maybe.

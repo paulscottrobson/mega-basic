@@ -31,7 +31,6 @@ HighMemory = $8000
 BasicProgram:		
 		.include "../basic/testcode/testcode.src"
 		* = $C000
-		.include "../basic/header/header.src"
 
 StartROM:
 		clc
@@ -48,3 +47,5 @@ StartROM:
 		jsr 	IF_Reset 					; reset external interface
 		jsr 	IFT_ClearScreen
 		#Boot
+
+		.include "../basic/header/header.src"
