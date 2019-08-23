@@ -42,7 +42,6 @@ Unary_Left:		;; left$(
 
 Unary_Right:	;; right$(
 		jsr 	EvaluateStringX 				; get string.
-		nop
 		lda 	XS_Mantissa+0,x 				; push address on stack
 		pha
 		lda 	XS_Mantissa+1,x
@@ -81,6 +80,42 @@ _UROkay:
 
 SLIProcess:
 		jsr 	CheckNextRParen 				; closing right bracket.
+		pla 	
+		sta 	SliceCount 						; count in signcount
+		inc 	a 								; allocate +1 for it.
+		jsr 	AllocateTempString
+		;		
+		pla 									; pop start number off stack.
+		beq 	SLIError 						; exit if start = 0
+		sta 	SliceStart 
+
+		pla  									; pop string address.
+		sta 	zGenPtr+1
+		pla
+		sta 	zGenPtr
+		phx
+		phy
+		ldx 	#0 								; point to string length.
+		ldy 	SliceStart 						; start of the string (+1 for count)
+_SLICopy:
+		lda 	SliceCount 						; done count characters
+		beq 	_SLIExit
+		dec 	SliceCount
+		;
+		tya 									; index of character
+		cmp 	(zGenPtr,x)						; compare against length
+		beq 	_SLIOk 							; if equal, okay.
+		bcs 	_SLIExit 						; if past end, then exit.
+_SLIOk:	lda 	(zGenPtr),y 					; copy one character		
+		iny
+		jsr 	WriteTempString 			
+		bra 	_SLICopy 						; go round till copied characters
+		;
+_SLIExit:
+		ply 									; restore YX
+		plx
+		jmp 	UnaryReturnTempStr 				; return new temporary string.
+
 		nop
 ;
 ;						Get a single parameter, must be a byte 0-255
@@ -91,8 +126,8 @@ SLIByteParameter:
 		lda 	XS_Mantissa+1,x 				; check high bytes zero
 		ora 	XS_Mantissa+2,x
 		ora 	XS_Mantissa+3,x
-		bne 	_SLIBPError
+		bne 	SLIError
 		lda 	XS_Mantissa+0,x
 		rts		
-_SLIBPError:
+SLIError:
 		#Fatal	"Bad String Slice"

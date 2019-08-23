@@ -88,6 +88,9 @@ StringPtr:	.byte ? 						; Top of free memory (for string allocation)
 TempStringWriteIndex: .byte ? 				; Write offset.
 ValSign: 	.byte ? 						; sign flag for val()
 
+SliceStart:	.byte ? 						; string slice parts
+SliceCount:	.byte ?
+
 RandomSeed:	.dword ? 						; Random seed.
 
 Tim_PC:		.word ?							; program counter on BRK (Hi/Lo order)
