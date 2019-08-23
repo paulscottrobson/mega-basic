@@ -44,8 +44,5 @@ StartROM:
 		tay
 		.as
 		sep 	#$30
-		jsr 	IF_Reset 					; reset external interface
-		jsr 	IFT_ClearScreen
 		#Boot
-
 		.include "../basic/header/header.src"

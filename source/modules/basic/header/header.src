@@ -6,20 +6,20 @@ lastUnaryFunction = $b4
 ;	Jump Vector Table
 ;
 VectorTable:
-	.word NotImplemented       & $FFFF ; $80 and
-	.word NotImplemented       & $FFFF ; $81 or
-	.word NotImplemented       & $FFFF ; $82 xor
-	.word NotImplemented       & $FFFF ; $83 eor
-	.word NotImplemented       & $FFFF ; $84 =
-	.word NotImplemented       & $FFFF ; $85 <>
-	.word NotImplemented       & $FFFF ; $86 <
-	.word NotImplemented       & $FFFF ; $87 <=
-	.word NotImplemented       & $FFFF ; $88 >
-	.word NotImplemented       & $FFFF ; $89 >=
-	.word NotImplemented       & $FFFF ; $8a +
-	.word NotImplemented       & $FFFF ; $8b -
-	.word NotImplemented       & $FFFF ; $8c *
-	.word NotImplemented       & $FFFF ; $8d /
+	.word BinaryOp_And         & $FFFF ; $80 and
+	.word BinaryOp_Or          & $FFFF ; $81 or
+	.word BinaryOp_Xor         & $FFFF ; $82 xor
+	.word BinaryOp_Eor         & $FFFF ; $83 eor
+	.word Binary_Equal         & $FFFF ; $84 =
+	.word Binary_NotEqual      & $FFFF ; $85 <>
+	.word Binary_Less          & $FFFF ; $86 <
+	.word Binary_LessEqual     & $FFFF ; $87 <=
+	.word Binary_Greater       & $FFFF ; $88 >
+	.word Binary_GreaterEqual  & $FFFF ; $89 >=
+	.word BinaryOp_Add         & $FFFF ; $8a +
+	.word BinaryOp_Subtract    & $FFFF ; $8b -
+	.word BinaryOp_Multiply    & $FFFF ; $8c *
+	.word BinaryOp_Divide      & $FFFF ; $8d /
 	.word NotImplemented       & $FFFF ; $8e ^
 	.word NotImplemented       & $FFFF ; $8f if
 	.word NotImplemented       & $FFFF ; $90 while
@@ -32,20 +32,20 @@ VectorTable:
 	.word NotImplemented       & $FFFF ; $97 next
 	.word NotImplemented       & $FFFF ; $98 not
 	.word NotImplemented       & $FFFF ; $99 fn(
-	.word NotImplemented       & $FFFF ; $9a abs(
-	.word NotImplemented       & $FFFF ; $9b asc(
-	.word NotImplemented       & $FFFF ; $9c int(
-	.word NotImplemented       & $FFFF ; $9d peek(
-	.word NotImplemented       & $FFFF ; $9e rnd(
-	.word NotImplemented       & $FFFF ; $9f usr(
-	.word NotImplemented       & $FFFF ; $a0 left$(
-	.word NotImplemented       & $FFFF ; $a1 right$(
-	.word NotImplemented       & $FFFF ; $a2 mid$(
-	.word NotImplemented       & $FFFF ; $a3 spc(
-	.word NotImplemented       & $FFFF ; $a4 str$(
-	.word NotImplemented       & $FFFF ; $a5 val(
-	.word NotImplemented       & $FFFF ; $a6 len(
-	.word NotImplemented       & $FFFF ; $a7 hex$(
+	.word Unary_Abs            & $FFFF ; $9a abs(
+	.word Unary_Asc            & $FFFF ; $9b asc(
+	.word Unary_Int            & $FFFF ; $9c int(
+	.word Unary_Peek           & $FFFF ; $9d peek(
+	.word Unary_Rnd            & $FFFF ; $9e rnd(
+	.word Unary_Usr            & $FFFF ; $9f usr(
+	.word Unary_Left           & $FFFF ; $a0 left$(
+	.word Unary_Right          & $FFFF ; $a1 right$(
+	.word Unary_Mid            & $FFFF ; $a2 mid$(
+	.word Unary_Spc            & $FFFF ; $a3 spc(
+	.word Unary_Str            & $FFFF ; $a4 str$(
+	.word Unary_Val            & $FFFF ; $a5 val(
+	.word Unary_Len            & $FFFF ; $a6 len(
+	.word Unary_Hex            & $FFFF ; $a7 hex$(
 	.word NotImplemented       & $FFFF ; $a8 sin(
 	.word NotImplemented       & $FFFF ; $a9 cos(
 	.word NotImplemented       & $FFFF ; $aa tan(
@@ -53,12 +53,12 @@ VectorTable:
 	.word NotImplemented       & $FFFF ; $ac exp(
 	.word NotImplemented       & $FFFF ; $ad log(
 	.word NotImplemented       & $FFFF ; $ae sqr(
-	.word NotImplemented       & $FFFF ; $af dec(
-	.word NotImplemented       & $FFFF ; $b0 deek(
-	.word NotImplemented       & $FFFF ; $b1 leek(
-	.word NotImplemented       & $FFFF ; $b2 mod(
-	.word NotImplemented       & $FFFF ; $b3 sgn(
-	.word NotImplemented       & $FFFF ; $b4 chr$(
+	.word Unary_Dec            & $FFFF ; $af dec(
+	.word Unary_Deek           & $FFFF ; $b0 deek(
+	.word Unary_Leek           & $FFFF ; $b1 leek(
+	.word Unary_Mod            & $FFFF ; $b2 mod(
+	.word Unary_Sgn            & $FFFF ; $b3 sgn(
+	.word Unary_Chr            & $FFFF ; $b4 chr$(
 	.word NotImplemented       & $FFFF ; $b5 $(
 	.word NotImplemented       & $FFFF ; $b6 $
 	.word NotImplemented       & $FFFF ; $b7 #(
@@ -71,7 +71,7 @@ VectorTable:
 	.word NotImplemented       & $FFFF ; $be :
 	.word NotImplemented       & $FFFF ; $bf ;
 	.word NotImplemented       & $FFFF ; $c0 def
-	.word NotImplemented       & $FFFF ; $c1 clr
+	.word CLR_Command          & $FFFF ; $c1 clr
 	.word NotImplemented       & $FFFF ; $c3 data
 	.word NotImplemented       & $FFFF ; $c4 read
 	.word NotImplemented       & $FFFF ; $c5 dim

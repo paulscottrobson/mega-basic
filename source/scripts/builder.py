@@ -93,8 +93,8 @@ class FullBasic(IntegerBasic):
 		self.addModule("float.*")												# FP Stuff
 		self.addModule("float.convert.*")
 		self.addModule("basic.expressions.floatonly.*")
-		self.addModule("utility.tim")											# nicked hex printing routines :)
-		self.setMacro("irqhandler",".word TIM_BreakVector")
+#		self.addModule("utility.tim")											# nicked hex printing routines :)
+#		self.setMacro("irqhandler",".word TIM_BreakVector")
 		#
 		self.addModule("basic.testcode.*")
 		self.boot("BASIC_Start")

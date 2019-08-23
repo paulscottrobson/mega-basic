@@ -116,7 +116,7 @@ _EVCallA:
 		lda 	VectorTable+1,x
 		sta 	LocalVector+2
 		plx 								; restore X
-		jsr 	LocalVector
+		jsr 	_EVCallLocalVector
 		bra 	_EVGotAtom 					; and loop back.
 		;
 _EVExitDrop:
@@ -196,7 +196,10 @@ _EVBadElement:
 		jmp 	SyntaxError
 _EVUnaryFunction:		
 		jmp 	_EVCallA
-		
+
+_EVCallLocalVector:
+		jmp 	(LocalVector+1)
+
 _EVVariableHandler:
 		nop		
 

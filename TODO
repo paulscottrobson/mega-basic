@@ -4,9 +4,8 @@ TODO
 			Processing part of left/right/mid and test it.
 			
 	- 	Get the 6502/mega65 versions working,
-			- make sure pages C & D are mapped in
-			- fix the call issue - dispatcher in evaluate
-			- usr call will have to be a JSL / RTL for 65816.
+			- long subtracts in IntToStr
+			- make sure pages C & D are mapped in (done in start)
 			- TIM break vector issue.
 
 	- 	Write the basic executor and tokeniser and implement ASSERT and PRINT.

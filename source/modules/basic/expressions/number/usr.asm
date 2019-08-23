@@ -14,7 +14,12 @@ Unary_Usr:	;; 	usr(
 		jsr 	CheckNextRParen 			; right bracket.
 		phx 								; save XY
 		phy
+		nop
+		.if 	cpu="65816"
+		jsl 	UserVector
+		.else
 		jsr 	UserVector 					; call the USR function.
+		.endif
 		ply 								; and exit
 		plx
 		rts
