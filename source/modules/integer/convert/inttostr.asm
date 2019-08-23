@@ -25,9 +25,10 @@ INTToString:
 		jsr 		IntegerNegateAlways 	; negate the number.
 _ITSNotMinus:		
 		;
-		lda 		#0 						
+		lda 		#0
 		sta 		NumSuppress 			; clear the suppression flag.
-		txy 								; use Y for the mantissa index.
+		txa 								; use Y for the mantissa index.
+		tay
 		ldx 		#0 						; X is index into dword subtraction table.
 _ITSNextSubtractor:		
 		lda 		#"0" 					; count of subtractions count in ASCII.
@@ -67,7 +68,7 @@ _ITSCantSubtract:
 		bne 		_ITSOutputDigit
 		;
 		lda 		NumSuppress 			; if suppression check zero, then don't print it.
-		bpl 		_ITSGoNextSubtractor
+		bpl	 		_ITSGoNextSubtractor
 _ITSOutputDigit:
 		dec 		NumSuppress 			; suppression check will be non-zero.
 
@@ -81,7 +82,8 @@ _ITSGoNextSubtractor:
 		inx
 		cpx 		#_ITSSubtractorsEnd-_ITSSubtractors
 		bne 		_ITSNextSubtractor 		; do all the subtractors.
-		tyx 								; X is back as the mantissa index
+		tya 								; X is back as the mantissa index
+		tax
 		;
 		lda 		XS_Mantissa+0,x 		; and the last digit is left.
 		ora 		#"0"

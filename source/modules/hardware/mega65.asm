@@ -20,14 +20,13 @@ Exit:	.macro
 _halt:	bra 		_halt
 		.endm
 
-		* = $1000
+		* = $8000
 
 HighMemory = $A000
 
 BasicProgram:		
 		.include "../basic/testcode/testcode.src"
 		* = $A000
-		.include "../basic/header/header.src"
 
 StartROM:
 		#ResetStack

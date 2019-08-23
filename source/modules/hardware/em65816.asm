@@ -18,6 +18,7 @@ ResetStack: 	.macro
 		.al
 		lda 	#$01FF 						; empty stack
 		tcs
+		lda 	#$0000 						; make sure A zero.
 		sep 	#$30 						
 		.as
 		.endm
@@ -50,4 +51,3 @@ TIM_BreakHandler:
 
 		* = $18000
 
-		.include "../basic/header/header.src"

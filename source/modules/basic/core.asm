@@ -9,6 +9,8 @@
 ; *******************************************************************************************
 ; *******************************************************************************************
 
+		.include "../basic/header/header.src"
+
 BASIC_Start:
 		jsr 	IF_Reset 					; set up and clear screen.
 		jsr 	IFT_ClearScreen
@@ -35,14 +37,7 @@ WarmStart:
 		#ResetStack
 		;
 		;	TODO: Reset BASIC stack
+		; 	TODO: Input and execute command.
 		;		
-		lda 	#0 							; mark temp string pointer uninitialised.
-		sta 	zTempStr+1 					; (done before every base level evaluation/or command)
-
-		#s_toStart
-		#s_next
-		#s_get
-		jsr 	EvaluateExpression
-		
-		#Exit
+		jmp 	COMMAND_Run
 

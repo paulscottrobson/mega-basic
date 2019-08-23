@@ -104,6 +104,7 @@ class FullBasic(IntegerBasic):
 		#
 		self.addModule("basic.testcode.*")
 		self.boot("BASIC_Start")
+		self.define("exitOnEnd",1)		
 
 BuildDefinition.Classes = {														# Class list
 		"tim":	TIMOnlyTest,

@@ -55,6 +55,9 @@ _EHNoSkip:
 		ldx 	#0 							; Print line number
 		jsr 	Print16BitInteger 
 _EHNoLine:		
+		.if 	exitOnEnd != 0
+		bra 	_EHNoLine
+		.endif
 		jmp 	WarmStart
 
 _EHAt:	.text 	" at ",0		
@@ -96,8 +99,10 @@ _PRMExit:
 
 Print16BitInteger:
 		lda 	#0 							; make 32 bit
-		sta 	XS_Mantissa+2,x
-		sta 	XS_Mantissa+3,x
+		sta 	XS_Mantissa+2
+		sta 	XS_Mantissa+3
+		sta 	NumBufX 					; reset the conversion pointer
+		tax 								; convert bottom level.
 		jsr 	INTToString 				; make string
 		ldx 	#0 							; print buffer
 _P1Loop:lda 	Num_Buffer,x

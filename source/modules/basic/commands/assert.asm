@@ -10,7 +10,7 @@
 ; *******************************************************************************************
 
 
-ASSERT_Command: 	;; assert
+Command_ASSERT: 	;; assert
 		jsr 	EvaluateNumber 				; calculate thing being asserted
 		lda 	XS_Mantissa,x 				; check if true (non-zero)
 		ora 	XS_Mantissa+1,x

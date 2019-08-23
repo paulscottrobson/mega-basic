@@ -1,9 +1,9 @@
 ; *******************************************************************************************
 ; *******************************************************************************************
 ;
-;		Name : 		clr.asm
-;		Purpose :	CLR Command
-;		Date :		22nd August 2019
+;		Name : 		4510.asm
+;		Purpose :	Memory access (Peek/Poke) for 4510
+;		Date :		23rd August 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************
@@ -11,30 +11,17 @@
 
 ; *******************************************************************************************
 ;
-;									CLR Command
+;						Copy A bytes from ZLTemp1 into Mantissa
 ;
 ; *******************************************************************************************
 
-Command_CLR: 	;; clr
-
-; *******************************************************************************************
-;	
-;								  Clear Runtime 
-;
-; *******************************************************************************************
-
-ResetRunStatus:
-		;
-		;		TODO:Clear Variables
-		;		TODO:Reset Basic Stack.
-		;
-
-		;
-		;		Reset the string pointer space which is allocated downwards
-		;
-		lda 	#HighMemory & $FF
-		sta 	StringPtr
-		lda 	#HighMemory >> 8
-		sta 	StringPtr+1
+MemRead:
+		sta 	SignCount 					; save count
+		ldy 	#0 							; start from here
+_MLoop1:lda 	(zlTemp1),y 				; read the long address
+		sta 	XS_Mantissa,x 				; copy into mantissa
+		iny 								; next to copy		
+		inx
+		cpy 	SignCount 					; do required # of bytes.
+		bne 	_MLoop1
 		rts
-		

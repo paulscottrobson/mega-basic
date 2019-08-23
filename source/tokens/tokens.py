@@ -63,6 +63,7 @@ class Tokens(object):
 				keyword = { "name":w,"type":currentID, "token":tokenID }
 				#print("{0:8} {1:2} ${2:x}".format(w,currentID,tokenID))
 
+				assert w not in Tokens.tokens,"Duplicate '{0}'".format(w)
 				Tokens.tokens[w] = keyword
 
 				tokenID += 1	
@@ -124,7 +125,7 @@ class Tokens(object):
 		def 	clr 	stop	data	read	dim	
 		to 		step  	gosub 	return	goto	end
 		input	let		list	new		old		on
-		restore	poke	print	run 	stop	wait
+		restore	poke	print	run 	wait
 		doke 	loke 	assert
 
 """		

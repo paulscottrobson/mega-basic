@@ -1,7 +1,7 @@
 ; *******************************************************************************************
 ; *******************************************************************************************
 ;
-;		Name : 		src_em65816.inc
+;		Name : 		src_mega65.inc
 ;		Purpose :	Source code address manipulation.
 ;		Date :		19th August 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)

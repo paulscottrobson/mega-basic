@@ -71,7 +71,8 @@ VectorTable:
 	.word NotImplemented       & $FFFF ; $be :
 	.word NotImplemented       & $FFFF ; $bf ;
 	.word NotImplemented       & $FFFF ; $c0 def
-	.word CLR_Command          & $FFFF ; $c1 clr
+	.word Command_CLR          & $FFFF ; $c1 clr
+	.word Command_STOP         & $FFFF ; $c2 stop
 	.word NotImplemented       & $FFFF ; $c3 data
 	.word NotImplemented       & $FFFF ; $c4 read
 	.word NotImplemented       & $FFFF ; $c5 dim
@@ -80,7 +81,7 @@ VectorTable:
 	.word NotImplemented       & $FFFF ; $c8 gosub
 	.word NotImplemented       & $FFFF ; $c9 return
 	.word NotImplemented       & $FFFF ; $ca goto
-	.word END_Command          & $FFFF ; $cb end
+	.word Command_END          & $FFFF ; $cb end
 	.word NotImplemented       & $FFFF ; $cc input
 	.word NotImplemented       & $FFFF ; $cd let
 	.word NotImplemented       & $FFFF ; $ce list
@@ -90,12 +91,11 @@ VectorTable:
 	.word NotImplemented       & $FFFF ; $d2 restore
 	.word NotImplemented       & $FFFF ; $d3 poke
 	.word NotImplemented       & $FFFF ; $d4 print
-	.word NotImplemented       & $FFFF ; $d5 run
-	.word STOP_Command         & $FFFF ; $d6 stop
-	.word NotImplemented       & $FFFF ; $d7 wait
-	.word NotImplemented       & $FFFF ; $d8 doke
-	.word NotImplemented       & $FFFF ; $d9 loke
-	.word ASSERT_Command       & $FFFF ; $da assert
+	.word Command_RUN          & $FFFF ; $d5 run
+	.word NotImplemented       & $FFFF ; $d6 wait
+	.word NotImplemented       & $FFFF ; $d7 doke
+	.word NotImplemented       & $FFFF ; $d8 loke
+	.word Command_ASSERT       & $FFFF ; $d9 assert
 NotImplemented:
 
 	#fatal "Not implemented"
@@ -189,6 +189,7 @@ KeywordText:
 	.byte $bb                              ; $bf ;
 	.byte $44,$45,$c6                      ; $c0 def
 	.byte $43,$4c,$d2                      ; $c1 clr
+	.byte $53,$54,$4f,$d0                  ; $c2 stop
 	.byte $44,$41,$54,$c1                  ; $c3 data
 	.byte $52,$45,$41,$c4                  ; $c4 read
 	.byte $44,$49,$cd                      ; $c5 dim
@@ -208,11 +209,10 @@ KeywordText:
 	.byte $50,$4f,$4b,$c5                  ; $d3 poke
 	.byte $50,$52,$49,$4e,$d4              ; $d4 print
 	.byte $52,$55,$ce                      ; $d5 run
-	.byte $53,$54,$4f,$d0                  ; $d6 stop
-	.byte $57,$41,$49,$d4                  ; $d7 wait
-	.byte $44,$4f,$4b,$c5                  ; $d8 doke
-	.byte $4c,$4f,$4b,$c5                  ; $d9 loke
-	.byte $41,$53,$53,$45,$52,$d4          ; $da assert
+	.byte $57,$41,$49,$d4                  ; $d6 wait
+	.byte $44,$4f,$4b,$c5                  ; $d7 doke
+	.byte $4c,$4f,$4b,$c5                  ; $d8 loke
+	.byte $41,$53,$53,$45,$52,$d4          ; $d9 assert
 	.byte $00
 token_and = $80
 token_or = $81
@@ -280,6 +280,7 @@ token_colon = $be
 token_semicolon = $bf
 token_def = $c0
 token_clr = $c1
+token_stop = $c2
 token_data = $c3
 token_read = $c4
 token_dim = $c5
@@ -299,8 +300,7 @@ token_restore = $d2
 token_poke = $d3
 token_print = $d4
 token_run = $d5
-token_stop = $d6
-token_wait = $d7
-token_doke = $d8
-token_loke = $d9
-token_assert = $da
+token_wait = $d6
+token_doke = $d7
+token_loke = $d8
+token_assert = $d9

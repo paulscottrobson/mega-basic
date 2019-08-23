@@ -40,7 +40,10 @@ for fName in files:
 		if l.find(";;") >= 0:
 			m = re.match("^([A-Za-z0-9\\_]+)\\:\\s*\\;\\;\\s*(.*)\\s*$",l.strip())
 			assert m is not None,"Bad line "+l+" in "+fName
-			executeLabel[m.group(2).lower().strip()] = m.group(1).strip()
+			lbl = m.group(2).lower().strip()
+			assert lbl in tokens,"Code found for non token "+lbl
+			assert executeLabel[lbl] == "NotImplemented","Duplicate code "+lbl
+			executeLabel[lbl] = m.group(1).strip()
 #
 #		Print jump vector table. May need modding for paging.
 #

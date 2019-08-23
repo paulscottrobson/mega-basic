@@ -92,7 +92,8 @@ _CTSCLoop:
 		#s_next 							; skip it
 		phy 								; save in Y
 		inx 								; bump index
-		txy 								; index into Y
+		phx 								; index into Y
+		ply
 		sta 	(zTempStr),y 				; save at index
 		ply 								; restore Y
 		dec 	zLTemp1 					; do for each character

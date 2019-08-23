@@ -60,7 +60,7 @@ class BuildDefinition(object):
 	#		Assign a define value
 	#		
 	def define(self,label,value):
-		self.defines[label] = value
+		self.defines[label.lower()] = value
 	#
 	#		Assign a value to a new or current macro
 	#
