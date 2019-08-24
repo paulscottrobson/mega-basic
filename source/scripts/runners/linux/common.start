@@ -6,7 +6,8 @@ popd >/dev/null
 
 pushd tokens >/dev/null
 python tokentables.py >../modules/basic/header/header.src
-python basicprogram.py >../modules/basic/testcode/testcode.src
+#python basicprogram.py ../modules/basic/testcode/testcode.src
+python testcreate.py ../modules/basic/testcode/testcode.src
 popd
 
 64tass -X -b -q basic.asm  -L rom.lst -o rom.bin

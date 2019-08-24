@@ -10,6 +10,7 @@
 # *******************************************************************************************
 
 from tokenise import *
+import sys
 
 # *******************************************************************************************
 #
@@ -36,7 +37,7 @@ class BasicProgram(object):
 		code.insert(1,lineNumber & 0xFF)										# add line#
 		code.insert(2,lineNumber >> 8)
 		#
-		#print(lineNumber,line,",".join(["{0:02x}".format(c) for c in code]))
+		#print(lineNumber,line)
 		#
 		self.program = self.program[:-1] + code + [0] 							# add line in.
 	#
@@ -49,22 +50,24 @@ class BasicProgram(object):
 	#
 	#		Export in assembler format.
 	#
-	def export(self):
+	def export(self,file):
+		h = open(file,"w")
 		pos = 0
 		while pos < len(self.program):											# while more to do.
 			size = min(8,len(self.program)-pos)									# how big.
 			data = self.program[pos:pos+size]									# chop bit out
 			data = ",".join(["${0:02x}".format(n) for n in data])				# convert it
-			print("\t.byte\t{0}".format(data))									# output it.
+			h.write("\t.byte\t{0}\n".format(data))								# output it.
 			pos = pos + size													# next chunk
-		
+		h.close()
+
 if __name__ == "__main__":
 	bp = BasicProgram()
-	bp.add('print 42;"abcdef";43,hex$(4313216);',64310)
-	bp.add('print "("+str$(-97)+")":print"next line ";chr$(42):print 22/7.0:stop',64320)
+	bp.add("assert 286223.71 + -303880.16 = -17656.457")
+	bp.add('stop')
 #	bp.add("a = a + 2")
 #	bp.save("demo.bas")
-	bp.export()
+	bp.export(sys.argv[1])
 #
 #		Basic Program Format:
 #

@@ -2,9 +2,6 @@ TODO
 ====
 	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
 
-	- 	Write test harness module and test code for 
-				arithmetic (fp/int)
-
 	- 	Mega65 switch to (zp),Z, 65816 option of [xxxx],y, test 65C02 on 65816 (?)			
 
 	- 	Test code extend for
@@ -26,7 +23,7 @@ Fixes
 		- Anything in FPMacros (check XYZ usage for non shifts - may not be worth it)		
 		- Integer negation in fputils.asm
 		- Mantissa subtraction in fpdivide.asm
--	FP guard byte on subtract ????
+-	FP guard byte on subtract ? If so can uprate the accuracy test.
 
 Error Checks
 ============
