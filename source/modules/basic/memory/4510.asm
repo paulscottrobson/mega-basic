@@ -15,7 +15,7 @@
 ;
 ; *******************************************************************************************
 
-MemRead:
+MemRead:phz
 		sta 	SignCount 					; save count
 		ldz 	#0 							; start from here
 _MLoop1:nop
@@ -25,4 +25,5 @@ _MLoop1:nop
 		inx
 		cpz 	SignCount 					; do required # of bytes.
 		bne 	_MLoop1
+		plz
 		rts

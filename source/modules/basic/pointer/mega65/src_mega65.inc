@@ -20,10 +20,11 @@ s_toStart:	.macro
 		sta 	zCodePtr+0
 		lda 	#BasicProgram >> 8
 		sta 	zCodePtr+1
-		lda 	#0
+		lda 	#2
 		sta 	zCodePtr+2
+		lda 	#0
 		sta 	zCodePtr+3
-		ldy 	#3
+		ldz 	#3
 		.endm
 
 ; *******************************************************************************************
@@ -33,15 +34,15 @@ s_toStart:	.macro
 ; *******************************************************************************************
 
 s_next:	.macro
-		iny
+		inz
 		.endm
 
 s_prev:	.macro
-		dey
+		dez
 		.endm
 
 s_start:.macro
-		ldy 	#0
+		ldz 	#0
 		.endm
 		
 ; *******************************************************************************************
@@ -51,7 +52,8 @@ s_start:.macro
 ; *******************************************************************************************
 
 s_get:	.macro
-		lda 	(zCodePtr),y		
+		nop
+		lda 	(zCodePtr),z
 		.endm
 
 ; *******************************************************************************************
@@ -61,7 +63,8 @@ s_get:	.macro
 ; *******************************************************************************************
 
 s_cmp:	.macro
-		cmp 	(zCodePtr),y		
+		nop
+		cmp 	(zCodePtr),z
 		.endm
 
 ; *******************************************************************************************
@@ -71,8 +74,9 @@ s_cmp:	.macro
 ; *******************************************************************************************
 
 s_nextline: .macro
-		ldy 	#0 							; point to offset
-		lda 	(zCodePtr),y 				; read it
+		ldz 	#0 							; point to offset
+		nop
+		lda 	(zCodePtr),z 				; read it
 		clc
 		adc 	zCodePtr 					; add to code pointer
 		sta 	zCodePtr
@@ -88,20 +92,22 @@ _SNLNoCarry:
 ; *******************************************************************************************
 		
 s_skipelement: .macro
-		lda 	(zCodePtr),y 				; read element
-		iny 								; skip
+		nop
+		lda 	(zCodePtr),z 				; read element
+		inz 								; skip
 		cmp 	#$F8 						; if < $F8 single character,token
 		bcc 	_SEDone 					; so just skip over it.
 		cmp 	#$FC 						; if < $FC double character token
 		bcc 	_SEDouble
-		tya 								; this is Y + 1
+		tza 								; this is Y + 1
 		clc
-		adc 	(zCodePtr),y 				; add total length of element
-		tay 								; back in Y.
-		dey 								; fix up, one for the +1, one for the iny
-		dey 
+		nop
+		adc 	(zCodePtr),z 				; add total length of element
+		taz 								; back in Y.
+		dez 								; fix up, one for the +1, one for the iny
+		dez 
 _SEDouble:
-		iny
+		inz
 _SEDone:	
 		.endm		
 
