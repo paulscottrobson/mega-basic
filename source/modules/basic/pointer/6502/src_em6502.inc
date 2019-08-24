@@ -1,9 +1,9 @@
 ; *******************************************************************************************
 ; *******************************************************************************************
 ;
-;		Name : 		src_em65816.inc
+;		Name : 		src_em6502.inc
 ;		Purpose :	Source code address manipulation.
-;		Date :		19th August 2019
+;		Date :		24th August 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************
@@ -51,7 +51,7 @@ s_start:.macro
 ; *******************************************************************************************
 
 s_get:	.macro
-		lda 	[zCodePtr],y		
+		lda 	(zCodePtr),y		
 		.endm
 
 ; *******************************************************************************************
@@ -61,7 +61,7 @@ s_get:	.macro
 ; *******************************************************************************************
 
 s_cmp:	.macro
-		cmp 	[zCodePtr],y		
+		cmp 	(zCodePtr),y		
 		.endm
 
 ; *******************************************************************************************
@@ -72,7 +72,7 @@ s_cmp:	.macro
 
 s_nextline: .macro
 		ldy 	#0 							; point to offset
-		lda 	[zCodePtr],y 				; read it
+		lda 	(zCodePtr),y 				; read it
 		clc
 		adc 	zCodePtr 					; add to code pointer
 		sta 	zCodePtr
@@ -88,7 +88,7 @@ _SNLNoCarry:
 ; *******************************************************************************************
 		
 s_skipelement: .macro
-		lda 	[zCodePtr],y 				; read element
+		lda 	(zCodePtr),y 				; read element
 		iny 								; skip
 		cmp 	#$F8 						; if < $F8 single character,token
 		bcc 	_SEDone 					; so just skip over it.
@@ -96,7 +96,7 @@ s_skipelement: .macro
 		bcc 	_SEDouble
 		tya 								; this is Y + 1
 		clc
-		adc 	[zCodePtr],y 				; add total length of element
+		adc 	(zCodePtr),y 				; add total length of element
 		tay 								; back in Y.
 		dey 								; fix up, one for the +1, one for the iny
 		dey 
@@ -104,4 +104,3 @@ _SEDouble:
 		iny
 _SEDone:	
 		.endm		
-
