@@ -10,8 +10,6 @@ TODO
 Fixes
 =====
 
-- 	Make 65816, Mega65 pointer code (both currently simple 6502)
--	Make 4510 PEEK correct (currently 6502 type)
 - 	Proper insert/delete in line editing.
 - 	Add Break Check to main RUN loop.
 - 	Add X to Monitor (warm start BASIC)

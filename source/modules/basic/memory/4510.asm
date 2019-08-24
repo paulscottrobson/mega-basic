@@ -17,11 +17,12 @@
 
 MemRead:
 		sta 	SignCount 					; save count
-		ldy 	#0 							; start from here
-_MLoop1:lda 	(zlTemp1),y 				; read the long address
+		ldz 	#0 							; start from here
+_MLoop1:nop
+		lda 	(zlTemp1),z 				; read the long address
 		sta 	XS_Mantissa,x 				; copy into mantissa
-		iny 								; next to copy		
+		inz 								; next to copy		
 		inx
-		cpy 	SignCount 					; do required # of bytes.
+		cpz 	SignCount 					; do required # of bytes.
 		bne 	_MLoop1
 		rts
