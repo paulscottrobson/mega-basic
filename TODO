@@ -1,7 +1,5 @@
 TODO
 ====
-	- 	Make test a different build.
-	
 	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
 
 	- 	Mega65 switch to (zp),Z, 65816 option of [xxxx],y, test 65C02 on 65816 (?)			
@@ -12,7 +10,6 @@ TODO
 Fixes
 =====
 
-- 	TAB in interface, add to PRINT
 - 	Make 65816, Mega65 pointer code (both currently simple 6502)
 -	Make 4510 PEEK correct (currently 6502 type)
 - 	Proper insert/delete in line editing.

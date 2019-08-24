@@ -63,10 +63,8 @@ class BasicProgram(object):
 
 if __name__ == "__main__":
 	bp = BasicProgram()
-	bp.add('print val("-589940")')
+	bp.add('print ">",42,69')
 	bp.add('stop')
-#	bp.add("a = a + 2")
-#	bp.save("demo.bas")
 	bp.export(sys.argv[1])
 #
 #		Basic Program Format:

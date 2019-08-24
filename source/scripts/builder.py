@@ -102,13 +102,22 @@ class FullBasic(IntegerBasic):
 		self.addModule("basic.expressions.floatonly.*")
 		self.includeTIM()
 		#
+		self.define("exitOnEnd",1)	
 		self.addModule("basic.testcode.*")
 		self.boot("BASIC_Start")
-		self.define("exitOnEnd",1)		
+
+class ExpressionTestBasic(FullBasic):
+	def create(self):
+		FullBasic.create(self)
+		self.addModule("basic.testcode.*")
+		self.define("exitOnEnd",1)	
+		self.define("autorun",1)
+		self.define("loadtest",1)	
 
 BuildDefinition.Classes = {														# Class list
 		"tim":	TIMOnlyTest,
 		"fpch":	FloatingPointTest,
+		"expr":	ExpressionTestBasic,
 		"full":	FullBasic,
 		"intb":	IntegerBasic
 }

@@ -25,7 +25,12 @@ _halt:	bra 		_halt
 HighMemory = $7000
 
 BasicProgram:		
+		.if loadTest = 0		
 		.include "../basic/testcode/testcode.src"
+		.else
+		.include "../basic/testcode/testing.src"
+		.endif
+
 		* = $A000
 
 StartROM:

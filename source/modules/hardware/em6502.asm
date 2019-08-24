@@ -19,8 +19,12 @@ ResetStack: 	.macro
 HighMemory = $8000
 
 		* = $1000
-BasicProgram:		
+BasicProgram:
+		.if loadTest = 0		
 		.include "../basic/testcode/testcode.src"
+		.else
+		.include "../basic/testcode/testing.src"
+		.endif
 		* = $C000
 		.include "../basic/header/header.src"
 

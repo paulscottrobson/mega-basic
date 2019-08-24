@@ -49,6 +49,8 @@ class BuildDefinition(object):
 						"fatal":"\tjsr ERR_Handler\n\t.text \\1,0\n"			# Error - ASCIIZ message follows
 		}						
 		self.defines["exitonend"] = 0 											# if set to 1, exits on END command 						
+		self.defines["autorun"] = 0
+		self.defines["loadtest"] = 0		
 	#
 	#		Analyse the source requirements, add the various classes, macros.
 	#

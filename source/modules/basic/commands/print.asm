@@ -78,7 +78,7 @@ _CPREndPrint:
 		;		Output a tab
 		;		
 _CPR_Tab:
-		; 	TODO: Output tab
+		jsr 	IFT_Tab
 		;
 		;		Skip current, check end.
 		;		
