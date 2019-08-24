@@ -2,11 +2,6 @@ TODO
 ====
 	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
 
-	- 	Write the basic executor and implement
-			PRINT	
-
-	- 	See if working on all (three/four) platforms
-
 	- 	Write test harness module and test code for 
 				arithmetic (fp/int)
 
@@ -21,6 +16,7 @@ TODO
 Fixes
 =====
 
+- 	TAB in interface, add to PRINT
 - 	Make 65816, Mega65 pointer code (both currently simple 6502)
 -	Make 4510 PEEK correct (currently 6502 type)
 - 	Proper insert/delete in line editing.
@@ -36,4 +32,3 @@ Error Checks
 ============
 
 - 	Allocating temporary string memory (space available)
-

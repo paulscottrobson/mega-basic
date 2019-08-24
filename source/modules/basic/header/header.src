@@ -68,7 +68,7 @@ VectorTable:
 	.word NotImplemented       & $FFFF ; $bb (
 	.word NotImplemented       & $FFFF ; $bc )
 	.word NotImplemented       & $FFFF ; $bd ,
-	.word NotImplemented       & $FFFF ; $be :
+	.word Command_COLON        & $FFFF ; $be :
 	.word NotImplemented       & $FFFF ; $bf ;
 	.word NotImplemented       & $FFFF ; $c0 def
 	.word Command_CLR          & $FFFF ; $c1 clr
@@ -90,7 +90,7 @@ VectorTable:
 	.word NotImplemented       & $FFFF ; $d1 on
 	.word NotImplemented       & $FFFF ; $d2 restore
 	.word NotImplemented       & $FFFF ; $d3 poke
-	.word NotImplemented       & $FFFF ; $d4 print
+	.word Command_PRINT        & $FFFF ; $d4 print
 	.word Command_RUN          & $FFFF ; $d5 run
 	.word NotImplemented       & $FFFF ; $d6 wait
 	.word NotImplemented       & $FFFF ; $d7 doke

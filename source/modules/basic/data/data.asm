@@ -74,9 +74,13 @@ XS3_Type = XS_Type+XS_Size*2
 
 
 		* = $400
-
-Num_Buffer	.fill 	32 						; buffer for numeric conversions
+;
+;		Must be this way round, so it automatically makes a count-prefixed string.
+;
 NumBufX 	.byte 	?						; buffer index position
+Num_Buffer	.fill 	32 						; buffer for numeric conversions
+
+
 NumSuppress	.byte 	?						; leading zero suppression flag
 NumConvCount .byte 	? 						; count for conversions.
 
@@ -84,7 +88,7 @@ ExpTemp:	.byte ?							; Working temp for exponents.
 ExpCount:	.byte ? 						; Count of decimal exponents.
 SignCount:	.byte ?							; Integer Divide Sign Counts.
 
-StringPtr:	.byte ? 						; Top of free memory (for string allocation)
+StringPtr:	.word ? 						; Top of free memory (for string allocation)
 TempStringWriteIndex: .byte ? 				; Write offset.
 ValSign: 	.byte ? 						; sign flag for val()
 

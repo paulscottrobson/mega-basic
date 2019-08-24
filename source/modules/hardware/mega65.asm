@@ -22,7 +22,7 @@ _halt:	bra 		_halt
 
 		* = $8000
 
-HighMemory = $A000
+HighMemory = $7000
 
 BasicProgram:		
 		.include "../basic/testcode/testcode.src"

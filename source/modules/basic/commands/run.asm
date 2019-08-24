@@ -9,7 +9,6 @@
 ; *******************************************************************************************
 ; *******************************************************************************************
 
-
 Command_RUN: 	;; run
 		jsr 	ResetRunStatus 				; clear, reset stacks etc.
 		#s_tostart 							; go to the first line.
@@ -76,3 +75,5 @@ RUN_Extension:
 		beq 	RUN_Skip 					; skip over it.
 		jmp 	SyntaxError
 
+Command_COLON: 	;; : 				
+		rts

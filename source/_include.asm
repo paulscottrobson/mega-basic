@@ -34,6 +34,7 @@ maxstring = 253
 	.include "modules/basic/core.asm"
 	.include "modules/basic/commands/run.asm"
 	.include "modules/basic/commands/end.asm"
+	.include "modules/basic/commands/print.asm"
 	.include "modules/basic/commands/assert.asm"
 	.include "modules/basic/commands/clr.asm"
 	.include "modules/basic/commands/stop.asm"
