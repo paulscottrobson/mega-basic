@@ -1,12 +1,11 @@
 TODO
 ====
+	- 	Make test a different build.
+	
 	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
 
 	- 	Mega65 switch to (zp),Z, 65816 option of [xxxx],y, test 65C02 on 65816 (?)			
-
-	- 	Test code extend for
-			 logical, concat, unary, comparison
-			 
+	 
 	- 	Design and implement variables optional defaults and # (real) % (int) $ (string)
 			consider set/get locals def fn options.
 

@@ -63,7 +63,7 @@ class BasicProgram(object):
 
 if __name__ == "__main__":
 	bp = BasicProgram()
-	bp.add("assert 286223.71 + -303880.16 = -17656.457")
+	bp.add('print val("-589940")')
 	bp.add('stop')
 #	bp.add("a = a + 2")
 #	bp.save("demo.bas")

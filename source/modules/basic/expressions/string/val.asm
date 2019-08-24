@@ -34,6 +34,9 @@ Unary_Val: 	;; val(
 		sta 	ValSign
 		bne 	_UVNotMinus
 		iny 								; skip over it.
+		pla 								; decrement character count.
+		dec 	a
+		pha
 _UVNotMinus:		
 		pla 								; this is the count.
 _UVCopy:pha									; copy into new temp string which is ASCIIZ

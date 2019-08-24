@@ -35,7 +35,7 @@ CCWrite:sta 	XS_Mantissa+0,x 			; write into integer slot
 Binary_NotEqual:	;; 	<>
 		jsr 	CompareValues
 		ora 	#0
-		bne 	CCFalse
+		beq 	CCFalse
 		bra 	CCTrue
 
 Binary_Less:	;; 	<
@@ -59,7 +59,7 @@ Binary_GreaterEqual:	;; 	>=
 Binary_Greater:	;; 	>
 		jsr 	CompareValues
 		cmp 	#1
-		bne 	CCTrue
+		beq 	CCTrue
 		bra 	CCFalse
 		
 ; *******************************************************************************************
