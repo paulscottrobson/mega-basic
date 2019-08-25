@@ -88,6 +88,15 @@ VarMemPtr: 	.word ?							; Bottom of free memory (for variables)
 NumBufX 	.byte 	?						; buffer index position
 Num_Buffer	.fill 	32 						; buffer for numeric conversions
 
+
+HashTableCount = 6 							; there are 6 hash tables, in token order.
+HashTableSize = 8 							; each hash table as 8 links.
+											; (used implicitly in extract.asm)
+
+HashTableBase: 								
+			.fill	HashTableCount * HashTableSize * 2
+HashTableEnd:	
+
 Var_Buffer 	= Num_Buffer 					; buffer for variable name (same space)
 Var_Type    .byte ? 						; type of variable (as a type token)
 Var_Hash 	.byte ? 						; hash of identifier name.
@@ -118,11 +127,4 @@ Tim_X:		.byte ?
 Tim_Y:		.byte ?
 Tim_Z:		.byte ?
 Tim_SP:		.word ?							; Stack Pointer (just in cases)
-
-HashTableCount = 6 							; there are 6 hash tables, in token order.
-HashTableSize = 8 							; each hash table as 8 links.
-											; (used implicitly in extract.asm)
-
-HashTableBase: 								
-			.fill	HashTableCount * HashTableSize * 2
-HashTableEnd:			
+		

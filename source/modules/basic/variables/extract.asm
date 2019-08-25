@@ -52,7 +52,7 @@ _VECopyBuffer:
 		cmp 	#"0" 					; 0-9 copy as well.
 		bcc 	_VECopyEnd
 		cmp 	#"9"+1
-		bcs 	_VECopyBuffer
+		bcc 	_VECopyBuffer
 _VECopyEnd:
 		;
 		;		This figures out which of the six types (int/float/str var or array)

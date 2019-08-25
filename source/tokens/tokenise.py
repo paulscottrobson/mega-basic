@@ -77,6 +77,12 @@ class Tokeniser(object):
 					self.byteData.append(n >> 8)
 				self.byteData.append(n & 0xFF)								# body
 				return s[l:]
+		#
+		m = re.match("^([a-zA-Z][a-zA-Z0-9]*)(.*)$",s)						# tokenise identifier.
+		if m is not None:		
+			for c in m.group(1).upper():
+				self.byteData.append(ord(c) & 0x3F)
+			return m.group(2)
 		#																	# Single character.
 		c = s[0].upper() 													# get as U/C
 		assert c != "@" and ord(c) < 0x5F,"Cannot tokenise {0}".format(s)	# must be $20-$5F and not @
@@ -109,7 +115,7 @@ if __name__ == "__main__":
 	tok = Tokeniser()
 	tok.test("rem hel:lo")
 	tok.test('""')
-	tok.test('"abc" abc')
+	tok.test('"abc" abc ab2$')
 	tok.test('"def')
 	tok.test('41.102 42 0 0.')
 	tok.test('12.304e-4 xx')

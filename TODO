@@ -1,13 +1,17 @@
 TODO
 ====
+	- 	Do LET.
 
-	- 	Write program to dump basic variable structures.
+	- 	Create empty array structures according to set specification,
+		which is defaulted to (10) when unspecified but can be specified.
 
-	- 	Create empty array structures according to set specification.
+	- 	Fix var dump to show these.
 
-	-	Add code to extract variables in arrays.
+	-	Add code to extract variables in arrays using indices.
 
-	- 	Start work on assignment code.
+	- 	Check arrays/assignment work properly.
+
+	-	Implement DIM.
 
 	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
 
@@ -21,7 +25,8 @@ Fixes
 		- Anything in FPMacros (check XYZ usage for non shifts - may not be worth it)		
 		- Integer negation in fputils.asm
 		- Mantissa subtraction in fpdivide.asm
--	FP guard byte on subtract ? If so can uprate the accuracy test.
+-	FP guard byte on subtract ? If so can uprate the floating point equality test.
+-	fpch doesn't work in xemu or fm65 modes.
 
 Error Checks
 ============
