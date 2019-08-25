@@ -84,6 +84,7 @@ Var_Buffer 	= Num_Buffer 					; buffer for variable name (same space)
 Var_Type    .byte ? 						; type of variable (as a type token)
 Var_Hash 	.byte ? 						; hash of identifier name.
 Var_Length 	.byte ? 						; length of variable name
+Var_HashAddress .byte ?						; low byte of hash table entry.
 
 NumSuppress	.byte 	?						; leading zero suppression flag
 NumConvCount .byte 	? 						; count for conversions.
@@ -112,6 +113,7 @@ Tim_SP:		.word ?							; Stack Pointer (just in cases)
 
 HashTableCount = 6 							; there are 6 hash tables, in token order.
 HashTableSize = 8 							; each hash table as 8 links.
+											; (used implicitly in extract.asm)
 
 HashTableBase: 								
 			.fill	HashTableCount * HashTableSize * 2

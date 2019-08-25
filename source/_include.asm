@@ -62,6 +62,7 @@ maxstring = 253
 	.include "modules/basic/pointer/checks.asm"
 	.include "modules/basic/stringmem/tempalloc.asm"
 	.include "modules/basic/variables/variables.asm"
+	.include "modules/basic/variables/extract.asm"
 	.include "modules/integer/multiply.asm"
 	.include "modules/integer/divide.asm"
 	.include "modules/integer/convert/inttostr.asm"
