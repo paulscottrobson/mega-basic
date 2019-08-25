@@ -149,8 +149,17 @@ _VSString:
 		cmp 	#token_Dollar
 		bne 	_VSBadType
 		;
-		bra 	_VSString
 		;
-		;	TODO: Concrete string in mantissa
-		;	TODO: Copy into variable
-		;
+		phx
+		phy
+		jsr 	StringConcrete 				; concrete the string in the mantissa -> AX		
+		ldy 	#1 							; save high byte
+		sta 	(zVarDataPtr),y
+		dey 								; save low byte
+		txa
+		sta 	(zVarDataPtr),y
+		ply 								; and exit.
+		plx
+		rts
+
+		

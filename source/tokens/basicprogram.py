@@ -66,7 +66,7 @@ if __name__ == "__main__":
 	bp.add('let test = 42.5',100)
 	bp.add('let a = 0.0:let test1 = 1.2e24/100')
 	bp.add('let b12% = -2')
-	bp.add('c = -0')
+	bp.add('c = -0:let name$="Hello":c$=",world!"')
 	bp.add('stop')
 	bp.export(sys.argv[1])
 #

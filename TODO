@@ -1,8 +1,5 @@
 TODO
 ====
-	- 	Complete LET
-			- concrete strings and put reference there.
-
 	-	Write search code for pre-existing variables.
 
 	- 	Create empty array structures according to set specification,
@@ -36,3 +33,5 @@ Error Checks
 
 - 	Allocating temporary string memory (space available)
 - 	Allocating variable space.
+
+
