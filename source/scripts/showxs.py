@@ -35,9 +35,10 @@ for v in range(0,4):
 	 	print("\tFloat {0}".format(fpv))
 	print()
 
-a = 0x400
+a = 0x404
 s = ""
-while a < 0x420 and mem[a] != 0x00:
+while a < 0x424 and mem[a] != 0x00:
 	s = s + chr(mem[a])
 	a += 1
 print("Buffer contains '{0}'".format(s))
+

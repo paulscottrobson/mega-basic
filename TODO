@@ -1,14 +1,15 @@
 TODO
 ====
-	- 	Method of handling start of variable memory reset.
 
-	- 	Carry on with variable coding.
-		
+	- 	Write program to dump basic variable structures.
+
+	- 	Create empty array structures according to set specification.
+
+	-	Add code to extract variables in arrays.
+
+	- 	Start work on assignment code.
+
 	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
-
-
-
-			consider set/get locals def fn options.
 
 Fixes
 =====
@@ -26,3 +27,4 @@ Error Checks
 ============
 
 - 	Allocating temporary string memory (space available)
+- 	Allocating variable space.

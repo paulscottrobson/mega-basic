@@ -74,7 +74,6 @@ _VEHaveType:
 		;
 		;		Store type and length, and set bit 7 of the last char of the name
 		;
-		nop	
 		sta 	Var_Type 				; save as type.
 		lda 	Var_Buffer,x 			; set bit 7 of name, marks the end.
 		ora 	#$80
@@ -100,6 +99,18 @@ _VEHaveType:
 		adc 	#HashTableBase & $FF 	; now the low byte of the actual table address
 		sta 	Var_HashAddress 		
 		;
+		;		Finally work out the data size.
+		;
+		ldx 	#5 						; hash is 5 bytes (real)
+		lda 	Var_Type
+		cmp 	#token_Hash
+		beq 	_VEHaveSize
+		dex 
+		cmp 	#token_Percent 			; percent is 4 bytes (integer)
+		beq 	_VEHaveSize
+		ldx 	#2 						; everything else is two.
+_VEHaveSize:
+		stx 	Var_DataSize		
 		plx
 		rts
 		

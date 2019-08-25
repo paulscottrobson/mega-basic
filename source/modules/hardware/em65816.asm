@@ -28,6 +28,7 @@ Exit:	.macro
 		.endm
 
 HighMemory = $8000
+VariableMemory = $4000
 
 		* = $1000
 BasicProgram:		
@@ -36,6 +37,7 @@ BasicProgram:
 		.else
 		.include "../basic/testcode/testing.src"
 		.endif
+
 
 		* = $C000
 

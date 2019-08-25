@@ -23,6 +23,7 @@ _halt:	bra 		_halt
 		* = $8000
 
 HighMemory = $7000
+VariableMemory = $4000
 
 BasicProgram:		
 		.if loadTest = 0		

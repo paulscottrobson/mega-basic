@@ -30,6 +30,11 @@ zGenPtr:	.word ? 						; general pointer.
 
 zTempStr:	.word ?							; temporary string allocator. When high zero, not initialised.
 
+zVarDataPtr: .word ? 						; position of variable data.
+zVarType: 	.byte ? 						; type of data (token)
+
+zNullString:.byte ? 						; represents a NULL string.
+
 		* = $200
 
 ; *******************************************************************************************
@@ -72,8 +77,11 @@ XS3_Mantissa = XS_Mantissa+XS_Size*2
 XS3_Exponent = XS_Exponent+XS_Size*2
 XS3_Type = XS_Type+XS_Size*2
 
-
 		* = $400
+;		
+StringPtr:	.word ? 						; Top of free memory (for string allocation)
+VarMemPtr: 	.word ?							; Bottom of free memory (for variables)
+;
 ;
 ;		Must be this way round, so it automatically makes a count-prefixed string.
 ;
@@ -85,6 +93,7 @@ Var_Type    .byte ? 						; type of variable (as a type token)
 Var_Hash 	.byte ? 						; hash of identifier name.
 Var_Length 	.byte ? 						; length of variable name
 Var_HashAddress .byte ?						; low byte of hash table entry.
+Var_DataSize .byte ?						; size of one element.
 
 NumSuppress	.byte 	?						; leading zero suppression flag
 NumConvCount .byte 	? 						; count for conversions.
@@ -93,7 +102,6 @@ ExpTemp:	.byte ?							; Working temp for exponents.
 ExpCount:	.byte ? 						; Count of decimal exponents.
 SignCount:	.byte ?							; Integer Divide Sign Counts.
 
-StringPtr:	.word ? 						; Top of free memory (for string allocation)
 TempStringWriteIndex: .byte ? 				; Write offset.
 ValSign: 	.byte ? 						; sign flag for val()
 
