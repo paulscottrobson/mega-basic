@@ -63,7 +63,10 @@ class BasicProgram(object):
 
 if __name__ == "__main__":
 	bp = BasicProgram()
-	bp.add('print "("+test$+ab2$+c5$+d92$+hello$+")",jim,fred,i1%',100)
+	bp.add('let test = 42.5',100)
+	bp.add('let a = 0.0:let test1 = 1.2e24/100')
+	bp.add('let b12% = -2')
+	bp.add('c = -0')
 	bp.add('stop')
 	bp.export(sys.argv[1])
 #

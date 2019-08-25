@@ -72,3 +72,85 @@ _VGString:
 _VGExit:									; exit
 		ply
 		rts		
+
+; *******************************************************************************************
+;
+;			  Copy data in Mantissa => zVarDataPtr/zVarType, typecasting/checking
+;
+; *******************************************************************************************
+
+VariableSet:
+		lda 	XS_Type,x 					; is the result a string
+		and 	#2 							; if so, it has to be
+		bne 	_VSString 					
+		;
+		lda 	zVarType 					; if type is $ there's an error.
+		cmp 	#token_Dollar
+		beq 	_VSBadType
+		;
+		cmp 	#token_Percent 				; type convert to float/int
+		beq 	_VSMakeInt
+		jsr 	FPUToFloat
+		bra 	_VSCopy
+		;
+_VSMakeInt:
+		jsr 	FPUToInteger		
+		;
+_VSCopy:		
+		phy
+		ldy 	#0 							; copy mantissa to target.
+		lda 	XS_Mantissa+0,x
+		sta 	(zVarDataPtr),y
+		iny
+		lda 	XS_Mantissa+1,x
+		sta 	(zVarDataPtr),y
+		iny
+		lda 	XS_Mantissa+2,x
+		sta 	(zVarDataPtr),y
+		iny
+		lda 	XS_Mantissa+3,x
+		sta 	(zVarDataPtr),y
+		;
+		lda 	zVarType 					; if target is integer, alrady done.
+		cmp 	#token_Percent
+		beq 	_VSExit
+		;	
+		lda 	XS_Type,x 					; get the sign bit into carry flag.
+		asl 	a
+		;
+		lda 	XS_Mantissa+3,x 			; shift the sign into the mantissa high.
+		php
+		asl 	a
+		plp
+		ror 	a
+		sta 	(zVarDataPtr),y
+		;
+		iny 
+		lda 	XS_Exponent,x 				; copy the exponent in
+		sta 	(zVarDataPtr),y 
+		;
+		bit 	XS_Type,x 					; if the result is non zero
+		bvc 	_VSExit
+		;
+		lda 	#00 						; zero exponent indicating 0.
+		sta 	(zVarDataPtr),y
+		;
+_VSExit:
+		ply
+		rts
+
+_VSBadType:
+		jmp 	TypeError
+		;
+		;		Assign a string.
+		;
+_VSString:
+		lda 	zVarType 					; type must be $
+		cmp 	#token_Dollar
+		bne 	_VSBadType
+		;
+		bra 	_VSString
+		;
+		;	TODO: Concrete string in mantissa
+		;	TODO: Copy into variable
+		;

@@ -66,7 +66,9 @@ RUN_Execute:
 		;		Not a token, so try LET instead
 		;
 RUN_Default:
-		bra 	RUN_Default
+		#s_prev 							; back one as no token
+		jsr 	Command_LET 				; and try LET.
+		bra 	RUN_NextCommand
 		;
 		;		Handle $F8-$FB (token shifts) $FF (Rem)
 		;

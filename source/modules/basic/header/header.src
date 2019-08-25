@@ -83,7 +83,7 @@ VectorTable:
 	.word NotImplemented       & $FFFF ; $ca goto
 	.word Command_END          & $FFFF ; $cb end
 	.word NotImplemented       & $FFFF ; $cc input
-	.word NotImplemented       & $FFFF ; $cd let
+	.word Command_LET          & $FFFF ; $cd let
 	.word NotImplemented       & $FFFF ; $ce list
 	.word NotImplemented       & $FFFF ; $cf new
 	.word NotImplemented       & $FFFF ; $d0 old

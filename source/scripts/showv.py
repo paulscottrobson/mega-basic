@@ -20,7 +20,7 @@ def formatData(mem,addr,type):
 	#
 	mantissa = mem[addr]+(mem[addr+1] << 8)+(mem[addr+2] << 16)+(mem[addr+3] << 24)
 	#
-	if type == 1:
+	if type == 2:
 		if (mantissa & 0x80000000):
 			mantissa -= 0x100000000
 		return str(mantissa)
