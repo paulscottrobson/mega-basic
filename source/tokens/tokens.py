@@ -113,9 +113,12 @@ class Tokens(object):
 
 	##
 	##		Important syntactic seperators (that require a one byte token)
+	##		(The first group of seven must be in that order.)
 	##
 	[syntax]
-		$( 	$ 	#(	# 	%(	% 	( 	)	, 	: 	; 	
+
+		$ 	$( 	#	#( 	%	%(	(
+		)	, 	: 	; 	
 
 
 	##

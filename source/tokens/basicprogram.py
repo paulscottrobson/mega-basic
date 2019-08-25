@@ -63,7 +63,7 @@ class BasicProgram(object):
 
 if __name__ == "__main__":
 	bp = BasicProgram()
-	bp.add('print hex$(leek(32768+65536*2)),22/7.0')
+	bp.add('print test,22/7.0')
 	bp.add('stop')
 	bp.export(sys.argv[1])
 #

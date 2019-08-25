@@ -59,12 +59,12 @@ VectorTable:
 	.word Unary_Mod            & $FFFF ; $b2 mod(
 	.word Unary_Sgn            & $FFFF ; $b3 sgn(
 	.word Unary_Chr            & $FFFF ; $b4 chr$(
-	.word NotImplemented       & $FFFF ; $b5 $(
-	.word NotImplemented       & $FFFF ; $b6 $
-	.word NotImplemented       & $FFFF ; $b7 #(
-	.word NotImplemented       & $FFFF ; $b8 #
-	.word NotImplemented       & $FFFF ; $b9 %(
-	.word NotImplemented       & $FFFF ; $ba %
+	.word NotImplemented       & $FFFF ; $b5 $
+	.word NotImplemented       & $FFFF ; $b6 $(
+	.word NotImplemented       & $FFFF ; $b7 #
+	.word NotImplemented       & $FFFF ; $b8 #(
+	.word NotImplemented       & $FFFF ; $b9 %
+	.word NotImplemented       & $FFFF ; $ba %(
 	.word NotImplemented       & $FFFF ; $bb (
 	.word NotImplemented       & $FFFF ; $bc )
 	.word NotImplemented       & $FFFF ; $bd ,
@@ -176,12 +176,12 @@ KeywordText:
 	.byte $4d,$4f,$44,$a8                  ; $b2 mod(
 	.byte $53,$47,$4e,$a8                  ; $b3 sgn(
 	.byte $43,$48,$52,$24,$a8              ; $b4 chr$(
-	.byte $24,$a8                          ; $b5 $(
-	.byte $a4                              ; $b6 $
-	.byte $23,$a8                          ; $b7 #(
-	.byte $a3                              ; $b8 #
-	.byte $25,$a8                          ; $b9 %(
-	.byte $a5                              ; $ba %
+	.byte $a4                              ; $b5 $
+	.byte $24,$a8                          ; $b6 $(
+	.byte $a3                              ; $b7 #
+	.byte $23,$a8                          ; $b8 #(
+	.byte $a5                              ; $b9 %
+	.byte $25,$a8                          ; $ba %(
 	.byte $a8                              ; $bb (
 	.byte $a9                              ; $bc )
 	.byte $ac                              ; $bd ,
@@ -267,12 +267,12 @@ token_leek = $b1
 token_mod = $b2
 token_sgn = $b3
 token_chrdollarlparen = $b4
-token_dollarlparen = $b5
-token_dollar = $b6
-token_hashlparen = $b7
-token_hash = $b8
-token_percentlparen = $b9
-token_percent = $ba
+token_dollar = $b5
+token_dollarlparen = $b6
+token_hash = $b7
+token_hashlparen = $b8
+token_percent = $b9
+token_percentlparen = $ba
 token_lparen = $bb
 token_rparen = $bc
 token_comma = $bd

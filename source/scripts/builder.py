@@ -87,6 +87,7 @@ class IntegerBasic(BuildDefinitionTIMOption):
 		self.addModule("basic.pointer.*")	
 		self.addModule("basic.pointer.@h.*")
 		self.addModule("basic.stringmem.*")
+		self.addModule("basic.variables.*")
 		self.addModule("integer.*")
 		self.addModule("integer.convert.*")
 		self.addModule("basic.testcode.*")

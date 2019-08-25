@@ -1,8 +1,13 @@
 TODO
 ====
+	- 	Method of handling start of variable memory reset.
+
+	- 	Carry on with variable coding.
+		
 	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
 
-	- 	Design and implement variables optional defaults and # (real) % (int) $ (string)
+
+
 			consider set/get locals def fn options.
 
 Fixes

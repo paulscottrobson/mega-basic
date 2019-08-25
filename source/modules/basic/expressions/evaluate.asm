@@ -196,9 +196,13 @@ _EVBadElement:
 		jmp 	SyntaxError
 _EVUnaryFunction:		
 		jmp 	_EVCallA
-
+		;
+		;		Found a variable
+		;
 _EVVariableHandler:
-		nop		
+		jsr 	VariableFind 				; locate a variable
+		jsr 	VariableGet 				; copy into memory.
+		jmp 	_EVGotAtom 					; and go round.
 
 EVCallLocalVector:
 		jmp 	(LocalVector+1)

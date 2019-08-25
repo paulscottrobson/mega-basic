@@ -25,7 +25,10 @@ Command_CLR: 	;; clr
 
 ResetRunStatus:
 		;
-		;		TODO:Clear Variables
+		;		Clear Variables
+		;
+		jsr 	VariableClear
+		;
 		;		TODO:Reset Basic Stack.
 		;
 
