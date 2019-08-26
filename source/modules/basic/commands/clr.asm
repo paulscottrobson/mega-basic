@@ -39,5 +39,6 @@ ResetRunStatus:
 		sta 	StringPtr
 		lda 	#HighMemory >> 8
 		sta 	StringPtr+1
+		jsr 	ArrayResetDefault
 		rts
 		

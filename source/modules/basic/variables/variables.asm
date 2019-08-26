@@ -51,3 +51,24 @@ _VCLoop:sta 	HashTableBase,x
 		plx 							; restore registers		
 		pla 			
 		rts
+
+; *******************************************************************************************
+;
+;		Variable Record
+;
+;		+0,+1 		Link to next variable
+;		+2 			Hash of this variable.
+;		+3 			First char of name (6 bit)
+;		+4 			Second char of name
+;		+x 			Last char of name, has bit 7 set.
+;		+x+1 		Data (2, 4 or 5 bytes)
+;					Pointer to array structure.
+;
+;		Array Record
+;
+;		+0,+1 		Number of array elements. Bit 7 set if this is a pointer not data
+;					(e.g. they are sub levels)
+;		+2 			Pointer array for sub levels
+;					Data array for data levels
+;	
+; *******************************************************************************************

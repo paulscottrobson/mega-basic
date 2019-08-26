@@ -1,7 +1,6 @@
 TODO
 ====
-	- 	Create empty array structures according to set specification,
-		which is defaulted to (10) when unspecified but can be specified.
+	- 	Create empty array structures according to set specification.
 
 	- 	Fix var dump to show these.
 
@@ -31,5 +30,5 @@ Error Checks
 
 - 	Allocating temporary string memory (space available)
 - 	Allocating variable space.
+- 	Allocating memory space.
 - 	Concreting (not necessary as no inline strings)
-

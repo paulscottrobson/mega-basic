@@ -11,7 +11,7 @@
 
 ; *******************************************************************************************
 ;
-;								Create variable
+;						Create variable and default array, if it's an array.
 ;
 ; *******************************************************************************************
 
@@ -88,20 +88,23 @@ _VCClearData:
 		lda 	zTemp1+1
 		sta 	(zTemp2),y
 
+		lda 	Var_Type 					; array ? if so create the empty one.
+		and 	#1
+		cmp 	#(token_DollarLParen & 1)
+		bne 	_VCNotArray
+		;
+		ldx 	#0 							; call recursive array creator
+		jsr 	ArrayCreate
+		;
+		phy 								; save YA at zVarDataPtr
+		ldy 	#0
+		sta 	(zVarDataPtr),y
+		iny
+		pla
+		sta 	(zVarDataPtr),y
+		;
+_VCNotArray:		
 		ply
 		plx
 		rts
 
-; *******************************************************************************************
-;
-;		Variable Record
-;
-;		+0,+1 		Link to next variable
-;		+2 			Hash of this variable.
-;		+3 			First char of name (6 bit)
-;		+4 			Second char of name
-;		+x 			Last char of name, has bit 7 set.
-;		+x+1 		Data (2, 4 or 5 bytes)
-;					Pointer to array structure.
-;
-; *******************************************************************************************
