@@ -1,7 +1,7 @@
 TODO
 ====
-	-	Add code to extract variables in arrays using indices.
-
+	- 	Check multi-dim arrays.
+	
 	- 	Check arrays/assignment work properly.
 
 	-	Implement DIM.

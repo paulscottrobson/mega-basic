@@ -23,8 +23,43 @@ VariableFind:
 		jsr 	VariableCreate 			; otherwise create it.
 _VFExists:
 		;
-		;		TODO: Array look up, if appropriate :)
+		;		Deal with arrays, if appropriate
 		;
+		lda 	zVarType 				; is it still an array ?
+		and 	#1
+		cmp 	#(token_DollarLParen) & 1
+		bne 	_VFSingleElement
+		;
+_VFNextIndex:		
+		;
+		;		Calculate the index.
+		;
+		lda 	zVarDataPtr 			; push the data ptr and type on the stack.
+		pha
+		lda 	zVarDataPtr+1
+		pha
+		lda 	zVarType 				
+		pha 
+		jsr 	EvaluateIntegerX 		; calculate the index.
+		pla 							; restore and index.
+		sta 	zVarType
+		pla 	
+		sta 	zVarDataPtr+1
+		pla 	
+		sta 	zVarDataPtr
+		;
+		jsr 	ArrayIndexFollow 		; do the index.
+		;
+		lda 	zVarType 				; is it still an array ??
+		and 	#1
+		cmp 	#(token_DollarLParen) & 1
+		bne 	_VFArrayDone 			; if so then exit.
+		jsr 	CheckNextComma 			; comma should follow
+		bra 	_VFNextIndex 	
+		;
+_VFArrayDone:
+		jsr 	CheckNextRParen 		; check closing right bracket.		
+_VFSingleElement:
 		rts
 
 ; *******************************************************************************************

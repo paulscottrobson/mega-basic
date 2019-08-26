@@ -67,6 +67,7 @@ maxstring = 253
 	.include "modules/basic/variables/variables.asm"
 	.include "modules/basic/variables/extract.asm"
 	.include "modules/basic/variables/varcreate.asm"
+	.include "modules/basic/variables/arrayidx.asm"
 	.include "modules/basic/variables/arraydef.asm"
 	.include "modules/basic/variables/varfind.asm"
 	.include "modules/basic/variables/vargetset.asm"
