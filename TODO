@@ -1,11 +1,7 @@
 TODO
 ====
-	- 	Check multi-dim arrays.
-	
-	- 	Check arrays/assignment work properly.
-
+	- 	Check arrays/assignment work properly (a proper test !)
 	-	Implement DIM.
-
 	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
 
 Fixes

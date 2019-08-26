@@ -72,6 +72,7 @@ if __name__ == "__main__":
 	bp.add('print test1:a(2)=2:a(0)=42:a(10)=99')
 	bp.add('print test1:a%(2)=12:a%(0)=142:a%(10)=199')
 	bp.add('print test1:a$(2)="12":a$(0)="142":a$(10)="199"')
+#	bp.add('a(2,3) = -42:a(0,0) = a(2,3)*2:print a(2,3)')
 	bp.add('stop')
 	bp.export(sys.argv[1])
 #
