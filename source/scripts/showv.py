@@ -9,12 +9,14 @@
 # *******************************************************************************************
 # *******************************************************************************************
 
-def formatArray(mem,p,type,depth):
-	p = mem[p]+mem[p+1]*256
-	size = mem[p]+mem[p+1]
-	s = "\n{0}${1:04x} (0-{2}) ".format("\t"*depth,p,(size & 0x7FFF)-1)
+def formatArray(mem,pa,type,depth):
+	p = mem[pa]+mem[pa+1]*256
+	size = mem[p]+mem[p+1]*256
+	s = "\n{0}[${3:04x}] ${1:04x} (0-{2}) ".format("\t"*depth,p,(size & 0x7FFF)-1,pa)
 	if (size & 0x8000) != 0:
-		assert False
+		for i in range(0,size & 0x7FFF):
+			na = mem[p+i*2+2] + mem[p+i*2+3] * 256
+			s = s + formatArray(mem,p+i*2+2,type,depth+1)
 	else:
 		p = p + 2
 		for i in range(0,size):

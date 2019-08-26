@@ -23,6 +23,16 @@ ArrayResetDefault:
 		lda 	#$FF
 		sta 	ArrayDef+2 					; $FFFF implies no second element.
 		sta 	ArrayDef+3					; (test bit 7 of 2nd byte)
+
+;		lda 	#3 							; Bodge default to be (3,4) elements not 11
+;		sta 	ArrayDef+0
+;		lda 	#4
+;		sta 	ArrayDef+2
+;		lda 	#0
+;		sta 	ArrayDef+3
+;		lda 	#$FF
+;		sta 	ArrayDef+4
+;		sta 	ArrayDef+5
 		rts
 
 ; *******************************************************************************************
@@ -132,4 +142,57 @@ ArrayIndexError:
 		#Fatal	"Bad array index"
 
 ACCFillRecursive:
-		#Fatal 	"1 index only"		
+		lda 	#$FF 						; we mark the end, this is free space.
+		ldy 	#0 							; this is overwritten by size of next allocated
+		sta 	(zTemp2),y 					; array, but we might change that.
+		iny
+		lda 	(zTemp3),y 					; set bit 15 of the max index indicating
+		ora 	#$80 						; an array of pointers
+		sta 	(zTemp3),y
+		;
+		lda 	zTemp3 						; push the start on the stack
+		pha
+		lda 	zTemp3+1
+		pha
+		;
+_ACCFillLoop:
+		clc		
+		lda 	zTemp3 						; and work forwards.
+		adc 	#2
+		sta 	zTemp3
+		bcc 	_ACCSkip2
+		inc 	zTemp3
+_ACCSkip2:
+		ldy 	#0 							; reached the end ?			
+		lda 	(zTemp3),y					; (looking for FF marker, everything else 00)
+		iny
+		ora 	(zTemp3),y
+		bne 	_ACCExit
+		;
+		lda 	zTemp3 						; push zTemp3
+		pha
+		lda 	zTemp3+1
+		pha
+		;
+		inx
+		inx
+		jsr 	ArrayCreate 				; create array recursively.
+		dex
+		dex
+		sta 	zTemp2 						; save A
+		pla
+		sta 	zTemp3+1 					; restore zTemp3
+		pla
+		sta 	zTemp3
+		tya 								; write high bye from Y
+		ldy 	#1 	
+		sta 	(zTemp3),y
+		dey 								; write low byte out.
+		lda 	zTemp2
+		sta 	(zTemp3),y
+		bra 	_ACCFillLoop 				; and try again.
+		;
+_ACCExit:
+		ply 								; restore the original address
+		pla
+		rts		

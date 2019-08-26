@@ -1,9 +1,5 @@
 TODO
 ====
-	- 	Create empty array structures according to set specification.
-
-	- 	Fix var dump to show these.
-
 	-	Add code to extract variables in arrays using indices.
 
 	- 	Check arrays/assignment work properly.

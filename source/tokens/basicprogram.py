@@ -69,7 +69,7 @@ if __name__ == "__main__":
 	bp.add('c = -test:c = c - 1000:let name$="Hello":c$=",world!"')
 	bp.add('greeting1$ = name$+c$')
 	bp.add('l1% = len(greeting1$)')
-	bp.add('arr(3)=2')
+	bp.add('print test1:arr(3)=2')
 	bp.add('stop')
 	bp.export(sys.argv[1])
 #
