@@ -1,7 +1,5 @@
 TODO
 ====
-	-	Write search code for pre-existing variables.
-
 	- 	Create empty array structures according to set specification,
 		which is defaulted to (10) when unspecified but can be specified.
 
@@ -33,5 +31,5 @@ Error Checks
 
 - 	Allocating temporary string memory (space available)
 - 	Allocating variable space.
-
+- 	Concreting (not necessary as no inline strings)
 

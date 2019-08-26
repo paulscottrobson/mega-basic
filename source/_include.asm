@@ -32,6 +32,7 @@ maxstring = 253
 	.include "modules/hardware/em65816.asm"
 	.include "modules/interface/common/interface_tools.asm"
 	.include "modules/interface/drivers/interface_em65816.asm"
+	.include "modules/utility/tim.asm"
 	.include "modules/basic/common/errors.asm"
 	.include "modules/basic/core.asm"
 	.include "modules/basic/commands/run.asm"
@@ -82,4 +83,3 @@ maxstring = 253
 	.include "modules/float/convert/fpfromstr.asm"
 	.include "modules/basic/expressions/floatonly/rnd.asm"
 	.include "modules/basic/expressions/floatonly/int.asm"
-	.include "modules/utility/tim.asm"

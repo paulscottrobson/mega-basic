@@ -63,10 +63,12 @@ class BasicProgram(object):
 
 if __name__ == "__main__":
 	bp = BasicProgram()
-	bp.add('let test = 42.5',100)
+	bp.add('let test = 42',100)
 	bp.add('let a = 0.0:let test1 = 1.2e24/100')
-	bp.add('let b12% = -2')
-	bp.add('c = -0:let name$="Hello":c$=",world!"')
+	bp.add('test = test+1.0')
+	bp.add('c = -test:c = c - 1000:let name$="Hello":c$=",world!"')
+	bp.add('greeting1$ = name$+c$')
+	bp.add('l1% = len(greeting1$)')
 	bp.add('stop')
 	bp.export(sys.argv[1])
 #

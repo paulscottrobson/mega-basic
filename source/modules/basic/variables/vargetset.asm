@@ -56,6 +56,7 @@ VariableGet:
 		pla
 		ora 	#$80 						; set the MSB as you would expect.
 		sta 	XS_Mantissa+3,x 			; so it's a normalised float.
+		bra 	_VGExit
 		;
 		;		Handle string.
 		;
@@ -88,6 +89,7 @@ VariableSet:
 		cmp 	#token_Dollar
 		beq 	_VSBadType
 		;
+		.if 	hasFloat=1
 		cmp 	#token_Percent 				; type convert to float/int
 		beq 	_VSMakeInt
 		jsr 	FPUToFloat
@@ -96,6 +98,7 @@ VariableSet:
 _VSMakeInt:
 		jsr 	FPUToInteger		
 		;
+		.endif
 _VSCopy:		
 		phy
 		ldy 	#0 							; copy mantissa to target.

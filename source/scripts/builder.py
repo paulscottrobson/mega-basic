@@ -73,6 +73,7 @@ class FloatingPointTest(BuildDefinitionTIMOption):										# Run FP Unit Test.
 
 class IntegerBasic(BuildDefinitionTIMOption):
 	def create(self):
+		self.includeTIM()
 		self.define("hasFloat",0)
 		self.define("hasInteger",1)
 		self.define("maxString",253)
@@ -101,7 +102,6 @@ class FullBasic(IntegerBasic):
 		self.addModule("float.*")												# FP Stuff
 		self.addModule("float.convert.*")
 		self.addModule("basic.expressions.floatonly.*")
-		self.includeTIM()
 		#
 		self.define("exitOnEnd",1)	
 		self.addModule("basic.testcode.*")

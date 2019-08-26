@@ -41,6 +41,9 @@ _VECopyBuffer:
 		sta 	Var_Buffer,x 			; save character
 		clc  							; update the hash value for it.
 		adc 	Var_Hash
+		;
+		; 		lda 	#0 				; this disables the hashing for testing.
+		;
 		sta 	Var_Hash
 		#s_next 						; get the next character
 		#s_get

@@ -1,0 +1,26 @@
+Basic current state of play. Aim is to produce something close to backwards compatible. The floating point maths doesn't produce the exact same results, unsurprisingly. Things like USR() and RND are implemented but are approximations for implementation reasons. The integer system is 32 bit not 16. 
+
+Working
+=======
+(It's being built bottom up which is why hardly any command words work !)
+
+Float & Int arithmetic/logical/compare (not LOG EXP etc.). Integer is uprated to 32 bit.
+Like Python, will do Integer mathematics unless you introduce floats deliberately, so A = 23+5 does 23+5 as integer, then floats it for storage (because by default A is a float)
+Integer/Float/String variables and allocation (uses $ % and # to force type, default type can be changed from float to int (or string if you really want)). The default type will probably be a command as you can change it any time you like, which would make for readable code (!) Variable names can be up to 30 characters long.
+CLR END LET PRINT RUN STOP and ASSERT work.
+Different memory handling for code for 6502 (16 bit)/65816 (24 bit)/Mega65 (32 bit) (all variables are in one 64k segment Put your big data elsewhere). Specific handlers can be written for paged memory if required.
+
+Unary functions ABS MOD PEEK/LEEK/DEEK (far pointers) SGN USR ASC CHR$ DEC HEX$ LEN LEFT$ MID$ RIGHT$ SPC STR$ VAL INT RND all work.
+TIM style monitor (which needs rewriting to cope with 65816 really, but useful for platforms that don't have a debugger)
+Modular build so you can (for example) produce integer-only BASIC immediately
+
+Not working
+===========
+
+Arrays.
+Garbage Collection. 
+Every other command (mostly not difficult once the core works)
+Tokenising/Detokenising. This is completely different so programs will have to be translated on loading or script converted, or done as text. Specific directory issues for some CBM machines ?
+Entering commands through keyboard (done via a Python script currently)
+Program editing.
+No optimisations are made (yet) for 65816 and Mega65 e.g. use of 16/32 bit operations. 
