@@ -25,7 +25,7 @@ VariableGet:
 		sta 	XS_Mantissa+1,x
 		iny
 		;
-		lda 	Var_Type 					; if it is a string, set up for that.
+		lda 	zVarType 					; if it is a string, set up for that.
 		cmp 	#token_Dollar
 		beq 	_VGString
 		;
@@ -37,7 +37,7 @@ VariableGet:
 		iny
 		lda 	#1 							; set type to 1.
 		sta 	XS_Type,x
-		lda 	Var_Type
+		lda 	zVarType
 		cmp 	#token_Percent 				; if it is a %, then exit with default integer.
 		beq 	_VGExit
 		;

@@ -1,7 +1,7 @@
 
 ; 64tass Turbo Assembler Macro V1.54.1900 listing file
 ; 64tass -X -b -q -L rom.lst -o rom.bin basic.asm
-; Tue Aug 27 16:59:12 2019
+; Tue Aug 27 19:19:08 2019
 
 ;Offset	;Hex		;Monitor	;Source
 
@@ -127,13 +127,24 @@
 
 ;******  Processing file: modules/hardware/../basic/testcode/testing.src
 
->1000	09 02 00 c7 01 b8 42 be			.byte	$09,$02,$00,$c7,$01,$b8,$42,$be
->1008	00 0c 03 00 dc 01 b8 40			.byte	$00,$0c,$03,$00,$dc,$01,$b8,$40
->1010	be 84 fe 02 00 1b 04 00			.byte	$be,$84,$fe,$02,$00,$1b,$04,$00
->1018	d6 fe 14 50 61 73 73 65			.byte	$d6,$fe,$14,$50,$61,$73,$73,$65
->1020	64 20 41 73 73 69 67 6e			.byte	$64,$20,$41,$73,$73,$69,$67,$6e
->1028	6d 65 6e 74 2e c0 c4 00			.byte	$6d,$65,$6e,$74,$2e,$c0,$c4,$00
->1030	00					.byte	$00
+>1000	0a 02 00 c7 17 15 b8 41			.byte	$0a,$02,$00,$c7,$17,$15,$b8,$41
+>1008	be 00 0b 03 00 c7 1a 01			.byte	$be,$00,$0b,$03,$00,$c7,$1a,$01
+>1010	19 ba 42 be 00 09 04 00			.byte	$19,$ba,$42,$be,$00,$09,$04,$00
+>1018	dc 01 bb 84 40 00 09 05			.byte	$dc,$01,$bb,$84,$40,$00,$09,$05
+>1020	00 dc 08 05 84 40 00 0a			.byte	$00,$dc,$08,$05,$84,$40,$00,$0a
+>1028	06 00 dc 13 b7 84 fe 02			.byte	$06,$00,$dc,$13,$b7,$84,$fe,$02
+>1030	00 09 07 00 dc 08 11 84			.byte	$00,$09,$07,$00,$dc,$08,$11,$84
+>1038	40 00 17 08 00 dc 17 15			.byte	$40,$00,$17,$08,$00,$dc,$17,$15
+>1040	b8 40 be 84 fe 02 c0 dc			.byte	$b8,$40,$be,$84,$fe,$02,$c0,$dc
+>1048	17 15 b8 41 be 84 fe 02			.byte	$17,$15,$b8,$41,$be,$84,$fe,$02
+>1050	00 21 09 00 dc 1a 01 19			.byte	$00,$21,$09,$00,$dc,$1a,$01,$19
+>1058	ba 40 be 84 40 c0 dc 1a			.byte	$ba,$40,$be,$84,$40,$c0,$dc,$1a
+>1060	01 19 ba 41 be 84 40 c0			.byte	$01,$19,$ba,$41,$be,$84,$40,$c0
+>1068	dc 1a 01 19 ba 42 be 84			.byte	$dc,$1a,$01,$19,$ba,$42,$be,$84
+>1070	40 00 1b 0a 00 d6 fe 14			.byte	$40,$00,$1b,$0a,$00,$d6,$fe,$14
+>1078	50 61 73 73 65 64 20 41			.byte	$50,$61,$73,$73,$65,$64,$20,$41
+>1080	73 73 69 67 6e 6d 65 6e			.byte	$73,$73,$69,$67,$6e,$6d,$65,$6e
+>1088	74 2e c0 c4 00 00			.byte	$74,$2e,$c0,$c4,$00,$00
 
 ;******  Return to file: modules/hardware/em65816.asm
 
@@ -831,7 +842,7 @@
 .01847e	8d 0b 03	sta $030b			sta 	XS_Mantissa+3
 .018481	8d 04 04	sta $0404			sta 	NumBufX 					; reset the conversion pointer
 .018484	aa		tax				tax 								; convert bottom level.
-.018485	20 c1 96	jsr $0196c1			jsr 	INTToString 				; make string
+.018485	20 bf 96	jsr $0196bf			jsr 	INTToString 				; make string
 .018488	a2 00		ldx #$00			ldx 	#0 							; print buffer
 .01848a	bd 05 04	lda $0405,x	_P1Loop:lda 	Num_Buffer,x
 .01848d	f0 06		beq $018495			beq 	_P1Exit
@@ -881,9 +892,9 @@
 >0184c8	52 85					.word NotImplemented       & $FFFF ; $99 fn(
 >0184ca	70 8d					.word Unary_Abs            & $FFFF ; $9a abs(
 >0184cc	c8 8e					.word Unary_Asc            & $FFFF ; $9b asc(
->0184ce	a6 9e					.word Unary_Int            & $FFFF ; $9c int(
+>0184ce	a4 9e					.word Unary_Int            & $FFFF ; $9c int(
 >0184d0	8e 8d					.word Unary_Peek           & $FFFF ; $9d peek(
->0184d2	1d 9e					.word Unary_Rnd            & $FFFF ; $9e rnd(
+>0184d2	1b 9e					.word Unary_Rnd            & $FFFF ; $9e rnd(
 >0184d4	02 8e					.word Unary_Usr            & $FFFF ; $9f usr(
 >0184d6	09 8f					.word Unary_Left           & $FFFF ; $a0 left$(
 >0184d8	20 8f					.word Unary_Right          & $FFFF ; $a1 right$(
@@ -1355,7 +1366,7 @@
 .0187fb	85 23		sta $23				sta 	zVarDataPtr+1
 .0187fd	68		pla				pla
 .0187fe	85 22		sta $22				sta 	zVarDataPtr
-.018800	20 3f 95	jsr $01953f			jsr 	VariableSet 				; set the value out.
+.018800	20 3d 95	jsr $01953d			jsr 	VariableSet 				; set the value out.
 .018803	60		rts				rts
 
 ;******  Return to file: _include.asm
@@ -1392,9 +1403,9 @@
 .018829	ad 0d 03	lda $030d			lda 	XS_Type 					; get type
 .01882c	4a		lsr a				lsr 	a
 .01882d	b0 05		bcs $018834			bcs 	_CPRInt 					; if msb set do as integer
-.01882f	20 d5 9c	jsr $019cd5			jsr 	FPToString 					; call fp to str otherwise
+.01882f	20 d3 9c	jsr $019cd3			jsr 	FPToString 					; call fp to str otherwise
 .018832	80 03		bra $018837			bra 	_CPRNPrint
-.018834	20 c1 96	jsr $0196c1	_CPRInt:jsr 	IntToString
+.018834	20 bf 96	jsr $0196bf	_CPRInt:jsr 	IntToString
 .018837					_CPRNPrint:
 .018837	ad 05 04	lda $0405			lda 	Num_Buffer 					; is first character -
 .01883a	c9 2d		cmp #$2d			cmp 	#"-"
@@ -1586,7 +1597,7 @@
 .018952	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; get type
 .018955	29 0f		and #$0f			and 	#15 						; if type bits zero, it's float.
 .018957	f0 05		beq $01895e			beq 	_EVMinusFloat
-.018959	20 9c 96	jsr $01969c			jsr 	IntegerNegateAlways 		; negation
+.018959	20 9a 96	jsr $01969a			jsr 	IntegerNegateAlways 		; negation
 .01895c	80 a2		bra $018900			bra 	_EVGotAtom 					; and go back.
 .01895e					_EVMinusFloat:
 .01895e	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; invert the sign bit.
@@ -1608,7 +1619,7 @@
 .018983	c9 98		cmp #$98			cmp 	#token_not 					; is it not ?
 .018985	d0 0c		bne $018993			bne 	_EVNotNot
 .018987	20 47 8a	jsr $018a47			jsr 	EvaluateGetAtomX 			; get expression in parenthesis.
-.01898a	20 aa 9b	jsr $019baa			jsr 	FPUToInteger 				; make it an integer - if possible.
+.01898a	20 a8 9b	jsr $019ba8			jsr 	FPUToInteger 				; make it an integer - if possible.
 .01898d	20 24 8a	jsr $018a24			jsr 	NotInteger 					; do the not calculation
 .018990	4c 00 89	jmp $018900			jmp 	_EVGotAtom
 .018993					_EVNotNot:
@@ -1683,7 +1694,7 @@
 .018a1a	85 1f		sta $1f				sta 	zGenPtr+1
 .018a1c	5a		phy				phy 									; save Y
 .018a1d	a0 00		ldy #$00			ldy 	#0 								; start position
-.018a1f	20 9c 9d	jsr $019d9c			jsr 	FPFromString 					; convert current
+.018a1f	20 9a 9d	jsr $019d9a			jsr 	FPFromString 					; convert current
 .018a22	7a		ply				ply 									; restore Y
 .018a23	60		rts				rts
 .018a24					NotInteger:
@@ -1725,7 +1736,7 @@
 .018a68	a2 00		ldx #$00			ldx 	#0
 .018a6a					EvaluateIntegerX:
 .018a6a	20 5b 8a	jsr $018a5b			jsr 	EvaluateNumberX
-.018a6d	20 aa 9b	jsr $019baa			jsr 	FPUToInteger
+.018a6d	20 a8 9b	jsr $019ba8			jsr 	FPUToInteger
 .018a70	60		rts				rts
 .018a71					EvaluateString:
 .018a71	a2 00		ldx #$00			ldx 	#0
@@ -1810,7 +1821,7 @@
 .018b15	90 04		bcc $018b1b			bcc 	_BMIError
 .018b17	60		rts				rts
 .018b18					_BMIConvert:
-.018b18	4c aa 9b	jmp $019baa			jmp 	FPUToInteger 				; convert to integer
+.018b18	4c a8 9b	jmp $019ba8			jmp 	FPUToInteger 				; convert to integer
 .018b1b					_BMIError:
 .018b1b	4c 10 84	jmp $018410			jmp 	TypeError
 
@@ -1870,7 +1881,7 @@
 .018b7d	4c cd 8b	jmp $018bcd			jmp 	CompareInteger32 							; so execute code at \1
 .018b80					_BCFloat:
 .018b80	20 9b 8c	jsr $018c9b			jsr 	BinaryMakeBothFloat 		; validate they are floats, make them both float.
-.018b83	4c b9 9a	jmp $019ab9			jmp 	FPCompare 							; and execute code at \2
+.018b83	4c b7 9a	jmp $019ab7			jmp 	FPCompare 							; and execute code at \2
 .018b86	60		rts				rts
 .018b87					_CVString:
 .018b87	da		phx				phx 								; save XY
@@ -1954,7 +1965,7 @@
 .018c09	4c 4f 8c	jmp $018c4f			jmp 	AddInteger32 							; so execute code at \1
 .018c0c					_BCFloat:
 .018c0c	20 9b 8c	jsr $018c9b			jsr 	BinaryMakeBothFloat 		; validate they are floats, make them both float.
-.018c0f	4c 2d 98	jmp $01982d			jmp 	FPAdd 							; and execute code at \2
+.018c0f	4c 2b 98	jmp $01982b			jmp 	FPAdd 							; and execute code at \2
 .018c12	60		rts				rts
 .018c13					_BOAString:
 .018c13	4c b6 8c	jmp $018cb6			jmp 	ConcatenateString 			; concatenate two strings.
@@ -1966,27 +1977,27 @@
 .018c1f	4c 75 8c	jmp $018c75			jmp 	SubInteger32 							; so execute code at \1
 .018c22					_BCFloat:
 .018c22	20 9b 8c	jsr $018c9b			jsr 	BinaryMakeBothFloat 		; validate they are floats, make them both float.
-.018c25	4c 23 98	jmp $019823			jmp 	FPSubtract 							; and execute code at \2
+.018c25	4c 21 98	jmp $019821			jmp 	FPSubtract 							; and execute code at \2
 .018c28	60		rts				rts
 .018c29					BinaryOp_Multiply:
 .018c29	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; and 2 type bytes together.
 .018c2c	3d 13 03	and $0313,x			and 	XS2_Type,x
 .018c2f	4a		lsr a				lsr 	a 							; shift bit 0 into C
 .018c30	90 03		bcc $018c35			bcc 	_BCFloat 					; if zero, they aren't both integer, so do it as float
-.018c32	4c af 95	jmp $0195af			jmp 	MulInteger32 							; so execute code at \1
+.018c32	4c ad 95	jmp $0195ad			jmp 	MulInteger32 							; so execute code at \1
 .018c35					_BCFloat:
 .018c35	20 9b 8c	jsr $018c9b			jsr 	BinaryMakeBothFloat 		; validate they are floats, make them both float.
-.018c38	4c 99 99	jmp $019999			jmp 	FPMultiply 							; and execute code at \2
+.018c38	4c 97 99	jmp $019997			jmp 	FPMultiply 							; and execute code at \2
 .018c3b	60		rts				rts
 .018c3c					BinaryOp_Divide:
 .018c3c	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; and 2 type bytes together.
 .018c3f	3d 13 03	and $0313,x			and 	XS2_Type,x
 .018c42	4a		lsr a				lsr 	a 							; shift bit 0 into C
 .018c43	90 03		bcc $018c48			bcc 	_BCFloat 					; if zero, they aren't both integer, so do it as float
-.018c45	4c 06 96	jmp $019606			jmp 	DivInteger32 							; so execute code at \1
+.018c45	4c 04 96	jmp $019604			jmp 	DivInteger32 							; so execute code at \1
 .018c48					_BCFloat:
 .018c48	20 9b 8c	jsr $018c9b			jsr 	BinaryMakeBothFloat 		; validate they are floats, make them both float.
-.018c4b	4c 11 99	jmp $019911			jmp 	FPDivide 							; and execute code at \2
+.018c4b	4c 0f 99	jmp $01990f			jmp 	FPDivide 							; and execute code at \2
 .018c4e	60		rts				rts
 .018c4f					AddInteger32:
 .018c4f	18		clc				clc
@@ -2036,7 +2047,7 @@
 .018cad	b0 04		bcs $018cb3			bcs 	_BMFError
 .018caf	60		rts				rts
 .018cb0					_BMFConvert:
-.018cb0	4c 4b 9b	jmp $019b4b			jmp 	FPUToFloat 					; convert to float
+.018cb0	4c 49 9b	jmp $019b49			jmp 	FPUToFloat 					; convert to float
 .018cb3					_BMFError:
 .018cb3	4c 10 84	jmp $018410			jmp 	TypeError
 .018cb6					ConcatenateString:
@@ -2154,7 +2165,7 @@
 .018d7b	f0 08		beq $018d85			beq 	_UAMinusFloat
 .018d7d	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x 			; check MSB
 .018d80	10 0b		bpl $018d8d			bpl 	_UAExit
-.018d82	4c 9c 96	jmp $01969c			jmp 	IntegerNegateAlways 		; negation
+.018d82	4c 9a 96	jmp $01969a			jmp 	IntegerNegateAlways 		; negation
 .018d85					_UAMinusFloat:
 .018d85	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; clear the sign bit.
 .018d88	29 7f		and #$7f			and		#$7F
@@ -2218,7 +2229,7 @@
 .018dd7	20 f6 8d	jsr $018df6			jsr 	_UMParameter
 .018dda	fa		plx				plx
 .018ddb	20 ea 90	jsr $0190ea			jsr 	CheckNextRParen
-.018dde	20 06 96	jsr $019606			jsr 	DivInteger32 				; divide
+.018dde	20 04 96	jsr $019604			jsr 	DivInteger32 				; divide
 .018de1	a5 1a		lda $1a				lda 	zLTemp1+0 					; modulus is in zLTemp, copy it.
 .018de3	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x
 .018de6	a5 1b		lda $1b				lda 	zLTemp1+1
@@ -2232,7 +2243,7 @@
 .018df6	20 6a 8a	jsr $018a6a			jsr 	EvaluateIntegerX 			; get value
 .018df9	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x 			; absolute value
 .018dfc	10 03		bpl $018e01			bpl 	_UMNotSigned
-.018dfe	20 9c 96	jsr $01969c			jsr 	IntegerNegateAlways
+.018dfe	20 9a 96	jsr $01969a			jsr 	IntegerNegateAlways
 .018e01					_UMNotSigned:
 .018e01	60		rts				rts
 
@@ -2303,9 +2314,9 @@
 .018e67	69 00		adc #$00			adc 	#0
 .018e69	85 1f		sta $1f				sta 	zGenPtr+1
 .018e6b	18		clc				clc
-.018e6c	20 78 97	jsr $019778			jsr 	IntFromString 				; first bit.
+.018e6c	20 76 97	jsr $019776			jsr 	IntFromString 				; first bit.
 .018e6f	b0 21		bcs $018e92			bcs 	_UVBadNumber
-.018e71	20 9c 9d	jsr $019d9c			jsr 	FPFromString				; try for a float part.
+.018e71	20 9a 9d	jsr $019d9a			jsr 	FPFromString				; try for a float part.
 .018e74	ad 90 04	lda $0490			lda 	ValSign 					; was it negative
 .018e77	d0 13		bne $018e8c			bne 	_UVNotNegative
 .018e79	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; check if integer
@@ -2316,7 +2327,7 @@
 .018e84	9d 0d 03	sta $030d,x			sta 	XS_Type,x
 .018e87	80 03		bra $018e8c			bra 	_UVNotNegative
 .018e89					_UVInteger:
-.018e89	20 9c 96	jsr $01969c			jsr 	IntegerNegateAlways 		; sign it.
+.018e89	20 9a 96	jsr $01969a			jsr 	IntegerNegateAlways 		; sign it.
 .018e8c					_UVNotNegative:
 .018e8c	b1 1e		lda ($1e),y			lda 	(zGenPtr),y 				; used everything
 .018e8e	d0 02		bne $018e92			bne 	_UVBadNumber
@@ -2338,9 +2349,9 @@
 .018ea0	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; get type
 .018ea3	4a		lsr a				lsr 	a
 .018ea4	b0 05		bcs $018eab			bcs 	_USInt 						; if msb set do as integer
-.018ea6	20 d5 9c	jsr $019cd5			jsr 	FPToString 					; call fp to str otherwise
+.018ea6	20 d3 9c	jsr $019cd3			jsr 	FPToString 					; call fp to str otherwise
 .018ea9	80 03		bra $018eae			bra 	_USDuplicate
-.018eab	20 c1 96	jsr $0196c1	_USInt:	jsr 	IntToString
+.018eab	20 bf 96	jsr $0196bf	_USInt:	jsr 	IntToString
 .018eae					_USDuplicate:
 .018eae	ad 04 04	lda $0404			lda 	NumBufX 					; chars in buffer
 .018eb1	1a		inc a				inc 	a 							; one more for length
@@ -3316,1351 +3327,1351 @@
 .0194e7	b1 22		lda ($22),y			lda 	(zVarDataPtr),y
 .0194e9	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
 .0194ec	c8		iny				iny
-.0194ed	ad 85 04	lda $0485			lda 	Var_Type 					; if it is a string, set up for that.
-.0194f0	c9 b7		cmp #$b7			cmp 	#token_Dollar
-.0194f2	f0 35		beq $019529			beq 	_VGString
-.0194f4	b1 22		lda ($22),y			lda 	(zVarDataPtr),y 			; copy the next two bytes.
-.0194f6	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
-.0194f9	c8		iny				iny
-.0194fa	b1 22		lda ($22),y			lda 	(zVarDataPtr),y
-.0194fc	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
-.0194ff	c8		iny				iny
-.019500	a9 01		lda #$01			lda 	#1 							; set type to 1.
-.019502	9d 0d 03	sta $030d,x			sta 	XS_Type,x
-.019505	ad 85 04	lda $0485			lda 	Var_Type
-.019508	c9 bb		cmp #$bb			cmp 	#token_Percent 				; if it is a %, then exit with default integer.
-.01950a	f0 31		beq $01953d			beq 	_VGExit
-.01950c	a9 40		lda #$40			lda 	#$40 						; set type byte to zero
-.01950e	9d 0d 03	sta $030d,x			sta 	XS_Type,x 					; which is the code for zero/float.
-.019511	b1 22		lda ($22),y			lda 	(zVarDataPtr),y 			; the last value to copy is the exponent.
-.019513	9d 0c 03	sta $030c,x			sta 	XS_Exponent,x
-.019516	f0 25		beq $01953d			beq 	_VGExit 					; if exponent is zero ... it's zero.
-.019518	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x 			; the sign bit is the top mantissa bit.
-.01951b	48		pha				pha
-.01951c	29 80		and #$80			and 	#$80
-.01951e	9d 0d 03	sta $030d,x			sta 	XS_Type,x 					; this is the type byte.
-.019521	68		pla				pla
-.019522	09 80		ora #$80			ora 	#$80 						; set the MSB as you would expect.
-.019524	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x 			; so it's a normalised float.
-.019527	80 14		bra $01953d			bra 	_VGExit
-.019529					_VGString:
-.019529	a9 02		lda #$02			lda 	#2 							; set type to 2, a string
-.01952b	9d 0d 03	sta $030d,x			sta 	XS_Type,x
-.01952e	bd 08 03	lda $0308,x			lda 	XS_Mantissa,x 				; is the value there $0000
-.019531	1d 09 03	ora $0309,x			ora 	XS_Mantissa+1,x
-.019534	d0 07		bne $01953d			bne 	_VGExit 					; if not, exit.
-.019536	85 25		sta $25				sta 	zNullString 				; make zNullString a 00 string.
-.019538	a9 25		lda #$25			lda 	#zNullString
-.01953a	9d 08 03	sta $0308,x			sta 	XS_Mantissa,x 				; make it point to it.
-.01953d					_VGExit:
-.01953d	7a		ply				ply
-.01953e	60		rts				rts
-.01953f					VariableSet:
-.01953f	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; is the result a string
-.019542	29 02		and #$02			and 	#2 							; if so, it has to be
-.019544	d0 53		bne $019599			bne 	_VSString
-.019546	a5 24		lda $24				lda 	zVarType 					; if type is $ there's an error.
-.019548	c9 b7		cmp #$b7			cmp 	#token_Dollar
-.01954a	f0 4a		beq $019596			beq 	_VSBadType
-.01954c	c9 bb		cmp #$bb			cmp 	#token_Percent 				; type convert to float/int
-.01954e	f0 05		beq $019555			beq 	_VSMakeInt
-.019550	20 4b 9b	jsr $019b4b			jsr 	FPUToFloat
-.019553	80 03		bra $019558			bra 	_VSCopy
-.019555					_VSMakeInt:
-.019555	20 aa 9b	jsr $019baa			jsr 	FPUToInteger
-.019558					_VSCopy:
-.019558	5a		phy				phy
-.019559	a0 00		ldy #$00			ldy 	#0 							; copy mantissa to target.
-.01955b	bd 08 03	lda $0308,x			lda 	XS_Mantissa+0,x
-.01955e	91 22		sta ($22),y			sta 	(zVarDataPtr),y
-.019560	c8		iny				iny
-.019561	bd 09 03	lda $0309,x			lda 	XS_Mantissa+1,x
-.019564	91 22		sta ($22),y			sta 	(zVarDataPtr),y
-.019566	c8		iny				iny
-.019567	bd 0a 03	lda $030a,x			lda 	XS_Mantissa+2,x
-.01956a	91 22		sta ($22),y			sta 	(zVarDataPtr),y
-.01956c	c8		iny				iny
-.01956d	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x
-.019570	91 22		sta ($22),y			sta 	(zVarDataPtr),y
-.019572	a5 24		lda $24				lda 	zVarType 					; if target is integer, alrady done.
-.019574	c9 bb		cmp #$bb			cmp 	#token_Percent
-.019576	f0 1c		beq $019594			beq 	_VSExit
-.019578	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; get the sign bit into carry flag.
-.01957b	0a		asl a				asl 	a
-.01957c	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x 			; shift the sign into the mantissa high.
-.01957f	08		php				php
-.019580	0a		asl a				asl 	a
-.019581	28		plp				plp
-.019582	6a		ror a				ror 	a
-.019583	91 22		sta ($22),y			sta 	(zVarDataPtr),y
-.019585	c8		iny				iny
-.019586	bd 0c 03	lda $030c,x			lda 	XS_Exponent,x 				; copy the exponent in
-.019589	91 22		sta ($22),y			sta 	(zVarDataPtr),y
-.01958b	3c 0d 03	bit $030d,x			bit 	XS_Type,x 					; if the result is non zero
-.01958e	50 04		bvc $019594			bvc 	_VSExit
-.019590	a9 00		lda #$00			lda 	#00 						; zero exponent indicating 0.
-.019592	91 22		sta ($22),y			sta 	(zVarDataPtr),y
-.019594					_VSExit:
-.019594	7a		ply				ply
-.019595	60		rts				rts
-.019596					_VSBadType:
-.019596	4c 10 84	jmp $018410			jmp 	TypeError
-.019599					_VSString:
-.019599	a5 24		lda $24				lda 	zVarType 					; type must be $
-.01959b	c9 b7		cmp #$b7			cmp 	#token_Dollar
-.01959d	d0 f7		bne $019596			bne 	_VSBadType
-.01959f	da		phx				phx
-.0195a0	5a		phy				phy
-.0195a1	20 fa 90	jsr $0190fa			jsr 	StringConcrete 				; concrete the string in the mantissa -> AX
-.0195a4	a0 01		ldy #$01			ldy 	#1 							; save high byte
-.0195a6	91 22		sta ($22),y			sta 	(zVarDataPtr),y
-.0195a8	88		dey				dey 								; save low byte
-.0195a9	8a		txa				txa
-.0195aa	91 22		sta ($22),y			sta 	(zVarDataPtr),y
-.0195ac	7a		ply				ply 								; and exit.
-.0195ad	fa		plx				plx
-.0195ae	60		rts				rts
+.0194ed	a5 24		lda $24				lda 	zVarType 					; if it is a string, set up for that.
+.0194ef	c9 b7		cmp #$b7			cmp 	#token_Dollar
+.0194f1	f0 34		beq $019527			beq 	_VGString
+.0194f3	b1 22		lda ($22),y			lda 	(zVarDataPtr),y 			; copy the next two bytes.
+.0194f5	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
+.0194f8	c8		iny				iny
+.0194f9	b1 22		lda ($22),y			lda 	(zVarDataPtr),y
+.0194fb	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
+.0194fe	c8		iny				iny
+.0194ff	a9 01		lda #$01			lda 	#1 							; set type to 1.
+.019501	9d 0d 03	sta $030d,x			sta 	XS_Type,x
+.019504	a5 24		lda $24				lda 	zVarType
+.019506	c9 bb		cmp #$bb			cmp 	#token_Percent 				; if it is a %, then exit with default integer.
+.019508	f0 31		beq $01953b			beq 	_VGExit
+.01950a	a9 40		lda #$40			lda 	#$40 						; set type byte to zero
+.01950c	9d 0d 03	sta $030d,x			sta 	XS_Type,x 					; which is the code for zero/float.
+.01950f	b1 22		lda ($22),y			lda 	(zVarDataPtr),y 			; the last value to copy is the exponent.
+.019511	9d 0c 03	sta $030c,x			sta 	XS_Exponent,x
+.019514	f0 25		beq $01953b			beq 	_VGExit 					; if exponent is zero ... it's zero.
+.019516	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x 			; the sign bit is the top mantissa bit.
+.019519	48		pha				pha
+.01951a	29 80		and #$80			and 	#$80
+.01951c	9d 0d 03	sta $030d,x			sta 	XS_Type,x 					; this is the type byte.
+.01951f	68		pla				pla
+.019520	09 80		ora #$80			ora 	#$80 						; set the MSB as you would expect.
+.019522	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x 			; so it's a normalised float.
+.019525	80 14		bra $01953b			bra 	_VGExit
+.019527					_VGString:
+.019527	a9 02		lda #$02			lda 	#2 							; set type to 2, a string
+.019529	9d 0d 03	sta $030d,x			sta 	XS_Type,x
+.01952c	bd 08 03	lda $0308,x			lda 	XS_Mantissa,x 				; is the value there $0000
+.01952f	1d 09 03	ora $0309,x			ora 	XS_Mantissa+1,x
+.019532	d0 07		bne $01953b			bne 	_VGExit 					; if not, exit.
+.019534	85 25		sta $25				sta 	zNullString 				; make zNullString a 00 string.
+.019536	a9 25		lda #$25			lda 	#zNullString
+.019538	9d 08 03	sta $0308,x			sta 	XS_Mantissa,x 				; make it point to it.
+.01953b					_VGExit:
+.01953b	7a		ply				ply
+.01953c	60		rts				rts
+.01953d					VariableSet:
+.01953d	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; is the result a string
+.019540	29 02		and #$02			and 	#2 							; if so, it has to be
+.019542	d0 53		bne $019597			bne 	_VSString
+.019544	a5 24		lda $24				lda 	zVarType 					; if type is $ there's an error.
+.019546	c9 b7		cmp #$b7			cmp 	#token_Dollar
+.019548	f0 4a		beq $019594			beq 	_VSBadType
+.01954a	c9 bb		cmp #$bb			cmp 	#token_Percent 				; type convert to float/int
+.01954c	f0 05		beq $019553			beq 	_VSMakeInt
+.01954e	20 49 9b	jsr $019b49			jsr 	FPUToFloat
+.019551	80 03		bra $019556			bra 	_VSCopy
+.019553					_VSMakeInt:
+.019553	20 a8 9b	jsr $019ba8			jsr 	FPUToInteger
+.019556					_VSCopy:
+.019556	5a		phy				phy
+.019557	a0 00		ldy #$00			ldy 	#0 							; copy mantissa to target.
+.019559	bd 08 03	lda $0308,x			lda 	XS_Mantissa+0,x
+.01955c	91 22		sta ($22),y			sta 	(zVarDataPtr),y
+.01955e	c8		iny				iny
+.01955f	bd 09 03	lda $0309,x			lda 	XS_Mantissa+1,x
+.019562	91 22		sta ($22),y			sta 	(zVarDataPtr),y
+.019564	c8		iny				iny
+.019565	bd 0a 03	lda $030a,x			lda 	XS_Mantissa+2,x
+.019568	91 22		sta ($22),y			sta 	(zVarDataPtr),y
+.01956a	c8		iny				iny
+.01956b	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x
+.01956e	91 22		sta ($22),y			sta 	(zVarDataPtr),y
+.019570	a5 24		lda $24				lda 	zVarType 					; if target is integer, alrady done.
+.019572	c9 bb		cmp #$bb			cmp 	#token_Percent
+.019574	f0 1c		beq $019592			beq 	_VSExit
+.019576	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; get the sign bit into carry flag.
+.019579	0a		asl a				asl 	a
+.01957a	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x 			; shift the sign into the mantissa high.
+.01957d	08		php				php
+.01957e	0a		asl a				asl 	a
+.01957f	28		plp				plp
+.019580	6a		ror a				ror 	a
+.019581	91 22		sta ($22),y			sta 	(zVarDataPtr),y
+.019583	c8		iny				iny
+.019584	bd 0c 03	lda $030c,x			lda 	XS_Exponent,x 				; copy the exponent in
+.019587	91 22		sta ($22),y			sta 	(zVarDataPtr),y
+.019589	3c 0d 03	bit $030d,x			bit 	XS_Type,x 					; if the result is non zero
+.01958c	50 04		bvc $019592			bvc 	_VSExit
+.01958e	a9 00		lda #$00			lda 	#00 						; zero exponent indicating 0.
+.019590	91 22		sta ($22),y			sta 	(zVarDataPtr),y
+.019592					_VSExit:
+.019592	7a		ply				ply
+.019593	60		rts				rts
+.019594					_VSBadType:
+.019594	4c 10 84	jmp $018410			jmp 	TypeError
+.019597					_VSString:
+.019597	a5 24		lda $24				lda 	zVarType 					; type must be $
+.019599	c9 b7		cmp #$b7			cmp 	#token_Dollar
+.01959b	d0 f7		bne $019594			bne 	_VSBadType
+.01959d	da		phx				phx
+.01959e	5a		phy				phy
+.01959f	20 fa 90	jsr $0190fa			jsr 	StringConcrete 				; concrete the string in the mantissa -> AX
+.0195a2	a0 01		ldy #$01			ldy 	#1 							; save high byte
+.0195a4	91 22		sta ($22),y			sta 	(zVarDataPtr),y
+.0195a6	88		dey				dey 								; save low byte
+.0195a7	8a		txa				txa
+.0195a8	91 22		sta ($22),y			sta 	(zVarDataPtr),y
+.0195aa	7a		ply				ply 								; and exit.
+.0195ab	fa		plx				plx
+.0195ac	60		rts				rts
 
 ;******  Return to file: _include.asm
 
 
 ;******  Processing file: modules/integer/multiply.asm
 
-.0195af					MulInteger32:
-.0195af	bd 08 03	lda $0308,x			lda 	XS_Mantissa+0,x					; copy +0 to +8
-.0195b2	9d 14 03	sta $0314,x			sta 	XS3_Mantissa,x
-.0195b5	bd 09 03	lda $0309,x			lda 	XS_Mantissa+1,x
-.0195b8	9d 15 03	sta $0315,x			sta 	XS3_Mantissa+1,x
-.0195bb	bd 0a 03	lda $030a,x			lda 	XS_Mantissa+2,x
-.0195be	9d 16 03	sta $0316,x			sta 	XS3_Mantissa+2,x
-.0195c1	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x
-.0195c4	9d 17 03	sta $0317,x			sta 	XS3_Mantissa+3,x
-.0195c7	a9 00		lda #$00			lda 	#0
-.0195c9	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x 				; zero +0
-.0195cc	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
-.0195cf	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
-.0195d2	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
-.0195d5					_BFMMultiply:
-.0195d5	bd 14 03	lda $0314,x			lda 	XS3_Mantissa,x 					; get LSBit of 8-11
-.0195d8	29 01		and #$01			and 	#1
-.0195da	f0 03		beq $0195df			beq 	_BFMNoAdd
-.0195dc	20 4f 8c	jsr $018c4f			jsr 	AddInteger32
-.0195df					_BFMNoAdd:
-.0195df	1e 0e 03	asl $030e,x			asl 	XS2_Mantissa+0,x 				; shift +4 left
-.0195e2	3e 0f 03	rol $030f,x			rol 	XS2_Mantissa+1,x
-.0195e5	3e 10 03	rol $0310,x			rol 	XS2_Mantissa+2,x
-.0195e8	3e 11 03	rol $0311,x			rol 	XS2_Mantissa+3,x
-.0195eb	5e 17 03	lsr $0317,x			lsr 	XS3_Mantissa+3,x 				; shift +8 right
-.0195ee	7e 16 03	ror $0316,x			ror 	XS3_Mantissa+2,x
-.0195f1	7e 15 03	ror $0315,x			ror 	XS3_Mantissa+1,x
-.0195f4	7e 14 03	ror $0314,x			ror 	XS3_Mantissa,x
-.0195f7	bd 14 03	lda $0314,x			lda 	XS3_Mantissa,x 					; continue if +8 is nonzero
-.0195fa	1d 15 03	ora $0315,x			ora 	XS3_Mantissa+1,x
-.0195fd	1d 16 03	ora $0316,x			ora 	XS3_Mantissa+2,x
-.019600	1d 17 03	ora $0317,x			ora 	XS3_Mantissa+3,x
-.019603	d0 d0		bne $0195d5			bne 	_BFMMultiply
-.019605	60		rts				rts
+.0195ad					MulInteger32:
+.0195ad	bd 08 03	lda $0308,x			lda 	XS_Mantissa+0,x					; copy +0 to +8
+.0195b0	9d 14 03	sta $0314,x			sta 	XS3_Mantissa,x
+.0195b3	bd 09 03	lda $0309,x			lda 	XS_Mantissa+1,x
+.0195b6	9d 15 03	sta $0315,x			sta 	XS3_Mantissa+1,x
+.0195b9	bd 0a 03	lda $030a,x			lda 	XS_Mantissa+2,x
+.0195bc	9d 16 03	sta $0316,x			sta 	XS3_Mantissa+2,x
+.0195bf	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x
+.0195c2	9d 17 03	sta $0317,x			sta 	XS3_Mantissa+3,x
+.0195c5	a9 00		lda #$00			lda 	#0
+.0195c7	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x 				; zero +0
+.0195ca	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
+.0195cd	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
+.0195d0	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
+.0195d3					_BFMMultiply:
+.0195d3	bd 14 03	lda $0314,x			lda 	XS3_Mantissa,x 					; get LSBit of 8-11
+.0195d6	29 01		and #$01			and 	#1
+.0195d8	f0 03		beq $0195dd			beq 	_BFMNoAdd
+.0195da	20 4f 8c	jsr $018c4f			jsr 	AddInteger32
+.0195dd					_BFMNoAdd:
+.0195dd	1e 0e 03	asl $030e,x			asl 	XS2_Mantissa+0,x 				; shift +4 left
+.0195e0	3e 0f 03	rol $030f,x			rol 	XS2_Mantissa+1,x
+.0195e3	3e 10 03	rol $0310,x			rol 	XS2_Mantissa+2,x
+.0195e6	3e 11 03	rol $0311,x			rol 	XS2_Mantissa+3,x
+.0195e9	5e 17 03	lsr $0317,x			lsr 	XS3_Mantissa+3,x 				; shift +8 right
+.0195ec	7e 16 03	ror $0316,x			ror 	XS3_Mantissa+2,x
+.0195ef	7e 15 03	ror $0315,x			ror 	XS3_Mantissa+1,x
+.0195f2	7e 14 03	ror $0314,x			ror 	XS3_Mantissa,x
+.0195f5	bd 14 03	lda $0314,x			lda 	XS3_Mantissa,x 					; continue if +8 is nonzero
+.0195f8	1d 15 03	ora $0315,x			ora 	XS3_Mantissa+1,x
+.0195fb	1d 16 03	ora $0316,x			ora 	XS3_Mantissa+2,x
+.0195fe	1d 17 03	ora $0317,x			ora 	XS3_Mantissa+3,x
+.019601	d0 d0		bne $0195d3			bne 	_BFMMultiply
+.019603	60		rts				rts
 
 ;******  Return to file: _include.asm
 
 
 ;******  Processing file: modules/integer/divide.asm
 
-.019606					DivInteger32:
-.019606	bd 0e 03	lda $030e,x			lda 	XS2_Mantissa+0,x 			; check for /0
-.019609	1d 0f 03	ora $030f,x			ora 	XS2_Mantissa+1,x
-.01960c	1d 10 03	ora $0310,x			ora 	XS2_Mantissa+2,x
-.01960f	1d 11 03	ora $0311,x			ora 	XS2_Mantissa+3,x
-.019612	d0 14		bne $019628			bne 	_BFDOkay
-.019614	20 2f 84	jsr $01842f			jsr ERR_Handler
->019617	44 69 76 69 73 69 6f 6e			.text "Division by Zero",0
->01961f	20 62 79 20 5a 65 72 6f 00
-.019628					_BFDOkay:
-.019628	a9 00		lda #$00			lda 	#0 							; zLTemp1 is 'A' (and holds the remainder)
-.01962a	85 1a		sta $1a				sta 	zLTemp1 					; Q/Dividend/Left in +0
-.01962c	85 1b		sta $1b				sta 	zLTemp1+1 					; M/Divisor/Right in +4
-.01962e	85 1c		sta $1c				sta 	zLTemp1+2
-.019630	85 1d		sta $1d				sta 	zLTemp1+3
-.019632	8d 8e 04	sta $048e			sta 	SignCount 					; Count of signs.
-.019635	20 96 96	jsr $019696			jsr 	CheckIntegerNegate 			; negate (and bump sign count)
-.019638	da		phx				phx
+.019604					DivInteger32:
+.019604	bd 0e 03	lda $030e,x			lda 	XS2_Mantissa+0,x 			; check for /0
+.019607	1d 0f 03	ora $030f,x			ora 	XS2_Mantissa+1,x
+.01960a	1d 10 03	ora $0310,x			ora 	XS2_Mantissa+2,x
+.01960d	1d 11 03	ora $0311,x			ora 	XS2_Mantissa+3,x
+.019610	d0 14		bne $019626			bne 	_BFDOkay
+.019612	20 2f 84	jsr $01842f			jsr ERR_Handler
+>019615	44 69 76 69 73 69 6f 6e			.text "Division by Zero",0
+>01961d	20 62 79 20 5a 65 72 6f 00
+.019626					_BFDOkay:
+.019626	a9 00		lda #$00			lda 	#0 							; zLTemp1 is 'A' (and holds the remainder)
+.019628	85 1a		sta $1a				sta 	zLTemp1 					; Q/Dividend/Left in +0
+.01962a	85 1b		sta $1b				sta 	zLTemp1+1 					; M/Divisor/Right in +4
+.01962c	85 1c		sta $1c				sta 	zLTemp1+2
+.01962e	85 1d		sta $1d				sta 	zLTemp1+3
+.019630	8d 8e 04	sta $048e			sta 	SignCount 					; Count of signs.
+.019633	20 94 96	jsr $019694			jsr 	CheckIntegerNegate 			; negate (and bump sign count)
+.019636	da		phx				phx
+.019637	e8		inx				inx
+.019638	e8		inx				inx
 .019639	e8		inx				inx
 .01963a	e8		inx				inx
 .01963b	e8		inx				inx
 .01963c	e8		inx				inx
-.01963d	e8		inx				inx
-.01963e	e8		inx				inx
-.01963f	20 96 96	jsr $019696			jsr 	CheckIntegerNegate
-.019642	fa		plx				plx
-.019643	5a		phy				phy 								; Y is the counter
-.019644	a0 20		ldy #$20			ldy 	#32 						; 32 iterations of the loop.
-.019646					_BFDLoop:
-.019646	1e 08 03	asl $0308,x			asl 	XS_Mantissa+0,x 			; shift AQ left.
-.019649	3e 09 03	rol $0309,x			rol 	XS_Mantissa+1,x
-.01964c	3e 0a 03	rol $030a,x			rol 	XS_Mantissa+2,x
-.01964f	3e 0b 03	rol $030b,x			rol 	XS_Mantissa+3,x
-.019652	26 1a		rol $1a				rol 	zLTemp1
-.019654	26 1b		rol $1b				rol 	zLTemp1+1
-.019656	26 1c		rol $1c				rol 	zLTemp1+2
-.019658	26 1d		rol $1d				rol 	zLTemp1+3
-.01965a	38		sec				sec
-.01965b	a5 1a		lda $1a				lda 	zLTemp1+0 					; Calculate A-M on stack.
-.01965d	fd 0e 03	sbc $030e,x			sbc 	XS2_Mantissa+0,x
-.019660	48		pha				pha
-.019661	a5 1b		lda $1b				lda 	zLTemp1+1
-.019663	fd 0f 03	sbc $030f,x			sbc 	XS2_Mantissa+1,x
-.019666	48		pha				pha
-.019667	a5 1c		lda $1c				lda 	zLTemp1+2
-.019669	fd 10 03	sbc $0310,x			sbc 	XS2_Mantissa+2,x
-.01966c	48		pha				pha
-.01966d	a5 1d		lda $1d				lda 	zLTemp1+3
-.01966f	fd 11 03	sbc $0311,x			sbc 	XS2_Mantissa+3,x
-.019672	90 15		bcc $019689			bcc 	_BFDNoAdd
-.019674	85 1d		sta $1d				sta 	zLTemp1+3 					; update A
-.019676	68		pla				pla
-.019677	85 1c		sta $1c				sta 	zLTemp1+2
-.019679	68		pla				pla
-.01967a	85 1b		sta $1b				sta 	zLTemp1+1
-.01967c	68		pla				pla
-.01967d	85 1a		sta $1a				sta 	zLTemp1+0
-.01967f	bd 08 03	lda $0308,x			lda 	XS_Mantissa+0,x 			; set Q bit 1.
-.019682	09 01		ora #$01			ora 	#1
-.019684	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x
-.019687	80 03		bra $01968c			bra 	_BFDNext
-.019689					_BFDNoAdd:
-.019689	68		pla				pla 								; Throw away the intermediate calculations
-.01968a	68		pla				pla
-.01968b	68		pla				pla
-.01968c					_BFDNext:
-.01968c	88		dey				dey
-.01968d	d0 b7		bne $019646			bne 	_BFDLoop
-.01968f	7a		ply				ply 								; restore Y and exit
-.019690	4e 8e 04	lsr $048e			lsr 	SignCount 					; if sign count odd,
-.019693	b0 07		bcs $01969c			bcs		IntegerNegateAlways 			; negate the result
-.019695	60		rts				rts
-.019696					CheckIntegerNegate:
-.019696	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x
-.019699	30 01		bmi $01969c			bmi 	IntegerNegateAlways
-.01969b	60		rts				rts
-.01969c					IntegerNegateAlways:
-.01969c	ee 8e 04	inc $048e			inc 	SignCount
-.01969f	38		sec				sec
-.0196a0	a9 00		lda #$00			lda 	#0
-.0196a2	fd 08 03	sbc $0308,x			sbc 	XS_Mantissa+0,x
-.0196a5	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x
-.0196a8	a9 00		lda #$00			lda 	#0
-.0196aa	fd 09 03	sbc $0309,x			sbc 	XS_Mantissa+1,x
-.0196ad	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
-.0196b0	a9 00		lda #$00			lda 	#0
-.0196b2	fd 0a 03	sbc $030a,x			sbc 	XS_Mantissa+2,x
-.0196b5	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
-.0196b8	a9 00		lda #$00			lda 	#0
-.0196ba	fd 0b 03	sbc $030b,x			sbc 	XS_Mantissa+3,x
-.0196bd	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
-.0196c0	60		rts				rts
+.01963d	20 94 96	jsr $019694			jsr 	CheckIntegerNegate
+.019640	fa		plx				plx
+.019641	5a		phy				phy 								; Y is the counter
+.019642	a0 20		ldy #$20			ldy 	#32 						; 32 iterations of the loop.
+.019644					_BFDLoop:
+.019644	1e 08 03	asl $0308,x			asl 	XS_Mantissa+0,x 			; shift AQ left.
+.019647	3e 09 03	rol $0309,x			rol 	XS_Mantissa+1,x
+.01964a	3e 0a 03	rol $030a,x			rol 	XS_Mantissa+2,x
+.01964d	3e 0b 03	rol $030b,x			rol 	XS_Mantissa+3,x
+.019650	26 1a		rol $1a				rol 	zLTemp1
+.019652	26 1b		rol $1b				rol 	zLTemp1+1
+.019654	26 1c		rol $1c				rol 	zLTemp1+2
+.019656	26 1d		rol $1d				rol 	zLTemp1+3
+.019658	38		sec				sec
+.019659	a5 1a		lda $1a				lda 	zLTemp1+0 					; Calculate A-M on stack.
+.01965b	fd 0e 03	sbc $030e,x			sbc 	XS2_Mantissa+0,x
+.01965e	48		pha				pha
+.01965f	a5 1b		lda $1b				lda 	zLTemp1+1
+.019661	fd 0f 03	sbc $030f,x			sbc 	XS2_Mantissa+1,x
+.019664	48		pha				pha
+.019665	a5 1c		lda $1c				lda 	zLTemp1+2
+.019667	fd 10 03	sbc $0310,x			sbc 	XS2_Mantissa+2,x
+.01966a	48		pha				pha
+.01966b	a5 1d		lda $1d				lda 	zLTemp1+3
+.01966d	fd 11 03	sbc $0311,x			sbc 	XS2_Mantissa+3,x
+.019670	90 15		bcc $019687			bcc 	_BFDNoAdd
+.019672	85 1d		sta $1d				sta 	zLTemp1+3 					; update A
+.019674	68		pla				pla
+.019675	85 1c		sta $1c				sta 	zLTemp1+2
+.019677	68		pla				pla
+.019678	85 1b		sta $1b				sta 	zLTemp1+1
+.01967a	68		pla				pla
+.01967b	85 1a		sta $1a				sta 	zLTemp1+0
+.01967d	bd 08 03	lda $0308,x			lda 	XS_Mantissa+0,x 			; set Q bit 1.
+.019680	09 01		ora #$01			ora 	#1
+.019682	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x
+.019685	80 03		bra $01968a			bra 	_BFDNext
+.019687					_BFDNoAdd:
+.019687	68		pla				pla 								; Throw away the intermediate calculations
+.019688	68		pla				pla
+.019689	68		pla				pla
+.01968a					_BFDNext:
+.01968a	88		dey				dey
+.01968b	d0 b7		bne $019644			bne 	_BFDLoop
+.01968d	7a		ply				ply 								; restore Y and exit
+.01968e	4e 8e 04	lsr $048e			lsr 	SignCount 					; if sign count odd,
+.019691	b0 07		bcs $01969a			bcs		IntegerNegateAlways 			; negate the result
+.019693	60		rts				rts
+.019694					CheckIntegerNegate:
+.019694	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x
+.019697	30 01		bmi $01969a			bmi 	IntegerNegateAlways
+.019699	60		rts				rts
+.01969a					IntegerNegateAlways:
+.01969a	ee 8e 04	inc $048e			inc 	SignCount
+.01969d	38		sec				sec
+.01969e	a9 00		lda #$00			lda 	#0
+.0196a0	fd 08 03	sbc $0308,x			sbc 	XS_Mantissa+0,x
+.0196a3	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x
+.0196a6	a9 00		lda #$00			lda 	#0
+.0196a8	fd 09 03	sbc $0309,x			sbc 	XS_Mantissa+1,x
+.0196ab	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
+.0196ae	a9 00		lda #$00			lda 	#0
+.0196b0	fd 0a 03	sbc $030a,x			sbc 	XS_Mantissa+2,x
+.0196b3	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
+.0196b6	a9 00		lda #$00			lda 	#0
+.0196b8	fd 0b 03	sbc $030b,x			sbc 	XS_Mantissa+3,x
+.0196bb	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
+.0196be	60		rts				rts
 
 ;******  Return to file: _include.asm
 
 
 ;******  Processing file: modules/integer/convert/inttostr.asm
 
-.0196c1					INTToString:
-.0196c1	48		pha				pha
-.0196c2	5a		phy				phy
-.0196c3	bd 0b 03	lda $030b,x			lda 		XS_Mantissa+3,x 		; check -ve
-.0196c6	10 08		bpl $0196d0			bpl 		_ITSNotMinus
-.0196c8	a9 2d		lda #$2d			lda 		#"-"					; output a minus
-.0196ca	20 65 97	jsr $019765			jsr 		ITSOutputCharacter
-.0196cd	20 9c 96	jsr $01969c			jsr 		IntegerNegateAlways 	; negate the number.
-.0196d0					_ITSNotMinus:
-.0196d0	a9 00		lda #$00			lda 		#0
-.0196d2	8d 8a 04	sta $048a			sta 		NumSuppress 			; clear the suppression flag.
-.0196d5	8a		txa				txa 								; use Y for the mantissa index.
-.0196d6	a8		tay				tay
-.0196d7	a2 00		ldx #$00			ldx 		#0 						; X is index into dword subtraction table.
-.0196d9					_ITSNextSubtractor:
-.0196d9	a9 30		lda #$30			lda 		#"0" 					; count of subtractions count in ASCII.
-.0196db	8d 8b 04	sta $048b			sta 		NumConvCount
-.0196de					_ITSSubtract:
-.0196de	38		sec				sec
-.0196df	b9 08 03	lda $0308,y			lda 		XS_Mantissa,y 			; subtract number and push on stack
-.0196e2	ff 41 97 01	sbc $019741,x			sbc 		_ITSSubtractors+0,x
-.0196e6	48		pha				pha
-.0196e7	b9 09 03	lda $0309,y			lda 		XS_Mantissa+1,y
-.0196ea	ff 42 97 01	sbc $019742,x			sbc 		_ITSSubtractors+1,x
-.0196ee	48		pha				pha
-.0196ef	b9 0a 03	lda $030a,y			lda 		XS_Mantissa+2,y
-.0196f2	ff 43 97 01	sbc $019743,x			sbc 		_ITSSubtractors+2,x
-.0196f6	48		pha				pha
-.0196f7	b9 0b 03	lda $030b,y			lda 		XS_Mantissa+3,y
-.0196fa	ff 44 97 01	sbc $019744,x			sbc 		_ITSSubtractors+3,x
-.0196fe	90 14		bcc $019714			bcc 		_ITSCantSubtract 		; if CC, then gone too far.
-.019700	99 0b 03	sta $030b,y			sta 		XS_Mantissa+3,y 		; save subtract off stack
-.019703	68		pla				pla
-.019704	99 0a 03	sta $030a,y			sta 		XS_Mantissa+2,y
-.019707	68		pla				pla
-.019708	99 09 03	sta $0309,y			sta 		XS_Mantissa+1,y
-.01970b	68		pla				pla
-.01970c	99 08 03	sta $0308,y			sta 		XS_Mantissa+0,y
-.01970f	ee 8b 04	inc $048b			inc 		NumConvCount 			; bump count.
-.019712	80 ca		bra $0196de			bra 		_ITSSubtract 			; go round again.
-.019714					_ITSCantSubtract:
-.019714	68		pla				pla 								; throw away interim answers
-.019715	68		pla				pla
-.019716	68		pla				pla
-.019717	ad 8b 04	lda $048b			lda 		NumConvCount 			; if not zero then no suppression check
-.01971a	c9 30		cmp #$30			cmp 		#"0"
-.01971c	d0 05		bne $019723			bne 		_ITSOutputDigit
-.01971e	ad 8a 04	lda $048a			lda 		NumSuppress 			; if suppression check zero, then don't print it.
-.019721	10 09		bpl $01972c			bpl	 		_ITSGoNextSubtractor
-.019723					_ITSOutputDigit:
-.019723	ce 8a 04	dec $048a			dec 		NumSuppress 			; suppression check will be non-zero.
-.019726	ad 8b 04	lda $048b			lda 		NumConvCount 			; count of subtractions
-.019729	20 65 97	jsr $019765			jsr 		ITSOutputCharacter 		; output it.
-.01972c					_ITSGoNextSubtractor:
-.01972c	e8		inx				inx 								; next dword
+.0196bf					INTToString:
+.0196bf	48		pha				pha
+.0196c0	5a		phy				phy
+.0196c1	bd 0b 03	lda $030b,x			lda 		XS_Mantissa+3,x 		; check -ve
+.0196c4	10 08		bpl $0196ce			bpl 		_ITSNotMinus
+.0196c6	a9 2d		lda #$2d			lda 		#"-"					; output a minus
+.0196c8	20 63 97	jsr $019763			jsr 		ITSOutputCharacter
+.0196cb	20 9a 96	jsr $01969a			jsr 		IntegerNegateAlways 	; negate the number.
+.0196ce					_ITSNotMinus:
+.0196ce	a9 00		lda #$00			lda 		#0
+.0196d0	8d 8a 04	sta $048a			sta 		NumSuppress 			; clear the suppression flag.
+.0196d3	8a		txa				txa 								; use Y for the mantissa index.
+.0196d4	a8		tay				tay
+.0196d5	a2 00		ldx #$00			ldx 		#0 						; X is index into dword subtraction table.
+.0196d7					_ITSNextSubtractor:
+.0196d7	a9 30		lda #$30			lda 		#"0" 					; count of subtractions count in ASCII.
+.0196d9	8d 8b 04	sta $048b			sta 		NumConvCount
+.0196dc					_ITSSubtract:
+.0196dc	38		sec				sec
+.0196dd	b9 08 03	lda $0308,y			lda 		XS_Mantissa,y 			; subtract number and push on stack
+.0196e0	ff 3f 97 01	sbc $01973f,x			sbc 		_ITSSubtractors+0,x
+.0196e4	48		pha				pha
+.0196e5	b9 09 03	lda $0309,y			lda 		XS_Mantissa+1,y
+.0196e8	ff 40 97 01	sbc $019740,x			sbc 		_ITSSubtractors+1,x
+.0196ec	48		pha				pha
+.0196ed	b9 0a 03	lda $030a,y			lda 		XS_Mantissa+2,y
+.0196f0	ff 41 97 01	sbc $019741,x			sbc 		_ITSSubtractors+2,x
+.0196f4	48		pha				pha
+.0196f5	b9 0b 03	lda $030b,y			lda 		XS_Mantissa+3,y
+.0196f8	ff 42 97 01	sbc $019742,x			sbc 		_ITSSubtractors+3,x
+.0196fc	90 14		bcc $019712			bcc 		_ITSCantSubtract 		; if CC, then gone too far.
+.0196fe	99 0b 03	sta $030b,y			sta 		XS_Mantissa+3,y 		; save subtract off stack
+.019701	68		pla				pla
+.019702	99 0a 03	sta $030a,y			sta 		XS_Mantissa+2,y
+.019705	68		pla				pla
+.019706	99 09 03	sta $0309,y			sta 		XS_Mantissa+1,y
+.019709	68		pla				pla
+.01970a	99 08 03	sta $0308,y			sta 		XS_Mantissa+0,y
+.01970d	ee 8b 04	inc $048b			inc 		NumConvCount 			; bump count.
+.019710	80 ca		bra $0196dc			bra 		_ITSSubtract 			; go round again.
+.019712					_ITSCantSubtract:
+.019712	68		pla				pla 								; throw away interim answers
+.019713	68		pla				pla
+.019714	68		pla				pla
+.019715	ad 8b 04	lda $048b			lda 		NumConvCount 			; if not zero then no suppression check
+.019718	c9 30		cmp #$30			cmp 		#"0"
+.01971a	d0 05		bne $019721			bne 		_ITSOutputDigit
+.01971c	ad 8a 04	lda $048a			lda 		NumSuppress 			; if suppression check zero, then don't print it.
+.01971f	10 09		bpl $01972a			bpl	 		_ITSGoNextSubtractor
+.019721					_ITSOutputDigit:
+.019721	ce 8a 04	dec $048a			dec 		NumSuppress 			; suppression check will be non-zero.
+.019724	ad 8b 04	lda $048b			lda 		NumConvCount 			; count of subtractions
+.019727	20 63 97	jsr $019763			jsr 		ITSOutputCharacter 		; output it.
+.01972a					_ITSGoNextSubtractor:
+.01972a	e8		inx				inx 								; next dword
+.01972b	e8		inx				inx
+.01972c	e8		inx				inx
 .01972d	e8		inx				inx
-.01972e	e8		inx				inx
-.01972f	e8		inx				inx
-.019730	e0 24		cpx #$24			cpx 		#_ITSSubtractorsEnd-_ITSSubtractors
-.019732	d0 a5		bne $0196d9			bne 		_ITSNextSubtractor 		; do all the subtractors.
-.019734	98		tya				tya 								; X is back as the mantissa index
-.019735	aa		tax				tax
-.019736	bd 08 03	lda $0308,x			lda 		XS_Mantissa+0,x 		; and the last digit is left.
-.019739	09 30		ora #$30			ora 		#"0"
-.01973b	20 65 97	jsr $019765			jsr 		ITSOutputCharacter
-.01973e	7a		ply				ply 								; and exit
-.01973f	68		pla				pla
-.019740	60		rts				rts
-.019741					_ITSSubtractors:
->019741	00 ca 9a 3b					.dword 		1000000000
->019745	00 e1 f5 05					.dword 		100000000
->019749	80 96 98 00					.dword 		10000000
->01974d	40 42 0f 00					.dword 		1000000
->019751	a0 86 01 00					.dword 		100000
->019755	10 27 00 00					.dword 		10000
->019759	e8 03 00 00					.dword 		1000
->01975d	64 00 00 00					.dword 		100
->019761	0a 00 00 00					.dword 		10
-.019765					_ITSSubtractorsEnd:
-.019765					ITSOutputCharacter:
-.019765	48		pha				pha
-.019766	da		phx				phx
-.019767	ae 04 04	ldx $0404			ldx 	NumBufX 					; save digit
-.01976a	9d 05 04	sta $0405,x			sta 	Num_Buffer,x
-.01976d	a9 00		lda #$00			lda		#0 							; follow by trailing NULL
-.01976f	9d 06 04	sta $0406,x			sta 	Num_Buffer+1,x
-.019772	ee 04 04	inc $0404			inc 	NumBufX						; bump pointer.
-.019775	fa		plx				plx
-.019776	68		pla				pla
-.019777	60		rts				rts
+.01972e	e0 24		cpx #$24			cpx 		#_ITSSubtractorsEnd-_ITSSubtractors
+.019730	d0 a5		bne $0196d7			bne 		_ITSNextSubtractor 		; do all the subtractors.
+.019732	98		tya				tya 								; X is back as the mantissa index
+.019733	aa		tax				tax
+.019734	bd 08 03	lda $0308,x			lda 		XS_Mantissa+0,x 		; and the last digit is left.
+.019737	09 30		ora #$30			ora 		#"0"
+.019739	20 63 97	jsr $019763			jsr 		ITSOutputCharacter
+.01973c	7a		ply				ply 								; and exit
+.01973d	68		pla				pla
+.01973e	60		rts				rts
+.01973f					_ITSSubtractors:
+>01973f	00 ca 9a 3b					.dword 		1000000000
+>019743	00 e1 f5 05					.dword 		100000000
+>019747	80 96 98 00					.dword 		10000000
+>01974b	40 42 0f 00					.dword 		1000000
+>01974f	a0 86 01 00					.dword 		100000
+>019753	10 27 00 00					.dword 		10000
+>019757	e8 03 00 00					.dword 		1000
+>01975b	64 00 00 00					.dword 		100
+>01975f	0a 00 00 00					.dword 		10
+.019763					_ITSSubtractorsEnd:
+.019763					ITSOutputCharacter:
+.019763	48		pha				pha
+.019764	da		phx				phx
+.019765	ae 04 04	ldx $0404			ldx 	NumBufX 					; save digit
+.019768	9d 05 04	sta $0405,x			sta 	Num_Buffer,x
+.01976b	a9 00		lda #$00			lda		#0 							; follow by trailing NULL
+.01976d	9d 06 04	sta $0406,x			sta 	Num_Buffer+1,x
+.019770	ee 04 04	inc $0404			inc 	NumBufX						; bump pointer.
+.019773	fa		plx				plx
+.019774	68		pla				pla
+.019775	60		rts				rts
 
 ;******  Return to file: _include.asm
 
 
 ;******  Processing file: modules/integer/convert/intfromstr.asm
 
-.019778					IntFromString:
-.019778	a0 00		ldy #$00			ldy 	#0
-.01977a	8c 8c 04	sty $048c			sty 	ExpTemp 					; this is the converted digit count.
-.01977d					IntFromStringY:
-.01977d	48		pha				pha
-.01977e	a9 00		lda #$00			lda 	#0 							; clear the mantissa
-.019780	9d 08 03	sta $0308,x			sta 	XS_Mantissa,x
-.019783	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
-.019786	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
-.019789	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
-.01978c	a9 01		lda #$01			lda 	#1
-.01978e	9d 0d 03	sta $030d,x			sta 	XS_Type,x
-.019791					_IFSLoop:
-.019791	b1 1e		lda ($1e),y			lda 	(zGenPtr),y 				; get next
-.019793	c9 30		cmp #$30			cmp 	#"0"						; validate it.
-.019795	90 60		bcc $0197f7			bcc 	_IFSExit
-.019797	c9 3a		cmp #$3a			cmp 	#"9"+1
-.019799	b0 5c		bcs $0197f7			bcs 	_IFSExit
-.01979b	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x 			; is High Byte > $7F/10
-.01979e	c9 0c		cmp #$0c			cmp 	#12
-.0197a0	b0 5f		bcs $019801			bcs 	_IFSOverflow
-.0197a2	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x 			; push mantissa on stack backwards
-.0197a5	48		pha				pha
-.0197a6	bd 0a 03	lda $030a,x			lda 	XS_Mantissa+2,x
-.0197a9	48		pha				pha
-.0197aa	bd 09 03	lda $0309,x			lda 	XS_Mantissa+1,x
-.0197ad	48		pha				pha
-.0197ae	bd 08 03	lda $0308,x			lda 	XS_Mantissa+0,x
-.0197b1	48		pha				pha
-.0197b2	20 16 98	jsr $019816			jsr 	IFSX1ShiftLeft 				; double
-.0197b5	20 16 98	jsr $019816			jsr 	IFSX1ShiftLeft 				; x 4
-.0197b8	18		clc				clc 								; add saved value x 5
-.0197b9	68		pla				pla
-.0197ba	7d 08 03	adc $0308,x			adc 	XS_Mantissa+0,x
-.0197bd	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x
-.0197c0	68		pla				pla
-.0197c1	7d 09 03	adc $0309,x			adc 	XS_Mantissa+1,x
-.0197c4	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
-.0197c7	68		pla				pla
-.0197c8	7d 0a 03	adc $030a,x			adc 	XS_Mantissa+2,x
-.0197cb	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
-.0197ce	68		pla				pla
-.0197cf	7d 0b 03	adc $030b,x			adc 	XS_Mantissa+3,x
-.0197d2	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
-.0197d5	20 16 98	jsr $019816			jsr 	IFSX1ShiftLeft 				; x 10
-.0197d8	ee 8c 04	inc $048c			inc 	ExpTemp 					; bump count of digits processed.
-.0197db	b1 1e		lda ($1e),y			lda 	(zGenPtr),y 				; add digit
-.0197dd	29 0f		and #$0f			and 	#15
-.0197df	c8		iny				iny
-.0197e0	7d 08 03	adc $0308,x			adc 	XS_Mantissa+0,x
-.0197e3	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x
-.0197e6	90 a9		bcc $019791			bcc 	_IFSLoop
-.0197e8	fe 09 03	inc $0309,x			inc 	XS_Mantissa+1,x 			; propogate carry round.
-.0197eb	d0 a4		bne $019791			bne 	_IFSLoop
-.0197ed	fe 0a 03	inc $030a,x			inc 	XS_Mantissa+2,x
-.0197f0	d0 9f		bne $019791			bne 	_IFSLoop
-.0197f2	fe 0b 03	inc $030b,x			inc 	XS_Mantissa+3,x
-.0197f5	80 9a		bra $019791			bra 	_IFSLoop
-.0197f7					_IFSExit:
-.0197f7	98		tya				tya 								; get offset
-.0197f8					_IFSOkay:
-.0197f8	38		sec				sec
-.0197f9	ad 8c 04	lda $048c			lda 	ExpTemp
-.0197fc	f0 01		beq $0197ff			beq 	_IFSSkipFail
-.0197fe	18		clc				clc
-.0197ff					_IFSSkipFail:
-.0197ff	68		pla				pla 								; and exit.
-.019800	60		rts				rts
-.019801					_IFSOverflow:
-.019801	20 2f 84	jsr $01842f			jsr 	ERR_Handler
->019804	43 6f 6e 73 74 61 6e 74				.text 	"Constant overflow",0
->01980c	20 6f 76 65 72 66 6c 6f 77 00
-.019816					IFSX1ShiftLeft:
-.019816	1e 08 03	asl $0308,x			asl 	XS_Mantissa+0,x
-.019819	3e 09 03	rol $0309,x			rol 	XS_Mantissa+1,x
-.01981c	3e 0a 03	rol $030a,x			rol 	XS_Mantissa+2,x
-.01981f	3e 0b 03	rol $030b,x			rol 	XS_Mantissa+3,x
-.019822	60		rts				rts
+.019776					IntFromString:
+.019776	a0 00		ldy #$00			ldy 	#0
+.019778	8c 8c 04	sty $048c			sty 	ExpTemp 					; this is the converted digit count.
+.01977b					IntFromStringY:
+.01977b	48		pha				pha
+.01977c	a9 00		lda #$00			lda 	#0 							; clear the mantissa
+.01977e	9d 08 03	sta $0308,x			sta 	XS_Mantissa,x
+.019781	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
+.019784	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
+.019787	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
+.01978a	a9 01		lda #$01			lda 	#1
+.01978c	9d 0d 03	sta $030d,x			sta 	XS_Type,x
+.01978f					_IFSLoop:
+.01978f	b1 1e		lda ($1e),y			lda 	(zGenPtr),y 				; get next
+.019791	c9 30		cmp #$30			cmp 	#"0"						; validate it.
+.019793	90 60		bcc $0197f5			bcc 	_IFSExit
+.019795	c9 3a		cmp #$3a			cmp 	#"9"+1
+.019797	b0 5c		bcs $0197f5			bcs 	_IFSExit
+.019799	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x 			; is High Byte > $7F/10
+.01979c	c9 0c		cmp #$0c			cmp 	#12
+.01979e	b0 5f		bcs $0197ff			bcs 	_IFSOverflow
+.0197a0	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x 			; push mantissa on stack backwards
+.0197a3	48		pha				pha
+.0197a4	bd 0a 03	lda $030a,x			lda 	XS_Mantissa+2,x
+.0197a7	48		pha				pha
+.0197a8	bd 09 03	lda $0309,x			lda 	XS_Mantissa+1,x
+.0197ab	48		pha				pha
+.0197ac	bd 08 03	lda $0308,x			lda 	XS_Mantissa+0,x
+.0197af	48		pha				pha
+.0197b0	20 14 98	jsr $019814			jsr 	IFSX1ShiftLeft 				; double
+.0197b3	20 14 98	jsr $019814			jsr 	IFSX1ShiftLeft 				; x 4
+.0197b6	18		clc				clc 								; add saved value x 5
+.0197b7	68		pla				pla
+.0197b8	7d 08 03	adc $0308,x			adc 	XS_Mantissa+0,x
+.0197bb	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x
+.0197be	68		pla				pla
+.0197bf	7d 09 03	adc $0309,x			adc 	XS_Mantissa+1,x
+.0197c2	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
+.0197c5	68		pla				pla
+.0197c6	7d 0a 03	adc $030a,x			adc 	XS_Mantissa+2,x
+.0197c9	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
+.0197cc	68		pla				pla
+.0197cd	7d 0b 03	adc $030b,x			adc 	XS_Mantissa+3,x
+.0197d0	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
+.0197d3	20 14 98	jsr $019814			jsr 	IFSX1ShiftLeft 				; x 10
+.0197d6	ee 8c 04	inc $048c			inc 	ExpTemp 					; bump count of digits processed.
+.0197d9	b1 1e		lda ($1e),y			lda 	(zGenPtr),y 				; add digit
+.0197db	29 0f		and #$0f			and 	#15
+.0197dd	c8		iny				iny
+.0197de	7d 08 03	adc $0308,x			adc 	XS_Mantissa+0,x
+.0197e1	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x
+.0197e4	90 a9		bcc $01978f			bcc 	_IFSLoop
+.0197e6	fe 09 03	inc $0309,x			inc 	XS_Mantissa+1,x 			; propogate carry round.
+.0197e9	d0 a4		bne $01978f			bne 	_IFSLoop
+.0197eb	fe 0a 03	inc $030a,x			inc 	XS_Mantissa+2,x
+.0197ee	d0 9f		bne $01978f			bne 	_IFSLoop
+.0197f0	fe 0b 03	inc $030b,x			inc 	XS_Mantissa+3,x
+.0197f3	80 9a		bra $01978f			bra 	_IFSLoop
+.0197f5					_IFSExit:
+.0197f5	98		tya				tya 								; get offset
+.0197f6					_IFSOkay:
+.0197f6	38		sec				sec
+.0197f7	ad 8c 04	lda $048c			lda 	ExpTemp
+.0197fa	f0 01		beq $0197fd			beq 	_IFSSkipFail
+.0197fc	18		clc				clc
+.0197fd					_IFSSkipFail:
+.0197fd	68		pla				pla 								; and exit.
+.0197fe	60		rts				rts
+.0197ff					_IFSOverflow:
+.0197ff	20 2f 84	jsr $01842f			jsr 	ERR_Handler
+>019802	43 6f 6e 73 74 61 6e 74				.text 	"Constant overflow",0
+>01980a	20 6f 76 65 72 66 6c 6f 77 00
+.019814					IFSX1ShiftLeft:
+.019814	1e 08 03	asl $0308,x			asl 	XS_Mantissa+0,x
+.019817	3e 09 03	rol $0309,x			rol 	XS_Mantissa+1,x
+.01981a	3e 0a 03	rol $030a,x			rol 	XS_Mantissa+2,x
+.01981d	3e 0b 03	rol $030b,x			rol 	XS_Mantissa+3,x
+.019820	60		rts				rts
 
 ;******  Return to file: _include.asm
 
 
 ;******  Processing file: modules/float/fpadd.asm
 
-.019823					FPSubtract:
-.019823	48		pha				pha
-.019824	bd 13 03	lda $0313,x			lda 	XS2_Type,x 					; flip the sign of X2 and add
-.019827	49 80		eor #$80			eor 	#$80
-.019829	9d 13 03	sta $0313,x			sta 	XS2_Type,x
-.01982c	68		pla				pla 								; --- and fall through ---
-.01982d					FPAdd:
-.01982d	48		pha				pha
-.01982e	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; if X1 is -ve, specialised code
-.019831	d0 05		bne $019838			bne 	_FPA_NegativeLHS
-.019833	20 55 98	jsr $019855			jsr 	FPAdd_Worker 				; if +ve use standard worker unchanged.
-.019836	68		pla				pla
-.019837	60		rts				rts
-.019838					_FPA_NegativeLHS:
-.019838	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; flip sign of X1 and X2
-.01983b	49 80		eor #$80			eor 	#$80
-.01983d	9d 0d 03	sta $030d,x			sta 	XS_Type,x
-.019840	bd 13 03	lda $0313,x			lda 	XS2_Type,x 					; flip the sign of B and add
-.019843	49 80		eor #$80			eor 	#$80
-.019845	9d 13 03	sta $0313,x			sta 	XS2_Type,x
-.019848	20 55 98	jsr $019855			jsr 	FPAdd_Worker 				; do the add calculation.
-.01984b	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; flip sign of X1 back
-.01984e	49 80		eor #$80			eor 	#$80
-.019850	9d 0d 03	sta $030d,x			sta 	XS_Type,x
-.019853	68		pla				pla
-.019854	60		rts				rts
-.019855					FPAdd_Worker:
-.019855	3c 13 03	bit $0313,x			bit 	XS2_Type,x					; if X2 is zero (e.g. adding zero)
-.019858	70 08		bvs $019862			bvs 	_FPAWExit 					; no change.
-.01985a	3c 0d 03	bit $030d,x			bit 	XS_Type,x 					; if X1 is zero (e.g. 0 + X2)
-.01985d	50 07		bvc $019866			bvc 	_FPAWMakeSame 				; then return X2, else make same exponent
-.01985f	20 fa 9a	jsr $019afa			jsr 	FPUCopyX2ToX1 				; copy X2 to X1
-.019862					_FPAWExit:
-.019862	20 82 9b	jsr $019b82			jsr 	FPUNormalise 				; normalise the result.
-.019865	60		rts				rts
-.019866					_FPAWMakeSame:
-.019866	bd 0c 03	lda $030c,x			lda 	XS_Exponent,x 				; check if exponents are the same.
-.019869	38		sec				sec
-.01986a	fd 12 03	sbc $0312,x			sbc	 	XS2_Exponent,x 				; using subtraction
-.01986d	f0 1b		beq $01988a			beq 	_FPAW_DoArithmetic 			; if they are, do the actual arithmetic part.
-.01986f	da		phx				phx 								; save X
-.019870	90 06		bcc $019878			bcc 	_FPAWShiftA 				; if X1 < X2 then shift X1
+.019821					FPSubtract:
+.019821	48		pha				pha
+.019822	bd 13 03	lda $0313,x			lda 	XS2_Type,x 					; flip the sign of X2 and add
+.019825	49 80		eor #$80			eor 	#$80
+.019827	9d 13 03	sta $0313,x			sta 	XS2_Type,x
+.01982a	68		pla				pla 								; --- and fall through ---
+.01982b					FPAdd:
+.01982b	48		pha				pha
+.01982c	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; if X1 is -ve, specialised code
+.01982f	d0 05		bne $019836			bne 	_FPA_NegativeLHS
+.019831	20 53 98	jsr $019853			jsr 	FPAdd_Worker 				; if +ve use standard worker unchanged.
+.019834	68		pla				pla
+.019835	60		rts				rts
+.019836					_FPA_NegativeLHS:
+.019836	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; flip sign of X1 and X2
+.019839	49 80		eor #$80			eor 	#$80
+.01983b	9d 0d 03	sta $030d,x			sta 	XS_Type,x
+.01983e	bd 13 03	lda $0313,x			lda 	XS2_Type,x 					; flip the sign of B and add
+.019841	49 80		eor #$80			eor 	#$80
+.019843	9d 13 03	sta $0313,x			sta 	XS2_Type,x
+.019846	20 53 98	jsr $019853			jsr 	FPAdd_Worker 				; do the add calculation.
+.019849	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; flip sign of X1 back
+.01984c	49 80		eor #$80			eor 	#$80
+.01984e	9d 0d 03	sta $030d,x			sta 	XS_Type,x
+.019851	68		pla				pla
+.019852	60		rts				rts
+.019853					FPAdd_Worker:
+.019853	3c 13 03	bit $0313,x			bit 	XS2_Type,x					; if X2 is zero (e.g. adding zero)
+.019856	70 08		bvs $019860			bvs 	_FPAWExit 					; no change.
+.019858	3c 0d 03	bit $030d,x			bit 	XS_Type,x 					; if X1 is zero (e.g. 0 + X2)
+.01985b	50 07		bvc $019864			bvc 	_FPAWMakeSame 				; then return X2, else make same exponent
+.01985d	20 f8 9a	jsr $019af8			jsr 	FPUCopyX2ToX1 				; copy X2 to X1
+.019860					_FPAWExit:
+.019860	20 80 9b	jsr $019b80			jsr 	FPUNormalise 				; normalise the result.
+.019863	60		rts				rts
+.019864					_FPAWMakeSame:
+.019864	bd 0c 03	lda $030c,x			lda 	XS_Exponent,x 				; check if exponents are the same.
+.019867	38		sec				sec
+.019868	fd 12 03	sbc $0312,x			sbc	 	XS2_Exponent,x 				; using subtraction
+.01986b	f0 1b		beq $019888			beq 	_FPAW_DoArithmetic 			; if they are, do the actual arithmetic part.
+.01986d	da		phx				phx 								; save X
+.01986e	90 06		bcc $019876			bcc 	_FPAWShiftA 				; if X1 < X2 then shift X1
+.019870	e8		inx				inx
+.019871	e8		inx				inx
 .019872	e8		inx				inx
 .019873	e8		inx				inx
 .019874	e8		inx				inx
 .019875	e8		inx				inx
-.019876	e8		inx				inx
-.019877	e8		inx				inx
-.019878					_FPAWShiftA:
-.019878	fe 0c 03	inc $030c,x			inc 	XS_Exponent,x 				; so shift exponent up.
-.01987b	5e 0b 03	lsr $030b,x			lsr 	3+XS_Mantissa,x
-.01987e	7e 0a 03	ror $030a,x			ror 	2+XS_Mantissa,x
-.019881	7e 09 03	ror $0309,x			ror 	1+XS_Mantissa,x
-.019884	7e 08 03	ror $0308,x			ror 	0+XS_Mantissa,x
-.019887	fa		plx				plx 								; restore original X
-.019888	80 dc		bra $019866			bra 	_FPAWMakeSame 				; keep going till exponents are the same.
-.01988a					_FPAW_DoArithmetic:
-.01988a	3c 13 03	bit $0313,x			bit 	XS2_Type,x 					; is it adding a negative to a positive
-.01988d	30 39		bmi $0198c8			bmi 	_FPAW_BNegative
-.01988f	18		clc				clc
-.019890	bd 08 03	lda $0308,x			lda 	XS_Mantissa+0,x
-.019893	7d 0e 03	adc $030e,x			adc 	XS2_Mantissa+0,x
-.019896	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x
-.019899	bd 09 03	lda $0309,x			lda 	XS_Mantissa+1,x
-.01989c	7d 0f 03	adc $030f,x			adc 	XS2_Mantissa+1,x
-.01989f	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
-.0198a2	bd 0a 03	lda $030a,x			lda 	XS_Mantissa+2,x
-.0198a5	7d 10 03	adc $0310,x			adc 	XS2_Mantissa+2,x
-.0198a8	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
-.0198ab	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x
-.0198ae	7d 11 03	adc $0311,x			adc 	XS2_Mantissa+3,x
-.0198b1	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
-.0198b4	90 ac		bcc $019862			bcc 	_FPAWExit 					; no carry.
-.0198b6	fe 0c 03	inc $030c,x			inc 	XS_Exponent,x 				; so shift exponent up.
-.0198b9	38		sec				sec
-.0198ba	7e 0b 03	ror $030b,x			ror 	3+XS_Mantissa,x
-.0198bd	7e 0a 03	ror $030a,x			ror 	2+XS_Mantissa,x
-.0198c0	7e 09 03	ror $0309,x			ror 	1+XS_Mantissa,x
-.0198c3	7e 08 03	ror $0308,x			ror 	0+XS_Mantissa,x
-.0198c6	80 9a		bra $019862			bra 	_FPAWExit
-.0198c8					_FPAW_BNegative:
-.0198c8	38		sec				sec
-.0198c9	bd 08 03	lda $0308,x			lda 	XS_Mantissa+0,x
-.0198cc	fd 0e 03	sbc $030e,x			sbc 	XS2_Mantissa+0,x
-.0198cf	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x
-.0198d2	bd 09 03	lda $0309,x			lda 	XS_Mantissa+1,x
-.0198d5	fd 0f 03	sbc $030f,x			sbc 	XS2_Mantissa+1,x
-.0198d8	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
-.0198db	bd 0a 03	lda $030a,x			lda 	XS_Mantissa+2,x
-.0198de	fd 10 03	sbc $0310,x			sbc 	XS2_Mantissa+2,x
-.0198e1	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
-.0198e4	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x
-.0198e7	fd 11 03	sbc $0311,x			sbc 	XS2_Mantissa+3,x
-.0198ea	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
-.0198ed	b0 0b		bcs $0198fa			bcs		_FPAWGoExit 				; no borrow, e.g. the result is positive.
-.0198ef	20 27 9b	jsr $019b27			jsr 	FPUNegateInteger			; negate the mantissa
-.0198f2	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; flip result sign
-.0198f5	49 80		eor #$80			eor 	#$80
-.0198f7	9d 0d 03	sta $030d,x			sta 	XS_Type,x
-.0198fa					_FPAWGoExit:
-.0198fa	4c 62 98	jmp $019862			jmp 	_FPAWExit
+.019876					_FPAWShiftA:
+.019876	fe 0c 03	inc $030c,x			inc 	XS_Exponent,x 				; so shift exponent up.
+.019879	5e 0b 03	lsr $030b,x			lsr 	3+XS_Mantissa,x
+.01987c	7e 0a 03	ror $030a,x			ror 	2+XS_Mantissa,x
+.01987f	7e 09 03	ror $0309,x			ror 	1+XS_Mantissa,x
+.019882	7e 08 03	ror $0308,x			ror 	0+XS_Mantissa,x
+.019885	fa		plx				plx 								; restore original X
+.019886	80 dc		bra $019864			bra 	_FPAWMakeSame 				; keep going till exponents are the same.
+.019888					_FPAW_DoArithmetic:
+.019888	3c 13 03	bit $0313,x			bit 	XS2_Type,x 					; is it adding a negative to a positive
+.01988b	30 39		bmi $0198c6			bmi 	_FPAW_BNegative
+.01988d	18		clc				clc
+.01988e	bd 08 03	lda $0308,x			lda 	XS_Mantissa+0,x
+.019891	7d 0e 03	adc $030e,x			adc 	XS2_Mantissa+0,x
+.019894	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x
+.019897	bd 09 03	lda $0309,x			lda 	XS_Mantissa+1,x
+.01989a	7d 0f 03	adc $030f,x			adc 	XS2_Mantissa+1,x
+.01989d	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
+.0198a0	bd 0a 03	lda $030a,x			lda 	XS_Mantissa+2,x
+.0198a3	7d 10 03	adc $0310,x			adc 	XS2_Mantissa+2,x
+.0198a6	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
+.0198a9	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x
+.0198ac	7d 11 03	adc $0311,x			adc 	XS2_Mantissa+3,x
+.0198af	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
+.0198b2	90 ac		bcc $019860			bcc 	_FPAWExit 					; no carry.
+.0198b4	fe 0c 03	inc $030c,x			inc 	XS_Exponent,x 				; so shift exponent up.
+.0198b7	38		sec				sec
+.0198b8	7e 0b 03	ror $030b,x			ror 	3+XS_Mantissa,x
+.0198bb	7e 0a 03	ror $030a,x			ror 	2+XS_Mantissa,x
+.0198be	7e 09 03	ror $0309,x			ror 	1+XS_Mantissa,x
+.0198c1	7e 08 03	ror $0308,x			ror 	0+XS_Mantissa,x
+.0198c4	80 9a		bra $019860			bra 	_FPAWExit
+.0198c6					_FPAW_BNegative:
+.0198c6	38		sec				sec
+.0198c7	bd 08 03	lda $0308,x			lda 	XS_Mantissa+0,x
+.0198ca	fd 0e 03	sbc $030e,x			sbc 	XS2_Mantissa+0,x
+.0198cd	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x
+.0198d0	bd 09 03	lda $0309,x			lda 	XS_Mantissa+1,x
+.0198d3	fd 0f 03	sbc $030f,x			sbc 	XS2_Mantissa+1,x
+.0198d6	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
+.0198d9	bd 0a 03	lda $030a,x			lda 	XS_Mantissa+2,x
+.0198dc	fd 10 03	sbc $0310,x			sbc 	XS2_Mantissa+2,x
+.0198df	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
+.0198e2	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x
+.0198e5	fd 11 03	sbc $0311,x			sbc 	XS2_Mantissa+3,x
+.0198e8	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
+.0198eb	b0 0b		bcs $0198f8			bcs		_FPAWGoExit 				; no borrow, e.g. the result is positive.
+.0198ed	20 25 9b	jsr $019b25			jsr 	FPUNegateInteger			; negate the mantissa
+.0198f0	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; flip result sign
+.0198f3	49 80		eor #$80			eor 	#$80
+.0198f5	9d 0d 03	sta $030d,x			sta 	XS_Type,x
+.0198f8					_FPAWGoExit:
+.0198f8	4c 60 98	jmp $019860			jmp 	_FPAWExit
 
 ;******  Return to file: _include.asm
 
 
 ;******  Processing file: modules/float/fpdivide.asm
 
-.0198fd					FPD_IsDivZero:
-.0198fd	20 2f 84	jsr $01842f			jsr ERR_Handler
->019900	44 69 76 69 73 69 6f 6e			.text "Division by zero",0
->019908	20 62 79 20 7a 65 72 6f 00
-.019911					FPDivide:
-.019911	48		pha				pha
-.019912	5a		phy				phy
-.019913	3c 13 03	bit $0313,x			bit 	XS2_Type,x 					; check if division by zero
-.019916	70 e5		bvs $0198fd			bvs 	FPD_IsDivZero 				; if X2 is zero, cause an error.
-.019918	3c 0d 03	bit $030d,x			bit 	XS_Type,x 					; if 0/X (X is not zero) return 0
-.01991b	f0 03		beq $019920			beq 	_FPDCalculateExp
-.01991d					_FPD_Exit:
-.01991d	7a		ply				ply
-.01991e	68		pla				pla
-.01991f	60		rts				rts
-.019920					_FPDCalculateExp:
-.019920	bd 12 03	lda $0312,x			lda 	XS2_Exponent,x 				; negate the 2nd exponent
-.019923	49 ff		eor #$ff			eor 	#$FF
-.019925	1a		inc a				inc 	a
-.019926	9d 12 03	sta $0312,x			sta 	XS2_Exponent,x
-.019929	20 1d 9a	jsr $019a1d			jsr 	FPCalculateExponent 		; then we can use the multiply version.
-.01992c	18		clc				clc 	 							; add 1 to the resulting exponent
-.01992d	69 01		adc #$01			adc 	#1
-.01992f	b0 65		bcs $019996			bcs 	_FPD_Overflow 				; which can overflow.
-.019931	9d 0c 03	sta $030c,x			sta 	XS_Exponent,x
-.019934	a9 00		lda #$00			lda 	#0 							; clear result (kept in zLTemp1)
-.019936	85 1a		sta $1a				sta 	zLTemp1+0
-.019938	85 1b		sta $1b				sta 	zLTemp1+1
-.01993a	85 1c		sta $1c				sta 	zLTemp1+2
-.01993c	85 1d		sta $1d				sta 	zLTemp1+3
-.01993e	a0 20		ldy #$20			ldy 	#32 						; times round.
-.019940					_FPD_Loop:
-.019940	38		sec				sec 								; calculate X1-X2 stacking result because we might
-.019941	bd 08 03	lda $0308,x			lda 	XS_Mantissa,x 				; not save it.
-.019944	fd 0e 03	sbc $030e,x			sbc 	XS2_Mantissa,x
-.019947	48		pha				pha
-.019948	bd 09 03	lda $0309,x			lda 	XS_Mantissa+1,x
-.01994b	fd 0f 03	sbc $030f,x			sbc 	XS2_Mantissa+1,x
-.01994e	48		pha				pha
-.01994f	bd 0a 03	lda $030a,x			lda 	XS_Mantissa+2,x
-.019952	fd 10 03	sbc $0310,x			sbc 	XS2_Mantissa+2,x
-.019955	48		pha				pha
-.019956	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x
-.019959	fd 11 03	sbc $0311,x			sbc 	XS2_Mantissa+3,x
-.01995c	90 17		bcc $019975			bcc		_FPD_NoSubtract 			; if CC couldn't subtract without borrowing.
-.01995e	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x 			; save results out to A
-.019961	68		pla				pla
-.019962	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
-.019965	68		pla				pla
-.019966	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
-.019969	68		pla				pla
-.01996a	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x
-.01996d	a5 1d		lda $1d				lda 	zLTemp1+3 					; set high bit of result
-.01996f	09 80		ora #$80			ora 	#$80
-.019971	85 1d		sta $1d				sta 	zLTemp1+3
-.019973	80 03		bra $019978			bra 	_FPD_Rotates
-.019975					_FPD_NoSubtract:
-.019975	68		pla				pla 								; throw away unwanted results
-.019976	68		pla				pla
-.019977	68		pla				pla
-.019978					_FPD_Rotates:
-.019978	5e 11 03	lsr $0311,x			lsr 	3+XS2_Mantissa,x
-.01997b	7e 10 03	ror $0310,x			ror 	2+XS2_Mantissa,x
-.01997e	7e 0f 03	ror $030f,x			ror 	1+XS2_Mantissa,x
-.019981	7e 0e 03	ror $030e,x			ror 	0+XS2_Mantissa,x
-.019984	06 1a		asl $1a				asl 	zLTemp1 					; rotate result round left
-.019986	26 1b		rol $1b				rol 	zLTemp1+1
-.019988	26 1c		rol $1c				rol 	zLTemp1+2
-.01998a	26 1d		rol $1d				rol 	zLTemp1+3
-.01998c	90 02		bcc $019990			bcc 	_FPD_NoCarry
-.01998e	e6 1a		inc $1a				inc 	zLTemp1 					; if rotated out, set LSB.
-.019990					_FPD_NoCarry:
-.019990	88		dey				dey 								; do 32 times
-.019991	d0 ad		bne $019940			bne 	_FPD_Loop
-.019993	4c fa 99	jmp $0199fa			jmp 	FPM_CopySignNormalize 		; hijack multiply exit.
-.019996					_FPD_Overflow:
-.019996	4c f7 9b	jmp $019bf7			jmp 	FP_Overflow
+.0198fb					FPD_IsDivZero:
+.0198fb	20 2f 84	jsr $01842f			jsr ERR_Handler
+>0198fe	44 69 76 69 73 69 6f 6e			.text "Division by zero",0
+>019906	20 62 79 20 7a 65 72 6f 00
+.01990f					FPDivide:
+.01990f	48		pha				pha
+.019910	5a		phy				phy
+.019911	3c 13 03	bit $0313,x			bit 	XS2_Type,x 					; check if division by zero
+.019914	70 e5		bvs $0198fb			bvs 	FPD_IsDivZero 				; if X2 is zero, cause an error.
+.019916	3c 0d 03	bit $030d,x			bit 	XS_Type,x 					; if 0/X (X is not zero) return 0
+.019919	f0 03		beq $01991e			beq 	_FPDCalculateExp
+.01991b					_FPD_Exit:
+.01991b	7a		ply				ply
+.01991c	68		pla				pla
+.01991d	60		rts				rts
+.01991e					_FPDCalculateExp:
+.01991e	bd 12 03	lda $0312,x			lda 	XS2_Exponent,x 				; negate the 2nd exponent
+.019921	49 ff		eor #$ff			eor 	#$FF
+.019923	1a		inc a				inc 	a
+.019924	9d 12 03	sta $0312,x			sta 	XS2_Exponent,x
+.019927	20 1b 9a	jsr $019a1b			jsr 	FPCalculateExponent 		; then we can use the multiply version.
+.01992a	18		clc				clc 	 							; add 1 to the resulting exponent
+.01992b	69 01		adc #$01			adc 	#1
+.01992d	b0 65		bcs $019994			bcs 	_FPD_Overflow 				; which can overflow.
+.01992f	9d 0c 03	sta $030c,x			sta 	XS_Exponent,x
+.019932	a9 00		lda #$00			lda 	#0 							; clear result (kept in zLTemp1)
+.019934	85 1a		sta $1a				sta 	zLTemp1+0
+.019936	85 1b		sta $1b				sta 	zLTemp1+1
+.019938	85 1c		sta $1c				sta 	zLTemp1+2
+.01993a	85 1d		sta $1d				sta 	zLTemp1+3
+.01993c	a0 20		ldy #$20			ldy 	#32 						; times round.
+.01993e					_FPD_Loop:
+.01993e	38		sec				sec 								; calculate X1-X2 stacking result because we might
+.01993f	bd 08 03	lda $0308,x			lda 	XS_Mantissa,x 				; not save it.
+.019942	fd 0e 03	sbc $030e,x			sbc 	XS2_Mantissa,x
+.019945	48		pha				pha
+.019946	bd 09 03	lda $0309,x			lda 	XS_Mantissa+1,x
+.019949	fd 0f 03	sbc $030f,x			sbc 	XS2_Mantissa+1,x
+.01994c	48		pha				pha
+.01994d	bd 0a 03	lda $030a,x			lda 	XS_Mantissa+2,x
+.019950	fd 10 03	sbc $0310,x			sbc 	XS2_Mantissa+2,x
+.019953	48		pha				pha
+.019954	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x
+.019957	fd 11 03	sbc $0311,x			sbc 	XS2_Mantissa+3,x
+.01995a	90 17		bcc $019973			bcc		_FPD_NoSubtract 			; if CC couldn't subtract without borrowing.
+.01995c	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x 			; save results out to A
+.01995f	68		pla				pla
+.019960	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
+.019963	68		pla				pla
+.019964	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
+.019967	68		pla				pla
+.019968	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x
+.01996b	a5 1d		lda $1d				lda 	zLTemp1+3 					; set high bit of result
+.01996d	09 80		ora #$80			ora 	#$80
+.01996f	85 1d		sta $1d				sta 	zLTemp1+3
+.019971	80 03		bra $019976			bra 	_FPD_Rotates
+.019973					_FPD_NoSubtract:
+.019973	68		pla				pla 								; throw away unwanted results
+.019974	68		pla				pla
+.019975	68		pla				pla
+.019976					_FPD_Rotates:
+.019976	5e 11 03	lsr $0311,x			lsr 	3+XS2_Mantissa,x
+.019979	7e 10 03	ror $0310,x			ror 	2+XS2_Mantissa,x
+.01997c	7e 0f 03	ror $030f,x			ror 	1+XS2_Mantissa,x
+.01997f	7e 0e 03	ror $030e,x			ror 	0+XS2_Mantissa,x
+.019982	06 1a		asl $1a				asl 	zLTemp1 					; rotate result round left
+.019984	26 1b		rol $1b				rol 	zLTemp1+1
+.019986	26 1c		rol $1c				rol 	zLTemp1+2
+.019988	26 1d		rol $1d				rol 	zLTemp1+3
+.01998a	90 02		bcc $01998e			bcc 	_FPD_NoCarry
+.01998c	e6 1a		inc $1a				inc 	zLTemp1 					; if rotated out, set LSB.
+.01998e					_FPD_NoCarry:
+.01998e	88		dey				dey 								; do 32 times
+.01998f	d0 ad		bne $01993e			bne 	_FPD_Loop
+.019991	4c f8 99	jmp $0199f8			jmp 	FPM_CopySignNormalize 		; hijack multiply exit.
+.019994					_FPD_Overflow:
+.019994	4c f5 9b	jmp $019bf5			jmp 	FP_Overflow
 
 ;******  Return to file: _include.asm
 
 
 ;******  Processing file: modules/float/fpmultiply.asm
 
-.019999					FPMultiply:
-.019999	48		pha				pha
-.01999a	5a		phy				phy
-.01999b	3c 0d 03	bit $030d,x			bit 	XS_Type,x 					; if X1 = 0, return X1 e.g. zero.
-.01999e	70 08		bvs $0199a8			bvs 	_FPM_Exit
-.0199a0	3c 13 03	bit $0313,x			bit		XS2_Type,x 					; if X2 = 0, return X2 unchanged, e.g. zero :)
-.0199a3	50 06		bvc $0199ab			bvc 	_FPM_CalcExponent
-.0199a5	20 fa 9a	jsr $019afa			jsr 	FPUCopyX2ToX1
-.0199a8					_FPM_Exit:
-.0199a8	7a		ply				ply
-.0199a9	68		pla				pla
-.0199aa	60		rts				rts
-.0199ab					_FPM_CalcExponent:
-.0199ab	18		clc				clc
-.0199ac	20 1d 9a	jsr $019a1d			jsr 	FPCalculateExponent 		; calc exponent of product. (also used by divide)
-.0199af	9d 0c 03	sta $030c,x			sta 	XS_Exponent,x 				; save the result.
-.0199b2	a9 00		lda #$00			lda 	#0
-.0199b4	85 1a		sta $1a				sta 	zLTemp1+0 					; clear the long temp which is upper word of
-.0199b6	85 1b		sta $1b				sta 	zLTemp1+1 					; long product. lower word is mantissa-A
-.0199b8	85 1c		sta $1c				sta 	zLTemp1+2 					; multiplicand is mantissa-B
-.0199ba	85 1d		sta $1d				sta 	zLTemp1+3
-.0199bc	a0 20		ldy #$20			ldy 	#32							; X is loop counter, do it 32 times.
-.0199be					_FPM_Loop:
-.0199be	bd 08 03	lda $0308,x			lda 	XS_Mantissa,x				; check LSB of long product
-.0199c1	29 01		and #$01			and 	#1
-.0199c3	18		clc				clc 								; clear carry for the long rotate.
-.0199c4	f0 1d		beq $0199e3			beq 	_FPM_NoAddition
-.0199c6	18		clc				clc 								; add X2 mantissa to the MSB of the long product.
-.0199c7	a5 1a		lda $1a				lda 	zLTemp1+0
-.0199c9	7d 0e 03	adc $030e,x			adc 	XS2_Mantissa+0,x
-.0199cc	85 1a		sta $1a				sta 	zLTemp1+0
-.0199ce	a5 1b		lda $1b				lda 	zLTemp1+1
-.0199d0	7d 0f 03	adc $030f,x			adc 	XS2_Mantissa+1,x
-.0199d3	85 1b		sta $1b				sta 	zLTemp1+1
-.0199d5	a5 1c		lda $1c				lda 	zLTemp1+2
-.0199d7	7d 10 03	adc $0310,x			adc 	XS2_Mantissa+2,x
-.0199da	85 1c		sta $1c				sta 	zLTemp1+2
-.0199dc	a5 1d		lda $1d				lda 	zLTemp1+3
-.0199de	7d 11 03	adc $0311,x			adc 	XS2_Mantissa+3,x
-.0199e1	85 1d		sta $1d				sta 	zLTemp1+3
-.0199e3					_FPM_NoAddition:
-.0199e3	66 1d		ror $1d				ror 	3+zLTemp1
-.0199e5	66 1c		ror $1c				ror 	2+zLTemp1
-.0199e7	66 1b		ror $1b				ror 	1+zLTemp1
-.0199e9	66 1a		ror $1a				ror 	0+zLTemp1
-.0199eb	7e 0b 03	ror $030b,x			ror 	3+XS_Mantissa,x
-.0199ee	7e 0a 03	ror $030a,x			ror 	2+XS_Mantissa,x
-.0199f1	7e 09 03	ror $0309,x			ror 	1+XS_Mantissa,x
-.0199f4	7e 08 03	ror $0308,x			ror 	0+XS_Mantissa,x
-.0199f7	88		dey				dey
-.0199f8	d0 c4		bne $0199be			bne 	_FPM_Loop 					; do this 32 times.
-.0199fa					FPM_CopySignNormalize:
-.0199fa	a5 1a		lda $1a				lda 	zLTemp1+0 					; copy the left product into Mantissa A.
-.0199fc	9d 08 03	sta $0308,x			sta 	XS_Mantissa,x 				; which is the 32 x 32 product upper bits.
-.0199ff	a5 1b		lda $1b				lda 	zLTemp1+1
-.019a01	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
-.019a04	a5 1c		lda $1c				lda 	zLTemp1+2
-.019a06	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
-.019a09	a5 1d		lda $1d				lda 	zLTemp1+3
-.019a0b	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
-.019a0e	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; sign is xor of signs
-.019a11	5d 13 03	eor $0313,x			eor 	XS2_Type,x
-.019a14	9d 0d 03	sta $030d,x			sta 	XS_Type,x
-.019a17	20 82 9b	jsr $019b82			jsr 	FPUNormalise 				; normalise and exit.
-.019a1a	7a		ply				ply
-.019a1b	68		pla				pla
-.019a1c	60		rts				rts
-.019a1d					FPCalculateExponent:
-.019a1d	18		clc				clc
-.019a1e	bd 0c 03	lda $030c,x			lda 	XS_Exponent,x 				; this is with $80 being 2^0.
-.019a21	7d 12 03	adc $0312,x			adc 	XS2_Exponent,x
-.019a24	b0 08		bcs $019a2e			bcs 	_FPCECarry 					; carry out ?
-.019a26	10 03		bpl $019a2b			bpl 	_FPCEExpZero 				; if 0-127 then the product < minimum float
-.019a28	29 7f		and #$7f			and 	#$7F 						; this is the actual exponent.
-.019a2a	60		rts				rts
-.019a2b					_FPCEExpZero:
-.019a2b	a9 00		lda #$00			lda 	#0
-.019a2d	60		rts				rts
-.019a2e					_FPCECarry:
-.019a2e	30 03		bmi $019a33			bmi 	_FPCEOverflow 				; overflow if say 255 + 129 (2^127+2^1)
-.019a30	09 80		ora #$80			ora 	#$80 						; put in right range
-.019a32	60		rts				rts
-.019a33					_FPCEOverflow:
-.019a33	4c f7 9b	jmp $019bf7			jmp 	FP_Overflow
+.019997					FPMultiply:
+.019997	48		pha				pha
+.019998	5a		phy				phy
+.019999	3c 0d 03	bit $030d,x			bit 	XS_Type,x 					; if X1 = 0, return X1 e.g. zero.
+.01999c	70 08		bvs $0199a6			bvs 	_FPM_Exit
+.01999e	3c 13 03	bit $0313,x			bit		XS2_Type,x 					; if X2 = 0, return X2 unchanged, e.g. zero :)
+.0199a1	50 06		bvc $0199a9			bvc 	_FPM_CalcExponent
+.0199a3	20 f8 9a	jsr $019af8			jsr 	FPUCopyX2ToX1
+.0199a6					_FPM_Exit:
+.0199a6	7a		ply				ply
+.0199a7	68		pla				pla
+.0199a8	60		rts				rts
+.0199a9					_FPM_CalcExponent:
+.0199a9	18		clc				clc
+.0199aa	20 1b 9a	jsr $019a1b			jsr 	FPCalculateExponent 		; calc exponent of product. (also used by divide)
+.0199ad	9d 0c 03	sta $030c,x			sta 	XS_Exponent,x 				; save the result.
+.0199b0	a9 00		lda #$00			lda 	#0
+.0199b2	85 1a		sta $1a				sta 	zLTemp1+0 					; clear the long temp which is upper word of
+.0199b4	85 1b		sta $1b				sta 	zLTemp1+1 					; long product. lower word is mantissa-A
+.0199b6	85 1c		sta $1c				sta 	zLTemp1+2 					; multiplicand is mantissa-B
+.0199b8	85 1d		sta $1d				sta 	zLTemp1+3
+.0199ba	a0 20		ldy #$20			ldy 	#32							; X is loop counter, do it 32 times.
+.0199bc					_FPM_Loop:
+.0199bc	bd 08 03	lda $0308,x			lda 	XS_Mantissa,x				; check LSB of long product
+.0199bf	29 01		and #$01			and 	#1
+.0199c1	18		clc				clc 								; clear carry for the long rotate.
+.0199c2	f0 1d		beq $0199e1			beq 	_FPM_NoAddition
+.0199c4	18		clc				clc 								; add X2 mantissa to the MSB of the long product.
+.0199c5	a5 1a		lda $1a				lda 	zLTemp1+0
+.0199c7	7d 0e 03	adc $030e,x			adc 	XS2_Mantissa+0,x
+.0199ca	85 1a		sta $1a				sta 	zLTemp1+0
+.0199cc	a5 1b		lda $1b				lda 	zLTemp1+1
+.0199ce	7d 0f 03	adc $030f,x			adc 	XS2_Mantissa+1,x
+.0199d1	85 1b		sta $1b				sta 	zLTemp1+1
+.0199d3	a5 1c		lda $1c				lda 	zLTemp1+2
+.0199d5	7d 10 03	adc $0310,x			adc 	XS2_Mantissa+2,x
+.0199d8	85 1c		sta $1c				sta 	zLTemp1+2
+.0199da	a5 1d		lda $1d				lda 	zLTemp1+3
+.0199dc	7d 11 03	adc $0311,x			adc 	XS2_Mantissa+3,x
+.0199df	85 1d		sta $1d				sta 	zLTemp1+3
+.0199e1					_FPM_NoAddition:
+.0199e1	66 1d		ror $1d				ror 	3+zLTemp1
+.0199e3	66 1c		ror $1c				ror 	2+zLTemp1
+.0199e5	66 1b		ror $1b				ror 	1+zLTemp1
+.0199e7	66 1a		ror $1a				ror 	0+zLTemp1
+.0199e9	7e 0b 03	ror $030b,x			ror 	3+XS_Mantissa,x
+.0199ec	7e 0a 03	ror $030a,x			ror 	2+XS_Mantissa,x
+.0199ef	7e 09 03	ror $0309,x			ror 	1+XS_Mantissa,x
+.0199f2	7e 08 03	ror $0308,x			ror 	0+XS_Mantissa,x
+.0199f5	88		dey				dey
+.0199f6	d0 c4		bne $0199bc			bne 	_FPM_Loop 					; do this 32 times.
+.0199f8					FPM_CopySignNormalize:
+.0199f8	a5 1a		lda $1a				lda 	zLTemp1+0 					; copy the left product into Mantissa A.
+.0199fa	9d 08 03	sta $0308,x			sta 	XS_Mantissa,x 				; which is the 32 x 32 product upper bits.
+.0199fd	a5 1b		lda $1b				lda 	zLTemp1+1
+.0199ff	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
+.019a02	a5 1c		lda $1c				lda 	zLTemp1+2
+.019a04	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
+.019a07	a5 1d		lda $1d				lda 	zLTemp1+3
+.019a09	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
+.019a0c	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; sign is xor of signs
+.019a0f	5d 13 03	eor $0313,x			eor 	XS2_Type,x
+.019a12	9d 0d 03	sta $030d,x			sta 	XS_Type,x
+.019a15	20 80 9b	jsr $019b80			jsr 	FPUNormalise 				; normalise and exit.
+.019a18	7a		ply				ply
+.019a19	68		pla				pla
+.019a1a	60		rts				rts
+.019a1b					FPCalculateExponent:
+.019a1b	18		clc				clc
+.019a1c	bd 0c 03	lda $030c,x			lda 	XS_Exponent,x 				; this is with $80 being 2^0.
+.019a1f	7d 12 03	adc $0312,x			adc 	XS2_Exponent,x
+.019a22	b0 08		bcs $019a2c			bcs 	_FPCECarry 					; carry out ?
+.019a24	10 03		bpl $019a29			bpl 	_FPCEExpZero 				; if 0-127 then the product < minimum float
+.019a26	29 7f		and #$7f			and 	#$7F 						; this is the actual exponent.
+.019a28	60		rts				rts
+.019a29					_FPCEExpZero:
+.019a29	a9 00		lda #$00			lda 	#0
+.019a2b	60		rts				rts
+.019a2c					_FPCECarry:
+.019a2c	30 03		bmi $019a31			bmi 	_FPCEOverflow 				; overflow if say 255 + 129 (2^127+2^1)
+.019a2e	09 80		ora #$80			ora 	#$80 						; put in right range
+.019a30	60		rts				rts
+.019a31					_FPCEOverflow:
+.019a31	4c f5 9b	jmp $019bf5			jmp 	FP_Overflow
 
 ;******  Return to file: _include.asm
 
 
 ;******  Processing file: modules/float/fpparts.asm
 
-.019a36					FPFractionalPart:
-.019a36	bd 0c 03	lda $030c,x			lda 	XS_Exponent,x 				; if exponent $00-$7F then unchanged as fractional.
-.019a39	38		sec				sec 								; this flag tells us to keep the fractional part
-.019a3a	30 0f		bmi $019a4b			bmi 	FPGetPart
-.019a3c	60		rts				rts
-.019a3d					FPIntegerPart:
-.019a3d	bd 0c 03	lda $030c,x			lda 	XS_Exponent,x 				; if exponent -ve then the result is zero (must be < 1.0)
-.019a40	18		clc				clc 								; this flag says keep the integer part.
-.019a41	30 08		bmi $019a4b			bmi 	FPGetPart 					; -ve exponents are 0..127
-.019a43	48		pha				pha
-.019a44	a9 40		lda #$40			lda 	#$40 						; set the Zero Flag
-.019a46	9d 0d 03	sta $030d,x			sta 	XS_Type,x
-.019a49	68		pla				pla
-.019a4a	60		rts				rts
-.019a4b					FPGetPart:
-.019a4b	48		pha				pha
-.019a4c	5a		phy				phy 								; save Y
-.019a4d	08		php				php 								; save action
-.019a4e	3c 0d 03	bit $030d,x			bit 	XS_Type,x 					; if zero, return zero for int and frac
-.019a51	70 62		bvs $019ab5			bvs 	_FPGP_Exit 					; then do nothing.
-.019a53	a9 ff		lda #$ff			lda 	#$FF 						; set the mask long to -1
-.019a55	85 1a		sta $1a				sta 	zLTemp1+0 					; this mask is applied to chop out the
-.019a57	85 1b		sta $1b				sta 	zLTemp1+1 					; bits you would keep/lose if it was exponent 32.
-.019a59	85 1c		sta $1c				sta 	zLTemp1+2
-.019a5b	85 1d		sta $1d				sta 	zLTemp1+3
-.019a5d	bd 0c 03	lda $030c,x			lda 	XS_Exponent,x				; the number of shifts.
-.019a60	38		sec				sec
-.019a61	e9 80		sbc #$80			sbc 	#128 						; is the exponent value-128
-.019a63	f0 12		beq $019a77			beq 	_FPGP_NoShift 				; ... if any
-.019a65	c9 20		cmp #$20			cmp 	#32
-.019a67	90 02		bcc $019a6b			bcc 	_FPGP_NotMax
-.019a69	a9 20		lda #$20			lda 	#32 						; max of 32.
-.019a6b					_FPGP_NotMax:
-.019a6b	a8		tay				tay 								; Y is the mask shift count.
-.019a6c					_FPGP_ShiftMask:
-.019a6c	46 1d		lsr $1d				lsr 	3+zLTemp1
-.019a6e	66 1c		ror $1c				ror 	2+zLTemp1
-.019a70	66 1b		ror $1b				ror 	1+zLTemp1
-.019a72	66 1a		ror $1a				ror 	0+zLTemp1
-.019a74	88		dey				dey
-.019a75	d0 f5		bne $019a6c			bne 	_FPGP_ShiftMask
-.019a77					_FPGP_NoShift:
-.019a77	a0 00		ldy #$00			ldy 	#0 							; now mask each part in turn.
-.019a79	8e 8c 04	stx $048c			stx 	ExpTemp						; save X
-.019a7c					_FPGP_MaskLoop:
-.019a7c	b9 1a 00	lda $001a,y			lda 	zlTemp1,y 					; get mask byte
-.019a7f	28		plp				plp 								; if CC we keep the top part, so we
-.019a80	08		php				php		 							; flip the mask.
-.019a81	b0 02		bcs $019a85			bcs		_FPGP_NoFlip
-.019a83	49 ff		eor #$ff			eor 	#$FF
-.019a85					_FPGP_NoFlip:
-.019a85	3d 08 03	and $0308,x			and 	XS_Mantissa,x 				; and into the mantissa.
-.019a88	9d 08 03	sta $0308,x			sta 	XS_Mantissa,x
-.019a8b	e8		inx				inx
-.019a8c	c8		iny				iny
-.019a8d	c0 04		cpy #$04			cpy 	#4 							; until done 32 bits.
-.019a8f	d0 eb		bne $019a7c			bne 	_FPGP_MaskLoop
-.019a91	ae 8c 04	ldx $048c			ldx 	ExpTemp						; restore X
-.019a94	28		plp				plp
-.019a95	08		php				php 								; get action flag on the stack
-.019a96	90 05		bcc $019a9d			bcc 	_FPGP_NotFractional 		; if fractional part always return +ve.
-.019a98	a9 00		lda #$00			lda 	#0
-.019a9a	9d 0d 03	sta $030d,x			sta 	XS_Type,x
-.019a9d					_FPGP_NotFractional:
-.019a9d	bd 08 03	lda $0308,x			lda 	XS_Mantissa,x 						; check if \1 zero
-.019aa0	1d 09 03	ora $0309,x			ora 	XS_Mantissa+1,x
-.019aa3	1d 0a 03	ora $030a,x			ora 	XS_Mantissa+2,x
-.019aa6	1d 0b 03	ora $030b,x			ora 	XS_Mantissa+3,x
-.019aa9	f0 05		beq $019ab0			beq 	_FPGP_Zero 					; if zero, return zero
-.019aab	20 82 9b	jsr $019b82			jsr 	FPUNormalise
-.019aae	80 05		bra $019ab5			bra 	_FPGP_Exit 					; and exit
-.019ab0					_FPGP_Zero:
-.019ab0	a9 40		lda #$40			lda 	#$40 						; set zero flag
-.019ab2	9d 0d 03	sta $030d,x			sta 	XS_Type,x
-.019ab5					_FPGP_Exit:
-.019ab5	68		pla				pla 								; throw saved action flag.
-.019ab6	7a		ply				ply
-.019ab7	68		pla				pla
-.019ab8	60		rts				rts
+.019a34					FPFractionalPart:
+.019a34	bd 0c 03	lda $030c,x			lda 	XS_Exponent,x 				; if exponent $00-$7F then unchanged as fractional.
+.019a37	38		sec				sec 								; this flag tells us to keep the fractional part
+.019a38	30 0f		bmi $019a49			bmi 	FPGetPart
+.019a3a	60		rts				rts
+.019a3b					FPIntegerPart:
+.019a3b	bd 0c 03	lda $030c,x			lda 	XS_Exponent,x 				; if exponent -ve then the result is zero (must be < 1.0)
+.019a3e	18		clc				clc 								; this flag says keep the integer part.
+.019a3f	30 08		bmi $019a49			bmi 	FPGetPart 					; -ve exponents are 0..127
+.019a41	48		pha				pha
+.019a42	a9 40		lda #$40			lda 	#$40 						; set the Zero Flag
+.019a44	9d 0d 03	sta $030d,x			sta 	XS_Type,x
+.019a47	68		pla				pla
+.019a48	60		rts				rts
+.019a49					FPGetPart:
+.019a49	48		pha				pha
+.019a4a	5a		phy				phy 								; save Y
+.019a4b	08		php				php 								; save action
+.019a4c	3c 0d 03	bit $030d,x			bit 	XS_Type,x 					; if zero, return zero for int and frac
+.019a4f	70 62		bvs $019ab3			bvs 	_FPGP_Exit 					; then do nothing.
+.019a51	a9 ff		lda #$ff			lda 	#$FF 						; set the mask long to -1
+.019a53	85 1a		sta $1a				sta 	zLTemp1+0 					; this mask is applied to chop out the
+.019a55	85 1b		sta $1b				sta 	zLTemp1+1 					; bits you would keep/lose if it was exponent 32.
+.019a57	85 1c		sta $1c				sta 	zLTemp1+2
+.019a59	85 1d		sta $1d				sta 	zLTemp1+3
+.019a5b	bd 0c 03	lda $030c,x			lda 	XS_Exponent,x				; the number of shifts.
+.019a5e	38		sec				sec
+.019a5f	e9 80		sbc #$80			sbc 	#128 						; is the exponent value-128
+.019a61	f0 12		beq $019a75			beq 	_FPGP_NoShift 				; ... if any
+.019a63	c9 20		cmp #$20			cmp 	#32
+.019a65	90 02		bcc $019a69			bcc 	_FPGP_NotMax
+.019a67	a9 20		lda #$20			lda 	#32 						; max of 32.
+.019a69					_FPGP_NotMax:
+.019a69	a8		tay				tay 								; Y is the mask shift count.
+.019a6a					_FPGP_ShiftMask:
+.019a6a	46 1d		lsr $1d				lsr 	3+zLTemp1
+.019a6c	66 1c		ror $1c				ror 	2+zLTemp1
+.019a6e	66 1b		ror $1b				ror 	1+zLTemp1
+.019a70	66 1a		ror $1a				ror 	0+zLTemp1
+.019a72	88		dey				dey
+.019a73	d0 f5		bne $019a6a			bne 	_FPGP_ShiftMask
+.019a75					_FPGP_NoShift:
+.019a75	a0 00		ldy #$00			ldy 	#0 							; now mask each part in turn.
+.019a77	8e 8c 04	stx $048c			stx 	ExpTemp						; save X
+.019a7a					_FPGP_MaskLoop:
+.019a7a	b9 1a 00	lda $001a,y			lda 	zlTemp1,y 					; get mask byte
+.019a7d	28		plp				plp 								; if CC we keep the top part, so we
+.019a7e	08		php				php		 							; flip the mask.
+.019a7f	b0 02		bcs $019a83			bcs		_FPGP_NoFlip
+.019a81	49 ff		eor #$ff			eor 	#$FF
+.019a83					_FPGP_NoFlip:
+.019a83	3d 08 03	and $0308,x			and 	XS_Mantissa,x 				; and into the mantissa.
+.019a86	9d 08 03	sta $0308,x			sta 	XS_Mantissa,x
+.019a89	e8		inx				inx
+.019a8a	c8		iny				iny
+.019a8b	c0 04		cpy #$04			cpy 	#4 							; until done 32 bits.
+.019a8d	d0 eb		bne $019a7a			bne 	_FPGP_MaskLoop
+.019a8f	ae 8c 04	ldx $048c			ldx 	ExpTemp						; restore X
+.019a92	28		plp				plp
+.019a93	08		php				php 								; get action flag on the stack
+.019a94	90 05		bcc $019a9b			bcc 	_FPGP_NotFractional 		; if fractional part always return +ve.
+.019a96	a9 00		lda #$00			lda 	#0
+.019a98	9d 0d 03	sta $030d,x			sta 	XS_Type,x
+.019a9b					_FPGP_NotFractional:
+.019a9b	bd 08 03	lda $0308,x			lda 	XS_Mantissa,x 						; check if \1 zero
+.019a9e	1d 09 03	ora $0309,x			ora 	XS_Mantissa+1,x
+.019aa1	1d 0a 03	ora $030a,x			ora 	XS_Mantissa+2,x
+.019aa4	1d 0b 03	ora $030b,x			ora 	XS_Mantissa+3,x
+.019aa7	f0 05		beq $019aae			beq 	_FPGP_Zero 					; if zero, return zero
+.019aa9	20 80 9b	jsr $019b80			jsr 	FPUNormalise
+.019aac	80 05		bra $019ab3			bra 	_FPGP_Exit 					; and exit
+.019aae					_FPGP_Zero:
+.019aae	a9 40		lda #$40			lda 	#$40 						; set zero flag
+.019ab0	9d 0d 03	sta $030d,x			sta 	XS_Type,x
+.019ab3					_FPGP_Exit:
+.019ab3	68		pla				pla 								; throw saved action flag.
+.019ab4	7a		ply				ply
+.019ab5	68		pla				pla
+.019ab6	60		rts				rts
 
 ;******  Return to file: _include.asm
 
 
 ;******  Processing file: modules/float/fpcompare.asm
 
-.019ab9					FPCompare:
-.019ab9	bd 0c 03	lda $030c,x			lda 	XS_Exponent,x 				; save the exponents on the stack
-.019abc	48		pha				pha
-.019abd	bd 12 03	lda $0312,x			lda 	XS2_Exponent,x
-.019ac0	48		pha				pha
-.019ac1	20 23 98	jsr $019823			jsr 	FPSubtract 					; calculate X1-X2
-.019ac4	3c 0d 03	bit $030d,x			bit 	XS_Type,x 					; is the result zero ? (e.g. zero flag set)
-.019ac7	70 2c		bvs $019af5			bvs 	_FPCPullZero 				; if so, then return zero throwing saved exp
-.019ac9	68		pla				pla
-.019aca	8d 8c 04	sta $048c			sta 	ExpTemp						; save first exponent in temporary reg.
-.019acd	68		pla				pla
-.019ace	38		sec				sec
-.019acf	ed 8c 04	sbc $048c			sbc 	ExpTemp 					; calculate AX-BX
-.019ad2	70 15		bvs $019ae9			bvs 	_FPCNotEqual				; overflow, can't be equal.
-.019ad4	1a		inc a				inc 	a 							; map -1,0,1 to 0,1,2
-.019ad5	c9 03		cmp #$03			cmp 	#3 							; if >= 3 e.g. abs difference > 1
-.019ad7	b0 10		bcs $019ae9			bcs 	_FPCNotEqual  				; exponents can't be more than 2 out.
-.019ad9	38		sec				sec
-.019ada	ad 8c 04	lda $048c			lda 	ExpTemp 					; get one of the exponents back.
-.019add	e9 12		sbc #$12			sbc 	#18 						; allow for 2^18 error, relatively.
-.019adf	b0 02		bcs $019ae3			bcs 	_FPCNotRange 				; keep in range.
-.019ae1	a9 01		lda #$01			lda 	#1
-.019ae3					_FPCNotRange:
-.019ae3	38		sec				sec
-.019ae4	fd 0c 03	sbc $030c,x			sbc 	XS_Exponent,x  				; if exponent of difference greater than this
-.019ae7	b0 0e		bcs $019af7			bcs 	_FPCZero 					; then error is nearly zero, so we let it go.
-.019ae9					_FPCNotEqual:
-.019ae9	bd 0d 03	lda $030d,x			lda 	XS_Type,x					; so this needs to be $FF (-ve) $01 (+ve)
-.019aec	29 80		and #$80			and 	#$80 						; $80 if -ve, $00 if +ve
-.019aee	f0 02		beq $019af2			beq 	_FPCNE2
-.019af0	a9 fe		lda #$fe			lda 	#$FE 						; $FE if -ve, $00 if +ve
-.019af2	1a		inc a		_FPCNE2:inc 	a 							; $FF if -ve, $01 if +ve
-.019af3	80 04		bra $019af9			bra 	_FPCExit
-.019af5					_FPCPullZero:
-.019af5	68		pla				pla 								; throw saved exponents
-.019af6	68		pla				pla
-.019af7					_FPCZero:
-.019af7	a9 00		lda #$00			lda 	#0 							; and return zero
-.019af9					_FPCExit:
-.019af9	60		rts				rts
+.019ab7					FPCompare:
+.019ab7	bd 0c 03	lda $030c,x			lda 	XS_Exponent,x 				; save the exponents on the stack
+.019aba	48		pha				pha
+.019abb	bd 12 03	lda $0312,x			lda 	XS2_Exponent,x
+.019abe	48		pha				pha
+.019abf	20 21 98	jsr $019821			jsr 	FPSubtract 					; calculate X1-X2
+.019ac2	3c 0d 03	bit $030d,x			bit 	XS_Type,x 					; is the result zero ? (e.g. zero flag set)
+.019ac5	70 2c		bvs $019af3			bvs 	_FPCPullZero 				; if so, then return zero throwing saved exp
+.019ac7	68		pla				pla
+.019ac8	8d 8c 04	sta $048c			sta 	ExpTemp						; save first exponent in temporary reg.
+.019acb	68		pla				pla
+.019acc	38		sec				sec
+.019acd	ed 8c 04	sbc $048c			sbc 	ExpTemp 					; calculate AX-BX
+.019ad0	70 15		bvs $019ae7			bvs 	_FPCNotEqual				; overflow, can't be equal.
+.019ad2	1a		inc a				inc 	a 							; map -1,0,1 to 0,1,2
+.019ad3	c9 03		cmp #$03			cmp 	#3 							; if >= 3 e.g. abs difference > 1
+.019ad5	b0 10		bcs $019ae7			bcs 	_FPCNotEqual  				; exponents can't be more than 2 out.
+.019ad7	38		sec				sec
+.019ad8	ad 8c 04	lda $048c			lda 	ExpTemp 					; get one of the exponents back.
+.019adb	e9 12		sbc #$12			sbc 	#18 						; allow for 2^18 error, relatively.
+.019add	b0 02		bcs $019ae1			bcs 	_FPCNotRange 				; keep in range.
+.019adf	a9 01		lda #$01			lda 	#1
+.019ae1					_FPCNotRange:
+.019ae1	38		sec				sec
+.019ae2	fd 0c 03	sbc $030c,x			sbc 	XS_Exponent,x  				; if exponent of difference greater than this
+.019ae5	b0 0e		bcs $019af5			bcs 	_FPCZero 					; then error is nearly zero, so we let it go.
+.019ae7					_FPCNotEqual:
+.019ae7	bd 0d 03	lda $030d,x			lda 	XS_Type,x					; so this needs to be $FF (-ve) $01 (+ve)
+.019aea	29 80		and #$80			and 	#$80 						; $80 if -ve, $00 if +ve
+.019aec	f0 02		beq $019af0			beq 	_FPCNE2
+.019aee	a9 fe		lda #$fe			lda 	#$FE 						; $FE if -ve, $00 if +ve
+.019af0	1a		inc a		_FPCNE2:inc 	a 							; $FF if -ve, $01 if +ve
+.019af1	80 04		bra $019af7			bra 	_FPCExit
+.019af3					_FPCPullZero:
+.019af3	68		pla				pla 								; throw saved exponents
+.019af4	68		pla				pla
+.019af5					_FPCZero:
+.019af5	a9 00		lda #$00			lda 	#0 							; and return zero
+.019af7					_FPCExit:
+.019af7	60		rts				rts
 
 ;******  Return to file: _include.asm
 
 
 ;******  Processing file: modules/float/fputils.asm
 
-.019afa					FPUCopyX2ToX1:
-.019afa	48		pha				pha
-.019afb	da		phx				phx
-.019afc	5a		phy				phy
-.019afd	a0 08		ldy #$08			ldy 	#8
-.019aff	bd 0e 03	lda $030e,x	_FPUC21:lda 	XS2_Mantissa,x
-.019b02	9d 08 03	sta $0308,x			sta 	XS_Mantissa,x
-.019b05	e8		inx				inx
-.019b06	88		dey				dey
-.019b07	10 f6		bpl $019aff			bpl 	_FPUC21
-.019b09	7a		ply				ply
-.019b0a	fa		plx				plx
-.019b0b	68		pla				pla
-.019b0c	60		rts				rts
-.019b0d					FPUSetInteger:
-.019b0d	48		pha				pha
-.019b0e	9d 08 03	sta $0308,x			sta 	XS_Mantissa,x 				; set the lowest byte.
-.019b11	29 80		and #$80			and 	#$80 						; make this $00 or $FF dependent on MSB
-.019b13	10 02		bpl $019b17			bpl 	_FPUSIExtend
-.019b15	a9 ff		lda #$ff			lda 	#$FF
-.019b17					_FPUSIExtend:
-.019b17	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x 			; copy into the rest of the mantissa
-.019b1a	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
-.019b1d	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
-.019b20	a9 01		lda #$01			lda 	#1 			 				; type is integer (set bit 0)
-.019b22	9d 0d 03	sta $030d,x			sta 	XS_Type,x
-.019b25	68		pla				pla
-.019b26	60		rts				rts
-.019b27					FPUNegateInteger:
-.019b27	48		pha				pha
-.019b28	38		sec				sec
-.019b29	a9 00		lda #$00			lda 	#0 							; simple 32 bit subtraction.
-.019b2b	fd 08 03	sbc $0308,x			sbc 	XS_Mantissa+0,x
-.019b2e	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x
-.019b31	a9 00		lda #$00			lda 	#0
-.019b33	fd 09 03	sbc $0309,x			sbc 	XS_Mantissa+1,x
-.019b36	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
-.019b39	a9 00		lda #$00			lda 	#0
-.019b3b	fd 0a 03	sbc $030a,x			sbc 	XS_Mantissa+2,x
-.019b3e	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
-.019b41	a9 00		lda #$00			lda 	#0
-.019b43	fd 0b 03	sbc $030b,x			sbc 	XS_Mantissa+3,x
-.019b46	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
-.019b49	68		pla				pla
-.019b4a	60		rts				rts
-.019b4b					FPUToFloat:
-.019b4b	48		pha				pha
-.019b4c	bd 0d 03	lda $030d,x			lda 	XS_Type,x					; exit if already float.
-.019b4f	29 0f		and #$0f			and 	#$0F
-.019b51	f0 2d		beq $019b80			beq 	_FPUFExit
-.019b53	a9 00		lda #$00			lda 	#0  						; zero the type byte, making it a float.
-.019b55	9d 0d 03	sta $030d,x			sta 	XS_Type,x
-.019b58	a9 a0		lda #$a0			lda 	#128+32 					; and the exponent to 32, makes it * 2^32
-.019b5a	9d 0c 03	sta $030c,x			sta 	XS_Exponent,x 				; x mantissa.
-.019b5d	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x 			; signed integer ?
-.019b60	10 08		bpl $019b6a			bpl		_FPUFPositive
-.019b62	20 27 9b	jsr $019b27			jsr 	FPUNegateInteger 			; negate the mantissa
-.019b65	a9 80		lda #$80			lda 	#$80 						; set the sign flag.
-.019b67	9d 0d 03	sta $030d,x			sta 	XS_Type,x
-.019b6a					_FPUFPositive:
-.019b6a	bd 08 03	lda $0308,x			lda 	XS_Mantissa,x 				; mantissa is zero ?
-.019b6d	1d 09 03	ora $0309,x			ora 	XS_Mantissa+1,x
-.019b70	1d 0a 03	ora $030a,x			ora 	XS_Mantissa+2,x
-.019b73	1d 0b 03	ora $030b,x			ora 	XS_Mantissa+3,x
-.019b76	d0 05		bne $019b7d			bne 	_FPUFNonZero
-.019b78	a9 40		lda #$40			lda 	#$40 						; set the zero flag only in type byte
-.019b7a	9d 0d 03	sta $030d,x			sta 	XS_Type,x
-.019b7d					_FPUFNonZero:
-.019b7d	20 82 9b	jsr $019b82			jsr 	FPUNormalise 				; normalise the floating point.
-.019b80					_FPUFExit:
-.019b80	68		pla				pla
-.019b81	60		rts				rts
-.019b82					FPUNormalise:
-.019b82	48		pha				pha
-.019b83	3c 0d 03	bit $030d,x			bit 	XS_Type,x 					; if float-zero, don't need to normalise it.
-.019b86	70 20		bvs $019ba8			bvs 	_FPUNExit
-.019b88	bd 0c 03	lda $030c,x			lda 	XS_Exponent,x 				; if exponent is zero, then make it zero.
-.019b8b	f0 16		beq $019ba3			beq 	_FPUNSetZero
-.019b8d					_FPUNLoop:
-.019b8d	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x 			; bit 31 of mantissa set.
-.019b90	30 16		bmi $019ba8			bmi 	_FPUNExit 					; if so, we are normalised.
-.019b92	1e 08 03	asl $0308,x			asl 	0+XS_Mantissa+0,x
-.019b95	3e 09 03	rol $0309,x			rol 	1+XS_Mantissa+0,x
-.019b98	3e 0a 03	rol $030a,x			rol 	2+XS_Mantissa+0,x
-.019b9b	3e 0b 03	rol $030b,x			rol 	3+XS_Mantissa+0,x
-.019b9e	de 0c 03	dec $030c,x			dec 	XS_Exponent,x 				; decrement exponent
-.019ba1	d0 ea		bne $019b8d			bne 	_FPUNLoop 		 			; go round again until bit 31 set.
-.019ba3					_FPUNSetZero:
-.019ba3	a9 40		lda #$40			lda 	#$40
-.019ba5	9d 0d 03	sta $030d,x			sta 	XS_Type,x 					; the result is now zero.
-.019ba8					_FPUNExit:
-.019ba8	68		pla				pla
-.019ba9	60		rts				rts
-.019baa					FPUToInteger:
-.019baa	48		pha				pha
-.019bab	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; if already integer, exit
-.019bae	29 01		and #$01			and 	#1
-.019bb0	d0 3e		bne $019bf0			bne 	_FPUTOI_Exit
-.019bb2	3c 0d 03	bit $030d,x			bit 	XS_Type,x					; if zero, return zero.
-.019bb5	70 2b		bvs $019be2			bvs 	_FPUTOI_Zero
-.019bb7	bd 0c 03	lda $030c,x			lda 	XS_Exponent,x 				; if exponent 00-7F
-.019bba	10 26		bpl $019be2			bpl 	_FPUToI_Zero 				; the integer value will be zero (< 1.0)
-.019bbc	c9 a0		cmp #$a0			cmp 	#128+32 					; sign exponent >= 32, overflow.
-.019bbe	b0 37		bcs $019bf7			bcs 	FP_Overflow
-.019bc0					_FPUToIToInteger:
-.019bc0	bd 0c 03	lda $030c,x			lda 	XS_Exponent,x 				; keep right shifting until reached 2^32
-.019bc3	c9 a0		cmp #$a0			cmp 	#128+32
-.019bc5	f0 11		beq $019bd8			beq 	_FPUToICheckSign 			; check sign needs fixing up.
-.019bc7	fe 0c 03	inc $030c,x			inc 	XS_Exponent,X 				; increment Exponent
-.019bca	5e 0b 03	lsr $030b,x			lsr 	3+XS_Mantissa,x
-.019bcd	7e 0a 03	ror $030a,x			ror 	2+XS_Mantissa,x
-.019bd0	7e 09 03	ror $0309,x			ror 	1+XS_Mantissa,x
-.019bd3	7e 08 03	ror $0308,x			ror 	0+XS_Mantissa,x
-.019bd6	80 e8		bra $019bc0			bra 	_FPUToIToInteger 			; keep going.
-.019bd8					_FPUToICheckSign:
-.019bd8	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; check sign
-.019bdb	10 13		bpl $019bf0			bpl 	_FPUToI_Exit 				; exit if unsigned.
-.019bdd	20 27 9b	jsr $019b27			jsr 	FPUNegateInteger 			; otherwise negate the shifted mantissa
-.019be0	80 0e		bra $019bf0			bra 	_FPUTOI_Exit
-.019be2					_FPUTOI_Zero:
-.019be2	a9 00		lda #$00			lda 	#0 							; return zero integer.
-.019be4	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x
-.019be7	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
-.019bea	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
-.019bed	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
-.019bf0					_FPUToI_Exit:
-.019bf0	a9 01		lda #$01			lda 	#1 							; set type to integer
-.019bf2	9d 0d 03	sta $030d,x			sta 	XS_Type,x
-.019bf5	68		pla				pla
-.019bf6	60		rts				rts
-.019bf7					FP_Overflow:
-.019bf7	20 2f 84	jsr $01842f			jsr ERR_Handler
->019bfa	46 6c 6f 61 74 69 6e 67			.text "Floating Point overflow",0
->019c02	20 50 6f 69 6e 74 20 6f 76 65 72 66 6c 6f 77 00
-.019c12					FPUTimes10:
-.019c12	bd 08 03	lda $0308,x			lda 	XS_Mantissa+0,x 			; copy mantissa to ZLTemp1
-.019c15	85 1a		sta $1a				sta 	ZLTemp1+0
-.019c17	bd 09 03	lda $0309,x			lda 	XS_Mantissa+1,x
-.019c1a	85 1b		sta $1b				sta 	ZLTemp1+1
-.019c1c	bd 0a 03	lda $030a,x			lda 	XS_Mantissa+2,x
-.019c1f	85 1c		sta $1c				sta 	ZLTemp1+2
-.019c21	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x
-.019c24	85 1d		sta $1d				sta 	ZLTemp1+3
-.019c26	20 6a 9c	jsr $019c6a			jsr 	_FPUT_LSR_ZLTemp1 			; divide ZLTemp1 by 4
-.019c29	20 6a 9c	jsr $019c6a			jsr 	_FPUT_LSR_ZLTemp1
-.019c2c	18		clc				clc
-.019c2d	bd 08 03	lda $0308,x			lda 	XS_Mantissa+0,x 			; add n/4 to n
-.019c30	65 1a		adc $1a				adc 	ZLTemp1+0
-.019c32	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x
-.019c35	bd 09 03	lda $0309,x			lda 	XS_Mantissa+1,x
-.019c38	65 1b		adc $1b				adc 	ZLTemp1+1
-.019c3a	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
-.019c3d	bd 0a 03	lda $030a,x			lda 	XS_Mantissa+2,x
-.019c40	65 1c		adc $1c				adc 	ZLTemp1+2
-.019c42	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
-.019c45	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x
-.019c48	65 1d		adc $1d				adc 	ZLTemp1+3
-.019c4a	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
-.019c4d	90 0f		bcc $019c5e			bcc 	_FPUTimes10
-.019c4f	7e 0b 03	ror $030b,x			ror 	3+XS_Mantissa,x
-.019c52	7e 0a 03	ror $030a,x			ror 	2+XS_Mantissa,x
-.019c55	7e 09 03	ror $0309,x			ror 	1+XS_Mantissa,x
-.019c58	7e 08 03	ror $0308,x			ror 	0+XS_Mantissa,x
-.019c5b	fe 0c 03	inc $030c,x			inc 	XS_Exponent,x				; fix exponent
-.019c5e					_FPUTimes10:
-.019c5e	bd 0c 03	lda $030c,x			lda 	XS_Exponent,x 				; fix up x 2^3 e.g. multiply by 8.
-.019c61	18		clc				clc
-.019c62	69 03		adc #$03			adc 	#3
-.019c64	9d 0c 03	sta $030c,x			sta 	XS_Exponent,x
-.019c67	b0 8e		bcs $019bf7			bcs 	FP_Overflow 				; error
-.019c69	60		rts				rts
-.019c6a					_FPUT_LSR_ZLTemp1:
-.019c6a	46 1d		lsr $1d				lsr 	ZLTemp1+3
-.019c6c	66 1c		ror $1c				ror 	ZLTemp1+2
-.019c6e	66 1b		ror $1b				ror 	ZLTemp1+1
-.019c70	66 1a		ror $1a				ror 	ZLTemp1+0
-.019c72	60		rts				rts
-.019c73					FPUScale10A:
-.019c73	5a		phy				phy
-.019c74	c9 00		cmp #$00			cmp 	#0 							; if A = 0, nothing to scale
-.019c76	f0 3d		beq $019cb5			beq 	_FPUScaleExit
-.019c78	da		phx				phx 								; save X
+.019af8					FPUCopyX2ToX1:
+.019af8	48		pha				pha
+.019af9	da		phx				phx
+.019afa	5a		phy				phy
+.019afb	a0 08		ldy #$08			ldy 	#8
+.019afd	bd 0e 03	lda $030e,x	_FPUC21:lda 	XS2_Mantissa,x
+.019b00	9d 08 03	sta $0308,x			sta 	XS_Mantissa,x
+.019b03	e8		inx				inx
+.019b04	88		dey				dey
+.019b05	10 f6		bpl $019afd			bpl 	_FPUC21
+.019b07	7a		ply				ply
+.019b08	fa		plx				plx
+.019b09	68		pla				pla
+.019b0a	60		rts				rts
+.019b0b					FPUSetInteger:
+.019b0b	48		pha				pha
+.019b0c	9d 08 03	sta $0308,x			sta 	XS_Mantissa,x 				; set the lowest byte.
+.019b0f	29 80		and #$80			and 	#$80 						; make this $00 or $FF dependent on MSB
+.019b11	10 02		bpl $019b15			bpl 	_FPUSIExtend
+.019b13	a9 ff		lda #$ff			lda 	#$FF
+.019b15					_FPUSIExtend:
+.019b15	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x 			; copy into the rest of the mantissa
+.019b18	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
+.019b1b	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
+.019b1e	a9 01		lda #$01			lda 	#1 			 				; type is integer (set bit 0)
+.019b20	9d 0d 03	sta $030d,x			sta 	XS_Type,x
+.019b23	68		pla				pla
+.019b24	60		rts				rts
+.019b25					FPUNegateInteger:
+.019b25	48		pha				pha
+.019b26	38		sec				sec
+.019b27	a9 00		lda #$00			lda 	#0 							; simple 32 bit subtraction.
+.019b29	fd 08 03	sbc $0308,x			sbc 	XS_Mantissa+0,x
+.019b2c	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x
+.019b2f	a9 00		lda #$00			lda 	#0
+.019b31	fd 09 03	sbc $0309,x			sbc 	XS_Mantissa+1,x
+.019b34	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
+.019b37	a9 00		lda #$00			lda 	#0
+.019b39	fd 0a 03	sbc $030a,x			sbc 	XS_Mantissa+2,x
+.019b3c	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
+.019b3f	a9 00		lda #$00			lda 	#0
+.019b41	fd 0b 03	sbc $030b,x			sbc 	XS_Mantissa+3,x
+.019b44	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
+.019b47	68		pla				pla
+.019b48	60		rts				rts
+.019b49					FPUToFloat:
+.019b49	48		pha				pha
+.019b4a	bd 0d 03	lda $030d,x			lda 	XS_Type,x					; exit if already float.
+.019b4d	29 0f		and #$0f			and 	#$0F
+.019b4f	f0 2d		beq $019b7e			beq 	_FPUFExit
+.019b51	a9 00		lda #$00			lda 	#0  						; zero the type byte, making it a float.
+.019b53	9d 0d 03	sta $030d,x			sta 	XS_Type,x
+.019b56	a9 a0		lda #$a0			lda 	#128+32 					; and the exponent to 32, makes it * 2^32
+.019b58	9d 0c 03	sta $030c,x			sta 	XS_Exponent,x 				; x mantissa.
+.019b5b	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x 			; signed integer ?
+.019b5e	10 08		bpl $019b68			bpl		_FPUFPositive
+.019b60	20 25 9b	jsr $019b25			jsr 	FPUNegateInteger 			; negate the mantissa
+.019b63	a9 80		lda #$80			lda 	#$80 						; set the sign flag.
+.019b65	9d 0d 03	sta $030d,x			sta 	XS_Type,x
+.019b68					_FPUFPositive:
+.019b68	bd 08 03	lda $0308,x			lda 	XS_Mantissa,x 				; mantissa is zero ?
+.019b6b	1d 09 03	ora $0309,x			ora 	XS_Mantissa+1,x
+.019b6e	1d 0a 03	ora $030a,x			ora 	XS_Mantissa+2,x
+.019b71	1d 0b 03	ora $030b,x			ora 	XS_Mantissa+3,x
+.019b74	d0 05		bne $019b7b			bne 	_FPUFNonZero
+.019b76	a9 40		lda #$40			lda 	#$40 						; set the zero flag only in type byte
+.019b78	9d 0d 03	sta $030d,x			sta 	XS_Type,x
+.019b7b					_FPUFNonZero:
+.019b7b	20 80 9b	jsr $019b80			jsr 	FPUNormalise 				; normalise the floating point.
+.019b7e					_FPUFExit:
+.019b7e	68		pla				pla
+.019b7f	60		rts				rts
+.019b80					FPUNormalise:
+.019b80	48		pha				pha
+.019b81	3c 0d 03	bit $030d,x			bit 	XS_Type,x 					; if float-zero, don't need to normalise it.
+.019b84	70 20		bvs $019ba6			bvs 	_FPUNExit
+.019b86	bd 0c 03	lda $030c,x			lda 	XS_Exponent,x 				; if exponent is zero, then make it zero.
+.019b89	f0 16		beq $019ba1			beq 	_FPUNSetZero
+.019b8b					_FPUNLoop:
+.019b8b	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x 			; bit 31 of mantissa set.
+.019b8e	30 16		bmi $019ba6			bmi 	_FPUNExit 					; if so, we are normalised.
+.019b90	1e 08 03	asl $0308,x			asl 	0+XS_Mantissa+0,x
+.019b93	3e 09 03	rol $0309,x			rol 	1+XS_Mantissa+0,x
+.019b96	3e 0a 03	rol $030a,x			rol 	2+XS_Mantissa+0,x
+.019b99	3e 0b 03	rol $030b,x			rol 	3+XS_Mantissa+0,x
+.019b9c	de 0c 03	dec $030c,x			dec 	XS_Exponent,x 				; decrement exponent
+.019b9f	d0 ea		bne $019b8b			bne 	_FPUNLoop 		 			; go round again until bit 31 set.
+.019ba1					_FPUNSetZero:
+.019ba1	a9 40		lda #$40			lda 	#$40
+.019ba3	9d 0d 03	sta $030d,x			sta 	XS_Type,x 					; the result is now zero.
+.019ba6					_FPUNExit:
+.019ba6	68		pla				pla
+.019ba7	60		rts				rts
+.019ba8					FPUToInteger:
+.019ba8	48		pha				pha
+.019ba9	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; if already integer, exit
+.019bac	29 01		and #$01			and 	#1
+.019bae	d0 3e		bne $019bee			bne 	_FPUTOI_Exit
+.019bb0	3c 0d 03	bit $030d,x			bit 	XS_Type,x					; if zero, return zero.
+.019bb3	70 2b		bvs $019be0			bvs 	_FPUTOI_Zero
+.019bb5	bd 0c 03	lda $030c,x			lda 	XS_Exponent,x 				; if exponent 00-7F
+.019bb8	10 26		bpl $019be0			bpl 	_FPUToI_Zero 				; the integer value will be zero (< 1.0)
+.019bba	c9 a0		cmp #$a0			cmp 	#128+32 					; sign exponent >= 32, overflow.
+.019bbc	b0 37		bcs $019bf5			bcs 	FP_Overflow
+.019bbe					_FPUToIToInteger:
+.019bbe	bd 0c 03	lda $030c,x			lda 	XS_Exponent,x 				; keep right shifting until reached 2^32
+.019bc1	c9 a0		cmp #$a0			cmp 	#128+32
+.019bc3	f0 11		beq $019bd6			beq 	_FPUToICheckSign 			; check sign needs fixing up.
+.019bc5	fe 0c 03	inc $030c,x			inc 	XS_Exponent,X 				; increment Exponent
+.019bc8	5e 0b 03	lsr $030b,x			lsr 	3+XS_Mantissa,x
+.019bcb	7e 0a 03	ror $030a,x			ror 	2+XS_Mantissa,x
+.019bce	7e 09 03	ror $0309,x			ror 	1+XS_Mantissa,x
+.019bd1	7e 08 03	ror $0308,x			ror 	0+XS_Mantissa,x
+.019bd4	80 e8		bra $019bbe			bra 	_FPUToIToInteger 			; keep going.
+.019bd6					_FPUToICheckSign:
+.019bd6	bd 0d 03	lda $030d,x			lda 	XS_Type,x 					; check sign
+.019bd9	10 13		bpl $019bee			bpl 	_FPUToI_Exit 				; exit if unsigned.
+.019bdb	20 25 9b	jsr $019b25			jsr 	FPUNegateInteger 			; otherwise negate the shifted mantissa
+.019bde	80 0e		bra $019bee			bra 	_FPUTOI_Exit
+.019be0					_FPUTOI_Zero:
+.019be0	a9 00		lda #$00			lda 	#0 							; return zero integer.
+.019be2	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x
+.019be5	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
+.019be8	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
+.019beb	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
+.019bee					_FPUToI_Exit:
+.019bee	a9 01		lda #$01			lda 	#1 							; set type to integer
+.019bf0	9d 0d 03	sta $030d,x			sta 	XS_Type,x
+.019bf3	68		pla				pla
+.019bf4	60		rts				rts
+.019bf5					FP_Overflow:
+.019bf5	20 2f 84	jsr $01842f			jsr ERR_Handler
+>019bf8	46 6c 6f 61 74 69 6e 67			.text "Floating Point overflow",0
+>019c00	20 50 6f 69 6e 74 20 6f 76 65 72 66 6c 6f 77 00
+.019c10					FPUTimes10:
+.019c10	bd 08 03	lda $0308,x			lda 	XS_Mantissa+0,x 			; copy mantissa to ZLTemp1
+.019c13	85 1a		sta $1a				sta 	ZLTemp1+0
+.019c15	bd 09 03	lda $0309,x			lda 	XS_Mantissa+1,x
+.019c18	85 1b		sta $1b				sta 	ZLTemp1+1
+.019c1a	bd 0a 03	lda $030a,x			lda 	XS_Mantissa+2,x
+.019c1d	85 1c		sta $1c				sta 	ZLTemp1+2
+.019c1f	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x
+.019c22	85 1d		sta $1d				sta 	ZLTemp1+3
+.019c24	20 68 9c	jsr $019c68			jsr 	_FPUT_LSR_ZLTemp1 			; divide ZLTemp1 by 4
+.019c27	20 68 9c	jsr $019c68			jsr 	_FPUT_LSR_ZLTemp1
+.019c2a	18		clc				clc
+.019c2b	bd 08 03	lda $0308,x			lda 	XS_Mantissa+0,x 			; add n/4 to n
+.019c2e	65 1a		adc $1a				adc 	ZLTemp1+0
+.019c30	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x
+.019c33	bd 09 03	lda $0309,x			lda 	XS_Mantissa+1,x
+.019c36	65 1b		adc $1b				adc 	ZLTemp1+1
+.019c38	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
+.019c3b	bd 0a 03	lda $030a,x			lda 	XS_Mantissa+2,x
+.019c3e	65 1c		adc $1c				adc 	ZLTemp1+2
+.019c40	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
+.019c43	bd 0b 03	lda $030b,x			lda 	XS_Mantissa+3,x
+.019c46	65 1d		adc $1d				adc 	ZLTemp1+3
+.019c48	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
+.019c4b	90 0f		bcc $019c5c			bcc 	_FPUTimes10
+.019c4d	7e 0b 03	ror $030b,x			ror 	3+XS_Mantissa,x
+.019c50	7e 0a 03	ror $030a,x			ror 	2+XS_Mantissa,x
+.019c53	7e 09 03	ror $0309,x			ror 	1+XS_Mantissa,x
+.019c56	7e 08 03	ror $0308,x			ror 	0+XS_Mantissa,x
+.019c59	fe 0c 03	inc $030c,x			inc 	XS_Exponent,x				; fix exponent
+.019c5c					_FPUTimes10:
+.019c5c	bd 0c 03	lda $030c,x			lda 	XS_Exponent,x 				; fix up x 2^3 e.g. multiply by 8.
+.019c5f	18		clc				clc
+.019c60	69 03		adc #$03			adc 	#3
+.019c62	9d 0c 03	sta $030c,x			sta 	XS_Exponent,x
+.019c65	b0 8e		bcs $019bf5			bcs 	FP_Overflow 				; error
+.019c67	60		rts				rts
+.019c68					_FPUT_LSR_ZLTemp1:
+.019c68	46 1d		lsr $1d				lsr 	ZLTemp1+3
+.019c6a	66 1c		ror $1c				ror 	ZLTemp1+2
+.019c6c	66 1b		ror $1b				ror 	ZLTemp1+1
+.019c6e	66 1a		ror $1a				ror 	ZLTemp1+0
+.019c70	60		rts				rts
+.019c71					FPUScale10A:
+.019c71	5a		phy				phy
+.019c72	c9 00		cmp #$00			cmp 	#0 							; if A = 0, nothing to scale
+.019c74	f0 3d		beq $019cb3			beq 	_FPUScaleExit
+.019c76	da		phx				phx 								; save X
+.019c77	e8		inx				inx
+.019c78	e8		inx				inx
 .019c79	e8		inx				inx
 .019c7a	e8		inx				inx
 .019c7b	e8		inx				inx
 .019c7c	e8		inx				inx
-.019c7d	e8		inx				inx
-.019c7e	e8		inx				inx
-.019c7f	a8		tay				tay 								; save power scalar in Y.
-.019c80	a9 00		lda #$00			lda 	#0
-.019c82	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x 			; set slot to 1.0
-.019c85	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
-.019c88	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
-.019c8b	9d 0d 03	sta $030d,x			sta 	XS_Type,x
-.019c8e	a9 80		lda #$80			lda 	#$80
-.019c90	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
-.019c93	a9 81		lda #$81			lda 	#$81
-.019c95	9d 0c 03	sta $030c,x			sta 	XS_Exponent,x
-.019c98	5a		phy				phy 								; save 10^n on stack.
-.019c99	c0 00		cpy #$00			cpy 	#0
-.019c9b	10 05		bpl $019ca2			bpl 	_FPUSAbs 					; set Y = |Y|, we want to multiply that 1.0 x 10
-.019c9d	98		tya				tya
-.019c9e	49 ff		eor #$ff			eor 	#$FF
-.019ca0	1a		inc a				inc 	a
-.019ca1	a8		tay				tay
-.019ca2					_FPUSAbs:
-.019ca2	20 12 9c	jsr $019c12			jsr 	FPUTimes10
-.019ca5	88		dey				dey
-.019ca6	d0 fa		bne $019ca2			bne 	_FPUSAbs 					; tos is now 10^|AC|
-.019ca8	68		pla				pla 								; restore count in A
-.019ca9	fa		plx				plx 								; restore X pointing to number to scale.
-.019caa	0a		asl a				asl 	a
-.019cab	b0 05		bcs $019cb2			bcs 	_FPUSDivide 				; if bit 7 of count set, divide
-.019cad	20 99 99	jsr $019999			jsr 	FPMultiply 					; if clear multiply.
-.019cb0	80 03		bra $019cb5			bra		_FPUScaleExit
-.019cb2					_FPUSDivide:
-.019cb2	20 11 99	jsr $019911			jsr 	FPDivide
-.019cb5					_FPUScaleExit:
-.019cb5	7a		ply				ply
-.019cb6	60		rts				rts
-.019cb7					FPUCopyToNext:
-.019cb7	a0 06		ldy #$06			ldy 		#6
-.019cb9	da		phx				phx
-.019cba					_FPUCopy1:
-.019cba	bd 08 03	lda $0308,x			lda 	XS_Mantissa,x
-.019cbd	9d 0e 03	sta $030e,x			sta 	XS2_Mantissa,x
-.019cc0	e8		inx				inx
-.019cc1	88		dey				dey
-.019cc2	d0 f6		bne $019cba			bne 	_FPUCopy1
-.019cc4	fa		plx				plx
-.019cc5	60		rts				rts
-.019cc6					FPUCopyFromNext:
-.019cc6	a0 06		ldy #$06			ldy 		#6
-.019cc8	da		phx				phx
-.019cc9					_FPUCopy1:
-.019cc9	bd 0e 03	lda $030e,x			lda 	XS2_Mantissa,x
-.019ccc	9d 08 03	sta $0308,x			sta 	XS_Mantissa,x
-.019ccf	e8		inx				inx
-.019cd0	88		dey				dey
-.019cd1	d0 f6		bne $019cc9			bne 	_FPUCopy1
-.019cd3	fa		plx				plx
-.019cd4	60		rts				rts
+.019c7d	a8		tay				tay 								; save power scalar in Y.
+.019c7e	a9 00		lda #$00			lda 	#0
+.019c80	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x 			; set slot to 1.0
+.019c83	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
+.019c86	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
+.019c89	9d 0d 03	sta $030d,x			sta 	XS_Type,x
+.019c8c	a9 80		lda #$80			lda 	#$80
+.019c8e	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
+.019c91	a9 81		lda #$81			lda 	#$81
+.019c93	9d 0c 03	sta $030c,x			sta 	XS_Exponent,x
+.019c96	5a		phy				phy 								; save 10^n on stack.
+.019c97	c0 00		cpy #$00			cpy 	#0
+.019c99	10 05		bpl $019ca0			bpl 	_FPUSAbs 					; set Y = |Y|, we want to multiply that 1.0 x 10
+.019c9b	98		tya				tya
+.019c9c	49 ff		eor #$ff			eor 	#$FF
+.019c9e	1a		inc a				inc 	a
+.019c9f	a8		tay				tay
+.019ca0					_FPUSAbs:
+.019ca0	20 10 9c	jsr $019c10			jsr 	FPUTimes10
+.019ca3	88		dey				dey
+.019ca4	d0 fa		bne $019ca0			bne 	_FPUSAbs 					; tos is now 10^|AC|
+.019ca6	68		pla				pla 								; restore count in A
+.019ca7	fa		plx				plx 								; restore X pointing to number to scale.
+.019ca8	0a		asl a				asl 	a
+.019ca9	b0 05		bcs $019cb0			bcs 	_FPUSDivide 				; if bit 7 of count set, divide
+.019cab	20 97 99	jsr $019997			jsr 	FPMultiply 					; if clear multiply.
+.019cae	80 03		bra $019cb3			bra		_FPUScaleExit
+.019cb0					_FPUSDivide:
+.019cb0	20 0f 99	jsr $01990f			jsr 	FPDivide
+.019cb3					_FPUScaleExit:
+.019cb3	7a		ply				ply
+.019cb4	60		rts				rts
+.019cb5					FPUCopyToNext:
+.019cb5	a0 06		ldy #$06			ldy 		#6
+.019cb7	da		phx				phx
+.019cb8					_FPUCopy1:
+.019cb8	bd 08 03	lda $0308,x			lda 	XS_Mantissa,x
+.019cbb	9d 0e 03	sta $030e,x			sta 	XS2_Mantissa,x
+.019cbe	e8		inx				inx
+.019cbf	88		dey				dey
+.019cc0	d0 f6		bne $019cb8			bne 	_FPUCopy1
+.019cc2	fa		plx				plx
+.019cc3	60		rts				rts
+.019cc4					FPUCopyFromNext:
+.019cc4	a0 06		ldy #$06			ldy 		#6
+.019cc6	da		phx				phx
+.019cc7					_FPUCopy1:
+.019cc7	bd 0e 03	lda $030e,x			lda 	XS2_Mantissa,x
+.019cca	9d 08 03	sta $0308,x			sta 	XS_Mantissa,x
+.019ccd	e8		inx				inx
+.019cce	88		dey				dey
+.019ccf	d0 f6		bne $019cc7			bne 	_FPUCopy1
+.019cd1	fa		plx				plx
+.019cd2	60		rts				rts
 
 ;******  Return to file: _include.asm
 
 
 ;******  Processing file: modules/float/convert/fptostr.asm
 
-.019cd5					FPToString:
-.019cd5	48		pha				pha
-.019cd6	5a		phy				phy
-.019cd7	3c 0d 03	bit $030d,x			bit 		XS_Type,x 				; check zero flag
-.019cda	50 0a		bvc $019ce6			bvc 		_FPTSIsFloat 			; if zero,
-.019cdc					_FPTSZero:
-.019cdc	a9 30		lda #$30			lda 		#"0"
-.019cde	20 65 97	jsr $019765			jsr 		ITSOutputCharacter
-.019ce1					_FPTSExit:
-.019ce1	7a		ply				ply
-.019ce2	68		pla				pla
-.019ce3	60		rts				rts
-.019ce4	80 fb		bra $019ce1			bra 		_FPTSExit
-.019ce6					_FPTSIsFloat:
-.019ce6	bd 0d 03	lda $030d,x			lda 		XS_Type,x 				; is it signed ?
-.019ce9	10 0a		bpl $019cf5			bpl 		_FPTSNotSigned
-.019ceb	a9 00		lda #$00			lda 		#0 						; clear sign flag
-.019ced	9d 0d 03	sta $030d,x			sta 		XS_Type,x
-.019cf0	a9 2d		lda #$2d			lda 		#"-"					; output a minus
-.019cf2	20 65 97	jsr $019765			jsr 		ITSOutputCharacter
-.019cf5					_FPTSNotSigned:
-.019cf5	bd 0c 03	lda $030c,x			lda 		XS_Exponent,x
-.019cf8	c9 98		cmp #$98			cmp 		#128+24 				; if > 2^24 do as exponent
-.019cfa	b0 09		bcs $019d05			bcs 		_FPTSExponent
-.019cfc	c9 6c		cmp #$6c			cmp 		#128-20 				; if < 2^-20 do as an exponent
-.019cfe	90 05		bcc $019d05			bcc 		_FPTSExponent 			;
-.019d00					_FPTSStandard:
-.019d00	20 49 9d	jsr $019d49			jsr 		FPTOutputBody 			; output the body.
-.019d03	80 dc		bra $019ce1			bra 		_FPTSExit
-.019d05					_FPTSExponent:
-.019d05	a9 00		lda #$00			lda 		#0 						; zero the exponent count.
-.019d07	8d 8d 04	sta $048d			sta 		ExpCount
-.019d0a					_FPTSExponentLoop:
-.019d0a	bd 0c 03	lda $030c,x			lda 		XS_Exponent,x 			; exponent < 0, x by 10
-.019d0d	10 0e		bpl $019d1d			bpl 		_FPTSTimes
-.019d0f	c9 85		cmp #$85			cmp 		#128+5 					; exit when in range 0..4
-.019d11	90 14		bcc $019d27			bcc 		_FPTSScaledToExp
-.019d13	a9 ff		lda #$ff			lda 		#-1 					; divide by 10.
-.019d15	20 73 9c	jsr $019c73			jsr 		FPUScale10A
-.019d18	ee 8d 04	inc $048d			inc 		ExpCount
-.019d1b	80 ed		bra $019d0a			bra 		_FPTSExponentLoop
-.019d1d					_FPTSTimes:
-.019d1d	a9 01		lda #$01			lda 		#1
-.019d1f	20 73 9c	jsr $019c73			jsr 		FPUScale10A
-.019d22	ce 8d 04	dec $048d			dec 		ExpCount
-.019d25	80 e3		bra $019d0a			bra 		_FPTSExponentLoop
-.019d27					_FPTSScaledToExp:
-.019d27	20 49 9d	jsr $019d49			jsr 		FPTOutputBody 			; output the body.
-.019d2a	a9 65		lda #$65			lda 		#"e"					; output E
-.019d2c	20 65 97	jsr $019765			jsr 		ITSOutputCharacter
-.019d2f	ad 8d 04	lda $048d			lda 		ExpCount 				; get the exponent
-.019d32	9d 08 03	sta $0308,x			sta 		XS_Mantissa,x
-.019d35	29 80		and #$80			and 		#$80 					; sign extend it
-.019d37	f0 02		beq $019d3b			beq 		_FPTSSExt
-.019d39	a9 ff		lda #$ff			lda 		#$FF
-.019d3b					_FPTSSExt:
-.019d3b	9d 09 03	sta $0309,x			sta 		XS_Mantissa+1,x
-.019d3e	9d 0a 03	sta $030a,x			sta 		XS_Mantissa+2,x
-.019d41	9d 0b 03	sta $030b,x			sta 		XS_Mantissa+3,x
-.019d44	20 c1 96	jsr $0196c1			jsr 		INTToString 			; output the exponent.
-.019d47	80 98		bra $019ce1			bra			_FPTSExit 				; and exit.
-.019d49					FPTOutputBody:
-.019d49	20 b7 9c	jsr $019cb7			jsr 		FPUCopyToNext 			; copy to next slot.
-.019d4c	20 aa 9b	jsr $019baa			jsr 		FPUToInteger 			; convert to an integer
-.019d4f	20 c1 96	jsr $0196c1			jsr 		INTToString 			; output the main integer part.
-.019d52	20 c6 9c	jsr $019cc6			jsr 		FPUCopyFromNext 		; get the fractional part back.
-.019d55	20 36 9a	jsr $019a36			jsr 		FPFractionalPart 		; get the decimal part.
-.019d58	3c 0d 03	bit $030d,x			bit 		XS_Type,x 				; any fractional part.
-.019d5b	70 3e		bvs $019d9b			bvs 		_FPTOExit 				; if not, exit now.
-.019d5d	a9 2e		lda #$2e			lda 		#"." 					; print out a decimal place.
-.019d5f	20 65 97	jsr $019765			jsr 		ITSOutputCharacter
-.019d62					_FPOutLoop:
-.019d62	3c 0d 03	bit $030d,x			bit 		XS_Type,x 				; finally reached zero.
-.019d65	70 1e		bvs $019d85			bvs 		_FPStripZeros 			; strip trailing zeros
-.019d67	20 12 9c	jsr $019c12			jsr 		FPUTimes10 				; multiply by 10
-.019d6a	20 b7 9c	jsr $019cb7			jsr 		FPUCopyToNext			; copy to next slot.
-.019d6d	20 aa 9b	jsr $019baa			jsr 		FPUToInteger 			; convert to integer
-.019d70	bd 08 03	lda $0308,x			lda 		XS_Mantissa+0,x 		; print digit.
-.019d73	09 30		ora #$30			ora 		#"0"
-.019d75	20 65 97	jsr $019765			jsr 		ITSOutputCharacter
-.019d78	20 c6 9c	jsr $019cc6			jsr 		FPUCopyFromNext 		; get it back
-.019d7b	20 36 9a	jsr $019a36			jsr 		FPFractionalPart 		; get fractional part
-.019d7e	ad 04 04	lda $0404			lda 		NumBufX 				; done 11 characters yet ?
-.019d81	c9 0b		cmp #$0b			cmp 	 	#11
-.019d83	90 dd		bcc $019d62			bcc 		_FPOutLoop 				; if so, keep going till zero.
-.019d85					_FPStripZeros:
-.019d85	ac 04 04	ldy $0404			ldy 		NumBufX 				; strip trailing zeros.
-.019d88					_FPStripLoop:
-.019d88	88		dey				dey 								; back one, if at start then no strip
-.019d89	f0 10		beq $019d9b			beq 		_FPToExit
-.019d8b	b9 05 04	lda $0405,y			lda 		Num_Buffer,y 			; keep going if "0"
-.019d8e	c9 30		cmp #$30			cmp 		#"0"
-.019d90	f0 f6		beq $019d88			beq 		_FPStripLoop
-.019d92	c8		iny				iny
-.019d93	a9 00		lda #$00			lda 		#0 						; add trailing zero one on
-.019d95	99 05 04	sta $0405,y			sta 		Num_Buffer,y
-.019d98	8c 04 04	sty $0404			sty 		NumBufX 				; update position.
-.019d9b					_FPTOExit:
-.019d9b	60		rts				rts
+.019cd3					FPToString:
+.019cd3	48		pha				pha
+.019cd4	5a		phy				phy
+.019cd5	3c 0d 03	bit $030d,x			bit 		XS_Type,x 				; check zero flag
+.019cd8	50 0a		bvc $019ce4			bvc 		_FPTSIsFloat 			; if zero,
+.019cda					_FPTSZero:
+.019cda	a9 30		lda #$30			lda 		#"0"
+.019cdc	20 63 97	jsr $019763			jsr 		ITSOutputCharacter
+.019cdf					_FPTSExit:
+.019cdf	7a		ply				ply
+.019ce0	68		pla				pla
+.019ce1	60		rts				rts
+.019ce2	80 fb		bra $019cdf			bra 		_FPTSExit
+.019ce4					_FPTSIsFloat:
+.019ce4	bd 0d 03	lda $030d,x			lda 		XS_Type,x 				; is it signed ?
+.019ce7	10 0a		bpl $019cf3			bpl 		_FPTSNotSigned
+.019ce9	a9 00		lda #$00			lda 		#0 						; clear sign flag
+.019ceb	9d 0d 03	sta $030d,x			sta 		XS_Type,x
+.019cee	a9 2d		lda #$2d			lda 		#"-"					; output a minus
+.019cf0	20 63 97	jsr $019763			jsr 		ITSOutputCharacter
+.019cf3					_FPTSNotSigned:
+.019cf3	bd 0c 03	lda $030c,x			lda 		XS_Exponent,x
+.019cf6	c9 98		cmp #$98			cmp 		#128+24 				; if > 2^24 do as exponent
+.019cf8	b0 09		bcs $019d03			bcs 		_FPTSExponent
+.019cfa	c9 6c		cmp #$6c			cmp 		#128-20 				; if < 2^-20 do as an exponent
+.019cfc	90 05		bcc $019d03			bcc 		_FPTSExponent 			;
+.019cfe					_FPTSStandard:
+.019cfe	20 47 9d	jsr $019d47			jsr 		FPTOutputBody 			; output the body.
+.019d01	80 dc		bra $019cdf			bra 		_FPTSExit
+.019d03					_FPTSExponent:
+.019d03	a9 00		lda #$00			lda 		#0 						; zero the exponent count.
+.019d05	8d 8d 04	sta $048d			sta 		ExpCount
+.019d08					_FPTSExponentLoop:
+.019d08	bd 0c 03	lda $030c,x			lda 		XS_Exponent,x 			; exponent < 0, x by 10
+.019d0b	10 0e		bpl $019d1b			bpl 		_FPTSTimes
+.019d0d	c9 85		cmp #$85			cmp 		#128+5 					; exit when in range 0..4
+.019d0f	90 14		bcc $019d25			bcc 		_FPTSScaledToExp
+.019d11	a9 ff		lda #$ff			lda 		#-1 					; divide by 10.
+.019d13	20 71 9c	jsr $019c71			jsr 		FPUScale10A
+.019d16	ee 8d 04	inc $048d			inc 		ExpCount
+.019d19	80 ed		bra $019d08			bra 		_FPTSExponentLoop
+.019d1b					_FPTSTimes:
+.019d1b	a9 01		lda #$01			lda 		#1
+.019d1d	20 71 9c	jsr $019c71			jsr 		FPUScale10A
+.019d20	ce 8d 04	dec $048d			dec 		ExpCount
+.019d23	80 e3		bra $019d08			bra 		_FPTSExponentLoop
+.019d25					_FPTSScaledToExp:
+.019d25	20 47 9d	jsr $019d47			jsr 		FPTOutputBody 			; output the body.
+.019d28	a9 65		lda #$65			lda 		#"e"					; output E
+.019d2a	20 63 97	jsr $019763			jsr 		ITSOutputCharacter
+.019d2d	ad 8d 04	lda $048d			lda 		ExpCount 				; get the exponent
+.019d30	9d 08 03	sta $0308,x			sta 		XS_Mantissa,x
+.019d33	29 80		and #$80			and 		#$80 					; sign extend it
+.019d35	f0 02		beq $019d39			beq 		_FPTSSExt
+.019d37	a9 ff		lda #$ff			lda 		#$FF
+.019d39					_FPTSSExt:
+.019d39	9d 09 03	sta $0309,x			sta 		XS_Mantissa+1,x
+.019d3c	9d 0a 03	sta $030a,x			sta 		XS_Mantissa+2,x
+.019d3f	9d 0b 03	sta $030b,x			sta 		XS_Mantissa+3,x
+.019d42	20 bf 96	jsr $0196bf			jsr 		INTToString 			; output the exponent.
+.019d45	80 98		bra $019cdf			bra			_FPTSExit 				; and exit.
+.019d47					FPTOutputBody:
+.019d47	20 b5 9c	jsr $019cb5			jsr 		FPUCopyToNext 			; copy to next slot.
+.019d4a	20 a8 9b	jsr $019ba8			jsr 		FPUToInteger 			; convert to an integer
+.019d4d	20 bf 96	jsr $0196bf			jsr 		INTToString 			; output the main integer part.
+.019d50	20 c4 9c	jsr $019cc4			jsr 		FPUCopyFromNext 		; get the fractional part back.
+.019d53	20 34 9a	jsr $019a34			jsr 		FPFractionalPart 		; get the decimal part.
+.019d56	3c 0d 03	bit $030d,x			bit 		XS_Type,x 				; any fractional part.
+.019d59	70 3e		bvs $019d99			bvs 		_FPTOExit 				; if not, exit now.
+.019d5b	a9 2e		lda #$2e			lda 		#"." 					; print out a decimal place.
+.019d5d	20 63 97	jsr $019763			jsr 		ITSOutputCharacter
+.019d60					_FPOutLoop:
+.019d60	3c 0d 03	bit $030d,x			bit 		XS_Type,x 				; finally reached zero.
+.019d63	70 1e		bvs $019d83			bvs 		_FPStripZeros 			; strip trailing zeros
+.019d65	20 10 9c	jsr $019c10			jsr 		FPUTimes10 				; multiply by 10
+.019d68	20 b5 9c	jsr $019cb5			jsr 		FPUCopyToNext			; copy to next slot.
+.019d6b	20 a8 9b	jsr $019ba8			jsr 		FPUToInteger 			; convert to integer
+.019d6e	bd 08 03	lda $0308,x			lda 		XS_Mantissa+0,x 		; print digit.
+.019d71	09 30		ora #$30			ora 		#"0"
+.019d73	20 63 97	jsr $019763			jsr 		ITSOutputCharacter
+.019d76	20 c4 9c	jsr $019cc4			jsr 		FPUCopyFromNext 		; get it back
+.019d79	20 34 9a	jsr $019a34			jsr 		FPFractionalPart 		; get fractional part
+.019d7c	ad 04 04	lda $0404			lda 		NumBufX 				; done 11 characters yet ?
+.019d7f	c9 0b		cmp #$0b			cmp 	 	#11
+.019d81	90 dd		bcc $019d60			bcc 		_FPOutLoop 				; if so, keep going till zero.
+.019d83					_FPStripZeros:
+.019d83	ac 04 04	ldy $0404			ldy 		NumBufX 				; strip trailing zeros.
+.019d86					_FPStripLoop:
+.019d86	88		dey				dey 								; back one, if at start then no strip
+.019d87	f0 10		beq $019d99			beq 		_FPToExit
+.019d89	b9 05 04	lda $0405,y			lda 		Num_Buffer,y 			; keep going if "0"
+.019d8c	c9 30		cmp #$30			cmp 		#"0"
+.019d8e	f0 f6		beq $019d86			beq 		_FPStripLoop
+.019d90	c8		iny				iny
+.019d91	a9 00		lda #$00			lda 		#0 						; add trailing zero one on
+.019d93	99 05 04	sta $0405,y			sta 		Num_Buffer,y
+.019d96	8c 04 04	sty $0404			sty 		NumBufX 				; update position.
+.019d99					_FPTOExit:
+.019d99	60		rts				rts
 
 ;******  Return to file: _include.asm
 
 
 ;******  Processing file: modules/float/convert/fpfromstr.asm
 
-.019d9c					FPFromString:
-.019d9c	48		pha				pha 								; push A
-.019d9d	b1 1e		lda ($1e),y			lda		(zGenPtr),y					; is it followed by a DP ?
-.019d9f	c9 2e		cmp #$2e			cmp 	#"."
-.019da1	f0 03		beq $019da6			beq	 	_FPFIsDecimal
-.019da3	4c 09 9e	jmp $019e09			jmp 	_FPFNotDecimal
-.019da6					_FPFIsDecimal:
-.019da6	c8		iny				iny 								; consume the decimal.
-.019da7	20 4b 9b	jsr $019b4b			jsr 	FPUToFloat 					; convert the integer to float.
-.019daa	da		phx				phx 								; save X.
-.019dab	5a		phy				phy 								; save decimal start position
+.019d9a					FPFromString:
+.019d9a	48		pha				pha 								; push A
+.019d9b	b1 1e		lda ($1e),y			lda		(zGenPtr),y					; is it followed by a DP ?
+.019d9d	c9 2e		cmp #$2e			cmp 	#"."
+.019d9f	f0 03		beq $019da4			beq	 	_FPFIsDecimal
+.019da1	4c 07 9e	jmp $019e07			jmp 	_FPFNotDecimal
+.019da4					_FPFIsDecimal:
+.019da4	c8		iny				iny 								; consume the decimal.
+.019da5	20 49 9b	jsr $019b49			jsr 	FPUToFloat 					; convert the integer to float.
+.019da8	da		phx				phx 								; save X.
+.019da9	5a		phy				phy 								; save decimal start position
+.019daa	e8		inx				inx
+.019dab	e8		inx				inx
 .019dac	e8		inx				inx
 .019dad	e8		inx				inx
 .019dae	e8		inx				inx
 .019daf	e8		inx				inx
-.019db0	e8		inx				inx
-.019db1	e8		inx				inx
-.019db2	20 7d 97	jsr $01977d			jsr 	INTFromStringY 				; get the part after the DP.
-.019db5	20 4b 9b	jsr $019b4b			jsr 	FPUToFloat 					; convert that to a float.
-.019db8	68		pla				pla 								; calculate - chars consumed.
-.019db9	8c 8c 04	sty $048c			sty 	ExpTemp
-.019dbc	38		sec				sec
-.019dbd	ed 8c 04	sbc $048c			sbc 	ExpTemp 					; this is the shift amount
-.019dc0	20 73 9c	jsr $019c73			jsr 	FPUScale10A 				; scale it by 10^AC
-.019dc3	fa		plx				plx 								; restore original X
-.019dc4	20 2d 98	jsr $01982d			jsr 	FPAdd 						; Add X2 to X1 giving the fractional bit.
-.019dc7	b1 1e		lda ($1e),y			lda 	(zGenPtr),y 				; exponent ?
-.019dc9	c9 45		cmp #$45			cmp 	#"E"
-.019dcb	f0 04		beq $019dd1			beq 	_FPFExponent
-.019dcd	c9 65		cmp #$65			cmp 	#"e"
-.019dcf	d0 38		bne $019e09			bne 	_FPFNotDecimal 				; no, then exit normally.
-.019dd1					_FPFExponent:
-.019dd1	c8		iny				iny 								; skip over E symbol.
-.019dd2	b1 1e		lda ($1e),y			lda 	(zGenPtr),y 				; look at next
-.019dd4	49 2d		eor #$2d			eor 	#"-"						; will be zero if -ve
-.019dd6	d0 01		bne $019dd9			bne 	_FPFGotSign
-.019dd8	c8		iny				iny 								; if it was - skip over it.
-.019dd9					_FPFGotSign:
-.019dd9	48		pha				pha 								; push direction : 0 -ve, #0 +ve onto stack.
-.019dda	da		phx				phx
+.019db0	20 7b 97	jsr $01977b			jsr 	INTFromStringY 				; get the part after the DP.
+.019db3	20 49 9b	jsr $019b49			jsr 	FPUToFloat 					; convert that to a float.
+.019db6	68		pla				pla 								; calculate - chars consumed.
+.019db7	8c 8c 04	sty $048c			sty 	ExpTemp
+.019dba	38		sec				sec
+.019dbb	ed 8c 04	sbc $048c			sbc 	ExpTemp 					; this is the shift amount
+.019dbe	20 71 9c	jsr $019c71			jsr 	FPUScale10A 				; scale it by 10^AC
+.019dc1	fa		plx				plx 								; restore original X
+.019dc2	20 2b 98	jsr $01982b			jsr 	FPAdd 						; Add X2 to X1 giving the fractional bit.
+.019dc5	b1 1e		lda ($1e),y			lda 	(zGenPtr),y 				; exponent ?
+.019dc7	c9 45		cmp #$45			cmp 	#"E"
+.019dc9	f0 04		beq $019dcf			beq 	_FPFExponent
+.019dcb	c9 65		cmp #$65			cmp 	#"e"
+.019dcd	d0 38		bne $019e07			bne 	_FPFNotDecimal 				; no, then exit normally.
+.019dcf					_FPFExponent:
+.019dcf	c8		iny				iny 								; skip over E symbol.
+.019dd0	b1 1e		lda ($1e),y			lda 	(zGenPtr),y 				; look at next
+.019dd2	49 2d		eor #$2d			eor 	#"-"						; will be zero if -ve
+.019dd4	d0 01		bne $019dd7			bne 	_FPFGotSign
+.019dd6	c8		iny				iny 								; if it was - skip over it.
+.019dd7					_FPFGotSign:
+.019dd7	48		pha				pha 								; push direction : 0 -ve, #0 +ve onto stack.
+.019dd8	da		phx				phx
+.019dd9	e8		inx				inx
+.019dda	e8		inx				inx
 .019ddb	e8		inx				inx
 .019ddc	e8		inx				inx
 .019ddd	e8		inx				inx
 .019dde	e8		inx				inx
-.019ddf	e8		inx				inx
-.019de0	e8		inx				inx
-.019de1	20 7d 97	jsr $01977d			jsr 	INTFromStringY 				; get the exponent
-.019de4	fa		plx				plx 								; restore X.
-.019de5	bd 0f 03	lda $030f,x			lda 	XS2_Mantissa+1,x 			; check exponent low bytes are all zero.
-.019de8	1d 11 03	ora $0311,x			ora 	XS2_Mantissa+3,x
-.019deb	1d 10 03	ora $0310,x			ora 	XS2_Mantissa+2,x
-.019dee	d0 1b		bne $019e0b			bne 	_FPFXOverflow 				; if not, must be a bad exponent
-.019df0	bd 0e 03	lda $030e,x			lda 	XS2_Mantissa+0,x 			; get the exponent, the low byte
-.019df3	c9 1e		cmp #$1e			cmp 	#30 						; check in range 0-30
-.019df5	b0 14		bcs $019e0b			bcs 	_FPFXOverflow
-.019df7	68		pla				pla 								; get direction
-.019df8	d0 09		bne $019e03			bne 	_FPFXScale  				; if non-zero, e.g. +ve skip the next bit
-.019dfa	bd 0e 03	lda $030e,x			lda 	XS2_Mantissa+0,x 			; negate the exponent
-.019dfd	49 ff		eor #$ff			eor 	#$FF
-.019dff	1a		inc a				inc 	a
-.019e00	9d 0e 03	sta $030e,x			sta 	XS2_Mantissa+0,x
-.019e03					_FPFXScale:
-.019e03	bd 0e 03	lda $030e,x			lda 	XS2_Mantissa+0,x 			; get scale amount
-.019e06	20 73 9c	jsr $019c73			jsr 	FPUScale10A 				; scale by the exponent.
-.019e09					_FPFNotDecimal:
-.019e09	68		pla				pla
-.019e0a	60		rts				rts
-.019e0b					_FPFXOverflow:
-.019e0b	20 2f 84	jsr $01842f			jsr 	ERR_Handler
->019e0e	45 78 70 6f 6e 65 6e 74				.text 	"Exponent Range",0
->019e16	20 52 61 6e 67 65 00
+.019ddf	20 7b 97	jsr $01977b			jsr 	INTFromStringY 				; get the exponent
+.019de2	fa		plx				plx 								; restore X.
+.019de3	bd 0f 03	lda $030f,x			lda 	XS2_Mantissa+1,x 			; check exponent low bytes are all zero.
+.019de6	1d 11 03	ora $0311,x			ora 	XS2_Mantissa+3,x
+.019de9	1d 10 03	ora $0310,x			ora 	XS2_Mantissa+2,x
+.019dec	d0 1b		bne $019e09			bne 	_FPFXOverflow 				; if not, must be a bad exponent
+.019dee	bd 0e 03	lda $030e,x			lda 	XS2_Mantissa+0,x 			; get the exponent, the low byte
+.019df1	c9 1e		cmp #$1e			cmp 	#30 						; check in range 0-30
+.019df3	b0 14		bcs $019e09			bcs 	_FPFXOverflow
+.019df5	68		pla				pla 								; get direction
+.019df6	d0 09		bne $019e01			bne 	_FPFXScale  				; if non-zero, e.g. +ve skip the next bit
+.019df8	bd 0e 03	lda $030e,x			lda 	XS2_Mantissa+0,x 			; negate the exponent
+.019dfb	49 ff		eor #$ff			eor 	#$FF
+.019dfd	1a		inc a				inc 	a
+.019dfe	9d 0e 03	sta $030e,x			sta 	XS2_Mantissa+0,x
+.019e01					_FPFXScale:
+.019e01	bd 0e 03	lda $030e,x			lda 	XS2_Mantissa+0,x 			; get scale amount
+.019e04	20 71 9c	jsr $019c71			jsr 	FPUScale10A 				; scale by the exponent.
+.019e07					_FPFNotDecimal:
+.019e07	68		pla				pla
+.019e08	60		rts				rts
+.019e09					_FPFXOverflow:
+.019e09	20 2f 84	jsr $01842f			jsr 	ERR_Handler
+>019e0c	45 78 70 6f 6e 65 6e 74				.text 	"Exponent Range",0
+>019e14	20 52 61 6e 67 65 00
 
 ;******  Return to file: _include.asm
 
 
 ;******  Processing file: modules/basic/expressions/floatonly/rnd.asm
 
-.019e1d					Unary_Rnd:
-.019e1d	20 5b 8a	jsr $018a5b			jsr 	EvaluateNumberX 			; get value
-.019e20	20 ea 90	jsr $0190ea			jsr 	CheckNextRParen 			; check right bracket.
-.019e23	20 48 8d	jsr $018d48			jsr 	GetSignCurrent 				; get sign -1,0,1.
-.019e26	09 00		ora #$00			ora 	#0 							; if -ve set seed.
-.019e28	30 10		bmi $019e3a			bmi 	_URSetSeed
-.019e2a	f0 2c		beq $019e58			beq 	_URMakeRandom 				; if zero return same number.
-.019e2c	da		phx				phx
-.019e2d	a2 00		ldx #$00			ldx 	#0
-.019e2f	20 95 9e	jsr $019e95			jsr 	Random16
-.019e32	a2 02		ldx #$02			ldx 	#2
-.019e34	20 95 9e	jsr $019e95			jsr 	Random16
-.019e37	fa		plx				plx
-.019e38	80 1e		bra $019e58			bra 	_URMakeRandom
-.019e3a					_URSetSeed:
-.019e3a	20 4b 9b	jsr $019b4b			jsr 	FPUToFloat 					; make it a float to twiddle it.
-.019e3d	bd 08 03	lda $0308,x			lda		XS_Mantissa+0,x 			; copy mantissa to seed.
-.019e40	8d 93 04	sta $0493			sta 	RandomSeed+0
-.019e43	bd 09 03	lda $0309,x			lda		XS_Mantissa+1,x
-.019e46	8d 94 04	sta $0494			sta 	RandomSeed+1
-.019e49	bd 0a 03	lda $030a,x			lda		XS_Mantissa+2,x
-.019e4c	8d 95 04	sta $0495			sta 	RandomSeed+2
-.019e4f	bd 0b 03	lda $030b,x			lda		XS_Mantissa+3,x
-.019e52	0a		asl a				asl 	a
-.019e53	49 db		eor #$db			eor 	#$DB
-.019e55	8d 96 04	sta $0496			sta 	RandomSeed+3
-.019e58					_URMakeRandom:
-.019e58	ad 93 04	lda $0493			lda 	RandomSeed+0 				; check if seed is zero.
-.019e5b	0d 94 04	ora $0494			ora 	RandomSeed+1
-.019e5e	0d 95 04	ora $0495			ora 	RandomSeed+2
-.019e61	0d 96 04	ora $0496			ora 	RandomSeed+3
-.019e64	d0 0a		bne $019e70			bne 	_URNotZero
-.019e66	a9 47		lda #$47			lda 	#$47
-.019e68	8d 94 04	sta $0494			sta 	RandomSeed+1				; if it is, make it non zero.
-.019e6b	a9 3d		lda #$3d			lda 	#$3D
-.019e6d	8d 96 04	sta $0496			sta 	RandomSeed+3
-.019e70					_URNotZero:
-.019e70	ad 93 04	lda $0493			lda 	RandomSeed+0 				; copy seed into mantissa.
-.019e73	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x
-.019e76	ad 94 04	lda $0494			lda 	RandomSeed+1
-.019e79	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
-.019e7c	ad 95 04	lda $0495			lda 	RandomSeed+2
-.019e7f	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
-.019e82	ad 96 04	lda $0496			lda 	RandomSeed+3
-.019e85	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
-.019e88	a9 00		lda #$00			lda 	#$00 						; set type to float.
-.019e8a	9d 0d 03	sta $030d,x			sta 	XS_Type,x
-.019e8d	a9 80		lda #$80			lda 	#$80
-.019e8f	9d 0c 03	sta $030c,x			sta	 	XS_Exponent,x				; exponent to 128 (e.g. 0.x 2^0)
-.019e92	4c 82 9b	jmp $019b82			jmp 	FPUNormalise
-.019e95					Random16:
-.019e95	5e 94 04	lsr $0494,x			lsr 	RandomSeed+1,x				; shift seed right
-.019e98	7e 93 04	ror $0493,x			ror 	RandomSeed,x
-.019e9b	90 08		bcc $019ea5			bcc 	_R16_NoXor
-.019e9d	bd 94 04	lda $0494,x			lda 	RandomSeed+1,x				; xor MSB with $B4 if bit set.
-.019ea0	49 b4		eor #$b4			eor 	#$B4 						; like the Wikipedia one.
-.019ea2	9d 94 04	sta $0494,x			sta 	RandomSeed+1,x
-.019ea5					_R16_NoXor:
-.019ea5	60		rts				rts
+.019e1b					Unary_Rnd:
+.019e1b	20 5b 8a	jsr $018a5b			jsr 	EvaluateNumberX 			; get value
+.019e1e	20 ea 90	jsr $0190ea			jsr 	CheckNextRParen 			; check right bracket.
+.019e21	20 48 8d	jsr $018d48			jsr 	GetSignCurrent 				; get sign -1,0,1.
+.019e24	09 00		ora #$00			ora 	#0 							; if -ve set seed.
+.019e26	30 10		bmi $019e38			bmi 	_URSetSeed
+.019e28	f0 2c		beq $019e56			beq 	_URMakeRandom 				; if zero return same number.
+.019e2a	da		phx				phx
+.019e2b	a2 00		ldx #$00			ldx 	#0
+.019e2d	20 93 9e	jsr $019e93			jsr 	Random16
+.019e30	a2 02		ldx #$02			ldx 	#2
+.019e32	20 93 9e	jsr $019e93			jsr 	Random16
+.019e35	fa		plx				plx
+.019e36	80 1e		bra $019e56			bra 	_URMakeRandom
+.019e38					_URSetSeed:
+.019e38	20 49 9b	jsr $019b49			jsr 	FPUToFloat 					; make it a float to twiddle it.
+.019e3b	bd 08 03	lda $0308,x			lda		XS_Mantissa+0,x 			; copy mantissa to seed.
+.019e3e	8d 93 04	sta $0493			sta 	RandomSeed+0
+.019e41	bd 09 03	lda $0309,x			lda		XS_Mantissa+1,x
+.019e44	8d 94 04	sta $0494			sta 	RandomSeed+1
+.019e47	bd 0a 03	lda $030a,x			lda		XS_Mantissa+2,x
+.019e4a	8d 95 04	sta $0495			sta 	RandomSeed+2
+.019e4d	bd 0b 03	lda $030b,x			lda		XS_Mantissa+3,x
+.019e50	0a		asl a				asl 	a
+.019e51	49 db		eor #$db			eor 	#$DB
+.019e53	8d 96 04	sta $0496			sta 	RandomSeed+3
+.019e56					_URMakeRandom:
+.019e56	ad 93 04	lda $0493			lda 	RandomSeed+0 				; check if seed is zero.
+.019e59	0d 94 04	ora $0494			ora 	RandomSeed+1
+.019e5c	0d 95 04	ora $0495			ora 	RandomSeed+2
+.019e5f	0d 96 04	ora $0496			ora 	RandomSeed+3
+.019e62	d0 0a		bne $019e6e			bne 	_URNotZero
+.019e64	a9 47		lda #$47			lda 	#$47
+.019e66	8d 94 04	sta $0494			sta 	RandomSeed+1				; if it is, make it non zero.
+.019e69	a9 3d		lda #$3d			lda 	#$3D
+.019e6b	8d 96 04	sta $0496			sta 	RandomSeed+3
+.019e6e					_URNotZero:
+.019e6e	ad 93 04	lda $0493			lda 	RandomSeed+0 				; copy seed into mantissa.
+.019e71	9d 08 03	sta $0308,x			sta 	XS_Mantissa+0,x
+.019e74	ad 94 04	lda $0494			lda 	RandomSeed+1
+.019e77	9d 09 03	sta $0309,x			sta 	XS_Mantissa+1,x
+.019e7a	ad 95 04	lda $0495			lda 	RandomSeed+2
+.019e7d	9d 0a 03	sta $030a,x			sta 	XS_Mantissa+2,x
+.019e80	ad 96 04	lda $0496			lda 	RandomSeed+3
+.019e83	9d 0b 03	sta $030b,x			sta 	XS_Mantissa+3,x
+.019e86	a9 00		lda #$00			lda 	#$00 						; set type to float.
+.019e88	9d 0d 03	sta $030d,x			sta 	XS_Type,x
+.019e8b	a9 80		lda #$80			lda 	#$80
+.019e8d	9d 0c 03	sta $030c,x			sta	 	XS_Exponent,x				; exponent to 128 (e.g. 0.x 2^0)
+.019e90	4c 80 9b	jmp $019b80			jmp 	FPUNormalise
+.019e93					Random16:
+.019e93	5e 94 04	lsr $0494,x			lsr 	RandomSeed+1,x				; shift seed right
+.019e96	7e 93 04	ror $0493,x			ror 	RandomSeed,x
+.019e99	90 08		bcc $019ea3			bcc 	_R16_NoXor
+.019e9b	bd 94 04	lda $0494,x			lda 	RandomSeed+1,x				; xor MSB with $B4 if bit set.
+.019e9e	49 b4		eor #$b4			eor 	#$B4 						; like the Wikipedia one.
+.019ea0	9d 94 04	sta $0494,x			sta 	RandomSeed+1,x
+.019ea3					_R16_NoXor:
+.019ea3	60		rts				rts
 
 ;******  Return to file: _include.asm
 
 
 ;******  Processing file: modules/basic/expressions/floatonly/int.asm
 
-.019ea6					Unary_Int:
-.019ea6	20 5b 8a	jsr $018a5b			jsr 	EvaluateNumberX 			; get value
-.019ea9	20 ea 90	jsr $0190ea			jsr 	CheckNextRParen 			; check right bracket.
-.019eac	4c aa 9b	jmp $019baa			jmp 	FPUToInteger				; Convert to integer.
+.019ea4					Unary_Int:
+.019ea4	20 5b 8a	jsr $018a5b			jsr 	EvaluateNumberX 			; get value
+.019ea7	20 ea 90	jsr $0190ea			jsr 	CheckNextRParen 			; check right bracket.
+.019eaa	4c a8 9b	jmp $019ba8			jmp 	FPUToInteger				; Convert to integer.
 
 ;******  Return to file: _include.asm
 
 
 ;******  Return to file: basic.asm
 
->019eaf	02						.byte 	2
+>019ead	02						.byte 	2
 .fff8					DefaultInterrupt:
 .fff8	40		rti				rti
 >fffa	f8 ff						.word DefaultInterrupt

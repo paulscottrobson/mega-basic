@@ -30,7 +30,7 @@ _VFExists:
 		cmp 	#(token_DollarLParen) & 1
 		bne 	_VFSingleElement
 		;
-_VFNextIndex:		
+_VFNextIndex:	
 		;
 		;		Calculate the index.
 		;

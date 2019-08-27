@@ -1,7 +1,8 @@
 TODO
 ====
+	- 	Change expr so uses asgn build 
+
 	- 	Check arrays/assignment work properly (a proper test, scripty thing :) )
-			- Fix Assert bug, remove bodges
 			- Try changes ch-ch-changes.
 			
 	-	Implement the default method of calculating low memory variables.

@@ -24,8 +24,7 @@ class SingleVariable(object):
 	#
 	def createName(self):
 		name = "".join([chr(random.randint(65,90)) for x in range(0,random.randint(1,4))])
-		return name.lower()+"$"		# *** BODGE ***
-		#return name.lower() + ["","#","%","$"][random.randint(0,3)]
+		return name.lower() + ["","#","%","$"][random.randint(0,3)]
 	#
 	def setupCode(self):
 		return None
@@ -59,7 +58,6 @@ class Array(SingleVariable):
 			else:
 				for j in range(0,self.arraySize[1]):
 					checks.append([str(i)+","+str(j),self.data[i][j]])
-		checks = checks[:1] # *** BODGE ***
 		return ":".join(['assert {0}({1})={2}'.format(self.name,c[0],c[1]) for c in checks])
 
 	#
@@ -72,13 +70,13 @@ class TestGenerator(BasicProgram):
 		print("Test # ",seed)
 		random.seed(seed)
 		self.variables = {}		
-		for i in range(0,0):
+		for i in range(0,4):
 			ok = False
 			while not ok:
 				sv = SingleVariable()
 				ok = sv.sname not in self.variables 
 			self.variables[sv.sname] = sv
-		for i in range(0,1):
+		for i in range(0,2):
 			ok = False
 			while not ok:
 				sv = Array()
