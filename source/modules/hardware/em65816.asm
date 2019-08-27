@@ -34,10 +34,13 @@ VariableMemory = $4000
 BasicProgram:		
 		.if loadTest = 0		
 		.include "../basic/testcode/testcode.src"
-		.else
+		.endif
+		.if loadTest = 1
 		.include "../basic/testcode/testing.src"
 		.endif
-
+		.if loadTest = 2
+		.include "../basic/testcode/testassign.src"
+		.endif
 
 		* = $C000
 StartROM:

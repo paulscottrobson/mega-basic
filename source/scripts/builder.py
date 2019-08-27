@@ -115,10 +115,16 @@ class ExpressionTestBasic(FullBasic):
 		self.define("autorun",1)
 		self.define("loadtest",1)	
 
+class AssignmentTestBasic(FullBasic):
+	def create(self):
+		ExpressionTestBasic.create(self)
+		self.define("loadtest",2)	
+
 BuildDefinition.Classes = {														# Class list
 		"tim":	TIMOnlyTest,
 		"fpch":	FloatingPointTest,
 		"expr":	ExpressionTestBasic,
+		"assn": AssignmentTestBasic,
 		"full":	FullBasic,
 		"intb":	IntegerBasic
 }

@@ -1,7 +1,7 @@
 TODO
 ====
-	- 	Change expr so uses asgn build 
-
+	- 	Figure out xemu/fm65 assn bug (error at 2)
+	
 	- 	Check arrays/assignment work properly (a proper test, scripty thing :) )
 			- Try changes ch-ch-changes.
 			
