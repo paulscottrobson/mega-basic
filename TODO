@@ -1,9 +1,29 @@
 TODO
 ====
-	- 	Check arrays/assignment work properly (a proper test !)
-	-	Implement DIM.
+	- 	Check arrays/assignment work properly (a proper test, scripty thing :) )
+	-	Implement the default method of calculating low memory variables.
 	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
-
+	- 	Decide what to do next 
+			- think need to route printing through something ?
+			- garbage collection
+			- program editing.
+			- rest of the commands :) LIST (then add program editing)
+									  IF THEN ENDIF
+									  WHILE WEND
+									  REPEAT UNTIL
+									  GOSUB GOTO RETURN ON GOTO/GOSUB
+									  FOR NEXT
+									  READ DATA RESTORE (restore on reset)
+									  POKE DOKE LOKE
+									  WAIT
+									  DEF FN make it work ?
+									  GET SYS
+									  OLD
+			- implement POS and TAB which I forgot about.
+			- taylor functions. (Can MS copyright constants and known functions....)
+			- square root N/R.
+	-	How will PROC work ? Pre-scan ? Store on search in quasi-type ?
+	- 	Code reviews ?												  	
 Fixes
 =====
 
@@ -20,7 +40,8 @@ Fixes
 Error Checks
 ============
 
+LoMem/HiMem crossover :)
+
 - 	Allocating temporary string memory (space available)
 - 	Allocating variable space.
-- 	Allocating memory space.
-- 	Concreting (not necessary as no inline strings)
+- 	Allocating memory space for arrays.

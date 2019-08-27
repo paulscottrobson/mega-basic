@@ -35,6 +35,7 @@ maxstring = 253
 	.include "modules/utility/tim.asm"
 	.include "modules/basic/common/errors.asm"
 	.include "modules/basic/core.asm"
+	.include "modules/basic/commands/dim.asm"
 	.include "modules/basic/commands/run.asm"
 	.include "modules/basic/commands/let.asm"
 	.include "modules/basic/commands/end.asm"

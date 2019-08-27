@@ -105,7 +105,7 @@ class Tokens(object):
 		not		fn( 	abs(	asc( 	int( 	peek( 	rnd(	usr(
 		left$( 	right$(	mid$( 	spc( 	str$( 	val(	len(	hex$(
 		sin( 	cos( 	tan( 	atn(	exp(	log( 	sqr(
-		dec( 	deek(	leek(	mod( 	sgn(	chr$(
+		dec( 	deek(	leek(	mod( 	sgn(	chr$(	pos(	tab(
 	##
 	##		Keywords that require a one byte token.
 	##
@@ -128,8 +128,8 @@ class Tokens(object):
 		def 	clr 	stop	data	read	dim	
 		to 		step  	gosub 	return	goto	end
 		input	let		list	new		old		on
-		restore	poke	print	run 	wait
-		doke 	loke 	assert
+		restore	poke	print	run 	wait 	sys
+		doke 	loke 	assert 	get 
 
 """		
 

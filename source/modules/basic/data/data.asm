@@ -122,7 +122,9 @@ RandomSeed:	.dword ? 						; Random seed.
 ArrayMaxDim = 3 							; number of dimensions.
 
 ArrayDef:	.fill (ArrayMaxDim+1)*2 		; dimensions for auto-creation
-											; (altered by DIM)
+
+UsrArrayDef:.fill (ArrayMaxDim+1)*2 		; dimensions created in DIM
+UsrArrayIdx:.byte ? 						; index into UsrArrayDef
 											
 Tim_PC:		.word ?							; program counter on BRK (Hi/Lo order)
 Tim_IRQ:	.word ?							; IRQ Vector (Hi/Lo order)

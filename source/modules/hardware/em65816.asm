@@ -40,7 +40,6 @@ BasicProgram:
 
 
 		* = $C000
-
 StartROM:
 		clc
 		xce	
