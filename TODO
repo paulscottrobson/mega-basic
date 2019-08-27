@@ -1,8 +1,13 @@
 TODO
 ====
 	- 	Check arrays/assignment work properly (a proper test, scripty thing :) )
+			- Fix Assert bug, remove bodges
+			- Try changes ch-ch-changes.
+			
 	-	Implement the default method of calculating low memory variables.
+
 	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
+
 	- 	Decide what to do next 
 			- think need to route printing through something ?
 			- garbage collection
@@ -22,6 +27,7 @@ TODO
 			- implement POS and TAB which I forgot about.
 			- taylor functions. (Can MS copyright constants and known functions....)
 			- square root N/R.
+			
 	-	How will PROC work ? Pre-scan ? Store on search in quasi-type ?
 	- 	Code reviews ?												  	
 Fixes

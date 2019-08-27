@@ -1,7 +1,7 @@
 
 ; 64tass Turbo Assembler Macro V1.54.1900 listing file
 ; 64tass -X -b -q -L rom.lst -o rom.bin basic.asm
-; Tue Aug 27 10:48:12 2019
+; Tue Aug 27 16:59:12 2019
 
 ;Offset	;Hex		;Monitor	;Source
 
@@ -13,8 +13,8 @@
 ="65816"				cpu = "65816"
 ="em65816"				hardware = "em65816"
 =1					exitonend = 1
-=0					autorun = 0
-=0					loadtest = 0
+=1					autorun = 1
+=1					loadtest = 1
 =1					hasfloat = 1
 =1					hasinteger = 1
 =253					maxstring = 253
@@ -125,17 +125,15 @@
 =$4000					VariableMemory = $4000
 .1000					BasicProgram:
 
-;******  Processing file: modules/hardware/../basic/testcode/testcode.src
+;******  Processing file: modules/hardware/../basic/testcode/testing.src
 
->1000	30 02 00 c7 01 bd 43 bf			.byte	$30,$02,$00,$c7,$01,$bd,$43,$bf
->1008	44 be bf 02 bc 45 be bf			.byte	$44,$be,$bf,$02,$bc,$45,$be,$bf
->1010	03 b8 42 bf 43 bf 44 be			.byte	$03,$b8,$42,$bf,$43,$bf,$44,$be
->1018	c0 01 bd 43 bf 44 be 84			.byte	$c0,$01,$bd,$43,$bf,$44,$be,$84
->1020	41 63 c0 03 b8 41 bf 42			.byte	$41,$63,$c0,$03,$b8,$41,$bf,$42
->1028	bf 43 be 84 fe 03 2a 00			.byte	$bf,$43,$be,$84,$fe,$03,$2a,$00
->1030	0f 03 00 c7 18 bd 40 bf			.byte	$0f,$03,$00,$c7,$18,$bd,$40,$bf
->1038	40 bf 40 bf 43 be 00 05			.byte	$40,$bf,$40,$bf,$43,$be,$00,$05
->1040	04 00 c4 00 00				.byte	$04,$00,$c4,$00,$00
+>1000	09 02 00 c7 01 b8 42 be			.byte	$09,$02,$00,$c7,$01,$b8,$42,$be
+>1008	00 0c 03 00 dc 01 b8 40			.byte	$00,$0c,$03,$00,$dc,$01,$b8,$40
+>1010	be 84 fe 02 00 1b 04 00			.byte	$be,$84,$fe,$02,$00,$1b,$04,$00
+>1018	d6 fe 14 50 61 73 73 65			.byte	$d6,$fe,$14,$50,$61,$73,$73,$65
+>1020	64 20 41 73 73 69 67 6e			.byte	$64,$20,$41,$73,$73,$69,$67,$6e
+>1028	6d 65 6e 74 2e c0 c4 00			.byte	$6d,$65,$6e,$74,$2e,$c0,$c4,$00
+>1030	00					.byte	$00
 
 ;******  Return to file: modules/hardware/em65816.asm
 

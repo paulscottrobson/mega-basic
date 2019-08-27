@@ -1,8 +1,8 @@
 # *******************************************************************************************
 # *******************************************************************************************
 #
-#		Name : 		testcreate.py
-#		Purpose :	Create test programs
+#		Name : 		testmath.py
+#		Purpose :	Create test programs for binary/unary arithmetic/strings.	
 #		Date :		24th August 2019
 #		Author : 	Paul Robson (paul@robsons.org.uk)
 #
@@ -172,5 +172,5 @@ if __name__ == "__main__":
 		bp.numberTest(i)
 		bp.stringTest(i)
 
-	bp.add('Print "Passed.":stop')
+	bp.add('Print "Passed Arithmetic,Logical,Unary.":stop')
 	bp.export(sys.argv[1])
