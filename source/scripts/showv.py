@@ -51,7 +51,7 @@ def formatData(mem,addr,type):
 
 mem = [x for x in open("memory.dump","rb").read(0x10000)]
 for i in range(0,6):	
-	hashTable = 0x427+i*8*2
+	hashTable = 0x32F+i*8*2
 	print("--- {0}{1} ---".format(["string","real","int"][i >> 1],"" if i%2 == 0 else "()"))
 	for he in range(0,8):
 		ha = hashTable + he * 2
@@ -68,7 +68,7 @@ for i in range(0,6):
 				if i % 2 == 0:
 					data = formatData(mem,hp+3+len(name),i >> 1)
 				else:
-					data = formatArray(mem,hp+3+len(name),i >> 1,1)
+					data = formatArray(mem,hp+3+len(name),i >> 1,3)
 				name = name.lower()+"$#%"[i >> 1]
 				print("\t\t${0:04x} {1:6} (#${2:02x}) = {3}".format(hp,name,mem[hp+2],data))
 				hp = mem[hp] + mem[hp+1] * 256

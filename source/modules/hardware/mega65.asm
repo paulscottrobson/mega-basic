@@ -20,10 +20,10 @@ Exit:	.macro
 _halt:	bra 		_halt
 		.endm
 
-		* = $8000
+HighMemory = $7F00
+VariableMemory = $2000
 
-HighMemory = $7000
-VariableMemory = $4000
+		* = $8000
 
 BasicProgram:		
 		.if loadTest = 0		

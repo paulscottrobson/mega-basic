@@ -35,29 +35,13 @@ zVarType: 	.byte ? 						; type of data (token)
 
 zNullString:.byte ? 						; represents a NULL string.
 
-		* = $200
-
-; *******************************************************************************************
-;
-;							Memory used by the Interface Tools
-;
-; *******************************************************************************************
-
-IFT_XCursor:.byte ?							; current logical position on screen
-IFT_YCursor:.byte ?
-IFT_Buffer:	.fill 100 						; scroll copy buffer.
-IFT_LineBuffer: .fill 100 					; line input buffer.
-
 ; *******************************************************************************************
 ;
 ;									   Buffers etc.
 ;
 ; *******************************************************************************************
 
-		* = $300 							; expression stack area.
-
-UserVector .fill 4 							; USR(x) calls this.
-LocalVector .fill 4 						; Indirect calls call this.
+		* = $80 							; expression stack area.
 
 XS_Mantissa .dword ? 						; 4 byte mantissa, bit 31 set.
 XS_Exponent .byte ?							; 1 byte exponent, 128 == 2^0 (float only)
@@ -77,19 +61,31 @@ XS3_Mantissa = XS_Mantissa+XS_Size*2
 XS3_Exponent = XS_Exponent+XS_Size*2
 XS3_Type = XS_Type+XS_Size*2
 
-		* = $400
+; *******************************************************************************************
+;
+;									General Memory Usage
+;
+; *******************************************************************************************
+
+		* = $300
 ;		
 StringPtr:	.word ? 						; Top of free memory (for string allocation)
 VarMemPtr: 	.word ?							; Bottom of free memory (for variables)
 endOfProgram: .word ? 						; End of Program Memory.
+;
+;									Vector jumps
+;
+UserVector .fill 4 							; USR(x) calls this.
+LocalVector .fill 4 						; Indirect calls call this.
 ;
 ;
 ;		Must be this way round, so it automatically makes a count-prefixed string.
 ;
 NumBufX 	.byte 	?						; buffer index position
 Num_Buffer	.fill 	32 						; buffer for numeric conversions
-
-
+;
+;		Identifier hash tables
+;
 HashTableCount = 6 							; there are 6 hash tables, in token order.
 HashTableSize = 8 							; each hash table as 8 links.
 											; (used implicitly in extract.asm)
@@ -97,7 +93,9 @@ HashTableSize = 8 							; each hash table as 8 links.
 HashTableBase: 								
 			.fill	HashTableCount * HashTableSize * 2
 HashTableEnd:	
-
+;
+;								Other Miscellaneous Variables
+;
 Var_Buffer 	= Num_Buffer 					; buffer for variable name (same space)
 Var_Type    .byte ? 						; type of variable (as a type token)
 Var_Hash 	.byte ? 						; hash of identifier name.
@@ -136,3 +134,14 @@ Tim_Y:		.byte ?
 Tim_Z:		.byte ?
 Tim_SP:		.word ?							; Stack Pointer (just in cases)
 		
+; *******************************************************************************************
+;
+;							Memory used by the Interface Tools
+;
+; *******************************************************************************************
+
+IFT_XCursor:.byte ?							; current logical position on screen
+IFT_YCursor:.byte ?
+IFT_Buffer:	.fill 100 						; scroll copy buffer.
+IFT_LineBuffer: .fill 100 					; line input buffer.
+

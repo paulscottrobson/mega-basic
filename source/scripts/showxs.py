@@ -11,7 +11,7 @@
 
 mem = [x for x in open("memory.dump","rb").read(0x10000)]
 for v in range(0,4):
-	a = v * 6 + 0x308
+	a = v * 6 + 0x80
 	mantissa = mem[a] + (mem[a+1] << 8)+ (mem[a+2] << 16)+ (mem[a+3] << 24)
 	exponent = mem[a+4]
 	szByte = mem[a+5]

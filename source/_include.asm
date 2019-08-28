@@ -18,8 +18,8 @@ fatal: .macro
 cpu = "65816"
 hardware = "em65816"
 exitonend = 1
-autorun = 0
-loadtest = 0
+autorun = 1
+loadtest = 2
 hasfloat = 1
 hasinteger = 1
 maxstring = 253
