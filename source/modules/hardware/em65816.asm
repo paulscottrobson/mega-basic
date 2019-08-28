@@ -27,9 +27,9 @@ Exit:	.macro
 		.byte 	2
 		.endm
 
-HighMemory = $8000
-VariableMemory = 0							; i.e. put it after BASIC code.
-
+HighMemory = $7F00
+VariableMemory = $2000
+	
 		* = $1000
 BasicProgram:		
 		.if loadTest = 0		

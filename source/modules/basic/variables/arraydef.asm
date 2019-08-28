@@ -161,7 +161,7 @@ _ACCFillLoop:
 		adc 	#2
 		sta 	zTemp3
 		bcc 	_ACCSkip2
-		inc 	zTemp3
+		inc 	zTemp3+1
 _ACCSkip2:
 		ldy 	#0 							; reached the end ?			
 		lda 	(zTemp3),y					; (looking for FF marker, everything else 00)
