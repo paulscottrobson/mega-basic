@@ -62,6 +62,7 @@ maxstring = 253
 	.include "modules/basic/expressions/string/chr.asm"
 	.include "modules/basic/expressions/string/spc.asm"
 	.include "modules/basic/memory/65816.asm"
+	.include "modules/basic/pointer/programend.asm"
 	.include "modules/basic/pointer/checks.asm"
 	.include "modules/basic/stringmem/concrete.asm"
 	.include "modules/basic/stringmem/tempalloc.asm"

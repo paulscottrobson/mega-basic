@@ -40,7 +40,7 @@ s_prev:	.macro
 		dey
 		.endm
 
-s_start:.macro
+s_startLine:.macro
 		ldy 	#0
 		.endm
 	

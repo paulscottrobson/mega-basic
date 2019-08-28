@@ -1,9 +1,13 @@
 TODO
 ====
+	- 	GOTO
+	- 	Rough speed test.
+	-	GOSUB
+	- 	RETURN
+	- 	LIST
 			
-	-	Implement the default method of calculating low memory variables.
-
 	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
+
 
 	- 	Decide what to do next 
 			- think need to route printing through something ?

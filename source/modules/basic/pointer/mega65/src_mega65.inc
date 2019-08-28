@@ -41,7 +41,7 @@ s_prev:	.macro
 		dez
 		.endm
 
-s_start:.macro
+s_startLine:.macro
 		ldz 	#0
 		.endm
 
@@ -123,4 +123,3 @@ _SEDouble:
 		inz
 _SEDone:	
 		.endm		
-

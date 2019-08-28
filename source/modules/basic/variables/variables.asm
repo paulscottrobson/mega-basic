@@ -78,10 +78,23 @@ _VCLoop:sta 	HashTableBase,x
 		cpx 	#HashTableEnd-HashTableBase
 		bne 	_VCLoop
 		;
-		lda 	#VariableMemory & $FF	; reset the free variable memory pointer
+		;		Set the variable memory base. This can either be a fixed
+		; 		position (variableMemory) or can be after the end of the program
+		; 		(if variableMemory = 0)
+		;
+		.if variableMemory != 0
+		lda 	#VariableMemory & $FF	
 		sta 	VarMemPtr
 		lda 	#VariableMemory >> 8
 		sta 	VarMemPtr+1
+		;
+		.else
+		;
+		lda 	endOfProgram
+		sta 	VarMemPtr
+		lda 	endOfProgram+1
+		sta 	VarMemPtr+1
+		.endif
 		;
 		plx 							; restore registers		
 		pla 			

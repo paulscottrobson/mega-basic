@@ -16,11 +16,7 @@
 //															Timing
 // *******************************************************************************************************************************
 	
-//
-//		I am unreliably informed that a 65816 operates at about 32 MIPS at 8Mhz. So this emulator
-//		times on that assumption.
-//	
-#define CYCLES_PER_SECOND	(2000000)												// 2.0 MIPS
+#define CYCLES_PER_SECOND	(430000)												// = 1Mhz roughly.
 #define FRAME_RATE			(60)													// Frame rate
 #define CYCLES_PER_FRAME	(CYCLES_PER_SECOND/FRAME_RATE)							// T-States per second.
 
@@ -149,6 +145,7 @@ void CPULoadBinary(char *fileName) {
 // *******************************************************************************************************************************
 
 void CPUEndRun(void) {
+	printf("Executed %ld instructions.\n",instructionCount);
 	FILE *f = fopen("memory.dump","wb");
 	for (LONG32 l = 0x0000;l < 0x10000;l += 1024) {
 		fwrite(ramMemory+l,1,1024,f);
@@ -180,4 +177,3 @@ CPUSTATUS *CPUGetStatus(void) {
 	return &status;
 }
 #endif
-

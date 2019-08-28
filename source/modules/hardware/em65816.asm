@@ -28,7 +28,7 @@ Exit:	.macro
 		.endm
 
 HighMemory = $8000
-VariableMemory = $4000
+VariableMemory = 0							; i.e. put it after BASIC code.
 
 		* = $1000
 BasicProgram:		

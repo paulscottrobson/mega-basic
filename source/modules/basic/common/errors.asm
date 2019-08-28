@@ -32,7 +32,7 @@ BadParamError:
 ; *******************************************************************************************
 
 ERR_Handler:
-		#s_start 							; start (offset) of current line.
+		#s_startLine 						; start (offset) of current line.
 		#s_next 							; LSB line
 		#s_get
 		sta 	XS_Mantissa 

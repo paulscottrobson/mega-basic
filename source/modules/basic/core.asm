@@ -29,10 +29,9 @@ BASIC_Start:
 		lda 	#(USRDefault >> 16) & $FF
 		sta 	UserVector+3
 		;
+		jsr 	UpdateProgramEnd 			; update the program end.
+		;
 		jsr 	ResetRunStatus 				; clear everything (CLR command)
-		;
-		; 	TODO: NEW, maybe.
-		;
 WarmStart:
 		#ResetStack
 		;
@@ -40,4 +39,4 @@ WarmStart:
 		; 	TODO: Input and execute command.
 		;		
 		jmp 	COMMAND_Run
-
+		

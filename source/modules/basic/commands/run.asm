@@ -16,7 +16,7 @@ Command_RUN: 	;; run
 		;		New line.
 		;	
 RUN_NewLine:				
-		#s_start 							; go to start of instruction
+		#s_startLine 						; go to start of instruction
 		#s_get 								; get the offset
 		#s_next 							; advance to first token
 		#s_next

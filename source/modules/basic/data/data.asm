@@ -81,6 +81,7 @@ XS3_Type = XS_Type+XS_Size*2
 ;		
 StringPtr:	.word ? 						; Top of free memory (for string allocation)
 VarMemPtr: 	.word ?							; Bottom of free memory (for variables)
+endOfProgram: .word ? 						; End of Program Memory.
 ;
 ;
 ;		Must be this way round, so it automatically makes a count-prefixed string.
