@@ -11,7 +11,9 @@
 
 
 Command_DIM: 	;; dim
-		phy 								; save Y which is the start of the name.
+		#s_offsetToA 						; save pos which is the start of the name.
+		pha 								; push on stack.
+		;
 		jsr 	VariableExtract 			; get the identifier
 		lda 	Var_Type 					; check it is an array
 		and 	#1 
@@ -65,13 +67,21 @@ _CDICopy:
 		bpl 	_CDICopy
 		;
 		pla									; position of array identifier
-		phy 								; save end position.
-		tay 								; point to identifier
+		sta 	zTemp1
+		;
+		#s_offsetToA						; save end position. 
+		pha 		
+		;
+		lda 	zTemp1 						; point to identifier
+		#s_AToOffset
+		;
 		jsr 	VariableExtract 			; get the identifier
 		jsr 	VariableLocate 				; check if it exists already.
 		bcs 	_CDIError
 		jsr 	VariableCreate 				; create it using the current ArrayDef
-		ply 								; restore code position
+		;
+		pla 								; restore code position
+		#s_AToOffset
 		;		
 		#s_get 								; get next character
 		#s_next

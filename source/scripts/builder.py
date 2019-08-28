@@ -40,9 +40,16 @@ class XEmuMachine(FPGAMachine):													# Xemu emulator (Mega 65)
 	def getPlatform(self):
 		return "xemu"
 
+class Emulated6502Machine(Emulated65816Machine):
+	def getProcessor(self):
+		return "6502"
+	def getHardware(self):
+		return "em6502"
+
 Hardware.Classes = { 	"e816":	Emulated65816Machine,
 						"fm65":	FPGAMachine,
-						"xemu":	XEmuMachine }
+						"xemu":	XEmuMachine,
+						"6502": Emulated6502Machine }
 
 # *******************************************************************************************
 #

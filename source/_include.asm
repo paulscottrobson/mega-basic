@@ -15,23 +15,23 @@ fatal: .macro
 	.text \1,0
 
 	.endm
-cpu = "4510"
-hardware = "mega65"
+cpu = "6502"
+hardware = "em6502"
 exitonend = 1
 autorun = 1
-loadtest = 2
+loadtest = 1
 hasfloat = 1
 hasinteger = 1
 maxstring = 253
 	.include "modules/float/fpmacros.inc"
-	.include "modules/basic/pointer/mega65/src_mega65.inc"
+	.include "modules/basic/pointer/em6502/src_em6502.inc"
 	.include "modules/basic/pointer/checks.inc"
 	.include "modules/basic/expressions/handlers.inc"
 	.include "modules/basic/common/common.inc"
 	.include "modules/basic/data/data.asm"
-	.include "modules/hardware/mega65.asm"
+	.include "modules/hardware/em6502.asm"
 	.include "modules/interface/common/interface_tools.asm"
-	.include "modules/interface/drivers/interface_mega65.asm"
+	.include "modules/interface/drivers/interface_em6502.asm"
 	.include "modules/utility/tim.asm"
 	.include "modules/basic/common/errors.asm"
 	.include "modules/basic/core.asm"
@@ -61,7 +61,7 @@ maxstring = 253
 	.include "modules/basic/expressions/string/dec.asm"
 	.include "modules/basic/expressions/string/chr.asm"
 	.include "modules/basic/expressions/string/spc.asm"
-	.include "modules/basic/memory/4510.asm"
+	.include "modules/basic/memory/6502.asm"
 	.include "modules/basic/pointer/checks.asm"
 	.include "modules/basic/stringmem/concrete.asm"
 	.include "modules/basic/stringmem/tempalloc.asm"

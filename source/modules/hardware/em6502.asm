@@ -16,7 +16,12 @@ ResetStack: 	.macro
 		txs
 		.endm
 
+Exit:	.macro
+		.byte 	2
+		.endm
+
 HighMemory = $8000
+VariableMemory = $2000
 
 		* = $1000
 BasicProgram:
@@ -29,8 +34,8 @@ BasicProgram:
 		.if loadTest = 2
 		.include "../basic/testcode/testassign.src"
 		.endif
+
 		* = $C000
-		.include "../basic/header/header.src"
 
 StartROM:
 		#ResetStack
