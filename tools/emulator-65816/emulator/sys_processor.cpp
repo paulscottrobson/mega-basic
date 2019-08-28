@@ -146,6 +146,9 @@ void CPULoadBinary(char *fileName) {
 
 void CPUEndRun(void) {
 	printf("Executed %ld instructions.\n",instructionCount);
+	double time = instructionCount / 430000.0;
+	printf("At 1Mhz this is about %.2lf seconds.",time);
+	printf("At 8Mhz this is about %.2lf seconds.",time/8.0);
 	FILE *f = fopen("memory.dump","wb");
 	for (LONG32 l = 0x0000;l < 0x10000;l += 1024) {
 		fwrite(ramMemory+l,1,1024,f);

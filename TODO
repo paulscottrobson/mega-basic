@@ -1,7 +1,5 @@
 TODO
 ====
-	- 	GOTO
-	- 	Rough speed test.
 	-	GOSUB
 	- 	RETURN
 	- 	LIST
@@ -14,10 +12,10 @@ TODO
 			- garbage collection
 			- program editing.
 			- rest of the commands :) LIST (then add program editing)
-									  IF THEN ENDIF
+									  IF THEN / IF ELSE ENDIF
 									  WHILE WEND
 									  REPEAT UNTIL
-									  GOSUB GOTO RETURN ON GOTO/GOSUB
+									  GOSUB RETURN ON GOTO/GOSUB
 									  FOR NEXT
 									  READ DATA RESTORE (restore on reset)
 									  POKE DOKE LOKE
@@ -25,6 +23,7 @@ TODO
 									  DEF FN make it work ?
 									  GET SYS
 									  OLD
+									  
 			- implement POS and TAB which I forgot about.
 			- taylor functions. (Can MS copyright constants and known functions....)
 			- square root N/R.

@@ -63,6 +63,10 @@ class BasicProgram(object):
 
 if __name__ == "__main__":
 	bp = BasicProgram()
+	bp.add('A = 0',5)
+	bp.add('A = A + 1',10)
+	bp.add('Print A',20)
+	bp.add('Goto 10',30)
 	bp.add('stop')
 	bp.export(sys.argv[1])
 #

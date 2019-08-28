@@ -28,7 +28,7 @@ _CDIGetDimension:
 		cmp 	#ArrayMaxDim*2 				
 		beq 	_CDIError
 		;
-		jsr 	EvaluateExpression 			; evaluate an index size
+		jsr 	EvaluateInteger 			; evaluate an index size
 		lda 	XS_Mantissa+1 				; check in range 0-7FFF
 		and 	#$80
 		ora 	XS_Mantissa+2
