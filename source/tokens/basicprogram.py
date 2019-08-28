@@ -67,7 +67,7 @@ if __name__ == "__main__":
 	bp.add('REPEAT:Y% = 0')
 	bp.add('REPEAT:Y% = Y%+1:PRINT X%;Y%;:UNTIL Y% = 3')
 #	bp.add('PRINT X%;')
-	bp.add('PRINT:X% = X% + 1:UNTIL X% = 10')
+	bp.add('PRINT:X% = X% + 1:UNTIL X% = 1000')
 	bp.add('print "End."')
 	bp.add('stop')
 	bp.export(sys.argv[1])
