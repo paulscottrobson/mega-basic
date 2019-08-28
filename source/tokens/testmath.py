@@ -18,7 +18,7 @@ class TestGenerator(BasicProgram):
 		if seed is None:
 			random.seed()
 			seed = random.randint(0,999999)
-		print("Test # ",seed)
+		print("Math Test # ",seed)
 		random.seed(seed)
 	#
 	#		Number of iterations of test loop

@@ -37,7 +37,7 @@ class BasicProgram(object):
 		code.insert(1,lineNumber & 0xFF)										# add line#
 		code.insert(2,lineNumber >> 8)
 		#
-		print(lineNumber,line)
+		#print(lineNumber,line)
 		#
 		self.program = self.program[:-1] + code + [0] 							# add line in.
 	#

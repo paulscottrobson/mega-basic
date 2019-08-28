@@ -17,4 +17,9 @@ python testassign.py ../modules/basic/testcode/testassign.src
 popd
 
 64tass -X -b -q basic.asm  -L rom.lst -o rom.bin
-# Can't be run yet.
+if [ $? -eq 0 ]
+then
+	../bin/m65816 rom.bin go
+	python scripts/showxs.py
+	python scripts/showv.py
+fi
