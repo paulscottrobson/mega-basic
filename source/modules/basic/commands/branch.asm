@@ -3,7 +3,7 @@
 ;
 ;		Name : 		branch.asm
 ;		Purpose :	GOTO, GOSUB, Return.
-;		Date :		23rd August 2019
+;		Date :		28th August 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************
@@ -12,6 +12,19 @@
 Command_GOTO: ;; GOTO
 		jsr 	GotoGetLineNumber
 		jmp 	GotoChangeToLineNumber
+
+Command_GOSUB: ;; GOSUB
+		jsr 	GotoGetLineNumber
+		jsr 	StackSavePosition
+		lda 	#(SMark_Gosub << 4)+SourcePosSize
+		jsr 	StackPushFrame
+		jmp 	GotoChangeToLineNumber
+
+Command_RETURN: ;; RETURN
+		lda 	#(SMark_Gosub << 4)
+		jsr 	StackPopFrame
+		jsr 	StackRestorePosition
+		rts
 
 ; *******************************************************************************************
 ;

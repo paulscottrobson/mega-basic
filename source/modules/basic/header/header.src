@@ -23,12 +23,12 @@ VectorTable:
 	.word NotImplemented       & $FFFF ; $8e ^
 	.word NotImplemented       & $FFFF ; $8f if
 	.word NotImplemented       & $FFFF ; $90 while
-	.word NotImplemented       & $FFFF ; $91 repeat
+	.word Command_REPEAT       & $FFFF ; $91 repeat
 	.word NotImplemented       & $FFFF ; $92 for
 	.word NotImplemented       & $FFFF ; $93 then
 	.word NotImplemented       & $FFFF ; $94 endif
 	.word NotImplemented       & $FFFF ; $95 wend
-	.word NotImplemented       & $FFFF ; $96 until
+	.word Command_UNTIL        & $FFFF ; $96 until
 	.word NotImplemented       & $FFFF ; $97 next
 	.word NotImplemented       & $FFFF ; $98 not
 	.word NotImplemented       & $FFFF ; $99 fn(
@@ -80,8 +80,8 @@ VectorTable:
 	.word Command_DIM          & $FFFF ; $c7 dim
 	.word NotImplemented       & $FFFF ; $c8 to
 	.word NotImplemented       & $FFFF ; $c9 step
-	.word NotImplemented       & $FFFF ; $ca gosub
-	.word NotImplemented       & $FFFF ; $cb return
+	.word Command_GOSUB        & $FFFF ; $ca gosub
+	.word Command_RETURN       & $FFFF ; $cb return
 	.word Command_GOTO         & $FFFF ; $cc goto
 	.word Command_END          & $FFFF ; $cd end
 	.word NotImplemented       & $FFFF ; $ce input

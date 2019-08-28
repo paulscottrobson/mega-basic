@@ -37,7 +37,7 @@ class BasicProgram(object):
 		code.insert(1,lineNumber & 0xFF)										# add line#
 		code.insert(2,lineNumber >> 8)
 		#
-		print(lineNumber,line)
+		#print(lineNumber,line)
 		#
 		self.program = self.program[:-1] + code + [0] 							# add line in.
 	#
@@ -63,10 +63,12 @@ class BasicProgram(object):
 
 if __name__ == "__main__":
 	bp = BasicProgram()
-	bp.add('A = 0',5)
-	bp.add('A = A + 1',10)
-	bp.add('Print A',20)
-	bp.add('Goto 10',30)
+	bp.add('X% = 0:print "Start."')
+	bp.add('REPEAT:Y% = 0')
+	bp.add('REPEAT:Y% = Y%+1:PRINT X%;Y%;:UNTIL Y% = 3')
+#	bp.add('PRINT X%;')
+	bp.add('PRINT:X% = X% + 1:UNTIL X% = 10')
+	bp.add('print "End."')
 	bp.add('stop')
 	bp.export(sys.argv[1])
 #

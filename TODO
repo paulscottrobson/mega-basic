@@ -1,8 +1,7 @@
 TODO
 ====
-	-	GOSUB
-	- 	RETURN
-	- 	LIST
+	- 	Print vector ?
+	- 	LIST (and detokeniser)
 			
 	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
 
@@ -13,9 +12,8 @@ TODO
 			- program editing.
 			- rest of the commands :) LIST (then add program editing)
 									  IF THEN / IF ELSE ENDIF
-									  WHILE WEND
-									  REPEAT UNTIL
-									  GOSUB RETURN ON GOTO/GOSUB
+									  WHILE WEND									  
+									  ON GOTO/GOSUB
 									  FOR NEXT
 									  READ DATA RESTORE (restore on reset)
 									  POKE DOKE LOKE
@@ -51,3 +49,4 @@ LoMem/HiMem crossover :)
 - 	Allocating temporary string memory (space available)
 - 	Allocating variable space.
 - 	Allocating memory space for arrays.
+- 	Stack Frame Push.

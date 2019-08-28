@@ -35,6 +35,8 @@ zVarType: 	.byte ? 						; type of data (token)
 
 zNullString:.byte ? 						; represents a NULL string.
 
+zBasicSP:	.word ? 						; stack pointer
+
 ; *******************************************************************************************
 ;
 ;									   Buffers etc.
@@ -133,7 +135,17 @@ Tim_X:		.byte ?
 Tim_Y:		.byte ?
 Tim_Z:		.byte ?
 Tim_SP:		.word ?							; Stack Pointer (just in cases)
-		
+
+; *******************************************************************************************
+;
+;										Basic Stack
+;
+; *******************************************************************************************
+
+			* = $400 						; this has to start on page boundary
+BasicStack:	.fill 	256 					; and occupy whole pages.
+EndBasicStack:
+					
 ; *******************************************************************************************
 ;
 ;							Memory used by the Interface Tools

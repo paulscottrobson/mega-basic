@@ -29,9 +29,9 @@ ResetRunStatus:
 		;
 		jsr 	VariableClear
 		;
-		;		TODO:Reset Basic Stack.
+		;		Reset BASIC stack
 		;
-
+		jsr 	StackReset
 		;
 		;		Reset the string pointer space which is allocated downwards
 		;
