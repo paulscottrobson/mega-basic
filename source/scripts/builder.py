@@ -88,6 +88,7 @@ class IntegerBasic(BuildDefinitionTIMOption):
 		self.addModule("basic.common.*")									
 		self.addModule("basic.*")
 		self.addModule("basic.commands.*")	
+		self.addModule("basic.commands.structure.*")	
 		self.addModule("basic.expressions.*")
 		self.addModule("basic.expressions.number.*")
 		self.addModule("basic.expressions.string.*")
