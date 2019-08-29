@@ -14,13 +14,16 @@
 ;
 ; *******************************************************************************************
 ;
-;		Scan forward for a structure-close looking for A, tracking open/close 
-;		program structure forwards.
+;		Scan forward for a structure-close looking for A or X/A, tracking open/close 
+;		program structure forwards. On exit points to token.
 ;
 ; *******************************************************************************************
 
-StructureSearchWend:
-		sta 	zTemp1 						; save the target on zTemp1
+StructureSearchSingle:
+		ldx 	#0 
+StructureSearchDouble:
+		sta 	zTemp1 						; save the target on zTemp1,zTemp1+1
+		stx 	zTemp1+1
 		lda 	#0 							; set the structure depth to zero (zTemp2)
 		sta 	zTemp2
 		bra 	_SSWLoop 					; jump in, start scanning from here.
@@ -50,8 +53,10 @@ _SSWLoop:
 		ldx 	zTemp2 						; check structure count
 		bne 	_SSWCheckUpDown 			; if it's non zero, then a match doesn't work.
 		;
-		cmp 	zTemp1 						; found the right keyword
+		cmp 	zTemp1 						; found the right keyword, either choice.
 		beq 	_SSWFound 					; so exit.
+		cmp 	zTemp1+1
+		beq 	_SSWFound
 		;
 _SSWCheckUpDown:
 		cmp 	#firstKeywordPlus 			; if < keyword +
@@ -70,8 +75,8 @@ _SSWNext:
 		bra 	_SSWLoop 					
 		;
 _SSWFound:
-		#s_next
 		rts		
+
 _SSWUnder:									; count has gone negative
 		#Fatal	"Structure order"		
 _SSWFail:									; couldn't find it.

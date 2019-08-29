@@ -19,17 +19,24 @@ import sys
 # *******************************************************************************************
 
 class BasicProgram(object):
-	def __init__(self):
+	def __init__(self,fileName = None):
 		self.program = [ 0 ]													# program here
 		self.tokeniser = Tokeniser()											# tokeniser worker.
 		self.lastLineNumber = 1													# autogenerate lines.
+		if fileName is not None:
+			for l in [x.strip().replace("\t"," ") for x in open(fileName).readlines() if x.strip() != ""]:
+					m = re.match("^(\d+)(.*)$",l)
+					if m is not None:
+						self.add(m.group(2).strip(),int(m.group(1)))
+					else:
+						self.add(l.strip())
 	#
 	#		Add a line of BASIC
 	#
 	def add(self,line,lineNumber = None):
 		line = line.strip()														# lose spaces.
 		if lineNumber is None:
-			lineNumber = int((self.lastLineNumber+10	)/10)*10
+			lineNumber = int((self.lastLineNumber+10)/10)*10
 		assert lineNumber > self.lastLineNumber,"Line number sequencing error"
 		self.lastLineNumber = lineNumber
 		#
@@ -63,22 +70,7 @@ class BasicProgram(object):
 		h.close()
 
 if __name__ == "__main__":
-	bp = BasicProgram()
-#	bp.add('list:stop')
-	bp.add('print "Hello !"')
-	bp.add('X = 6')
-	bp.add('while X > 0')
-	bp.add('Y = 0')
-	bp.add('repeat')
-#	bp.add('IF X = 2 
-#	bp.add('print "Its 2 !"')
-#	bp.add('else')
-#	bp.add('print "Its not 2 !"')
-#	bp.add('endif')
-	bp.add('PRINT X,Y:Y = Y + 1')
-	bp.add('until Y = 3:X=X-1:wend')
-	bp.add('print "End."')
-	bp.add('stop')
+	bp = BasicProgram("test.bas")
 	bp.export(sys.argv[1])
 #
 #		Basic Program Format:

@@ -24,7 +24,8 @@ Command_WHILE: ;; while
 		;
 _CWHSkip:
 		lda 	#token_Wend 				; look for the WEND token.
-		jsr 	StructureSearchWend
+		jsr 	StructureSearchSingle
+		#s_next 							; skip over the token.
 		rts
 
 Command_WEND: ;; wend

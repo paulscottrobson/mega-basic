@@ -26,7 +26,7 @@ VectorTable:
 	.word Command_REPEAT       & $FFFF ; $91 repeat
 	.word NotImplemented       & $FFFF ; $92 for
 	.word NotImplemented       & $FFFF ; $93 then
-	.word Handler_ENDIF        & $FFFF ; $94 endif
+	.word Command_ENDIF        & $FFFF ; $94 endif
 	.word Command_WEND         & $FFFF ; $95 wend
 	.word Command_UNTIL        & $FFFF ; $96 until
 	.word NotImplemented       & $FFFF ; $97 next
@@ -100,7 +100,7 @@ VectorTable:
 	.word Command_LOKE         & $FFFF ; $db loke
 	.word Command_ASSERT       & $FFFF ; $dc assert
 	.word NotImplemented       & $FFFF ; $dd get
-	.word Handler_ELSE         & $FFFF ; $de else
+	.word Command_ELSE         & $FFFF ; $de else
 NotImplemented:
 
 	#fatal "Not implemented"

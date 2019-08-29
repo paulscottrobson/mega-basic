@@ -1,7 +1,10 @@
 TODO
 ====
-	- 	IF/ELSE/ENDIF complete.
+	- 	SYS/WAIT
+	- 	LIST indenting.
+
 	- 	FOR/NEXT code (dont forget I,J)
+	- 	ON GOTO/GOSUB
 
 	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
 			NEW OLD and Editing will not work (!)
@@ -12,7 +15,6 @@ TODO
 			- method of setting default type.
 			- rest of the commands :) 
 								  ON GOTO/GOSUB
-								  FOR NEXT
 								  READ DATA RESTORE (restore on reset)
 								  WAIT
 								  DEF FN make it work ???

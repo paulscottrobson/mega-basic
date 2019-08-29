@@ -88,68 +88,38 @@ _FIFContinue:
 		; ************************************************************************************
 		;
 _FIFExtended:
-		nop
-		
-;		inc 	DStack 						; put IF on the top of the stack
-;		inc 	DStack
-;		lda 	#ifTokenID 
-;		ldx 	DStack
-;		sta 	$00,x
-;		;
-;		tya 								; see if the test was passed.
-;		beq 	_FIXSkip 					; if zero then it has failed.
-;		rts 								; test passed, so continue executing
-;		;
-;		;		Test Failed.
-;		;
-;_FIXSkip:
-;		lda 	#elseTokenID 				; scan forward till found either ELSE or ENDIF
-;		ldx 	#endifTokenID 				; at the same level.
-;		jsr 	ScanForwardLevel 			; scan forward, returns what found in A.
-;		inc 	DCodePtr 					; skip over the ELSE or ENDIF
-;		inc 	DCodePtr
-;		cmp 	#endifTokenID 				; if ENDIF token ID, then throw the TOS as ended
-;		bne 	_FIXNoThrow
-;		dec 	DStack 						; throw the token IF on the stack top.
-;		dec 	DStack
-;_FIXNoThrow:
-;		rts
+		phx 								; save result	
+		lda 	#(SMark_If << 4) 			; push marker on the stack, nothing else.
+		jsr 	StackPushFrame 				
+		pla 								; restore result
+		beq 	_FIXSkip 					; if zero then it has failed.
+		rts 								; test passed, so continue executing
+		;
+		;		Test Failed.
+		;
+_FIXSkip:
+		lda 	#token_endif 				; scan forward till found either ELSE or ENDIF
+		ldx 	#token_else 				; at the same level.
+		jsr 	StructureSearchDouble
+		#s_get 								; get token
+		#s_next 							l skip it
+		cmp 	#token_endif 				; if endif, handle endif code.
+		beq 	Command_ENDIF 				
+		rts
 		;
 		;		ELSE. If you execute ELSE, then skip forward to the ENDIF on this level.
 		;
-Handler_ELSE:	;; else 
-;		ldx 	DStack	 					; check the top of stack is IF.
-;		lda 	$00,x
-;		cmp 	#ifTokenID
-;		bne 	_HEBadStructure
-;		lda 	#endifTokenID 				; only searching one token.
-;		ldx 	#$0000			
-;		jsr 	ScanForwardLevel 			; so this will find the ENDIF
-;		;
-;		inc 	DCodePtr 					; skip over the ENDIF
-;		inc 	DCodePtr
-;
-;		dec 	DStack 						; throw the token IF on the stack top.
-;		dec 	DStack
-;		rts
-
-;_HEBadStructure:	
-;		#error 	"Else without If"
-
+Command_ELSE:	;; else 
+		lda 	#token_endif 				; scan forward till found ENDIF
+		jsr 	StructureSearchSingle 		; then do the ENDIF pop.
+		#s_next 							; skip the ENDIF token
 		;
 		;		ENDIF. If you execute ENDIF, then just test and throw TOS.
 		;
-Handler_ENDIF:	;; endif
-;		ldx 	DStack	 					; check the top of stack is IF.
-;		lda 	$00,x
-;		cmp 	#ifTokenID
-;		bne 	_HEIBadStructure
-;		;
-;		dec 	DStack 						; throw the token IF on the stack top.
-;		dec 	DStack
-;		rts
+Command_ENDIF:	;; endif
+		lda 	#(SMark_If << 4)
+		jsr 	StackPopFrame
+		rts
 
-;_HEIBadStructure:	
-;		#error 	"Else without If"
 
 		
