@@ -1,4 +1,5 @@
 		rem this is a comment.
+		rem wait 6502,1
 		gosub 1000:gosub 1000:stop		
 1000	print "Hello !"
 		X = 2

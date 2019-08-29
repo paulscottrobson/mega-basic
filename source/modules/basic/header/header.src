@@ -94,8 +94,8 @@ VectorTable:
 	.word Command_POKE         & $FFFF ; $d5 poke
 	.word Command_PRINT        & $FFFF ; $d6 print
 	.word Command_RUN          & $FFFF ; $d7 run
-	.word NotImplemented       & $FFFF ; $d8 wait
-	.word NotImplemented       & $FFFF ; $d9 sys
+	.word Command_WAIT         & $FFFF ; $d8 wait
+	.word Command_SYS          & $FFFF ; $d9 sys
 	.word Command_DOKE         & $FFFF ; $da doke
 	.word Command_LOKE         & $FFFF ; $db loke
 	.word Command_ASSERT       & $FFFF ; $dc assert

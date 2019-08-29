@@ -1,8 +1,6 @@
 TODO
 ====
-	- 	SYS/WAIT
 	- 	LIST indenting.
-
 	- 	FOR/NEXT code (dont forget I,J)
 	- 	ON GOTO/GOSUB
 
@@ -14,11 +12,9 @@ TODO
 			- program editing.
 			- method of setting default type.
 			- rest of the commands :) 
-								  ON GOTO/GOSUB
 								  READ DATA RESTORE (restore on reset)
-								  WAIT
 								  DEF FN make it work ???
-								  GET SYS
+								  GET
 									  
 			- implement POS and TAB which I forgot about.
 			- taylor functions. (Can MS copyright constants and known functions....)
