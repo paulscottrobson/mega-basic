@@ -159,6 +159,7 @@ class BuildDefinition(object):
 	def defaultsCreate(self):
 		self.addModule("basic.data.*")
 		self.addModule("hardware.@h")											# cpu memory layout etc.
+		self.addModule("hardware.common.*")
 	#
 	#		Interface creation.
 	#

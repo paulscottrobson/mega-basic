@@ -1,8 +1,8 @@
 ; *******************************************************************************************
 ; *******************************************************************************************
 ;
-;		Name : 		fpmacros.inc
-;		Purpose :	Floating Point Macros
+;		Name : 		macros32.inc
+;		Purpose :	32 bit Macros
 ;		Date :		18th August 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;

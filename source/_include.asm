@@ -23,17 +23,18 @@ loadtest = 1
 hasfloat = 1
 hasinteger = 1
 maxstring = 253
-	.include "modules/float/fpmacros.inc"
 	.include "modules/basic/pointer/mega65/src_mega65.inc"
 	.include "modules/basic/pointer/checks.inc"
 	.include "modules/basic/expressions/handlers.inc"
 	.include "modules/basic/common/stackmarkers.inc"
 	.include "modules/basic/common/common.inc"
+	.include "modules/hardware/common/macros32.inc"
 	.include "modules/basic/data/data.asm"
 	.include "modules/hardware/mega65.asm"
 	.include "modules/interface/common/interface_tools.asm"
 	.include "modules/interface/drivers/interface_mega65.asm"
 	.include "modules/utility/tim.asm"
+	.include "modules/basic/common/skip.asm"
 	.include "modules/basic/common/stack.asm"
 	.include "modules/basic/common/vectors.asm"
 	.include "modules/basic/common/errors.asm"
