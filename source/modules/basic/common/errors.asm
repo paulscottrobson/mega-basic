@@ -86,7 +86,7 @@ _PRMLoop:
 		.endif
 		beq		_PRMExit
 		iny 
-		jsr 	IFT_PrintCharacter
+		jsr 	CharPrint
 		bra 	_PRMLoop
 _PRMExit:
 		rts		
@@ -107,7 +107,7 @@ Print16BitInteger:
 		ldx 	#0 							; print buffer
 _P1Loop:lda 	Num_Buffer,x
 		beq 	_P1Exit
-		jsr 	IFT_PrintCharacter
+		jsr 	CharPrint
 		inx
 		bra 	_P1Loop
 _P1Exit:rts

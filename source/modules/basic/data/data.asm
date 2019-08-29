@@ -71,9 +71,16 @@ XS3_Type = XS_Type+XS_Size*2
 
 		* = $300
 ;		
+;							Memory allocation variables
+;
 StringPtr:	.word ? 						; Top of free memory (for string allocation)
 VarMemPtr: 	.word ?							; Bottom of free memory (for variables)
-endOfProgram: .word ? 						; End of Program Memory.
+endOfProgram: .dword ? 						; End of Program Memory (long)
+;
+;							Get/Print character vectors
+;
+vecPrintCharacter .word ?
+vecInputCharacter .word ?
 ;
 ;									Vector jumps
 ;

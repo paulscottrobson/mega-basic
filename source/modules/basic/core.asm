@@ -32,11 +32,12 @@ BASIC_Start:
 		jsr 	UpdateProgramEnd 			; update the program end.
 		;
 		jsr 	ResetRunStatus 				; clear everything (CLR command)
+		;
+;		jsr 	Command_NEW 				; new command, will not return.
 WarmStart:
 		#ResetStack
 		;
-		;	TODO: Reset BASIC stack
-		; 	TODO: Input and execute command.
+		; 	TODO: Input and execute command. Not this way (!)
 		;		
 		jmp 	COMMAND_Run
 		

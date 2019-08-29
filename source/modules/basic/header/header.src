@@ -87,8 +87,8 @@ VectorTable:
 	.word NotImplemented       & $FFFF ; $ce input
 	.word Command_LET          & $FFFF ; $cf let
 	.word NotImplemented       & $FFFF ; $d0 list
-	.word NotImplemented       & $FFFF ; $d1 new
-	.word NotImplemented       & $FFFF ; $d2 old
+	.word Command_NEW          & $FFFF ; $d1 new
+	.word Command_OLD          & $FFFF ; $d2 old
 	.word NotImplemented       & $FFFF ; $d3 on
 	.word NotImplemented       & $FFFF ; $d4 restore
 	.word NotImplemented       & $FFFF ; $d5 poke

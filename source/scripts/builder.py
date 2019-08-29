@@ -113,6 +113,7 @@ class FullBasic(IntegerBasic):
 		#
 		self.define("exitOnEnd",1)	
 		self.addModule("basic.testcode.*")
+		self.define("loadtest",1)	
 		self.boot("BASIC_Start")
 
 class ExpressionTestBasic(FullBasic):
@@ -121,12 +122,12 @@ class ExpressionTestBasic(FullBasic):
 		self.addModule("basic.testcode.*")
 		self.define("exitOnEnd",1)	
 		self.define("autorun",1)
-		self.define("loadtest",1)	
+		self.define("loadtest",2)	
 
 class AssignmentTestBasic(FullBasic):
 	def create(self):
 		ExpressionTestBasic.create(self)
-		self.define("loadtest",2)	
+		self.define("loadtest",3)	
 
 BuildDefinition.Classes = {														# Class list
 		"tim":	TIMOnlyTest,

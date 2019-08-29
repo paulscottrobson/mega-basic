@@ -58,6 +58,7 @@ s_offsetToA: .macro
 s_AToOffset: .macro		
 		taz
 		.endm		
+		
 ; *******************************************************************************************
 ;
 ;								Get the next code item
@@ -67,6 +68,11 @@ s_AToOffset: .macro
 s_get:	.macro
 		nop
 		lda 	(zCodePtr),z
+		.endm
+
+s_put:	.macro
+		nop
+		sta 	(zCodePtr),z		
 		.endm
 
 ; *******************************************************************************************

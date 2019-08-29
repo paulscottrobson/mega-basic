@@ -35,5 +35,11 @@ _UPDFoundEnd:
 		sta 	endOfProgram
 		lda 	zCodePtr+1
 		adc 	#0
-		sta 	endOfProgram+1		
+		sta 	endOfProgram+1	
+		lda 	zCodePtr+2
+		adc		#0
+		sta 	endOfProgram+2	
+		lda 	zCodePtr+3
+		adc 	#0
+		sta 	endOfProgram+3
 		rts

@@ -23,7 +23,7 @@ RUN_NewLine:
 		#s_next 
 		cmp 	#0 							; if the offset is zero then END.
 		bne 	RUN_NextCommand
-		jmp 	Command_STOP 				; go do the command code.
+		jmp 	Command_END 				; go do the command code.
 		;
 		;		Skip one
 		;		

@@ -43,7 +43,7 @@ _CPRNPrint:
 		cmp 	#"-"
 		beq 	_CPRNoSpace
 		lda 	#" "						; print the leading space
-		jsr 	IFT_PrintCharacter 			; so beloved of MS Basics.
+		jsr 	CharPrint 					; so beloved of MS Basics.
 _CPRNoSpace:		
 		ldx 	#(Num_Buffer-1) & $FF
 		lda 	#(Num_Buffer-1) >> 8
@@ -68,7 +68,7 @@ _CPRPrint:
 _CPRLoop:
 		iny
 		lda 	(zGenPtr),y
-		jsr 	IFT_PrintCharacter
+		jsr 	CharPrint
 		dex
 		bne 	_CPRLoop
 _CPREndPrint:
