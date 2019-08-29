@@ -1,5 +1,8 @@
 TODO
 ====
+	- 	IF/ELSE/ENDIF complete.
+	- 	FOR/NEXT code (dont forget I,J)
+
 	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
 			NEW OLD and Editing will not work (!)
 
@@ -8,13 +11,12 @@ TODO
 			- program editing.
 			- method of setting default type.
 			- rest of the commands :) 
-									  IF THEN / IF ELSE ENDIF
-									  ON GOTO/GOSUB
-									  FOR NEXT
-									  READ DATA RESTORE (restore on reset)
-									  WAIT
-									  DEF FN make it work ???
-									  GET SYS
+								  ON GOTO/GOSUB
+								  FOR NEXT
+								  READ DATA RESTORE (restore on reset)
+								  WAIT
+								  DEF FN make it work ???
+								  GET SYS
 									  
 			- implement POS and TAB which I forgot about.
 			- taylor functions. (Can MS copyright constants and known functions....)

@@ -70,6 +70,11 @@ if __name__ == "__main__":
 	bp.add('while X > 0')
 	bp.add('Y = 0')
 	bp.add('repeat')
+#	bp.add('IF X = 2 
+#	bp.add('print "Its 2 !"')
+#	bp.add('else')
+#	bp.add('print "Its not 2 !"')
+#	bp.add('endif')
 	bp.add('PRINT X,Y:Y = Y + 1')
 	bp.add('until Y = 3:X=X-1:wend')
 	bp.add('print "End."')

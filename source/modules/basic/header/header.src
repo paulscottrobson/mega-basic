@@ -21,12 +21,12 @@ VectorTable:
 	.word BinaryOp_Multiply    & $FFFF ; $8c *
 	.word BinaryOp_Divide      & $FFFF ; $8d /
 	.word NotImplemented       & $FFFF ; $8e ^
-	.word NotImplemented       & $FFFF ; $8f if
+	.word Command_IF           & $FFFF ; $8f if
 	.word Command_WHILE        & $FFFF ; $90 while
 	.word Command_REPEAT       & $FFFF ; $91 repeat
 	.word NotImplemented       & $FFFF ; $92 for
 	.word NotImplemented       & $FFFF ; $93 then
-	.word NotImplemented       & $FFFF ; $94 endif
+	.word Handler_ENDIF        & $FFFF ; $94 endif
 	.word Command_WEND         & $FFFF ; $95 wend
 	.word Command_UNTIL        & $FFFF ; $96 until
 	.word NotImplemented       & $FFFF ; $97 next
@@ -100,6 +100,7 @@ VectorTable:
 	.word Command_LOKE         & $FFFF ; $db loke
 	.word Command_ASSERT       & $FFFF ; $dc assert
 	.word NotImplemented       & $FFFF ; $dd get
+	.word Handler_ELSE         & $FFFF ; $de else
 NotImplemented:
 
 	#fatal "Not implemented"
@@ -221,6 +222,7 @@ KeywordText:
 	.byte $4c,$4f,$4b,$c5                  ; $db loke
 	.byte $41,$53,$53,$45,$52,$d4          ; $dc assert
 	.byte $47,$45,$d4                      ; $dd get
+	.byte $45,$4c,$53,$c5                  ; $de else
 	.byte $00
 token_and = $80
 token_or = $81
@@ -316,3 +318,4 @@ token_doke = $da
 token_loke = $db
 token_assert = $dc
 token_get = $dd
+token_else = $de
