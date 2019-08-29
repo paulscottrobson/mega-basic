@@ -40,27 +40,7 @@ _EVNotVariable:
 ;		Found an integer marker $40-$7F, so shift the integer into the current
 ;		expression stack level.
 ;
-		and 	#$3F 						; it's a constant 0-63
-		sta 	XS_Mantissa,x 				; put into the mantissa space (32 bit integer)
-		lda 	#0
-		sta 	XS_Mantissa+1,x
-		sta 	XS_Mantissa+2,x
-		sta 	XS_Mantissa+3,x
-		inc 	a 							; set to type 1 (integer)
-		sta 	XS_Type,x
-		;
-_EVCheckNextInteger:		
-		#s_next 							; advance to next.
-		#s_get
-		eor 	#$40 						; 40-7F now 00-3F.
-		cmp 	#$40 						; if not, we have an atom.
-		bcs 	_EVCheckDecimal
-		pha 								; save it.
-		jsr 	EVShiftMantissaLeft6 		; shift the mantissa left 6.
-		pla 		
-		ora 	XS_Mantissa+0,x 			; put in lower 6 bits.
-		sta 	XS_Mantissa+0,x
-		bra 	_EVCheckNextInteger
+		jsr 	EvaluateGetInteger 	
 ;
 ;		Check if it is followed by a decimal/exponential code. If so
 ;		convert to the appropriate float.
@@ -233,6 +213,38 @@ _EVSMLShift:
 		ror 	XS_Mantissa+0,x
 		rts
 
+; *******************************************************************************************
+;
+;									Get an integer into mantissa,x
+;
+; *******************************************************************************************
+
+EvaluateGetInteger:
+		#s_get
+		and 	#$3F 						; it's a constant 0-63
+		sta 	XS_Mantissa,x 				; put into the mantissa space (32 bit integer)
+		lda 	#0
+		sta 	XS_Mantissa+1,x
+		sta 	XS_Mantissa+2,x
+		sta 	XS_Mantissa+3,x
+		inc 	a 							; set to type 1 (integer)
+		sta 	XS_Type,x
+		;
+_EVCheckNextInteger:		
+		#s_next 							; advance to next.
+		#s_get
+		eor 	#$40 						; 40-7F now 00-3F.
+		cmp 	#$40 						; if not, we have an atom.
+		bcs 	_EVEndInteger
+		pha 								; save it.
+		jsr 	EVShiftMantissaLeft6 		; shift the mantissa left 6.
+		pla 		
+		ora 	XS_Mantissa+0,x 			; put in lower 6 bits.
+		sta 	XS_Mantissa+0,x
+		bra 	_EVCheckNextInteger
+_EVEndInteger:
+		rts
+		
 ; *******************************************************************************************
 ;
 ;			Decimal ($FD ll <chars>) follows - add this to the floating point sequence

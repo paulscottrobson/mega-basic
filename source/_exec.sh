@@ -21,6 +21,5 @@ popd
 truncate rom.bin -s 131072
 if [ $? -eq 0 ]
 then
-	../../mega65-core/src/tools/monitor_load -b ../documents/nexys4ddr.bit -p -R rom.bin -k ../documents/hickup.m65 
-	rm rom.lst rom.bin
+	../../xemu/build/bin/xmega65.native -loadrom rom.bin -forcerom 1>/dev/null
 fi

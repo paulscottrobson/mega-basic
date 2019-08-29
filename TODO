@@ -1,6 +1,8 @@
 TODO
 ====
-	- 	LIST (and detokeniser)
+	- 	LIST Ctrl+C check
+	- 	LIST ranges.
+	-	Check 65816 built outside 64k.
 			
 	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
 			NEW OLD and Editing will not work (!)

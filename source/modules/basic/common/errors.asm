@@ -101,6 +101,8 @@ Print16BitInteger:
 		lda 	#0 							; make 32 bit
 		sta 	XS_Mantissa+2
 		sta 	XS_Mantissa+3
+Print32BitInteger:
+		lda 	#0		
 		sta 	NumBufX 					; reset the conversion pointer
 		tax 								; convert bottom level.
 		jsr 	INTToString 				; make string
@@ -110,4 +112,5 @@ _P1Loop:lda 	Num_Buffer,x
 		jsr 	CharPrint
 		inx
 		bra 	_P1Loop
-_P1Exit:rts
+_P1Exit:txa 								; return chars printed.
+		rts
