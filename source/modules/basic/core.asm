@@ -33,11 +33,15 @@ BASIC_Start:
 		;
 		jsr 	ResetRunStatus 				; clear everything (CLR command)
 		;
+		.if 		loadTest!=0
+		jmp 	COMMAND_Run
+		.endif
+		;
 ;		jsr 	Command_NEW 				; new command, will not return.
 WarmStart:
 		#ResetStack
 		;
 		; 	TODO: Input and execute command. Not this way (!)
 		;		
-		jmp 	COMMAND_Run
+		bra 	WarmStart
 		

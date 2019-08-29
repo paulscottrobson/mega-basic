@@ -17,13 +17,15 @@ _CILLoop:
 		#s_get 								; read offset
 		cmp 	#0 							; if zero, end of program
 		beq 	_CILExit
+		jsr 	CheckBreak 					; check break
+		cmp 	#0
+		bne 	_CILExit
 		;
 		jsr 	ListLine 					; list one line.
 		;
 		#s_nextline 						; go to next
 		bra 	_CILLoop						
 _CILExit:
-		bra 	_CILExit		
 		jmp 	WarmStart
 
 ; *******************************************************************************************

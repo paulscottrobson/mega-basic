@@ -1,14 +1,11 @@
 TODO
 ====
-	- 	LIST Ctrl+C check
 	- 	LIST ranges.
-	-	Check 65816 built outside 64k.
 			
 	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
 			NEW OLD and Editing will not work (!)
 
 	- 	Decide what to do next 
-			- think need to route printing through something ?
 			- garbage collection
 			- program editing.
 			- method of setting default type.
@@ -18,19 +15,17 @@ TODO
 									  ON GOTO/GOSUB
 									  FOR NEXT
 									  READ DATA RESTORE (restore on reset)
-									  POKE DOKE LOKE
 									  WAIT
 									  DEF FN make it work ???
 									  GET SYS
 									  
 			- implement POS and TAB which I forgot about.
 			- taylor functions. (Can MS copyright constants and known functions....)
-			- square root N/R.
+			- square root N/R or LOG/EXP ? Seperate SQRT ?
 			
 	-	How will PROC work ? Pre-scan ? Store on search in quasi-type ?
 	- 	Code reviews ?						
 	- 	Add a proper vector for input/print
-	- 	Add Break Check to main RUN loop.
 							  	
 Fixes
 =====

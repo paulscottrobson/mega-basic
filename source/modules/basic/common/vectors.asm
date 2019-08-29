@@ -14,3 +14,6 @@ CharPrint:
 
 CharGet:
 		jmp 	IF_GetKey
+
+CheckBreak:
+		jmp 	IF_CheckBreak

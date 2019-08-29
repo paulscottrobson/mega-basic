@@ -11,7 +11,7 @@
 
 ; *******************************************************************************************
 ;
-;						Copy A bytes from ZLTemp1 into Mantissa
+;						Copy A bytes from (ZLTemp1) into Mantissa
 ;
 ; *******************************************************************************************
 
@@ -27,3 +27,23 @@ _MLoop1:nop
 		bne 	_MLoop1
 		plz
 		rts
+
+; *******************************************************************************************
+;
+;						Copy A bytes from Mantissa into (ZLTemp1)
+;
+; *******************************************************************************************
+
+MemWrite:
+		phz
+		sta 	SignCount 					; save count
+		ldz 	#0 							; start from here
+_MLoop1:lda 	XS_Mantissa,x 				; read mantisssa
+		nop
+		sta 	(zlTemp1),z 				; write it out
+		inz 								; next to copy		
+		inx
+		cpy 	SignCount 					; do required # of bytes.
+		bne 	_MLoop1
+		plz
+		rts				

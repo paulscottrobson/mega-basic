@@ -127,6 +127,8 @@ SliceCount:	.byte ?
 
 RandomSeed:	.dword ? 						; Random seed.
 
+BreakCount:	.byte ? 						; Counter, avoid checking break every command.
+
 ArrayMaxDim = 3 							; number of dimensions.
 
 ArrayDef:	.fill (ArrayMaxDim+1)*2 		; dimensions for auto-creation

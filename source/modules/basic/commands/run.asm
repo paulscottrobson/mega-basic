@@ -33,6 +33,15 @@ RUN_Skip:
 		;		Next command
 		;
 RUN_NextCommand:
+		lda 	BreakCount 					; break counter
+		adc 	#16 						; one time in 16
+		sta 	BreakCount
+		bcc 	RUN_NoCheckBreak
+		jsr 	CheckBreak 					; check for break
+		cmp 	#0
+		beq 	RUN_NoCheckBreak
+		jmp 	Command_STOP 				; stop on BREAK.
+RUN_NoCheckBreak:		
 		lda 	#0 							; this resets temporary string allocation.
 		sta 	zTempStr+1 					; (initialised when first called)
 		#s_get 								; get the token or first character.

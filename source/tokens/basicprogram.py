@@ -64,7 +64,6 @@ class BasicProgram(object):
 
 if __name__ == "__main__":
 	bp = BasicProgram()
-	bp.add('print 0.1')
 	bp.add('Rem Hello !')
 	bp.add('list:stop')
 	bp.add('X% = 0:print "Start.";0.23')
