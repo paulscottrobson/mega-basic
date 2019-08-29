@@ -22,12 +22,12 @@ VectorTable:
 	.word BinaryOp_Divide      & $FFFF ; $8d /
 	.word NotImplemented       & $FFFF ; $8e ^
 	.word NotImplemented       & $FFFF ; $8f if
-	.word NotImplemented       & $FFFF ; $90 while
+	.word Command_WHILE        & $FFFF ; $90 while
 	.word Command_REPEAT       & $FFFF ; $91 repeat
 	.word NotImplemented       & $FFFF ; $92 for
 	.word NotImplemented       & $FFFF ; $93 then
 	.word NotImplemented       & $FFFF ; $94 endif
-	.word NotImplemented       & $FFFF ; $95 wend
+	.word Command_WEND         & $FFFF ; $95 wend
 	.word Command_UNTIL        & $FFFF ; $96 until
 	.word NotImplemented       & $FFFF ; $97 next
 	.word NotImplemented       & $FFFF ; $98 not

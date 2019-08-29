@@ -9,7 +9,6 @@ TODO
 			- method of setting default type.
 			- rest of the commands :) 
 									  IF THEN / IF ELSE ENDIF
-									  WHILE WEND									  
 									  ON GOTO/GOSUB
 									  FOR NEXT
 									  READ DATA RESTORE (restore on reset)

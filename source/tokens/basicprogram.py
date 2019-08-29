@@ -29,7 +29,7 @@ class BasicProgram(object):
 	def add(self,line,lineNumber = None):
 		line = line.strip()														# lose spaces.
 		if lineNumber is None:
-			lineNumber = int((self.lastLineNumber+100)/100)*100
+			lineNumber = int((self.lastLineNumber+10	)/10)*10
 		assert lineNumber > self.lastLineNumber,"Line number sequencing error"
 		self.lastLineNumber = lineNumber
 		#
@@ -64,13 +64,14 @@ class BasicProgram(object):
 
 if __name__ == "__main__":
 	bp = BasicProgram()
-	bp.add('Rem Hello !')
-	bp.add('list 200,400:stop')
-	bp.add('X% = 0:print "Start.";0.23')
-	bp.add('REPEAT:Y% = 0')
-	bp.add('REPEAT:Y% = Y%+1:PRINT X%;Y%+0.05;:UNTIL Y% = 3')
-#	bp.add('PRINT X%;')
-	bp.add('PRINT:X% = X% + 1:UNTIL X% = 1000')
+#	bp.add('list:stop')
+	bp.add('print "Hello !"')
+	bp.add('X = 6')
+	bp.add('while X > 0')
+	bp.add('Y = 0')
+	bp.add('repeat')
+	bp.add('PRINT X,Y:Y = Y + 1')
+	bp.add('until Y = 3:X=X-1:wend')
 	bp.add('print "End."')
 	bp.add('stop')
 	bp.export(sys.argv[1])

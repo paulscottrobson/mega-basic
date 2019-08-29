@@ -215,6 +215,10 @@ _LGRClear:
 		dex
 		bpl 	_LGRClear 					
 		#s_get 								; value present ?
+		cmp 	#0 							; nothing
+		beq 	_LGRBlank 					
+		cmp 	#token_Colon 				; or colon
+		beq 	_LGRBlank
 		cmp 	#token_Comma 				; comma
 		beq 	_LGREnd 					; then it's LIST ,x
 		jsr 	EvaluateInteger 			; get the first number into bottom
@@ -235,11 +239,14 @@ _LGRBump2:
 		rts				
 
 _LGREnd:
-		#s_next 							; skip the minus.		
+		#s_next 							; skip the minus.	
+_LGRBlank:			
 		lda 	#$FF 						; default to the end.
 		sta 	XS_Mantissa+XS_Size
 		sta 	XS_Mantissa+XS_Size+1
 		#s_get 								; what's next ?
+		cmp 	#0
+		beq 	_LGRBump2
 		asl 	a 							; if not a number, then exit (to end)
 		bcs 	_LGRBump2
 		ldx 	#XS_Size 					; get to range
