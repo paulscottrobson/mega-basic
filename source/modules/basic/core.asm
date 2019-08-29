@@ -33,6 +33,7 @@ BASIC_Start:
 		;
 		jsr 	ResetRunStatus 				; clear everything (CLR command)
 		;
+		#ResetStack
 		.if 		loadTest!=0
 		jmp 	COMMAND_Run
 		.endif

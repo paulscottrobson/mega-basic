@@ -1,7 +1,5 @@
 TODO
 ====
-	- 	LIST ranges.
-			
 	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
 			NEW OLD and Editing will not work (!)
 

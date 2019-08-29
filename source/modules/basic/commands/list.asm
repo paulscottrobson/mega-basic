@@ -11,6 +11,7 @@
 
 
 Command_LIST: 	;; list
+		jsr 	ListGetRange				; get any parameters
 		#s_toStart 							; start of program
 _CILLoop:
 		#s_startLine 						; start of line
@@ -18,11 +19,19 @@ _CILLoop:
 		cmp 	#0 							; if zero, end of program
 		beq 	_CILExit
 		jsr 	CheckBreak 					; check break
-		cmp 	#0
+		cmp 	#0		
 		bne 	_CILExit
+		jsr 	ListCheckRange 				; check current line in range.
+		bcs		_CILNext
+
+		#s_startLine 						; move to start
+		#s_next
+		#s_next
+		#s_next
 		;
 		jsr 	ListLine 					; list one line.
 		;
+_CILNext:		
 		#s_nextline 						; go to next
 		bra 	_CILLoop						
 _CILExit:
@@ -191,3 +200,80 @@ ListPrintLC:
 		bcs 	_LPLC0
 		adc 	#$20
 _LPLC0:	jmp 	CharPrint				
+
+; *******************************************************************************************
+;
+;							Get the range in Mantissa/Mantissa+6
+;
+; *******************************************************************************************
+
+ListGetRange:	
+		ldx 	#XS_Size*2-1 				; clear first 2 slots back to defaults.
+_LGRClear:
+		lda 	#0
+		sta 	XS_Mantissa,x
+		dex
+		bpl 	_LGRClear 					
+		#s_get 								; value present ?
+		cmp 	#token_Comma 				; comma
+		beq 	_LGREnd 					; then it's LIST ,x
+		jsr 	EvaluateInteger 			; get the first number into bottom
+		#s_get 								; if - follows that
+		cmp 	#token_Comma
+		beq 	_LGREnd 					; then it is LIST a,b
+		;
+		lda 	XS_Mantissa+0 				; copy first to second LIST n is n,n
+		sta 	XS_Mantissa+XS_Size+0
+		lda 	XS_Mantissa+1
+		sta 	XS_Mantissa+XS_Size+1		
+		;
+_LGRBumpExit:
+		inc 	XS_Mantissa+XS_Size 		; bump it so we can use cc.
+		bne 	_LGRBump2
+		inc 	XS_Mantissa+XS_Size+1
+_LGRBump2:
+		rts				
+
+_LGREnd:
+		#s_next 							; skip the minus.		
+		lda 	#$FF 						; default to the end.
+		sta 	XS_Mantissa+XS_Size
+		sta 	XS_Mantissa+XS_Size+1
+		#s_get 								; what's next ?
+		asl 	a 							; if not a number, then exit (to end)
+		bcs 	_LGRBump2
+		ldx 	#XS_Size 					; get to range
+		jsr 	EvaluateIntegerX
+		bra 	_LGRBumpExit
+		rts
+
+; *******************************************************************************************
+;
+;				Return CC if list in range of mantissa,mantissa+size
+;
+; *******************************************************************************************
+
+ListCheckRange:		
+		#s_next 							; point to line number low
+		ldx 	#0 							; test low
+		jsr 	_LCRCompare
+		bcc 	_LCRFail
+		ldx 	#XS_Size 					; test high
+		jsr 	_LCRCompare
+		rts
+_LCRFail:
+		sec
+		rts
+_LCRCompare:								; compare line number vs mantissa,X
+		#s_get
+		sec 
+		sbc	 	XS_Mantissa+0,x
+		php
+		#s_next
+		#s_get
+		plp
+		sbc 	XS_Mantissa+1,x
+		php
+		#s_prev
+		plp
+		rts	
