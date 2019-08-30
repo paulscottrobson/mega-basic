@@ -1,7 +1,7 @@
-20 LET k=0
-30 LET k=k+1
-40 LET a=k/2*3+4-5
-45 GOSUB 700
-50 IF k<1000 THEN GOTO 30 
-55 END 
-700 RETURN
+for i = 1 to 5
+for j = 2 to 4
+print i,j
+next j
+next i
+end
+

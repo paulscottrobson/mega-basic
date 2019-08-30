@@ -24,12 +24,12 @@ VectorTable:
 	.word Command_IF           & $FFFF ; $8f if
 	.word Command_WHILE        & $FFFF ; $90 while
 	.word Command_REPEAT       & $FFFF ; $91 repeat
-	.word NotImplemented       & $FFFF ; $92 for
+	.word Command_FOR          & $FFFF ; $92 for
 	.word NotImplemented       & $FFFF ; $93 then
 	.word Command_ENDIF        & $FFFF ; $94 endif
 	.word Command_WEND         & $FFFF ; $95 wend
 	.word Command_UNTIL        & $FFFF ; $96 until
-	.word NotImplemented       & $FFFF ; $97 next
+	.word Command_NEXT         & $FFFF ; $97 next
 	.word NotImplemented       & $FFFF ; $98 not
 	.word NotImplemented       & $FFFF ; $99 fn(
 	.word Unary_Abs            & $FFFF ; $9a abs(

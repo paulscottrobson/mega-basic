@@ -42,6 +42,7 @@ maxstring = 253
 	.include "modules/basic/commands/dim.asm"
 	.include "modules/basic/commands/wait.asm"
 	.include "modules/basic/commands/run.asm"
+	.include "modules/basic/commands/for.asm"
 	.include "modules/basic/commands/let.asm"
 	.include "modules/basic/commands/sys.asm"
 	.include "modules/basic/commands/end.asm"

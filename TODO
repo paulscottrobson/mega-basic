@@ -1,7 +1,8 @@
 TODO
 ====
+	- 	FOR/NEXT denoument.
+	- 	Why is it slow (relatively !) (int/normalise ?)
 	- 	LIST indenting.
-	- 	FOR/NEXT code (dont forget I,J)
 	- 	Add 3 of the 4 remaining benchmarks.
 	- 	ON GOTO/GOSUB
 
