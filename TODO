@@ -2,6 +2,7 @@ TODO
 ====
 	- 	LIST indenting.
 	- 	FOR/NEXT code (dont forget I,J)
+	- 	Add 3 of the 4 remaining benchmarks.
 	- 	ON GOTO/GOSUB
 
 	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
