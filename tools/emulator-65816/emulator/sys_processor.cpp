@@ -16,7 +16,7 @@
 //															Timing
 // *******************************************************************************************************************************
 	
-#define CYCLES_PER_SECOND	(430000)												// = 1Mhz roughly.
+#define CYCLES_PER_SECOND	(8000000*0.43)											// 8Mhz ish.
 #define FRAME_RATE			(60)													// Frame rate
 #define CYCLES_PER_FRAME	(CYCLES_PER_SECOND/FRAME_RATE)							// T-States per second.
 
@@ -147,8 +147,8 @@ void CPULoadBinary(char *fileName) {
 void CPUEndRun(void) {
 	printf("Executed %ld instructions.\n",instructionCount);
 	double time = instructionCount / 430000.0;
-	printf("At 1Mhz this is about %.2lf seconds.",time);
-	printf("At 8Mhz this is about %.2lf seconds.",time/8.0);
+	printf("At 1Mhz this is about %.2lf seconds.\n",time);
+	printf("At 8Mhz this is about %.2lf seconds.\n",time/8.0);
 	FILE *f = fopen("memory.dump","wb");
 	for (LONG32 l = 0x0000;l < 0x10000;l += 1024) {
 		fwrite(ramMemory+l,1,1024,f);
@@ -175,6 +175,7 @@ CPUSTATUS *CPUGetStatus(void) {
 	status.dbr=r.dbr;
 	status.sp=r.sp;
 	status.p= r.p & (0xFF ^ (P_SIGN|P_ZERO));
+	status.count = instructionCount;
 	if (r.z == 0) status.p |= P_ZERO;
 	if (r.n != 0) status.p |= P_SIGN;
 	return &status;

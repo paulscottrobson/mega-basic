@@ -11,51 +11,90 @@
 
 Command_FOR: 	;; for
 		;
-		;		Identify the variable
+		;		Start of with a Let FOR [I = xxxx] which leaves the pointer set up.
 		;
-		jsr 	VariableFind 				; get reference to one variable.
+		jsr 	Command_LET 				; do the A = 99 bit
 		lda 	zVarType 					; obviously has to be integer/real.
 		cmp 	#token_Dollar
 		beq 	_CFOError
+
+		pha 								; save the variable type.
+
+		phy 								; save type/variable address.
+		ldy 	#1							; type at + 1
+		sta 	(zBasicSP),y 	
+		iny
+		lda 	zVarDataPtr 				; data low at +2
+		sta 	(zBasicSP),y 	
+		iny
+		lda 	zVarDataPtr+1 				; data high at +3
+		sta 	(zBasicSP),y 	
+		ply
 		;
-		;		Skip the equals
+		;		Put the variable pointer as the first frame.
 		;
-		lda 	#token_Equal  				; get equals
-		jsr 	CheckNextToken 
+		lda 	#(SMark_For << 4) + 3		
+		jsr 	StackPushFrame 				; push on the stack with FOR marker.
 		;
-		;		Evaluate expression and copy in.
+		;		TO <target>
 		;
-		jsr 	FNXCopyVarDataToStackSpace 	; save the var reference data in BASIC stack.
-		jsr 	EvaluateExpression 			; evaluate the RHS.
-		jsr 	FNXGetVarDataFromStackSpace ; get var reference data back
-		;
-		ldx 	#0
-		jsr 	VariableSet 				; set the value out.
-		;
-		;		Skip TO keyword
-		;
-		lda 	#token_TO 					; check the TO is present.
+		lda 	#token_TO
 		jsr 	CheckNextToken
-		;		
-		;		Save position on the stack for the loop - evaluating the square bracket
-		;		part of FOR I = 1 TO [9 STEP 3] each time round.
+		ldx 	#0 							; put in Mantissa, bottom
+		jsr 	EvaluateExpression
 		;
-		jsr 	StackSavePosition 			; goes in offset 1-5
-		lda 	#(SMark_For << 4) + 3 + SourcePosSize		
-		jsr 	StackPushFrame 				; push on the stack.
+		;		STEP <step> if present, goes in 2nd slot.
 		;
-		; 		Evaluate, but ignore the <n> STEP <n> part. This is purely syntax
+		#s_get 								; STEP present.
+		ldx 	#XS_Size 					; X to second level
+		cmp 	#token_STEP
+		bne 	_CFOStep1
+		#s_next 							; skip STEP
+		jsr 	EvaluateExpressionX 		; get STEP value.
+		bra 	_CFOHaveStep
+_CFOStep1:				
+		lda 	#0							; set step to integer 1.
+		sta 	XS_Mantissa+1,x
+		sta 	XS_Mantissa+2,x
+		sta 	XS_Mantissa+3,x
+		lda 	#1
+		sta 	XS_Mantissa+0,x
+		sta 	XS_Type,x
+_CFOHaveStep:
 		;
-		jsr 	EvaluateExpression 			; the target value.
-		#s_get
-		cmp 	#token_STEP 				; is it STEP
-		bne 	_CFOExit		
-		#s_next 							; yes, skip it
-		jsr 	EvaluateExpression 			; the STEP value.
-_CFOExit:
+		;		Preconvert to the compatible type.
 		;
-		;		Repair stack back, restore position, see if , follows.
+		pla 								; restore variable type
+		ldx 	#0
+		cmp 	#token_Percent 				; do conversion to type
+		beq 	_CFOInteger
+		jsr 	FPUToFloat
+		ldx 	#6
+		jsr 	FPUToFloat
+		bra 	_CFOEndConv
+_CFOInteger:
+		jsr 	FPUToInteger
+		ldx 	#6
+		jsr 	FPUToInteger
+_CFOEndConv:
+		jsr 	StackSavePosition 			; save the loop position at 1-5
+		lda 	#(SMark_For << 4)+SourcePosSize
+		jsr 	StackPushFrame 				; push the loop address frame.
 		;
+		;		Copy TARGET and STEP onto the stack and put that as a frame
+		;		(3 in total)
+		;
+		phy
+		ldy 	#0
+_CFOCopy:
+		lda 	XS_Mantissa+0,y
+		iny
+		sta 	(zBasicSP),y
+		cpy 	#XS_Size*2
+		bne 	_CFOCopy		
+		ply
+		lda 	#(SMark_For << 4)+(XS_Size*2)
+		jsr 	StackPushFrame
 		rts
 
 _CFOError:
@@ -68,123 +107,117 @@ _CFOError:
 ; *******************************************************************************************
 
 Command_NEXT: ;; next
-		;
-		;		Unpick the Stack Frame Push and put it back after the TO.
-		;
-		lda 	#(SMark_For << 4)
-		jsr 	StackPopFrame 
-		jsr 	StackRestorePosition
-		;
-		;		Check if there is a variable following.
-		;
-		#s_get
+		nop
+		lda 	#0 							; set variable data pointer+1 to zero
+		sta 	zVarDataPtr+1 				; this means we don't check
+		#s_get 								; variable ?
+		cmp 	#0 							; EOL
+		beq 	_CNextNoVariable
 		cmp 	#$40
-		bcs 	_CONNoNextVariable
+		bcs 	_CNextNoVariable
 		;
-		;		Find variable and check it is the same one as the stack.
+		;		Followed by a variable, put address in zVarDataPtr for checking.
 		;
 		jsr 	VariableFind
-		phy
-		ldy 	#6
+		;
+_CNextNoVariable:
+		lda 	#(SMark_For << 4) 			; pop loop address frame
+		jsr 	StackPopFrame
+		lda 	#(SMark_For << 4) 			; pop STEP/TARGET frame.
+		jsr 	StackPopFrame
+		lda 	#(Smark_For << 4) 			; pop variable address frame.
+		jsr 	StackPopFrame
+		;
+		;		Perhaps check the same variable used ?
+		;
+		lda 	zVarDataPtr+1 				; if zero, then no variable provided
+		beq 	_CNextGetTarget 			; e.g. just NEXT not NEXT x
+
+		phy 								; check addresses match.
+		ldy 	#2
 		lda 	(zBasicSP),y
 		cmp 	zVarDataPtr
-		bne 	_CONWrongNext
+		bne 	_CNextWrong
 		iny
 		lda 	(zBasicSP),y
 		cmp 	zVarDataPtr+1
-		bne 	_CONWrongNext
-		;
-_CONNoNextVariable:
-		;
-		;		Evaluate TO in bottom mantissa.
-		;
-		jsr 	EvaluateExpression 			; evaluate the 'TO' value at +0
-		;
-		;		Evaluate STEP in 2nd mantissa.
-		;
-		#s_get 								; next token. 
-		ldx 	#XS_Size 					
-		cmp 	#token_STEP 				; is it STEP ?
-		beq 	_CONCalcStep 				; calculated step
-		;
-		lda 	#0							; set step to integer 1.
-		sta 	XS_Mantissa+1,x
-		sta 	XS_Mantissa+2,x
-		sta 	XS_Mantissa+3,x
-		lda 	#1
-		sta 	XS_Mantissa+0,x
-		sta 	XS_Type,x
-		bra 	_CONHasStep
-_CONCalcStep:
-		#s_next 							; skip STEP
-		jsr 	EvaluateExpressionX 		; and evaluate what the Step is
-_CONHasStep:		
-		jsr 	GetSignCurrent 				; get sign of STEP (in SGN() code)
-		pha 								; save it (if STEP 0, we're going nowhere.)
-		;
-		;		Now get the actual value in 3rd mantissa slot.
-		;
-		jsr 	FNXGetVarDataFromStackSpace ; get var reference data back
-		ldx 	#XS_Size*2
-		jsr 	VariableGet 
-		;
-		;		So, we now have : <TARGET> <STEP> <VALUE>
-		;
-		ldx 	#XS_Size
-		jsr 	BinaryOp_ADD 				; NewValue := STEP + VALUE
-		;
-		;		Now <TARGET> <STEP+VALUE>
-		;	
-		jsr 	VariableSet 				; save the result updating the variable.
-		ldx 	#0 
-		jsr 	CompareValues 				; compare Target-Counter, result in A.	
-		plx 								; old compare value in X
-		cmp 	#0 							; target-counter = 0 then continue.
-		beq 	_CONExit
-		sta 	zTemp1 						; save that comparison in A.
-		cpx 	zTemp1 						; compare against target - counter sign.
-		bne 	_CONEndLoop 				; if different loop ended.
-_CONExit:
-		lda 	#(SMark_For << 4) + 3 + SourcePosSize		
-		jsr 	StackPushFrame 				; push on the stack.
-		rts
-
-_CONWrongNext:
-		#Fatal	"Wrong next variable"
-
-_CONEndLoop:
-		nop
-
-; *******************************************************************************************
-;
-;				Copy variable data address to/from its position on the stack.
-;
-; *******************************************************************************************
-
-FNXCopyVarDataToStackSpace:
-		phy
-		ldy 	#6 				
-		lda 	zVarDataPtr
-		sta 	(zBasicSP),y
-		iny
-		lda 	zVarDataPtr+1
-		sta 	(zBasicSP),y
-		iny
-		lda 	zVarType
-		sta 	(zBasicSP),y
+		bne 	_CNextWrong
 		ply
-		rts
 
-FNXGetVarDataFromStackSpace:
+_CNextGetTarget:		
+		;
+		;		Get the target variable
+		;
 		phy
-		ldy 	#6 				
+		ldy 	#1 							; restore variable type and data.
+		lda 	(zBasicSP),y
+		sta 	zVarType
+		iny
 		lda 	(zBasicSP),y
 		sta 	zVarDataPtr
 		iny
 		lda 	(zBasicSP),y
 		sta 	zVarDataPtr+1
+		ldx 	#12
+		jsr 	VariableGet 				; get that variable value into expr[2]
+		;
+		;		Get target and step back.
+		;
+		ldx 	#0 							; copy stacked Target/Step into expr[0] and [1]
+		ldy 	#11
+_CNXCopy:
+		lda 	(zBasicSP),y 
+		sta 	XS_Mantissa+0,x
+		inx
 		iny
-		lda 	(zBasicSP),y
-		sta 	zVarType
+		cpx 	#XS_Size*2
+		bne 	_CNXCopy
 		ply
+		;
+		;		Work out SGN(step)
+		;
+		ldx 	#6 							; point at expr[1] s
+		jsr 	GetSignCurrent
+		sta 	SignNext 					; save in temporary.
+		;
+		;		Add step (1) to variable value (2)
+		;
+		ldx 	#6 							; add them, however
+		jsr 	BinaryOp_Add 				
+		jsr 	VariableSet					; and write variable back.
+		;
+		;		Compare target and total.
+		;
+		ldx 	#0
+		jsr 	CompareValues
+		ora 	#0
+		beq 	_CNXAgain 					; if true, then do it again.
+		cmp 	SignNext 					; if sign different, then loop has finished.
+		bne 	_CNXLoopDone
+		;
+		;		Restore frames (e.g. like they were pushed back) restoring
+		;		position as you go past.
+		;
+_CNXAgain:
+		lda 	#(SMark_For << 4) + 3		; re-stack variable address
+		jsr 	StackPushFrame 				
+		jsr 	StackRestorePosition 		; get restore position back, e.g. loop round.
+		lda 	#(SMark_For << 4)+SourcePosSize
+		jsr 	StackPushFrame
+		lda 	#(SMark_For << 4)+(XS_Size*2)
+		jsr 	StackPushFrame
+_CNXExit:		
 		rts
+		;
+		;		Loop complete, but check for ,<variable>
+		;		
+_CNXLoopDone:
+		#s_get
+		cmp 	#token_Comma 				; comma ?
+		bne 	_CNXExit
+		#s_next 							; skip comma
+		jsr 	VariableFind 				; identify the variable
+		jmp 	_CNextNoVariable 			; go back with variable pre-found
+
+_CNextWrong:
+		#Fatal	"Wrong Next Variable"

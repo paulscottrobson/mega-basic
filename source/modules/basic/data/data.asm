@@ -127,6 +127,8 @@ SliceCount:	.byte ?
 
 RandomSeed:	.dword ? 						; Random seed.
 
+SignNext:	.byte ? 						; Used for keeping sign of STEP in FOR/NEXT
+
 BreakCount:	.byte ? 						; Counter, avoid checking break every command.
 
 ArrayMaxDim = 3 							; number of dimensions.

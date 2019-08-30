@@ -46,7 +46,7 @@ void DBGXRender(int *address,int showDisplay) {
 	CPUSTATUS *s = CPUGetStatus();													// Get the CPU Status
 
 	const char *labels[] = { "PCTR","A","X","Y","SP","SIGN","OVERF","AMODE","XMODE","DEC","IEN",
-			"ZERO","CARRY","CPU","PBANK","DBANK","DPAGE","BREAK",NULL };
+			"ZERO","CARRY","COUNT","PBANK","DBANK","DPAGE","BREAK",NULL };
 	n = 0;
 	while (labels[n] != NULL) {
 		GFXString(GRID(23,n),labels[n],GRIDSIZE,DBGC_ADDRESS,-1);
@@ -68,7 +68,7 @@ void DBGXRender(int *address,int showDisplay) {
 	GFXNumber(GRID(x,n++),((s->p) & P_INTERRUPT) ? 1 : 0,16,1,GRIDSIZE,DBGC_DATA,-1);		
 	GFXNumber(GRID(x,n++),((s->p) & P_ZERO) ? 1 : 0,16,1,GRIDSIZE,DBGC_DATA,-1);		
 	GFXNumber(GRID(x,n++),((s->p) & P_CARRY) ? 1 : 0,16,1,GRIDSIZE,DBGC_DATA,-1);		
-	GFXString(GRID(x,n++),(s->emul) ? "6502" : "65816",GRIDSIZE,DBGC_DATA,-1);		
+	GFXNumber(GRID(x,n++),s->count,16,8,GRIDSIZE,DBGC_DATA,-1);		
 	GFXNumber(GRID(x,n++),s->pbr,16,2,GRIDSIZE,DBGC_DATA,-1);		
 	GFXNumber(GRID(x,n++),s->dbr,16,2,GRIDSIZE,DBGC_DATA,-1);		
 	GFXNumber(GRID(x,n++),s->dpr,16,4,GRIDSIZE,DBGC_DATA,-1);		

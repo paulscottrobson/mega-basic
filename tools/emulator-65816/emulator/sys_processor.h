@@ -39,6 +39,7 @@ typedef struct _CPUStatus {
 	WORD16 dbr;   
 	WORD16 sp;     
 	WORD16 p;       
+	LONG32 count;
 } CPUSTATUS;
 
 CPUSTATUS *CPUGetStatus(void);														// Access CPU State

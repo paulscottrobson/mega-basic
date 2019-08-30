@@ -1,9 +1,7 @@
 TODO
 ====
-	- 	FOR/NEXT denoument.
-	- 	Why is it slow (relatively !) (int/normalise ?)
+	- 	Optimise compare - can use signs and mantissas before subtracting - check expression, next.
 	- 	LIST indenting.
-	- 	Add 3 of the 4 remaining benchmarks.
 	- 	ON GOTO/GOSUB
 
 	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
