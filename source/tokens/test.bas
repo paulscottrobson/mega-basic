@@ -1,4 +1,4 @@
-for i = 1 to 140 step 17
-print i;pos(0);tab(40);"*"
-next i
+read a,b%,c
+print a,b%,c
 stop
+data 24,49,124.7

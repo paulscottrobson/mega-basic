@@ -1,9 +1,11 @@
 TODO
 ====
+	- 	Complete READ
+
+	-	make DATA "do nothing" (generalise ON skip code)
+
 	-  	GET <var>,<var>,<var> read a single character 1-9 numbers=>num var, anything 
 		else syntax error, string any character, not available puts zeros in.
-
-	-	READ DATA RESTORE
 
 	-	INPUT
 	
@@ -22,7 +24,7 @@ TODO
 			
 	-	How will PROC work ? Pre-scan ? Store on search in quasi-type ?
 	- 	Code reviews ?						
-	- 	Add a proper vector for input/print
+	- 	Add a proper vector for input/print/etc.
 							  	
 Fixes
 =====
@@ -45,3 +47,4 @@ LoMem/HiMem crossover :)
 - 	Allocating variable space.
 - 	Allocating memory space for arrays.
 - 	Stack Frame Push.
+

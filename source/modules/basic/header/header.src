@@ -76,7 +76,7 @@ VectorTable:
 	.word Command_CLR          & $FFFF ; $c3 clr
 	.word Command_STOP         & $FFFF ; $c4 stop
 	.word NotImplemented       & $FFFF ; $c5 data
-	.word NotImplemented       & $FFFF ; $c6 read
+	.word Command_READ         & $FFFF ; $c6 read
 	.word Command_DIM          & $FFFF ; $c7 dim
 	.word NotImplemented       & $FFFF ; $c8 to
 	.word NotImplemented       & $FFFF ; $c9 step
@@ -90,7 +90,7 @@ VectorTable:
 	.word Command_NEW          & $FFFF ; $d1 new
 	.word Command_OLD          & $FFFF ; $d2 old
 	.word Command_ON           & $FFFF ; $d3 on
-	.word NotImplemented       & $FFFF ; $d4 restore
+	.word Command_RESTORE      & $FFFF ; $d4 restore
 	.word Command_POKE         & $FFFF ; $d5 poke
 	.word Command_PRINT        & $FFFF ; $d6 print
 	.word Command_RUN          & $FFFF ; $d7 run

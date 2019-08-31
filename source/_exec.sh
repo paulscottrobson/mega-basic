@@ -21,6 +21,6 @@ popd
 if [ $? -eq 0 ]
 then
 	../bin/m65816 rom.bin go
-	#python scripts/showxs.py
-	#python scripts/showv.py
+	python scripts/showxs.py
+	python scripts/showv.py
 fi

@@ -142,6 +142,9 @@ LastPrinted:.byte ? 						; last printed char ?
 ListIndent: .byte ? 						; list indent level
 LastListIndent:.byte ? 						; previous one.
 											
+DataLPtr: 	.dword ?						; the data long ptr (swapped with zCodePtr)
+DataIndex:	.byte ?							; index position.
+
 Tim_PC:		.word ?							; program counter on BRK (Hi/Lo order)
 Tim_IRQ:	.word ?							; IRQ Vector (Hi/Lo order)
 Tim_SR:		.byte ? 						; Processor Status

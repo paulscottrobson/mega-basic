@@ -40,5 +40,9 @@ ResetRunStatus:
 		lda 	#HighMemory >> 8
 		sta 	StringPtr+1
 		jsr 	ArrayResetDefault
+		;
+		;		Reset the READ/DATA pointer
+		;
+		jsr 	Command_RESTORE
 		rts
 		

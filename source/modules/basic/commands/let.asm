@@ -23,7 +23,7 @@ Command_LET: 	;; let
 		lda 	zVarType
 		pha
 		;
-		jsr 	EvaluateExpression 			; evaluate the RHS.
+		jsr 	EvaluateExpression 			; evaluate the RHS, set X to zero.
 		;
 		pla 								; restore target variable information.
 		sta 	zVarType
