@@ -1,9 +1,16 @@
 TODO
 ====
-	- 	ON GOTO/GOSUB
-	-  	GET
+	- 	Fix TAB, remove IFT_TAB, function to read position and print spaces.
+
+	- 	POS() TAB() functions. TAB can co-opt space.
+
+	-  	GET <var>,<var>,<var> read a single character 1-9 numbers=>num var, anything 
+		else syntax error, string any character, not available puts zeros in.
+
 	-	READ DATA RESTORE
-	- 	POS/TAB
+
+
+	-	INPUT
 	
 	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
 			NEW OLD and Editing will not work (!)
@@ -13,9 +20,8 @@ TODO
 			- program editing.
 			- method of setting default type.
 			- rest of the commands :) 
-								  DEF FN make it work ???
+						  DEF FN make it work ???
 									  
-			- implement POS and TAB which I forgot about.
 			- taylor functions. (Can MS copyright constants and known functions....)
 			- square root N/R or LOG/EXP ? Seperate SQRT ?
 			

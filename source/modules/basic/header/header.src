@@ -89,7 +89,7 @@ VectorTable:
 	.word Command_LIST         & $FFFF ; $d0 list
 	.word Command_NEW          & $FFFF ; $d1 new
 	.word Command_OLD          & $FFFF ; $d2 old
-	.word NotImplemented       & $FFFF ; $d3 on
+	.word Command_ON           & $FFFF ; $d3 on
 	.word NotImplemented       & $FFFF ; $d4 restore
 	.word Command_POKE         & $FFFF ; $d5 poke
 	.word Command_PRINT        & $FFFF ; $d6 print
