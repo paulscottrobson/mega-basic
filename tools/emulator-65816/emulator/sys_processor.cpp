@@ -116,6 +116,7 @@ BYTE8 CPUExecute(LONG32 break1,LONG32 break2) {
 		if (CPURead(PCTR) == 0xEA) return 0;										// stop on NOP.
 		if (CPURead(PCTR) == 0x02) { 												// stop on COP.
 			GFXCloseOnDebug();
+			return 0;	
 		}
 		if (PCTR == break1 || PCTR == break2) return 0;
 	} 																				// Until hit a breakpoint or HLT.

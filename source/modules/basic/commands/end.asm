@@ -11,6 +11,7 @@
 
 
 Command_END: 	;; end
+		nop
 		.if 	exitOnEnd != 0
 		#Exit
 		.endif

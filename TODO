@@ -1,9 +1,11 @@
 TODO
 ====
-	- 	Optimise compare - can use signs and mantissas before subtracting - check expression, next.
 	- 	LIST indenting.
 	- 	ON GOTO/GOSUB
-
+	-  	GET
+	-	READ DATA RESTORE
+	- 	POS/TAB
+	
 	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
 			NEW OLD and Editing will not work (!)
 
@@ -12,9 +14,7 @@ TODO
 			- program editing.
 			- method of setting default type.
 			- rest of the commands :) 
-								  READ DATA RESTORE (restore on reset)
 								  DEF FN make it work ???
-								  GET
 									  
 			- implement POS and TAB which I forgot about.
 			- taylor functions. (Can MS copyright constants and known functions....)

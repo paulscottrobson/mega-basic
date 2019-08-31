@@ -73,12 +73,12 @@ StackPopFrame:
 		ldy 	#0 							; compare with top of stack using EOR
 		eor 	(zBasicSP),y
 		and 	#$F0 						; top 4 bits zero, match
-		bne 	_SPFError 					; mixed structures 	
+		bne 	SPFError 					; mixed structures 	
 		;
 		lda 	(zBasicSP),y 				; get size from byte
 		and 	#$0F
 		eor 	#$FF						; 2's complement
-		sec
+		sec		
 		adc 	zBasicSP
 		sta 	zBasicSP
 		bcs 	_SPFNoBump
@@ -88,9 +88,9 @@ _SPFNoBump:
 		pla		
 		rts
 
-_SPFError:
+SPFError:
 		#Fatal	"Mixed Structures"		
-
+		
 ; *******************************************************************************************
 ;
 ;					Put current position in source on stack, at offset 1

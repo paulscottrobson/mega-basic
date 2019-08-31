@@ -120,12 +120,18 @@ Command_NEXT: ;; next
 		jsr 	VariableFind
 		;
 _CNextNoVariable:
+		lda 	zBasicSP 					; save on stack
+		pha
+		lda 	zBasicSP+1
+		pha
+
 		lda 	#(SMark_For << 4) 			; pop loop address frame
 		jsr 	StackPopFrame
 		lda 	#(SMark_For << 4) 			; pop STEP/TARGET frame.
 		jsr 	StackPopFrame
 		lda 	#(Smark_For << 4) 			; pop variable address frame.
 		jsr 	StackPopFrame
+
 		;
 		;		Perhaps check the same variable used ?
 		;
@@ -201,16 +207,18 @@ _CNXAgain:
 		lda 	#(SMark_For << 4) + 3		; re-stack variable address
 		jsr 	StackPushFrame 				
 		jsr 	StackRestorePosition 		; get restore position back, e.g. loop round.
-		lda 	#(SMark_For << 4)+SourcePosSize
-		jsr 	StackPushFrame
-		lda 	#(SMark_For << 4)+(XS_Size*2)
-		jsr 	StackPushFrame
-_CNXExit:		
+		pla
+		sta 	zBasicSP+1
+		pla
+		sta 	zBasicSP
+_CNXExit:	
 		rts
 		;
 		;		Loop complete, but check for ,<variable>
 		;		
 _CNXLoopDone:
+		pla
+		pla
 		#s_get
 		cmp 	#token_Comma 				; comma ?
 		bne 	_CNXExit
