@@ -13,7 +13,8 @@
 Command_LIST: 	;; list
 		jsr 	ListGetRange				; get any parameters
 		#s_toStart 							; start of program
-		lda 	#0 							; reset the indent
+		lda 	#0 							; reset the indent & last indent
+		sta 	LastListIndent
 		sta 	ListIndent
 _CILLoop:
 		#s_startLine 						; start of line
@@ -46,6 +47,29 @@ _CILExit:
 ; *******************************************************************************************
 
 ListLine:
+		lda 	ListIndent 					; copy current list indent -> last
+		sta 	LastListIndent
+_LICountIndent: 							; indent of current line.
+		#s_get
+		cmp 	#0
+		beq 	_LIDoneIndent
+		cmp 	#firstKeywordPlus
+		bcc 	_LICINext
+		cmp 	#firstUnaryFunction
+		bcs 	_LICINext
+		inc 	ListIndent
+		cmp 	#firstKeywordMinus
+		bcc 	_LICINext
+		dec 	ListIndent
+		dec 	ListIndent
+		bpl 	_LICINext
+		inc 	ListIndent
+_LICINext:
+		#s_skipelement 						; skip to next element.
+		bra 	_LICountIndent
+
+
+_LIDoneIndent:
 		#s_startLine 						; get line# into low 1st mantissa
 		#s_next
 		#s_get
@@ -54,8 +78,16 @@ ListLine:
 		#s_get
 		sta 	XS_Mantissa+1
 		jsr 	Print16BitInteger 			; print integer.
+		sta 	zTemp1 						; save spaces printed.
+		lda 	ListIndent 					; smaller of current/prev indent
+		cmp 	LastListIndent
+		bcc 	_LISmaller
+		lda 	LastListIndent
+_LISmaller:		
+		asl 	a 							; double indent
+		eor 	#$FF 						; 2's complement arithmetic
 		sec
-		sbc 	ListIndent 					; subtract indent e.g. print more.
+		adc 	zTemp1 						; "subtract" indent e.g. print more.
 		tax 								; print spaces to column 6
 _LISpace:
 		lda 	#" "

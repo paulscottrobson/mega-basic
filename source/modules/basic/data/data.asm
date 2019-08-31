@@ -140,6 +140,7 @@ UsrArrayIdx:.byte ? 						; index into UsrArrayDef
 	
 LastPrinted:.byte ? 						; last printed char ?
 ListIndent: .byte ? 						; list indent level
+LastListIndent:.byte ? 						; previous one.
 											
 Tim_PC:		.word ?							; program counter on BRK (Hi/Lo order)
 Tim_IRQ:	.word ?							; IRQ Vector (Hi/Lo order)

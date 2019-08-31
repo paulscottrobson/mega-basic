@@ -1,4 +1,5 @@
 list
+repeat
 for i = 1 to 2
 	for j = 2 to 3
 		for k = 1 to 4
@@ -8,4 +9,5 @@ for i = 1 to 2
 		next k
 	next j
 next i
+until 0
 stop	
