@@ -1,23 +1,17 @@
 ; *******************************************************************************************
 ; *******************************************************************************************
 ;
-;		Name : 		vectors.asm
-;		Purpose :	Vectored I/O
-;		Date :		29th August 2019
+;		Name : 		pos.asm
+;		Purpose :	Pos( unary function
+;		Date :		31st August 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************
 ; *******************************************************************************************
 
-CharPrint:
-		jmp 	IFT_PrintCharacter
+Unary_Pos:	;; 	pos(		
+		jsr 	EvaluateNumberX 			; get value
+		jsr 	CheckNextRParen 			; check right bracket.
+		jsr 	CharGetPosition 			; get the position
+		jmp		UnarySetAInteger			; if 0,1 return that.
 
-CharGet:
-		jmp 	IF_GetKey
-
-CheckBreak:
-		jmp 	IF_CheckBreak
-
-CharGetPosition:
-		lda 	IFT_XCursor
-		rts

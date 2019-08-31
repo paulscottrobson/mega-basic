@@ -59,8 +59,8 @@ VectorTable:
 	.word Unary_Mod            & $FFFF ; $b2 mod(
 	.word Unary_Sgn            & $FFFF ; $b3 sgn(
 	.word Unary_Chr            & $FFFF ; $b4 chr$(
-	.word NotImplemented       & $FFFF ; $b5 pos(
-	.word NotImplemented       & $FFFF ; $b6 tab(
+	.word Unary_Pos            & $FFFF ; $b5 pos(
+	.word Unary_Tab            & $FFFF ; $b6 tab(
 	.word NotImplemented       & $FFFF ; $b7 $
 	.word NotImplemented       & $FFFF ; $b8 $(
 	.word NotImplemented       & $FFFF ; $b9 #

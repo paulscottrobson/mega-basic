@@ -78,7 +78,12 @@ _CPREndPrint:
 		;		Output a tab
 		;		
 _CPR_Tab:
-		jsr 	IFT_Tab
+		jsr 	CharGetPosition 			; print until position % 8 = 0
+		and 	#7
+		beq 	_CPR_Skip
+		lda 	#" "
+		jsr 	CharPrint
+		bra 	_CPR_Tab
 		;
 		;		Skip current, check end.
 		;		

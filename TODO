@@ -1,14 +1,9 @@
 TODO
 ====
-	- 	Fix TAB, remove IFT_TAB, function to read position and print spaces.
-
-	- 	POS() TAB() functions. TAB can co-opt space.
-
 	-  	GET <var>,<var>,<var> read a single character 1-9 numbers=>num var, anything 
 		else syntax error, string any character, not available puts zeros in.
 
 	-	READ DATA RESTORE
-
 
 	-	INPUT
 	

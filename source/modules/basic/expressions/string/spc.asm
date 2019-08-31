@@ -10,15 +10,11 @@
 ; *******************************************************************************************
 
 Unary_Spc: 	;;	spc(
-		jsr 	EvaluateIntegerX 			; numeric parameter
-		jsr 	CheckNextRParen 			; right bracket.
-		;
-		lda 	XS_Mantissa+1,x 			; check upper bytes 0
-		ora 	XS_Mantissa+2,x
-		ora 	XS_Mantissa+3,x
-		bne 	_USSize
+		jsr 	SLIByteParameter 			; check space.
+		jsr 	CheckNextRParen
 		;
 		lda 	XS_Mantissa+0,x
+UnarySpcCreate:		
 		cmp 	#maxString+1
 		bcs 	_USSize
 		pha 								; save length
@@ -36,6 +32,26 @@ _USLoop: 									; write out A spaces
 		bra 	UnaryReturnTempStr
 _USSize:
 		jmp 	BadParamError
+
+; *******************************************************************************************
+;
+;		TAB which is sort of 'from the current position'. Technically you are supposed
+;		to print forward-moves not spaces.
+;
+; *******************************************************************************************
+
+Unary_Tab: 	;; tab(
+		ldx 	#0 							; required TAB position.
+		jsr 	SLIByteParameter
+		jsr 	CheckNextRParen
+		jsr 	CharGetPosition 			; were are we ?
+		sta 	zTemp1
+		sec
+		lda 	XS_Mantissa+0 				; return chars required.	
+		sbc 	zTemp1
+		bcs 	UnarySpcCreate
+		lda 	#0
+		bra 	UnarySpcCreate
 
 ; *******************************************************************************************
 ;

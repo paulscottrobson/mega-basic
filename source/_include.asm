@@ -64,6 +64,7 @@ maxstring = 253
 	.include "modules/basic/expressions/number/sgn.asm"
 	.include "modules/basic/expressions/number/abs.asm"
 	.include "modules/basic/expressions/number/peek.asm"
+	.include "modules/basic/expressions/number/pos.asm"
 	.include "modules/basic/expressions/number/mod.asm"
 	.include "modules/basic/expressions/number/usr.asm"
 	.include "modules/basic/expressions/string/val.asm"
