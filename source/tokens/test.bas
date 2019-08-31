@@ -1,11 +1,11 @@
-20 LET k=0
-25 DIM m(5)
-30 LET k=k+1
-40 LET a=k/2*3+4-5
-45 GOSUB 700
-46 FOR l=1 TO 5
-47 LET m(l)=a
-48 NEXT l
-50 IF k<100 THEN GOTO 30
-60 END
-700 RETURN
+list
+for i = 1 to 2
+	for j = 2 to 3
+		for k = 1 to 4
+			if i+j+k = 6
+				print i,j,k
+			endif
+		next k
+	next j
+next i
+stop	

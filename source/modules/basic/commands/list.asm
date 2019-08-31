@@ -13,6 +13,8 @@
 Command_LIST: 	;; list
 		jsr 	ListGetRange				; get any parameters
 		#s_toStart 							; start of program
+		lda 	#0 							; reset the indent
+		sta 	ListIndent
 _CILLoop:
 		#s_startLine 						; start of line
 		#s_get 								; read offset
@@ -52,10 +54,12 @@ ListLine:
 		#s_get
 		sta 	XS_Mantissa+1
 		jsr 	Print16BitInteger 			; print integer.
+		sec
+		sbc 	ListIndent 					; subtract indent e.g. print more.
 		tax 								; print spaces to column 6
 _LISpace:
 		lda 	#" "
-		jsr 	CharPrint
+		jsr 	ListPrintLC
 		inx
 		cpx 	#6
 		bne 	_LISpace		
@@ -76,7 +80,7 @@ _LIDecode:
 		bra 	_LIDecode
 _LIExit:		
 		lda 	#13 						; print new line.
-		jmp 	CharPrint 
+		jmp 	ListPrintLC
 ;
 ;		Handle $FC-$FF (strings, remarks, decimals.)
 ;		
@@ -140,12 +144,12 @@ _LICommandToken:
 		lda 	(#KeywordText >> 16) & $FF 	; this is for 65816 (it's a table in code
 		sta 	zLTemp1+2 					; space) and won't affect a 6502 at all.
 		;
-		pla 								; get token, chuck bit 7.
-		and 	#127 						
+		pla 								; get token
+		and 	#127 						; chuck bit 7.
 		beq 	_LIFoundToken
 		tax
-_LITokenLoop:
-		ldy 	#0
+_LITokenLoop: 								; if alpha token, then print space if
+		ldy 	#0 							; last character not a token.
 _LIFindEnd:
 		.if 	cpu="65816"					; find end next token
 		lda 	[zLTemp1],y
@@ -173,6 +177,20 @@ _LIPrintToken:
 		.else
 		lda 	(zLTemp1),y 		
 		.endif
+		cpy 	#0 							; see if needs prefix space
+		bne 	_LINoPrefixSpace
+		cmp 	#"A" 						; e.g. alphabetic token.
+		bcc 	_LINoPrefixSpace
+		cmp 	#"Z"+1
+		bcs 	_LINoPrefixSpace
+		ldx 	LastPrinted 				; if last was space not required
+		cpx 	#" "
+		beq 	_LINoPrefixSpace
+		pha
+		lda 	#" "
+		jsr 	ListPrintLC
+		pla
+_LINoPrefixSpace:		
 		iny
 		pha 								; save it
 		and 	#$7F
@@ -182,18 +200,19 @@ _LIPrintToken:
 		ply 								; restore Y
 		and 	#$7F 						; if last char is a letter
 		cmp 	#"A"
-		bcc 	_LINotLetter
+		bcc 	_LINotLetter2
 		cmp 	#"Z"+1
-		bcs 	_LINotLetter
+		bcs 	_LINotLetter2
 		lda 	#" " 						; add spacing
 		jsr 	ListPrintLC
-_LINotLetter:		
+_LINotLetter2:		
 		jmp 	_LIDecode
 
 ;
 ;		Print A in L/C ; note the interface makes it U/C again in the emulator ;-)
 ;
 ListPrintLC:
+		sta 	LastPrinted
 		cmp 	#"A"
 		bcc 	_LPLC0
 		cmp 	#"Z"+1
