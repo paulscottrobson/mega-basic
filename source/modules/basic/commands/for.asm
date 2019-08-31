@@ -107,7 +107,6 @@ _CFOError:
 ; *******************************************************************************************
 
 Command_NEXT: ;; next
-		nop
 		lda 	#0 							; set variable data pointer+1 to zero
 		sta 	zVarDataPtr+1 				; this means we don't check
 		#s_get 								; variable ?

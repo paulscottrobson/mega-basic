@@ -34,6 +34,8 @@ class TestGenerator(BasicProgram):
 		return random.randint(-1000000,1000000)
 	#
 	def getFloat(self):
+		if random.randint(0,5) == 0:
+			return 0.0
 		return random.randint(-1000000000,1000000000)/1000.0
 	#
 	def getString(self):
@@ -59,7 +61,7 @@ class TestGenerator(BasicProgram):
 			operator = opList[random.randint(0,len(opList)-1)]
 			n1 = self.getFloat() if useFloat else self.getInteger()
 			n2 = self.getFloat() if useFloat else self.getInteger()
-			if random.randint(0,20):
+			if random.randint(0,20) == 0:
 				n1 = n2
 			if n2 == 0 and operator == "/":
 				ok = False

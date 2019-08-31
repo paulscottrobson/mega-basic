@@ -20,6 +20,9 @@
 ; *******************************************************************************************
 
 FPCompare:
+		jsr 	FPFastCompare 				; fast compare try first
+		bcs 	_FPCExit 					; that worked.
+		
 		lda 	XS_Exponent,x 				; save the exponents on the stack
 		pha
 		lda 	XS2_Exponent,x
@@ -66,3 +69,57 @@ _FPCZero:
 		lda 	#0 							; and return zero
 _FPCExit:		
 		rts
+
+; *******************************************************************************************
+;
+;									Special case tests
+;
+; *******************************************************************************************
+
+FPFastCompare:
+		bit 	XS_Type,x 					; n1 is zero.
+		bvs 	_FPFLeftZero
+		bit 	XS2_Type,x 					; n2 is zero
+		lda 	XS_Type,x 					; if so, return sign bit of 1 (n-0)
+		bvs 	_FPFSignBit
+		;
+		eor 	XS2_Type,x 					; eor 2 type bits. now know both non-zero
+		asl 	a 							; put in CS if different.
+		lda 	XS_Type,x 					; if signs different return sign of first
+		bcs 	_FPFSignBit
+		;
+		sec 								; same sign and not-zero. compare exponents
+		lda 	XS_Exponent,x 				; compare exponents. if the same, then fail.
+		sbc 	XS2_Exponent,x 				; e.g. we have to do it via subtraction.
+		beq 	_FPNoFastCompare
+		;
+		ror 	a 							; put carry into bit 7.
+		bit 	XS_Type,X 					; if it is +x then flip it.		
+		bmi		_FPFCNotMinus
+		eor 	#$80
+_FPFCNotMinus:
+		bra		_FPFSignBit
+		;
+_FPNoFastCompare:		
+		clc
+		rts
+_FPFZero:
+		lda 	#0
+_FPFExitSet:		
+		sec 	
+		rts
+
+_FPFLeftZero:								; 0 compare n returns -sgn(n)
+		bit 	XS2_Type,x 					; if right is zero, return zero.
+		bvs 	_FPFZero
+		lda 	XS2_Type,x 					; flip sign bit
+		eor 	#$80						; return that as a sign.
+		;
+_FPFSignBit:								; return 1 if A.7=0, else -1
+		asl 	a
+		lda 	#1
+		bcc		_FPFExitSet
+		lda 	#$FF
+		sec
+		rts
+;
