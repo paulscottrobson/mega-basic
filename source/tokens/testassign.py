@@ -135,7 +135,7 @@ class TestGenerator(BasicProgram):
 
 if __name__ == "__main__":
 	bp = TestGenerator(100) # ,261102
-	bp.add("list")
+	#bp.add("list")
 	bp.preamble()
 	for i in range(0,200):
 		bp.update()

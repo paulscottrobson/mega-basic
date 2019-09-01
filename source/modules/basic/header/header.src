@@ -92,7 +92,7 @@ VectorTable:
 	.word Command_ON           & $FFFF ; $d3 on
 	.word Command_RESTORE      & $FFFF ; $d4 restore
 	.word Command_POKE         & $FFFF ; $d5 poke
-	.word Command_PRINTX       & $FFFF ; $d6 print
+	.word Command_PRINT        & $FFFF ; $d6 print
 	.word Command_RUN          & $FFFF ; $d7 run
 	.word Command_WAIT         & $FFFF ; $d8 wait
 	.word Command_SYS          & $FFFF ; $d9 sys

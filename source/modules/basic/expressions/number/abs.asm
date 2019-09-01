@@ -4,6 +4,7 @@
 ;		Name : 		abs.asm
 ;		Purpose :	Abs( unary function
 ;		Date :		22nd August 2019
+;		Review : 	1st September 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************
@@ -15,10 +16,12 @@ Unary_Abs: 	;; abs(
 		lda 	XS_Type,x 					; get type
 		and 	#15 						; if type bits zero, it's float.
 		beq 	_UAMinusFloat
-		lda 	XS_Mantissa+3,x 			; check MSB
+		lda 	XS_Mantissa+3,x 			; check MSB of upper byte to see if negative
 		bpl 	_UAExit
-		jmp 	IntegerNegateAlways 		; negation
+		jmp 	IntegerNegateAlways 		; if so negate it.
 		
+;
+;		|float| just clears the sign bit.
 ;
 _UAMinusFloat:
 		lda 	XS_Type,x 					; clear the sign bit.	

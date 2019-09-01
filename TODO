@@ -9,6 +9,9 @@ TODO
 
 	- 	garbage collection/FRE(0) has issues CHR$(42)+FRE(0)+CHR$(43)
 
+	- 	direct execution. Set up a "faux program line" with a zero offset
+		and a zero line number. When running it check off end of zero offset line ?
+
 	- 	program editing.
 
 	- 	method of setting default type.
@@ -21,7 +24,7 @@ TODO
 			
 	-	How will PROC work ? Pre-scan ? Store on search in quasi-type ?
 
-	- 	Code reviews ?		
+	- 	Code reviews complete.
 
 	-	OPEN CLOSE LOAD SAVE ?				
 

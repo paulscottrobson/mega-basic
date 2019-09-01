@@ -41,7 +41,7 @@ for fName in files:
 			m = re.match("^([A-Za-z0-9\\_]+)\\:\\s*\\;\\;\\s*(.*)\\s*$",l.strip())
 			assert m is not None,"Bad line "+l+" in "+fName
 			lbl = m.group(2).lower().strip()
-			assert lbl in tokens,"Code found for non token "+lbl
+			assert lbl in tokens,"Code found for non token ["+lbl+"]"
 			assert executeLabel[lbl] == "NotImplemented","Duplicate code "+lbl
 			executeLabel[lbl] = m.group(1).strip()
 #

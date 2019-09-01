@@ -18,8 +18,8 @@ fatal: .macro
 cpu = "65816"
 hardware = "em65816"
 exitonend = 1
-autorun = 0
-loadtest = 1
+autorun = 1
+loadtest = 2
 hasfloat = 1
 hasinteger = 1
 maxstring = 253
@@ -47,6 +47,7 @@ maxstring = 253
 	.include "modules/basic/commands/let.asm"
 	.include "modules/basic/commands/get.asm"
 	.include "modules/basic/commands/sys.asm"
+	.include "modules/basic/commands/input.asm"
 	.include "modules/basic/commands/end.asm"
 	.include "modules/basic/commands/if.asm"
 	.include "modules/basic/commands/list.asm"
