@@ -18,7 +18,7 @@ Unary_Chr: 	;;	chr$(
 		ora 	XS_Mantissa+3,x
 		bne 	_UCChar
 		;
-		lda 	#1 							; one character string
+		lda 	#1+1 						; one character string. 2 bytes.
 		jsr 	AllocateTempString		
 		lda 	XS_Mantissa+0,x 			; get char# and write it.
 		jsr 	WriteTempString

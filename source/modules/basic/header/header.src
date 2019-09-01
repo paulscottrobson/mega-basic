@@ -92,14 +92,14 @@ VectorTable:
 	.word Command_ON           & $FFFF ; $d3 on
 	.word Command_RESTORE      & $FFFF ; $d4 restore
 	.word Command_POKE         & $FFFF ; $d5 poke
-	.word Command_PRINT        & $FFFF ; $d6 print
+	.word Command_PRINTX       & $FFFF ; $d6 print
 	.word Command_RUN          & $FFFF ; $d7 run
 	.word Command_WAIT         & $FFFF ; $d8 wait
 	.word Command_SYS          & $FFFF ; $d9 sys
 	.word Command_DOKE         & $FFFF ; $da doke
 	.word Command_LOKE         & $FFFF ; $db loke
 	.word Command_ASSERT       & $FFFF ; $dc assert
-	.word NotImplemented       & $FFFF ; $dd get
+	.word Command_GET          & $FFFF ; $dd get
 	.word Command_ELSE         & $FFFF ; $de else
 NotImplemented:
 

@@ -11,6 +11,8 @@
 
 
 Command_PRINT: 	;; print
+
+_CPR_Loop:
 		#s_get 								; semicolon, skip, get next.
 		cmp 	#0 							; end
 		beq 	_CPR_GoNewLine
@@ -83,7 +85,7 @@ _CPREndPrint:
 		jsr 	VIOCharPrint
 _CPRNoTrail:		
 		ply		
-		bra 	Command_Print		
+		bra 	_CPR_Loop
 		;
 		;		Output a tab
 		;		
@@ -113,7 +115,7 @@ _CPR_Skip:
 		beq 	_CPR_Exit
 		cmp 	#0
 		beq 	_CPR_Exit 					; if not go round again.
-		jmp 	Command_Print
+		jmp 	_CPR_Loop
 		;
 		;		CR and exit		
 		;

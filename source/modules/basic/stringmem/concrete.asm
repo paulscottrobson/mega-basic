@@ -21,7 +21,12 @@ StringConcrete:
 		lda 	XS_Mantissa+1,x
 		sta 	zTemp1+1
 		;
-		ldy 	#0 							; subtract the length+1 (clc) of the string.
+		ldy 	#0 							; empty string, return default empty
+		lda 	(zTemp1),y
+		beq		_SCEmpty
+		;
+		; 				subtract the length+1 (clc) of the string.
+		;
 		clc 								; from the string pointer
 		lda 	StringPtr 					; and put in zTemp2 as well
 		sbc 	(zTemp1),y
@@ -45,3 +50,12 @@ _SCCopy:lda 	(zTemp1),y 					; copy whole thing including length
 		lda 	zTemp2+1 					; return concrete string in AX
 		ldx 	zTemp2
 		rts
+		;
+		;		Return a simple null stored in zero page.
+		;
+_SCEmpty:
+		lda 	#0
+		sta 	zNullString
+		lda 	#zNullString >> 8
+		ldx 	#zNulLString & $FF
+		rts	

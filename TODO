@@ -1,13 +1,8 @@
 TODO
 ====
-	- 	Read about how INPUT/PRINT/GET work.
-
-	-  	GET <var>,<var>,<var> read a single character 1-9 numbers=>num var, anything 
-		else syntax error, string any character, not available puts zeros in.
-
 	-	INPUT
 	
-	-	#xxx on INPUT, PRINT, GET ?
+	-	#xxx on INPUT, PRINT, GET, or hooks for it.
 
 	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
 			NEW OLD and Editing will not work (!)
