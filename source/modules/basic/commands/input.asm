@@ -64,8 +64,57 @@ _CIIsVariable:
 	jsr 	VariableFind 					; set zVarType and zVarDataPtr accordingly.
 	nop
 	lda 	zVarType
+	cmp 	#token_Dollar 					; is it a string ?
+	beq 	_CIIsString
+	;
+	;		Get text into NumBuffer
+	;
+_CINGetText:	
+	lda 	#0
+	sta 	NumBufX
+_CINSkip:
+	jsr 	CIGetCharacter 					; get character skip spaces
+	cmp 	#" "
+	beq 	_CINSkip
+_CINLoop: 									; get characters while continuous.
+	ldx 	NumBufX 						; output character
+	sta 	Num_Buffer,x
+	lda 	#0 								; add trailing NULL
+	sta 	Num_Buffer+1,x
+	inc 	NumBufX 						; bump ptr
+	jsr 	CIGetCharacter 					; get next character
+	cmp 	#" "+1
+	bcs 	_CINLoop
+	;
+	lda 	#Num_Buffer >> 8 				; get ready to convert.
+	sta 	zGenPtr+1	
+	lda 	#Num_Buffer & $FF
+	sta 	zGenPtr
+	;
+	ldx 	#0
+	jsr 	INTFromString 					; integer conversion.
+	bcs 	_CINFailed
+	.if 	hasFloat != 0 					; float possibly, if floating point.
+	jsr 	FPFromString
+	.endif
+	;
+	ldx 	#0 								; write value into variable	
+	jsr 	VariableSet
+	bra 	_CILoop 						; go round again. 	
 
-
-
+_CINFailed:
+	lda 	#0 								; set to request input next time.
+	sta 	InputAvailable
+	bra 	_CINGetText 					; and try again	
+	
 _CIIsString:
 	nop	
+
+; *******************************************************************************************
+;
+;					Get character in A, return CR if no more characters.
+;
+; *******************************************************************************************
+
+CIGetCharacter:
+	nop
