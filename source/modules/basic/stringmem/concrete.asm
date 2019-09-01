@@ -4,6 +4,7 @@
 ;		Name : 		concrete.asm
 ;		Purpose :	Concrete string at mantissa.
 ;		Date :		25th August 2019
+;		Review : 	1st September 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************
@@ -16,14 +17,14 @@
 ; *******************************************************************************************
 
 StringConcrete:
-		lda 	XS_Mantissa+0,x 			; save source to zTemp1
+		lda 	XS_Mantissa+0,x 			; save source string to zTemp1
 		sta 	zTemp1
 		lda 	XS_Mantissa+1,x
 		sta 	zTemp1+1
 		;
 		ldy 	#0 							; empty string, return default empty
 		lda 	(zTemp1),y
-		beq		_SCEmpty
+		beq		_SCEmpty 					; concreting it wastes memory.
 		;
 		; 				subtract the length+1 (clc) of the string.
 		;
@@ -59,3 +60,4 @@ _SCEmpty:
 		lda 	#zNullString >> 8
 		ldx 	#zNulLString & $FF
 		rts	
+		

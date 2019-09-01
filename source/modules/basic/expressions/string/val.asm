@@ -4,7 +4,6 @@
 ;		Name : 		val.asm
 ;		Purpose :	Convert string to number
 ;		Date :		22nd August 2019
-;		Review : 	1st September 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************

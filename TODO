@@ -51,3 +51,7 @@ LoMem/HiMem crossover :)
 - 	Allocating variable space.
 - 	Allocating memory space for arrays.
 - 	Stack Frame Push.
+
+Upgrades
+========
+-	Token checks ?

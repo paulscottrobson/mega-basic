@@ -5,21 +5,13 @@ varcreate.asm
 varfind.asm
 vargetset.asm
 variables.asm
-
-basic.asm
-branch.asm
-checks.asm
-
-concrete.asm
-tempalloc.asm
+dim.asm
 
 core.asm
 data.asm
-dim.asm
 em6502.asm
 em65816.asm
 evaluate.asm
-for.asm
 
 fpadd.asm
 fpcompare.asm
@@ -31,6 +23,7 @@ fptest.asm
 fptostr.asm
 fputils.asm
 
+for.asm
 get.asm
 if.asm
 input.asm
@@ -56,5 +49,5 @@ spc.asm
 stack.asm
 tim.asm
 vectors.asm
-wait.asm
 while.asm
+val.asm (2nd version)
