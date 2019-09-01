@@ -12,6 +12,6 @@
 Unary_Pos:	;; 	pos(		
 		jsr 	EvaluateNumberX 			; get value
 		jsr 	CheckNextRParen 			; check right bracket.
-		jsr 	CharGetPosition 			; get the position
+		jsr 	VIOCharGetPosition 			; get the position
 		jmp		UnarySetAInteger			; if 0,1 return that.
 

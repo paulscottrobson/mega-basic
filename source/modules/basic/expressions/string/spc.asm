@@ -44,7 +44,7 @@ Unary_Tab: 	;; tab(
 		ldx 	#0 							; required TAB position.
 		jsr 	SLIByteParameter
 		jsr 	CheckNextRParen
-		jsr 	CharGetPosition 			; were are we ?
+		jsr 	VIOCharGetPosition 			; were are we ?
 		sta 	zTemp1
 		sec
 		lda 	XS_Mantissa+0 				; return chars required.	

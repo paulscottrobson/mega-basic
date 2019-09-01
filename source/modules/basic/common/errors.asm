@@ -86,7 +86,7 @@ _PRMLoop:
 		.endif
 		beq		_PRMExit
 		iny 
-		jsr 	CharPrint
+		jsr 	VIOCharPrint
 		bra 	_PRMLoop
 _PRMExit:
 		rts		
@@ -109,7 +109,7 @@ Print32BitInteger:
 		ldx 	#0 							; print buffer
 _P1Loop:lda 	Num_Buffer,x
 		beq 	_P1Exit
-		jsr 	CharPrint
+		jsr 	VIOCharPrint
 		inx
 		bra 	_P1Loop
 _P1Exit:txa 								; return chars printed.

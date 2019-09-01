@@ -21,7 +21,7 @@ _CILLoop:
 		#s_get 								; read offset
 		cmp 	#0 							; if zero, end of program
 		beq 	_CILExit
-		jsr 	CheckBreak 					; check break
+		jsr 	VIOCheckBreak 				; check break
 		cmp 	#0		
 		bne 	_CILExit
 		jsr 	ListCheckRange 				; check current line in range.
@@ -250,7 +250,7 @@ ListPrintLC:
 		cmp 	#"Z"+1
 		bcs 	_LPLC0
 		adc 	#$20
-_LPLC0:	jmp 	CharPrint				
+_LPLC0:	jmp 	VIOCharPrint				
 
 ; *******************************************************************************************
 ;

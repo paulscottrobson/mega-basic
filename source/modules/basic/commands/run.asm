@@ -37,7 +37,7 @@ RUN_NextCommand:
 		adc 	#16 						; one time in 16
 		sta 	BreakCount
 		bcc 	RUN_NoCheckBreak
-		jsr 	CheckBreak 					; check for break
+		jsr 	VIOCheckBreak 				; check for break
 		cmp 	#0
 		beq 	RUN_NoCheckBreak
 		jmp 	Command_STOP 				; stop on BREAK.

@@ -9,15 +9,24 @@
 ; *******************************************************************************************
 ; *******************************************************************************************
 
-CharPrint:
+VIOCharPrint:
 		jmp 	IFT_PrintCharacter
 
-CharGet:
-		jmp 	IF_GetKey
+VIOCharGet:
+		jsr 	IF_GetKey
+		cmp 	#0
+		beq 	_VCG0
+		sec
+		rts
+_VCG0:	clc
+		rts
 
-CheckBreak:
+VIOCheckBreak:
 		jmp 	IF_CheckBreak
 
-CharGetPosition:
+VIOCharGetPosition:
 		lda 	IFT_XCursor
 		rts
+
+VIOReadLine:
+		jmp 	IFT_ReadLine

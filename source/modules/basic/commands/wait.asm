@@ -41,7 +41,7 @@ _CWAXorDefault:
 		sta 	zLTemp1+2
 		;
 _CWAWaitLoop:
-		jsr 	CheckBreak 					; exit on break.
+		jsr 	VIOCheckBreak 				; exit on break.
 		cmp 	#0
 		bne 	_CWAWaitExit
 		lda 	#1							; read 1 byte to mantissa/0
