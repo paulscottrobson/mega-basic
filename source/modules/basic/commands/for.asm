@@ -62,10 +62,12 @@ _CFOStep1:
 		sta 	XS_Type,x
 _CFOHaveStep:
 		;
-		;		Preconvert to the compatible type.
+		;		Preconvert to the compatible type. If integer only
+		;		then there's no conversion, this is removed.
 		;
 		pla 								; restore variable type
 		ldx 	#0
+		.if 	hasFloat != 0
 		cmp 	#token_Percent 				; do conversion to type
 		beq 	_CFOInteger
 		jsr 	FPUToFloat
@@ -76,6 +78,7 @@ _CFOInteger:
 		jsr 	FPUToInteger
 		ldx 	#6
 		jsr 	FPUToInteger
+		.endif
 _CFOEndConv:
 		jsr 	StackSavePosition 			; save the loop position at 1-5
 		lda 	#(SMark_For << 4)+SourcePosSize

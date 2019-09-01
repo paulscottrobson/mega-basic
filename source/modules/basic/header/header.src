@@ -84,7 +84,7 @@ VectorTable:
 	.word Command_RETURN       & $FFFF ; $cb return
 	.word Command_GOTO         & $FFFF ; $cc goto
 	.word Command_END          & $FFFF ; $cd end
-	.word NotImplemented       & $FFFF ; $ce input
+	.word Command_INPUT        & $FFFF ; $ce input
 	.word Command_LET          & $FFFF ; $cf let
 	.word Command_LIST         & $FFFF ; $d0 list
 	.word Command_NEW          & $FFFF ; $d1 new
