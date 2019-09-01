@@ -122,6 +122,7 @@ if __name__ == "__main__":
 	tok.test('4.2-3.1')
 	tok.test("for i = 0 to 9:next i,j")
 	tok.test("name$(4)")
+	tok.test('rem "read a,b%,c":rem read d$')
 	tok.test("a>b>=c")
 #
 #		Token format:

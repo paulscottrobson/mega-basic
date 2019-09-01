@@ -1,27 +1,35 @@
 TODO
 ====
-	- 	Complete READ
+	- 	Read about how INPUT/PRINT/GET work.
 
 	-  	GET <var>,<var>,<var> read a single character 1-9 numbers=>num var, anything 
 		else syntax error, string any character, not available puts zeros in.
 
 	-	INPUT
 	
+	-	#xxx on INPUT, PRINT, GET ?
+
 	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
 			NEW OLD and Editing will not work (!)
 
-	- 	Decide what to do next 
-			- garbage collection
-			- program editing.
-			- method of setting default type.
-			- rest of the commands :) 
-						  DEF FN make it work ???
+	- 	garbage collection/FRE(0) has issues CHR$(42)+FRE(0)+CHR$(43)
+
+	- 	program editing.
+
+	- 	method of setting default type.
+
+	-  	DEF FN make it work ???
 									  
-			- taylor functions. (Can MS copyright constants and known functions....)
-			- square root N/R or LOG/EXP ? Seperate SQRT ?
+	- 	taylor functions. (Can MS copyright constants and known functions....)
+
+	- 	square root N/R or LOG/EXP ? Seperate SQRT ?
 			
 	-	How will PROC work ? Pre-scan ? Store on search in quasi-type ?
-	- 	Code reviews ?						
+
+	- 	Code reviews ?		
+
+	-	OPEN CLOSE LOAD SAVE ?				
+
 	- 	Add a proper vector for input/print/etc.
 							  	
 Fixes
@@ -45,4 +53,3 @@ LoMem/HiMem crossover :)
 - 	Allocating variable space.
 - 	Allocating memory space for arrays.
 - 	Stack Frame Push.
-
