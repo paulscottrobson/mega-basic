@@ -1,8 +1,6 @@
 TODO
 ====
-	- 	Fix VAL to use NumBuffer and a general conversion routine using that.
-	
-	-	INPUT
+	-	INPUT completion.
 	
 	-	#xxx on INPUT, PRINT, GET, or hooks for it.
 

@@ -21,93 +21,79 @@ Unary_Val: 	;; val(
 		lda 	XS_Mantissa+1,x
 		sta 	zGenPtr+1
 		;
-		;		Create a working buffer for the ASCIIZ string.
+		;		Check there's something there.
 		;
+		phx
 		phy
 		ldy 	#0 							; get count of characters.
 		lda 	(zGenPtr),y  				; if zero, it's bad obviously :)
-		beq 	_UVBadNumber
+		beq 	UVBadNumber
 		;
-		pha 								; save length.
-		inc 	a 							; one for the length, one for the terminator
-		inc 	a 							; null
-		jsr 	AllocateTempString
+		;		Copy into Num_Buffer
 		;
-		; 		Check to see if there is a - sign up front.
-		;
-		iny 								; move to the next.
-		lda 	(zGenPtr),y 				; get character
-		eor 	#"-"						; zero if minus sign
-		sta 	ValSign 					; store this in the val temp.
-		bne 	_UVNotMinus
-		iny 								; skip over it.
-		pla 								; decrement character count.
-		dec 	a
-		beq 	_UVBadNumber 				; if there was only a '-' that's an error.
-		pha
-_UVNotMinus:		
-		;
-		;		Copy the number into the temporary string space.
-		;
-		pla 								; this is the count.
-_UVCopy:pha									; copy into new temp string which is ASCIIZ
-		lda 	(zGenPtr),y		
-		iny 								
-		jsr 	WriteTempString
-		pla  	
-		dec 	a
-		bne 	_UVCopy 					; when finished copying A = 0 so
-		jsr 	WriteTempString 			; make it ASCIIZ
-		;
-		;		Copy the temporary string address => genptr
-		;
-		clc
-		lda 	zTempStr 					; tempstring +1 => genptr
-		adc 	#1
+		tax
+_UVCopy1:		
+		iny 
+		cpy 	#24 						; too long
+		beq 	UVBadNumber
+		lda 	(zGenPtr),y					; copy character	
+		sta 	Num_Buffer-1,y
+		lda 	#0 							; make string ASCIIZ.
+		sta 	Num_Buffer,y
+		dex
+		bne 	_UVCopy1
+		ply
+		plx
+		jsr 	ConvertNumBuffer 			; convert string in NumBuffer to mantissa,x
+		rts
+
+UVBadNumber:
+		#Fatal	"Bad Number"
+
+; *******************************************************************************************
+;
+;						Convert ASCIIZ number in Num_Buffer to Mantissa,X
+;
+; *******************************************************************************************
+
+ConvertNumBuffer:
+		phy
+
+		lda 	#Num_Buffer & $FF 			; set zGenPtr to point to buffer.
 		sta 	zGenPtr
-		lda 	zTempStr+1
-		adc 	#0
+		lda 	#Num_Buffer >> 8
 		sta 	zGenPtr+1
 		;
-		;		Convert integer.
-		;
-		clc
-		jsr 	IntFromString 				; first bit.
-		bcs 	_UVBadNumber
-		;
-		;		Convert float
-		;
-		.if 	hasFloat=1 					; float only !
-		jsr 	FPFromString				; try for a float part - if float basic.
+		lda 	Num_Buffer 					; first character is - ?
+		cmp 	#"-"
+		bne 	_UVNotMinus1
+		inc 	zGenPtr 					; this time just fix the pointer.
+_UVNotMinus1:
+
+		jsr 	IntFromString 				; get integer
+		bcs 	UVBadNumber
+		.if 	hasFloat != 0
+		jsr 	FPFromString 				; possibly float it.
 		.endif
 
-		lda 	ValSign 					; was it negative
-		bne 	_UVNotNegative
-		;
-		;		Negate the result.
-		;
-		lda 	XS_Type,x 					; check if integer
-		lsr 	a
-		bcs 	_UVInteger
-		;
-		;		If float, set the sign bit.
-		;
-		lda 	XS_Type,x 					; set sign bit
+		lda 	(zGenPtr),y 				; done the whole string
+		bne 	UVBadNumber 				; no, exit.
+
+		lda 	Num_Buffer 					; look at numbuffer
+		cmp 	#"-"
+		bne 	_UVNotMinus2
+
+		lda 	XS_Type,x 					; type is float ?
+		and 	#$0F
+		beq 	_UVNegateFloat
+		jsr 	IntegerNegateAlways
+		bra 	_UVNotMinus2
+_UVNegateFloat:
+		lda 	XS_Type,x 					; set the sign bit.	
 		ora 	#$80
 		sta 	XS_Type,x
-		bra 	_UVNotNegative
-		;
-		;		If integer, call the function.
-		;		
-_UVInteger:
-		jsr 	IntegerNegateAlways 		; sign it.
-_UVNotNegative:		
-
-		lda 	(zGenPtr),y 				; used everything up ?
-		bne 	_UVBadNumber
+_UVNotMinus2:
 		ply
 		rts
-;
-_UVBadNumber:
-		jmp 	BadParamError
+
 		

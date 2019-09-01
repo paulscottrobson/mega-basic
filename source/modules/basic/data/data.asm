@@ -146,6 +146,7 @@ DataLPtr: 	.dword ?						; the data long ptr (swapped with zCodePtr)
 DataIndex:	.byte ?							; index position.
 
 InputAvailable: .byte ? 					; characters available in input buffer.
+InputRetry:	.byte ? 						; true if INPUT is retrying.
 
 Tim_PC:		.word ?							; program counter on BRK (Hi/Lo order)
 Tim_IRQ:	.word ?							; IRQ Vector (Hi/Lo order)

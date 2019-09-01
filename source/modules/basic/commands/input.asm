@@ -13,6 +13,7 @@ Command_INPUT: ;; input
 	
 	lda 	#0 								; clear number of characters required.	
 	sta 	InputAvailable 					; save character count
+	sta 	InputRetry
 	;
 	;		Main input loop
 	;
@@ -67,7 +68,7 @@ _CIIsVariable:
 	cmp 	#token_Dollar 					; is it a string ?
 	beq 	_CIIsString
 	;
-	;		Get text into NumBuffer
+	;		Float/Integer. Get text into NumBuffer. First skip spaces
 	;
 _CINGetText:	
 	lda 	#0
@@ -76,6 +77,9 @@ _CINSkip:
 	jsr 	CIGetCharacter 					; get character skip spaces
 	cmp 	#" "
 	beq 	_CINSkip
+	;
+	;		Then copy number in till space, EOL or :
+	;
 _CINLoop: 									; get characters while continuous.
 	ldx 	NumBufX 						; output character
 	sta 	Num_Buffer,x
@@ -83,30 +87,24 @@ _CINLoop: 									; get characters while continuous.
 	sta 	Num_Buffer+1,x
 	inc 	NumBufX 						; bump ptr
 	jsr 	CIGetCharacter 					; get next character
+	cmp 	#":"
+	beq 	_CINCopied
 	cmp 	#" "+1
 	bcs 	_CINLoop
+_CINCopied:	
 	;
-	lda 	#Num_Buffer >> 8 				; get ready to convert.
-	sta 	zGenPtr+1	
-	lda 	#Num_Buffer & $FF
-	sta 	zGenPtr
+	;		Convert it to integer or float, and write it back.
 	;
 	ldx 	#0
-	jsr 	INTFromString 					; integer conversion.
-	bcs 	_CINFailed
-	.if 	hasFloat != 0 					; float possibly, if floating point.
-	jsr 	FPFromString
-	.endif
-	;
-	ldx 	#0 								; write value into variable	
-	jsr 	VariableSet
+	jsr 	ConvertNumBuffer 				; convert number
+	jsr 	VariableSet 					; set variable.
 	bra 	_CILoop 						; go round again. 	
-
+	;
 _CINFailed:
 	lda 	#0 								; set to request input next time.
 	sta 	InputAvailable
 	bra 	_CINGetText 					; and try again	
-	
+
 _CIIsString:
 	nop	
 
