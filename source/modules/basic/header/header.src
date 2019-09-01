@@ -75,7 +75,7 @@ VectorTable:
 	.word NotImplemented       & $FFFF ; $c2 def
 	.word Command_CLR          & $FFFF ; $c3 clr
 	.word Command_STOP         & $FFFF ; $c4 stop
-	.word NotImplemented       & $FFFF ; $c5 data
+	.word Command_DATA         & $FFFF ; $c5 data
 	.word Command_READ         & $FFFF ; $c6 read
 	.word Command_DIM          & $FFFF ; $c7 dim
 	.word NotImplemented       & $FFFF ; $c8 to

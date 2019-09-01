@@ -68,17 +68,8 @@ _CONFound:
 		pla 								; get token
 		cmp 	#token_GOTO 				; if GOTO				
 		beq		CmdGOTO 					; then just branch.
-		;
-		;		Go to end of line before GOSUB.
-		;
-_CONEndOfCmd:
-		#s_get 								; get next token
-		cmp 	#0 							; if zero, end of line, so exit
-		beq 	CMDGosub
-		cmp 	#token_Colon 				; if colon, end of command
-		beq 	CMDGosub
-		#s_skipElement 						; go forward
-		bra 	_CONEndOfCmd
+		jsr 	SkipEndOfCommand 			; go to end of command
+		bra 	CmdGOSUB 					; and do a GOSUB.
 
 _CONFail:
 		jmp 	BadParamError		

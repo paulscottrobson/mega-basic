@@ -81,3 +81,21 @@ _SSWUnder:									; count has gone negative
 		#Fatal	"Structure order"		
 _SSWFail:									; couldn't find it.
 		#Fatal	"Can't find structure"
+
+
+; *******************************************************************************************
+;
+;						Advance pointer to end of command
+;
+; *******************************************************************************************
+
+SkipEndOfCommand:
+		#s_get 								; get next token
+		cmp 	#0 							; if zero, end of line, so exit
+		beq 	_SOCExit
+		cmp 	#token_Colon 				; if colon, end of command
+		beq 	_SOCExit
+		#s_skipElement 						; go forward
+		bra 	SkipEndOfCommand
+_SOCExit:
+		rts		

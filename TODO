@@ -2,8 +2,6 @@ TODO
 ====
 	- 	Complete READ
 
-	-	make DATA "do nothing" (generalise ON skip code)
-
 	-  	GET <var>,<var>,<var> read a single character 1-9 numbers=>num var, anything 
 		else syntax error, string any character, not available puts zeros in.
 

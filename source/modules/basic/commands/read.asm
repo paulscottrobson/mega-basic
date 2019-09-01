@@ -37,6 +37,9 @@ Command_READ:		;; read
 		#s_prev 							; undo.
 		rts
 
+Command_DATA: 		;; data
+		jmp 	SkipEndOfCommand
+
 ; *******************************************************************************************
 ;
 ;									RESTORE data pointer
@@ -78,7 +81,18 @@ _RSWLoop:
 		plx
 		rts
 
+; *******************************************************************************************
+;
+;							Get the next data item from code
+;
+; *******************************************************************************************
+
 READGetDataItem:
+		;
+		;		Initialise if required.
+		;		if at a comma , skip it and read
+		;		if not, read forward to next DATA and read / error.
+		;
 		lda 	#12
 		sta 	XS_Mantissa+0
 		lda 	#0
