@@ -1,10 +1,12 @@
 TODO
 ====
-	-	INPUT completion.
+	-	INPUT of string.
+
+	- 	Code reviews complete.
 	
 	-	#xxx on INPUT, PRINT, GET, or hooks for it.
 
-	- 	Why won't XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
+	- 	Why won't FM65/XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
 			NEW OLD and Editing will not work (!)
 
 	- 	garbage collection/FRE(0) has issues CHR$(42)+FRE(0)+CHR$(43)
@@ -24,7 +26,6 @@ TODO
 			
 	-	How will PROC work ? Pre-scan ? Store on search in quasi-type ?
 
-	- 	Code reviews complete.
 
 	-	OPEN CLOSE LOAD SAVE ?				
 

@@ -18,6 +18,8 @@ Command_INPUT: ;; input
 	;		Main input loop
 	;
 _CILoop:
+	lda 	#0 								; this resets temporary string allocation.
+	sta 	zTempStr+1 						; (could get lots of long strings)
 	;
 	;		Look for a prompt
 	;
@@ -63,12 +65,11 @@ _CIExit:
 	;	
 _CIIsVariable:
 	jsr 	VariableFind 					; set zVarType and zVarDataPtr accordingly.
-	nop
 	lda 	zVarType
 	cmp 	#token_Dollar 					; is it a string ?
 	beq 	_CIIsString
 	;
-	;		Float/Integer. Get text into NumBuffer. First skip spaces
+	;		Float/Integer. Get text into NumBuffer. First skip spaces, commas
 	;
 _CINGetText:	
 	lda 	#0
@@ -76,6 +77,8 @@ _CINGetText:
 _CINSkip:
 	jsr 	CIGetCharacter 					; get character skip spaces
 	cmp 	#" "
+	beq 	_CINSkip
+	cmp 	#","
 	beq 	_CINSkip
 	;
 	;		Then copy number in till space, EOL or :
@@ -87,7 +90,9 @@ _CINLoop: 									; get characters while continuous.
 	sta 	Num_Buffer+1,x
 	inc 	NumBufX 						; bump ptr
 	jsr 	CIGetCharacter 					; get next character
-	cmp 	#":"
+	cmp 	#":" 							; stop on : ,
+	beq 	_CINCopied
+	cmp 	#","
 	beq 	_CINCopied
 	cmp 	#" "+1
 	bcs 	_CINLoop
@@ -97,6 +102,7 @@ _CINCopied:
 	;
 	ldx 	#0
 	jsr 	ConvertNumBuffer 				; convert number
+	bcs 	_CINFailed 						; didn't work.
 	jsr 	VariableSet 					; set variable.
 	bra 	_CILoop 						; go round again. 	
 	;
@@ -104,15 +110,65 @@ _CINFailed:
 	lda 	#0 								; set to request input next time.
 	sta 	InputAvailable
 	bra 	_CINGetText 					; and try again	
-
+	;
+	;		Handle string . Quoted string or terminated with : or <CR>
+	;		Uses tokenising buffer.
+	;
 _CIIsString:
 	nop	
 
 ; *******************************************************************************************
 ;
 ;					Get character in A, return CR if no more characters.
+;							 (this is for keyboard input only)
 ;
 ; *******************************************************************************************
 
 CIGetCharacter:
-	nop
+	phy
+	ldy		InputAvailable 					; anything available
+	beq 	_CIGCNewLine 					; no, needs a new line.
+	lda 	IFT_LineBuffer,y 				; read line buffer entry
+	cmp 	#13 							; got 13 ?
+	beq 	_CIGCNoInc
+	inc 	InputAvailable 					; if not, advance character pointer.
+_CIGCNoInc:
+	ply
+	rts	
+
+_CIGCNewLine:
+	inc 	InputAvailable 					; next pointer to 1 (first char this time)
+	lda 	#"?"
+	jsr 	VIOCharPrint
+	ldy 	InputRetry 						; retry flag set
+	beq 	_CIGCPrompt 					; if so, then print ? again
+	jsr 	VIOCharPrint
+_CIGCPrompt:	
+	ldy 	#1
+	sty 	InputRetry 						; set the input retry flag to non-zero
+_CIGCBackOne:	
+	dey
+_CIGCLoop:
+	cpy 	#80 							; stop overflow.
+	beq 	_CIGCBackOne
+	jsr 	VIOCharGet 						; get a character
+	beq 	_CIGCLoop 						; wait until key pressed
+	cmp 	#8 								; backspace
+	beq 	_CIGCBackSpace
+	jsr 	VIOCharPrint 					; echo character
+	sta		IFT_LineBuffer,y 				; write into buffer and bump
+	iny
+	cmp 	#13 							; until CR pressed.
+	bne 	_CIGCLoop 	
+	lda 	IFT_LineBuffer 					; return first char in buffer
+	ply 									; restore Y
+	rts
+;
+_CIGCBackSpace:
+	cpy 	#0 								; can only B/S if not first 
+	beq 	_CIGCLoop
+	jsr 	VIOCharPrint 					; echo BS
+	dey 									; go back one.
+	bra 	_CIGCLoop	
+
+		

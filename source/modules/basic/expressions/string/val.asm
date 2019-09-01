@@ -44,6 +44,7 @@ _UVCopy1:
 		ply
 		plx
 		jsr 	ConvertNumBuffer 			; convert string in NumBuffer to mantissa,x
+		bcs 	UVBadNumber
 		rts
 
 UVBadNumber:
@@ -52,6 +53,7 @@ UVBadNumber:
 ; *******************************************************************************************
 ;
 ;						Convert ASCIIZ number in Num_Buffer to Mantissa,X
+;										Return CS if failed.
 ;
 ; *******************************************************************************************
 
@@ -70,13 +72,13 @@ ConvertNumBuffer:
 _UVNotMinus1:
 
 		jsr 	IntFromString 				; get integer
-		bcs 	UVBadNumber
+		bcs 	_UVFail
 		.if 	hasFloat != 0
 		jsr 	FPFromString 				; possibly float it.
 		.endif
 
 		lda 	(zGenPtr),y 				; done the whole string
-		bne 	UVBadNumber 				; no, exit.
+		bne 	_UVFail 					; no, exit.
 
 		lda 	Num_Buffer 					; look at numbuffer
 		cmp 	#"-"
@@ -93,6 +95,12 @@ _UVNegateFloat:
 		sta 	XS_Type,x
 _UVNotMinus2:
 		ply
+		clc
 		rts
+
+_UVFail:ply
+		sec
+		rts
+				
 
 		

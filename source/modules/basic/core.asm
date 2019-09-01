@@ -4,6 +4,7 @@
 ;		Name : 		core.asm
 ;		Purpose :	Basic Main Core
 ;		Date :		19th August 2019
+;		Review : 	1st September 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************
@@ -22,9 +23,9 @@ BASIC_Start:
 		.endif
 		sta 	LocalVector
 		sta 	UserVector
-		lda 	#USRDefault & $FF 			; reset USR vector
-		sta 	UserVector+1
-		lda 	#(USRDefault >> 8) & $FF
+		lda 	#USRDefault & $FF 			; reset USR vector to a default
+		sta 	UserVector+1 				; 24 / 16 bit address
+		lda 	#(USRDefault >> 8) & $FF 	; e.g. it becomes JMP USRDefault
 		sta 	UserVector+2		
 		lda 	#(USRDefault >> 16) & $FF
 		sta 	UserVector+3

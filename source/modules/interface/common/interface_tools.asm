@@ -75,6 +75,8 @@ _IFTULExit:
 IFT_PrintCharacter:
 		cmp 	#13 						; handle newline.
 		beq 	IFT_NewLine
+		cmp 	#8
+		beq 	_IFT_Left
 		pha
 		jsr 	IFT_UpperCase 				; make upper case
 		jsr 	IF_Write 					; write out.
@@ -86,7 +88,11 @@ IFT_PrintCharacter:
 _IFT_PCNotEOL:		
 		pla
 		rts
-
+_IFT_Left:
+		pha
+		jsr 	IF_LeftOne
+		pla
+		rts
 
 
 ; *******************************************************************************************

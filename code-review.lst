@@ -1,18 +1,13 @@
-extract.asm
+List of Files to Code Review (#1)
+=================================
 arraydef.asm
 arrayidx.asm
-varcreate.asm
-varfind.asm
-vargetset.asm
-variables.asm
 dim.asm
-
-core.asm
-data.asm
 em6502.asm
 em65816.asm
 evaluate.asm
-
+extract.asm
+for.asm
 fpadd.asm
 fpcompare.asm
 fpdivide.asm
@@ -22,8 +17,6 @@ fpparts.asm
 fptest.asm
 fptostr.asm
 fputils.asm
-
-for.asm
 get.asm
 if.asm
 input.asm
@@ -37,17 +30,20 @@ inttostr.asm
 let.asm
 list.asm
 mega65.asm
-newold.asm
 print.asm
 programend.asm
 read.asm
-repeat.asm
 run.asm
 skip.asm
 slice.asm
 spc.asm
 stack.asm
 tim.asm
+val.asm (2nd version)
+varcreate.asm
+varfind.asm
+vargetset.asm
+variables.asm
 vectors.asm
 while.asm
-val.asm (2nd version)
+

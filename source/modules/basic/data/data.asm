@@ -4,6 +4,7 @@
 ;		Name : 		data.asm
 ;		Purpose :	Memory Allocation Program
 ;		Date :		18th August 2019
+;		Review : 	1st September 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************
@@ -24,7 +25,7 @@ zTemp1:		.word ?							; temporary pointers
 zTemp2:		.word ?
 zTemp3:		.word ?
 
-zCodePtr:	.dword ? 						; code pointer.
+zCodePtr:	.dword ? 						; code pointer (long)
 zLTemp1:	.dword ?						; long word (used in multiply)
 zGenPtr:	.word ? 						; general pointer.
 
@@ -177,4 +178,3 @@ IFT_XCursor:.byte ?							; current logical position on screen
 IFT_YCursor:.byte ?
 IFT_Buffer:	.fill 100 						; scroll copy buffer.
 IFT_LineBuffer: .fill 100 					; line input buffer.
-
