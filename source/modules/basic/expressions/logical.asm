@@ -4,6 +4,7 @@
 ;		Name : 		logical.asm
 ;		Purpose :	Binary Logical Operators
 ;		Date :		21st August 2019
+;		Review : 	1st September 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************
@@ -21,12 +22,15 @@ BinaryOp_And:		;; 	and
 		lda		XS_Mantissa+0,x
 		and 	XS2_Mantissa+0,x
 		sta 	XS_Mantissa+0,x
+
 		lda		XS_Mantissa+1,x
 		and 	XS2_Mantissa+1,x
 		sta 	XS_Mantissa+1,x
+
 		lda		XS_Mantissa+2,x
 		and 	XS2_Mantissa+2,x
 		sta 	XS_Mantissa+2,x
+
 		lda		XS_Mantissa+3,x
 		and 	XS2_Mantissa+3,x
 		sta 	XS_Mantissa+3,x
@@ -38,17 +42,23 @@ BinaryOp_Or:		;; 	or
 		lda		XS_Mantissa+0,x
 		ora 	XS2_Mantissa+0,x
 		sta 	XS_Mantissa+0,x
+
 		lda		XS_Mantissa+1,x
 		ora 	XS2_Mantissa+1,x
 		sta 	XS_Mantissa+1,x
+
 		lda		XS_Mantissa+2,x
 		ora 	XS2_Mantissa+2,x
 		sta 	XS_Mantissa+2,x
+
 		lda		XS_Mantissa+3,x
 		ora 	XS2_Mantissa+3,x
 		sta 	XS_Mantissa+3,x
 		rts
 
+;
+;		So I'll be kind to 6502 orientated developers ;-)
+;
 BinaryOp_Eor:		;; 	eor
 BinaryOp_Xor:		;; 	xor
 
@@ -57,12 +67,15 @@ BinaryOp_Xor:		;; 	xor
 		lda		XS_Mantissa+0,x
 		eor 	XS2_Mantissa+0,x
 		sta 	XS_Mantissa+0,x
+
 		lda		XS_Mantissa+1,x
 		eor 	XS2_Mantissa+1,x
 		sta 	XS_Mantissa+1,x
+
 		lda		XS_Mantissa+2,x
 		eor 	XS2_Mantissa+2,x
 		sta 	XS_Mantissa+2,x
+
 		lda		XS_Mantissa+3,x
 		eor 	XS2_Mantissa+3,x
 		sta 	XS_Mantissa+3,x

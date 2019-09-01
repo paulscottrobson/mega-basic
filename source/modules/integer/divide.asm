@@ -4,18 +4,21 @@
 ;		Name : 		divide.asm
 ;		Purpose :	Divide 32 bit integers
 ;		Date :		21st August 2019
+;		Review : 	1st September 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************
 ; *******************************************************************************************
 
 DivInteger32:
-		lda 	XS2_Mantissa+0,x 			; check for /0
+		lda 	XS2_Mantissa+0,x 			; check for division by zero.
 		ora 	XS2_Mantissa+1,x
 		ora 	XS2_Mantissa+2,x
 		ora 	XS2_Mantissa+3,x
 		bne 	_BFDOkay
 		#fatal	"Division by Zero"
+		;
+		;		Reset the interim values
 		;
 _BFDOkay:
 		lda 	#0 							; zLTemp1 is 'A' (and holds the remainder)
@@ -24,12 +27,18 @@ _BFDOkay:
 		sta 	zLTemp1+2
 		sta 	zLTemp1+3
 		sta 	SignCount 					; Count of signs.
+		;
+		;		Remove and count signs from the integers.
+		;
 		jsr 	CheckIntegerNegate 			; negate (and bump sign count)
 		phx
 		inx6
 		jsr 	CheckIntegerNegate
 		plx
 		phy 								; Y is the counter
+		;
+		;		Main division loop
+		;
 		ldy 	#32 						; 32 iterations of the loop.
 _BFDLoop:
 		asl 	XS_Mantissa+0,x 			; shift AQ left.
@@ -74,9 +83,10 @@ _BFDNoAdd:
 _BFDNext:									; do 32 times.
 		dey
 		bne 	_BFDLoop
-		ply 								; restore Y and exit
+		ply 								; restore Y
+		;
 		lsr 	SignCount 					; if sign count odd,
-		bcs		IntegerNegateAlways 			; negate the result
+		bcs		IntegerNegateAlways 		; negate the result
 		rts
 
 ; *******************************************************************************************
@@ -86,12 +96,13 @@ _BFDNext:									; do 32 times.
 ; *******************************************************************************************
 
 CheckIntegerNegate:
-		lda 	XS_Mantissa+3,x
-		bmi 	IntegerNegateAlways
+		lda 	XS_Mantissa+3,x 			; is it -ve = MSB set ?
+		bmi 	IntegerNegateAlways 		; if so negate it
 		rts
 IntegerNegateAlways:
-		inc 	SignCount
-		sec
+		inc 	SignCount 					; bump the count of signs
+		;
+		sec 								; 0-mantissa,x -> mantissa,x
 		lda 	#0
 		sbc 	XS_Mantissa+0,x
 		sta 	XS_Mantissa+0,x		
@@ -105,3 +116,4 @@ IntegerNegateAlways:
 		sbc 	XS_Mantissa+3,x
 		sta 	XS_Mantissa+3,x		
 		rts
+

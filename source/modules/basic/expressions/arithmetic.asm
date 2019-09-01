@@ -4,6 +4,7 @@
 ;		Name : 		arithmetic.asm
 ;		Purpose :	Expression Evaluation (Arithmetic)
 ;		Date :		21st August 2019
+;		Review : 	1st September 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************
@@ -19,9 +20,16 @@ BinaryOp_Add:		;; 	+
 		lda 	XS_Type,x  					; and types together
 		and 	XS2_Type,x
 		and 	#2 							; if bit 1 set they are both strings
-		bne 	_BOAString
+		bne 	_BOAString 					; so go do the string code.
+		;
+		;		This calls one type or another depending on the types involved.
+		;		Integer build, just calls the integer routine
+		;		Float build, calls integer if both integers, floats otherwise
+		;		(in this case if it's an int and a float the int is converted.)
+		;
 		BinaryChoose 	FPAdd,AddInteger32
 		rts
+		;
 _BOAString:
 		jmp 	ConcatenateString 			; concatenate two strings.
 
@@ -48,12 +56,15 @@ AddInteger32:
 		lda 	XS_Mantissa+0,x
 		adc 	XS2_Mantissa+0,x
 		sta 	XS_Mantissa+0,x
+
 		lda 	XS_Mantissa+1,x
 		adc 	XS2_Mantissa+1,x
 		sta 	XS_Mantissa+1,x
+
 		lda 	XS_Mantissa+2,x
 		adc 	XS2_Mantissa+2,x
 		sta 	XS_Mantissa+2,x
+
 		lda 	XS_Mantissa+3,x
 		adc 	XS2_Mantissa+3,x
 		sta 	XS_Mantissa+3,x
@@ -64,12 +75,15 @@ SubInteger32:
 		lda 	XS_Mantissa+0,x
 		sbc 	XS2_Mantissa+0,x
 		sta 	XS_Mantissa+0,x
+
 		lda 	XS_Mantissa+1,x
 		sbc 	XS2_Mantissa+1,x
 		sta 	XS_Mantissa+1,x
+
 		lda 	XS_Mantissa+2,x
 		sbc 	XS2_Mantissa+2,x
 		sta 	XS_Mantissa+2,x
+
 		lda 	XS_Mantissa+3,x
 		sbc 	XS2_Mantissa+3,x
 		sta 	XS_Mantissa+3,x
@@ -84,9 +98,12 @@ SubInteger32:
 
 BinaryMakeBothFloat:
 		phx 								; save X
-		inx6 								; go to next
+		inx6 								; go to next mantissa, e.g. the RHS
 		jsr 	BinaryMakeFloat 			; convert to float.
 		plx 								; restore X and fall through.
+		;
+		;		Convert Mantissa,X to float if needed.
+		;
 BinaryMakeFloat:		
 		lda 	XS_Type,x 					; get type byte.
 		lsr 	a 							; if bit 0 set, it's integer so convert
@@ -97,8 +114,9 @@ BinaryMakeFloat:
 ;
 _BMFConvert:
 		.if 	hasFloat=1
-		jmp 	FPUToFloat 					; convert to float		
+		jmp 	FPUToFloat 					; convert to float, only float builds of course
 		.endif
+
 _BMFError:
 		jmp 	TypeError
 				
@@ -118,6 +136,8 @@ ConcatenateString:
 		lda 	XS2_Mantissa+1,x
 		sta 	zLTemp1+3
 		;
+		;		Work out the length of the target string and check it is legal.
+		;
 		phy
 		ldy 	#0 							; work out total length.
 		lda 	(zlTemp1),y
@@ -126,13 +146,20 @@ ConcatenateString:
 		bcs 	_CSError					; check in range.
 		cmp 	#maxString+1
 		bcs 	_CSError
+		;
+		;		Allocate space then copy strings in.
+		;
 		jsr 	AllocateTempString 			; store the result
 		jsr 	_CSCopyString 				; copy zlTemp1 string in.
+		;
 		lda 	XS2_Mantissa+0,x 			; point zLTemp1 to second string
 		sta 	zLTemp1
 		lda 	XS2_Mantissa+1,x
 		sta 	zLTemp1+1
 		jsr 	_CSCopyString 				; copy zlTemp1 string in.
+		;
+		;		Make the return value the temporary string just created.
+		;
 		lda 	zTempStr 					; point current to new string
 		sta 	XS_Mantissa+0,x
 		lda 	zTempStr+1
@@ -146,12 +173,12 @@ _CSCopyString:
 		phy
 		ldy 	#0 							; get length
 		lda 	(zLTemp1),y 				
-		beq 	_CSCSExit 					; if zero, exit
-		tax 								; put in X
+		beq 	_CSCSExit 					; if zero, exit immediately
+		tax 								; put in X which is the counter.
 _CSCSLoop:
 		iny 								; get next char
 		lda 	(zLTemp1),y
-		jsr		WriteTempString 			; copy out
+		jsr		WriteTempString 			; copy out to new string
 		dex 								; do whole string
 		bne 	_CSCSLoop
 _CSCSExit:	

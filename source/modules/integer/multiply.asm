@@ -4,6 +4,7 @@
 ;		Name : 		multiply.asm
 ;		Purpose :	Multiply 32 bit integers
 ;		Date :		21st August 2019
+;		Review : 	1st September 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************
@@ -20,7 +21,7 @@ MulInteger32:
 		sta 	XS3_Mantissa+3,x
 		;
 		lda 	#0
-		sta 	XS_Mantissa+0,x 				; zero +0
+		sta 	XS_Mantissa+0,x 				; zero +0, where the result goes.
 		sta 	XS_Mantissa+1,x
 		sta 	XS_Mantissa+2,x
 		sta 	XS_Mantissa+3,x
@@ -29,7 +30,7 @@ _BFMMultiply:
 		lda 	XS3_Mantissa,x 					; get LSBit of 8-11
 		and 	#1
 		beq 	_BFMNoAdd
-		jsr 	AddInteger32 	
+		jsr 	AddInteger32 					; co-opt this code
 _BFMNoAdd:
 		;
 		asl 	XS2_Mantissa+0,x 				; shift +4 left
