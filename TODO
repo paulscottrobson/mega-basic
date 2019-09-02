@@ -1,18 +1,16 @@
 TODO
 ====
-	-	INPUT of string.
+	- 	Why won't FM65/XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
+		NEW OLD and Editing will not work (!)
 
 	- 	Code reviews complete.
 	
 	-	#xxx on INPUT, PRINT, GET, or hooks for it.
 
-	- 	Why won't FM65/XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
-			NEW OLD and Editing will not work (!)
+	- 	direct execution/tokenisation. Set up a "faux program line" with a zero offset
+		and a zero line number. When running it check off end of zero offset line ?
 
 	- 	garbage collection/FRE(0) has issues CHR$(42)+FRE(0)+CHR$(43)
-
-	- 	direct execution. Set up a "faux program line" with a zero offset
-		and a zero line number. When running it check off end of zero offset line ?
 
 	- 	program editing.
 
@@ -25,7 +23,6 @@ TODO
 	- 	square root N/R or LOG/EXP ? Seperate SQRT ?
 			
 	-	How will PROC work ? Pre-scan ? Store on search in quasi-type ?
-
 
 	-	OPEN CLOSE LOAD SAVE ?				
 

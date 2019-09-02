@@ -88,6 +88,8 @@ _CDICopy:
 		cmp 	#token_Comma 				; comma, do another DIM
 		beq 	Command_DIM
 		#s_prev 							; undo it.
+		;
+		jsr 	ArrayResetDefault 			; subsequent automatic DIMs will be (10)
 		rts
 
 _CDIError:		

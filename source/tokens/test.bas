@@ -1,4 +1,4 @@
-input "hello",hello,b
-input "another",c%
-print hello,b,c%
-stop
+repeat
+input "]",hello$
+print "<"+hello$+">"
+until 0

@@ -112,10 +112,66 @@ _CINFailed:
 	bra 	_CINGetText 					; and try again	
 	;
 	;		Handle string . Quoted string or terminated with : or <CR>
-	;		Uses tokenising buffer.
 	;
 _CIIsString:
-	nop	
+	lda 	#130 							; max of 128 characters
+	jsr 	AllocateTempString
+	lda 	#0 								; this is the quote flag.
+	sta 	NumBufX
+_CISSkip:
+	jsr 	CIGetCharacter 					; get character skip spaces
+	cmp 	#" "
+	beq 	_CISSkip
+	bra 	_CISInputProcess 				; handle that as the first character
+	;
+	;		Main input loop
+	;
+_CISInput:									; input (in colon mode)
+	jsr 	CIGetCharacter	
+_CISInputProcess:	
+	;
+	;		Check for end of line, and colon, which is end of line if not in quotes.
+	;
+	cmp 	#13 							; EOL ?
+	beq 	_CISDone
+	cmp 	#":"							; colon exits if not in quotes. who knows why?
+	bne 	_CISNotColon
+	bit 	NumBufX 						; check quote flag 
+	bpl 	_CISDone 						; if quote flag zero, done
+_CISNotColon:
+	;
+	;		If not quote, write character out, and check string within limits.
+	;		(this limit varies on CBM Machines)
+	;
+	cmp 	#'"'							; quoted string ?
+	beq 	_CISIsQuote						; if so handle that code.
+	jsr 	WriteTempString 				; write to the temporary string
+	lda 	TempStringWriteIndex 			; string too long ?
+	bpl 	_CISInput
+	#Fatal	"Input too long"
+	;
+	;		Handle Quotes
+	;
+_CISIsQuote:
+	lda 	NumBufX 						; this is the 'in quote flag'
+	eor 	#$80 							; toggle bit 7
+	sta 	NumBufX
+	bne 	_CISInput 						; if entered quote mode, get next character
+	;
+	;		String is completed.
+	;
+_CISDone:	
+	lda 	zTempStr 						; return the temporary string
+	sta 	XS_Mantissa+0
+	lda 	zTempStr+1
+	sta 	XS_Mantissa+1
+	lda 	#2
+	sta 	XS_Type
+	ldx 	#0
+	jsr 	VariableSet 					; set variable.
+	jmp 	_CILoop 						; and try again
+
+
 
 ; *******************************************************************************************
 ;

@@ -167,7 +167,7 @@ Tim_SP:		.word ?							; Stack Pointer (just in cases)
 			* = $400 						; this has to start on page boundary
 BasicStack:	.fill 	256 					; and occupy whole pages.
 EndBasicStack:
-					
+
 ; *******************************************************************************************
 ;
 ;							Memory used by the Interface Tools

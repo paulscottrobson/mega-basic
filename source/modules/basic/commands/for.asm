@@ -79,6 +79,9 @@ _CFOInteger:
 		ldx 	#6
 		jsr 	FPUToInteger
 		.endif
+		;
+		;		Push the loop position, now we're at the statement end.
+		;
 _CFOEndConv:
 		jsr 	StackSavePosition 			; save the loop position at 1-5
 		lda 	#(SMark_For << 4)+SourcePosSize
@@ -220,7 +223,7 @@ _CNXExit:
 		;		Loop complete, but check for ,<variable>
 		;		
 _CNXLoopDone:
-		pla
+		pla 								; throw away saved to Basic Stack Pointer
 		pla
 		#s_get
 		cmp 	#token_Comma 				; comma ?
