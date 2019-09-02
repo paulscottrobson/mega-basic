@@ -60,6 +60,7 @@ TokeniseDecimalString:
 		jsr 	_TDSCopyNumber 				; copy a number.
 		;
 		lda 	(zGenPtr),y	 				; next letter.
+		jsr 	TOKCapitalise
 		cmp 	#"E" 						; if not an exponent.
 		bne 	SequenceExit 				; exit now.
 		;

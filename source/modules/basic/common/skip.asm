@@ -4,6 +4,7 @@
 ;		Name : 		skip.asm
 ;		Purpose :	Structure Skipping Code
 ;		Date :		29th August 2019
+;		Review : 	1st September 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************
@@ -20,15 +21,16 @@
 ; *******************************************************************************************
 
 StructureSearchSingle:
-		ldx 	#0 
+		ldx 	#0 							; we always search for XA. This disables X.
+		;
 StructureSearchDouble:
-		sta 	zTemp1 						; save the target on zTemp1,zTemp1+1
+		sta 	zTemp1 						; save the targets in zTemp1,zTemp1+1
 		stx 	zTemp1+1
 		lda 	#0 							; set the structure depth to zero (zTemp2)
 		sta 	zTemp2
 		bra 	_SSWLoop 					; jump in, start scanning from here.
 		;
-		;			Start a new line
+		;			Start a new line, check if end of program, error if so.
 		;
 _SSWNextLine:
 		#s_nextLine 						; go to next line.
@@ -50,13 +52,17 @@ _SSWLoop:
 		beq 	_SSWNextLine 				; if so, then next line
 		bpl 	_SSWNextSimple 				; needs to be a token, just skip char/number.
 		;		
+		;			Found a token.
+		;
 		ldx 	zTemp2 						; check structure count
 		bne 	_SSWCheckUpDown 			; if it's non zero, then a match doesn't work.
 		;
 		cmp 	zTemp1 						; found the right keyword, either choice.
-		beq 	_SSWFound 					; so exit.
+		beq 	_SSWFound 					; then exit.
 		cmp 	zTemp1+1
 		beq 	_SSWFound
+		;
+		;		For token in A, see if it adjusts the keyword level count.
 		;
 _SSWCheckUpDown:
 		cmp 	#firstKeywordPlus 			; if < keyword +
@@ -71,6 +77,9 @@ _SSWPlus:
 		inc 	zTemp2		
 		bmi 	_SSWUnder					; error if driven -ve
 _SSWNext:
+		;
+		;		Skip over token, print or whatever, and go round again.
+		;
 		#s_skipelement 						; skip an element
 		bra 	_SSWLoop 					
 		;
@@ -79,9 +88,8 @@ _SSWFound:
 
 _SSWUnder:									; count has gone negative
 		#Fatal	"Structure order"		
-_SSWFail:									; couldn't find it.
+_SSWFail:									; couldn't find it and ran off the end.
 		#Fatal	"Can't find structure"
-
 
 ; *******************************************************************************************
 ;
@@ -99,3 +107,4 @@ SkipEndOfCommand:
 		bra 	SkipEndOfCommand
 _SOCExit:
 		rts		
+

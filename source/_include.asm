@@ -2,7 +2,7 @@
 ;		 AUTOMATICALLY GENERATED.
 ;
 boot: .macro
-	jmp TokeniseTest
+	jmp BASIC_Start
 	.endm
 irqhandler: .macro
 	.word TIM_BreakHandler
@@ -84,6 +84,7 @@ maxstring = 253
 	.include "modules/basic/pointer/checks.asm"
 	.include "modules/basic/stringmem/concrete.asm"
 	.include "modules/basic/stringmem/tempalloc.asm"
+	.include "modules/basic/tokenise/tokkeyword.asm"
 	.include "modules/basic/tokenise/tokenise.asm"
 	.include "modules/basic/tokenise/tokseq.asm"
 	.include "modules/basic/tokenise/tokconst.asm"
@@ -108,4 +109,3 @@ maxstring = 253
 	.include "modules/float/convert/fpfromstr.asm"
 	.include "modules/basic/expressions/floatonly/rnd.asm"
 	.include "modules/basic/expressions/floatonly/int.asm"
-	.include "modules/basic/tokenise/testing/tokenisetest.asm"

@@ -34,9 +34,7 @@ print.asm
 programend.asm
 read.asm
 run.asm
-skip.asm
 slice.asm
-spc.asm
 stack.asm
 tim.asm
 val.asm (2nd version)
@@ -46,4 +44,6 @@ vargetset.asm
 variables.asm
 vectors.asm
 while.asm
+tokkeyword.asm
+
 

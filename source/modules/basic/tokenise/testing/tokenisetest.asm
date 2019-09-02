@@ -21,5 +21,5 @@ _ttCopy:inx
 		ldx 	#IFT_LineBuffer >> 8
 		jsr 	TokeniseString
 		nop
-_Test:		.text 	'  1234 "abc" "xyzw" .407E-4 42',0
+_Test:		.text 	'  1234 "abc" "xyzw" .407E-4 42 hello+m9',0
 		

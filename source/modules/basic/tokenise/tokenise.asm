@@ -47,11 +47,48 @@ _TSNotConstant:
 		beq 	_TSQuotedString
 		cmp 	#'.' 						; decimal.
 		beq 	_TSDecimal
-
-_h1:	bra 	_h1
-
+		dey 								; point to character
 		;
-		;		Tokenise, handle REM.
+		jsr 	TokeniseKeyword 			; try to tokenise a keyword.
+		bcs 	_TSMainLoop					; true if tokenised okay.
+		;
+		lda 	(zGenPtr),y 				; get character
+		jsr 	TOKCapitalise
+		cmp 	#"A"						; is it A-Z, if so it's an alphanumeric sequence.
+		bcc 	_TSSingle
+		cmp 	#"Z"+1
+		bcc 	_TSAlphaNumeric
+		;
+_TSSingle:		
+		iny 								; skip over output
+		and 	#63 						; make 6 bit ASCII
+		ora 	#128
+		beq 	_TSMainLoop 				; ignore @, which doesn't tokenise.
+		sta 	TokeniseBuffer,x
+		inx
+		bra 	_TSMainLoop
+		;
+		;		Copy an alphanumeric sequence that follows.
+		;
+_TSAlphaNumeric:
+		lda 	(zGenPtr),y 				; get 
+		jsr 	TOKCapitalise
+		cmp 	#"0" 	 					; check 0-9
+		bcc 	_TSMainLoop
+		cmp 	#"9"+1
+		bcc 	_TSANOkay
+		cmp 	#"A"						; check A-Z
+		bcc 	_TSMainLoop
+		cmp 	#"Z"+1
+		bcs 	_TSMainLoop
+		and 	#63 						; write it out
+_TSANOkay:		
+		sta 	TokeniseBuffer,x
+		inx
+		iny
+		bra 	_TSAlphaNumeric
+		;		
+		;		Add NULL and exit.
 		;
 _TSExit:lda 	#0 							; mark end of line.
 		sta 	TokeniseBuffer,x 			
@@ -69,3 +106,15 @@ _TSQuotedString:
 _TSDecimal:		
 		jsr 	TokeniseDecimalString
 		bra 	_TSMainLoop
+
+;
+;		Token capitaliser.
+;
+TOKCapitalise:
+		cmp 	#"a"
+		bcc 	_TOKCExit
+		cmp 	#"z"+1
+		bcs 	_TOKCExit
+		eor 	#$20
+_TOKCExit:
+		rts		

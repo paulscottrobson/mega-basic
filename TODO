@@ -1,8 +1,6 @@
 TODO
 ====
-	- 	Tokeniser pre-capitalise.
-
-	- 	Tokeniser tokenise words, tokenise alphanumeric if failed.
+	- 	Tokeniser tokenise words
 
 	- 	Handle REM special case.
 
@@ -57,4 +55,12 @@ LoMem/HiMem crossover :)
 - 	Allocating variable space.
 - 	Allocating memory space for arrays.
 - 	Stack Frame Push.
+
+Updates to multi character tokens
+=================================
+- 	Syntax checker if any used for this
+-	Scan extra table in tokkeyword.asm
+- 	Decoding in list.asm
+- 	Dispatcher in run.asm
+
 
