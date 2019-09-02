@@ -19,8 +19,9 @@
 
 IntFromString:
 		ldy 	#0
-		sty 	ExpTemp 					; this is the converted digit count.
 IntFromStringY:		
+		lda 	#0
+		sta 	ExpTemp 					; this is the converted digit count.
 		pha
 		lda 	#0 							; clear the mantissa
 		sta 	XS_Mantissa,x

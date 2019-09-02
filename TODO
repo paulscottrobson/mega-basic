@@ -1,5 +1,11 @@
 TODO
 ====
+	- 	Tokeniser pre-capitalise.
+
+	- 	Tokeniser tokenise words, tokenise alphanumeric if failed.
+
+	- 	Handle REM special case.
+
 	-	Tokeniser and automatic testing.
 
 	- 	direct execution. Set up a "faux program line" with a zero offset
@@ -52,6 +58,3 @@ LoMem/HiMem crossover :)
 - 	Allocating memory space for arrays.
 - 	Stack Frame Push.
 
-Upgrades
-========
--	Token checks ?

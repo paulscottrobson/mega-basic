@@ -124,6 +124,7 @@ if __name__ == "__main__":
 	tok.test("name$(4)")
 	tok.test('rem "read a,b%,c":rem read d$')
 	tok.test("a>b>=c")
+	tok.test('12345678')
 #
 #		Token format:
 #

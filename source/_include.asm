@@ -85,6 +85,8 @@ maxstring = 253
 	.include "modules/basic/stringmem/concrete.asm"
 	.include "modules/basic/stringmem/tempalloc.asm"
 	.include "modules/basic/tokenise/tokenise.asm"
+	.include "modules/basic/tokenise/tokseq.asm"
+	.include "modules/basic/tokenise/tokconst.asm"
 	.include "modules/basic/variables/variables.asm"
 	.include "modules/basic/variables/extract.asm"
 	.include "modules/basic/variables/varcreate.asm"
