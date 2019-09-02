@@ -1,14 +1,16 @@
 TODO
 ====
+	-	Tokeniser and automatic testing.
+
+	- 	direct execution. Set up a "faux program line" with a zero offset
+		and a zero line number. When running it check off end of zero offset line ?
+
 	- 	Why won't FM65/XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
 		NEW OLD and Editing will not work (!)
 
 	- 	Code reviews complete.
 	
 	-	#xxx on INPUT, PRINT, GET, or hooks for it.
-
-	- 	direct execution/tokenisation. Set up a "faux program line" with a zero offset
-		and a zero line number. When running it check off end of zero offset line ?
 
 	- 	garbage collection/FRE(0) has issues CHR$(42)+FRE(0)+CHR$(43)
 

@@ -160,13 +160,13 @@ Tim_SP:		.word ?							; Stack Pointer (just in cases)
 
 ; *******************************************************************************************
 ;
-;										Basic Stack
+;							Tokenise Buffer
 ;
 ; *******************************************************************************************
 
 			* = $400 						; this has to start on page boundary
-BasicStack:	.fill 	256 					; and occupy whole pages.
-EndBasicStack:
+TokeniseBuffer:	
+			.fill 	256
 
 ; *******************************************************************************************
 ;
@@ -178,3 +178,13 @@ IFT_XCursor:.byte ?							; current logical position on screen
 IFT_YCursor:.byte ?
 IFT_Buffer:	.fill 100 						; scroll copy buffer.
 IFT_LineBuffer: .fill 100 					; line input buffer.
+
+; *******************************************************************************************
+;
+;										Basic Stack
+;
+; *******************************************************************************************
+
+BasicStack:	.fill 	256 					; and occupy whole pages.
+EndBasicStack:
+
