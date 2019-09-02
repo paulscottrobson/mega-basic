@@ -70,14 +70,6 @@ class TIMOnlyTest(BuildDefinitionTIMOption):												# Something just running
 		self.includeTIM()
 		self.boot("TIM_Start")
 
-class FloatingPointTest(BuildDefinitionTIMOption):										# Run FP Unit Test.
-	def create(self):
-		self.addModule("basic.common.*")									
-		self.addModule("float.*")												# FP Stuff
-		self.addModule("utility.tim")											# nicked hex printing routines :)
-		self.addModule("testing.fptest")
-		self.boot("FPTTest")
-
 class IntegerBasic(BuildDefinitionTIMOption):
 	def create(self):
 		self.includeTIM()
@@ -100,6 +92,11 @@ class IntegerBasic(BuildDefinitionTIMOption):
 		self.addModule("integer.*")
 		self.addModule("integer.convert.*")
 		self.addModule("basic.testcode.*")
+
+		self.define("exitOnEnd",1)	
+		self.addModule("basic.testcode.*")
+		self.define("loadtest",1)	
+
 		self.boot("BASIC_Start")
 
 class FullBasic(IntegerBasic):
@@ -111,9 +108,6 @@ class FullBasic(IntegerBasic):
 		self.addModule("float.convert.*")
 		self.addModule("basic.expressions.floatonly.*")
 		#
-		self.define("exitOnEnd",1)	
-		self.addModule("basic.testcode.*")
-		self.define("loadtest",1)	
 		self.boot("BASIC_Start")
 
 class ExpressionTestBasic(FullBasic):
@@ -131,7 +125,6 @@ class AssignmentTestBasic(FullBasic):
 
 BuildDefinition.Classes = {														# Class list
 		"tim":	TIMOnlyTest,
-		"fpch":	FloatingPointTest,
 		"expr":	ExpressionTestBasic,
 		"assn": AssignmentTestBasic,
 		"full":	FullBasic,
