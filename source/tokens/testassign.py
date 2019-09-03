@@ -81,7 +81,7 @@ class Array(SingleVariable):
 			else:
 				for j in range(0,self.arraySize[1]):
 					checks.append([str(i)+","+str(j),self.data[i][j]])
-		return ":".join(['print {0}({1}),{2}'.format(self.name,c[0],self.quote(c[1])) for c in checks])
+		return ":".join(['assert {0}({1})={2}'.format(self.name,c[0],self.quote(c[1])) for c in checks])
 	#
 	def update(self):
 		v = self.getNewValue()
@@ -136,7 +136,7 @@ class TestGenerator(BasicProgram):
 				self.add(code)
 
 if __name__ == "__main__":
-	bp = TestGenerator(100,831514) # ,261102
+	bp = TestGenerator(100)
 	#bp.add("list")
 	bp.preamble()
 	for i in range(0,200):
