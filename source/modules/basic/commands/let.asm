@@ -10,7 +10,6 @@
 ; *******************************************************************************************
 
 Command_LET: 	;; let
-
 		jsr 	VariableFind 				; get reference to one variable.
 		;
 		lda 	#token_Equal  				; get equals
@@ -22,7 +21,6 @@ Command_LET: 	;; let
 		pha
 		lda 	zVarType
 		pha
-		;
 		jsr 	EvaluateExpression 			; evaluate the RHS, set X to zero.
 		;
 		pla 								; restore target variable information.
@@ -34,4 +32,5 @@ Command_LET: 	;; let
 		;
 		jsr 	VariableSet 				; set the value out.
 		rts
+
 

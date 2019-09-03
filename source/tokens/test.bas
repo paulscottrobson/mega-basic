@@ -1,4 +1,1 @@
-repeat
-input "]",hello$
-print "<"+hello$+">"
-until 0
+20 let t5up$(0)=""

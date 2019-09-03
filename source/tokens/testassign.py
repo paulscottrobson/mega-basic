@@ -81,7 +81,7 @@ class Array(SingleVariable):
 			else:
 				for j in range(0,self.arraySize[1]):
 					checks.append([str(i)+","+str(j),self.data[i][j]])
-		return ":".join(['assert {0}({1})={2}'.format(self.name,c[0],self.quote(c[1])) for c in checks])
+		return ":".join(['print {0}({1}),{2}'.format(self.name,c[0],self.quote(c[1])) for c in checks])
 	#
 	def update(self):
 		v = self.getNewValue()
@@ -119,7 +119,9 @@ class TestGenerator(BasicProgram):
 
 	def update(self):
 		k = self.keys[random.randint(0,len(self.keys)-1)]
-		self.add(self.variables[k].update())
+		code = self.variables[k].update()
+		if code is not None:
+			self.add(code)
 
 	def preamble(self):
 		for v in self.variables.keys():
