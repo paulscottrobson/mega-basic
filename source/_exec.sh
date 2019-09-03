@@ -10,9 +10,10 @@ python tokentables.py >../modules/basic/header/header.src
 #
 #		Generate various test scripts
 #
-#python basicprogram.py ../modules/basic/testcode/testcode.src
-#python testmath.py ../modules/basic/testcode/testing.src
+python basicprogram.py ../modules/basic/testcode/testcode.src
+python testmath.py ../modules/basic/testcode/testing.src
 python testassign.py ../modules/basic/testcode/testassign.src
+python testtokenise.py >../modules/basic/tokenise/testing/tokentest.src
 
 popd
 

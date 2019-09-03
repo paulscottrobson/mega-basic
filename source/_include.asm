@@ -2,7 +2,7 @@
 ;		 AUTOMATICALLY GENERATED.
 ;
 boot: .macro
-	jmp BASIC_Start
+	jmp TokeniseTest
 	.endm
 irqhandler: .macro
 	.word TIM_BreakHandler
@@ -109,3 +109,4 @@ maxstring = 253
 	.include "modules/float/convert/fpfromstr.asm"
 	.include "modules/basic/expressions/floatonly/rnd.asm"
 	.include "modules/basic/expressions/floatonly/int.asm"
+	.include "modules/basic/tokenise/testing/tokenisetest.asm"

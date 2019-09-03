@@ -17,7 +17,7 @@
 	
 TokeniseREMString:
 		stx 	zTemp1 						; save position
-		lda 	#$FE 						; write marker
+		lda 	#$FF 						; write marker
 		sta 	TokeniseBuffer,x 			
 		sta 	TokeniseBuffer+1,x 			; stops space removal.
 		inx 								; bump, and one space for the count.
@@ -42,7 +42,7 @@ _TSRExit:
 		lda 	TokeniseBuffer-1,x 			; previous char space ?
 		cmp 	#" "
 		bne 	SequenceExit
-		dex 								; go back - will bump into $FE eventually.
+		dex 								; go back - will bump into $FF eventually.
 		bra 	_TSRExit
 
 

@@ -58,7 +58,7 @@ class Tokeniser(object):
 		if m is not None:
 			m1 = re.match("^([Ee]\\-?\\d+)(.*)$",m.group(2))				# exponent check.
 			if m1 is not None:
-				self.addTokenSequence(0xFD,m.group(1)+m1.group(1))
+				self.addTokenSequence(0xFD,m.group(1)+m1.group(1).upper())
 				return m1.group(2)
 			#
 			self.addTokenSequence(0xFD,m.group(1))							# add as token sequence.
