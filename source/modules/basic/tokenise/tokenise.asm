@@ -39,6 +39,9 @@ _TSSkipSpaces:
 		dey 								; point back to start
 		jsr 	TokeniseConstant 			; tokenise a constant
 		bra 	_TSMainLoop			 		; and loop back.
+		;
+		;		Check end and string/decimal sequences. 
+		;
 _TSNotConstant:
 		;
 		cmp 	#32 						; end of line.

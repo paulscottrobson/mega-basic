@@ -1,8 +1,6 @@
 TODO
 ====
-	- 	Tokeniser tokenise words
-
-	- 	Handle REM special case.
+	- 	Handle REM code.
 
 	-	Tokeniser and automatic testing.
 
