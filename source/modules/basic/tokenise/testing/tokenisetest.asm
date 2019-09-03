@@ -14,14 +14,21 @@ TokeniseTest:		; tokenise IFT_LineBuffer -> TokenBuffer
 		#ResetStack
 		ldx 	#255
 _ttCopy:inx
-		lda 	_Test,x
+		lda 	TokeniseTestIn,x
 		sta 	IFT_LineBuffer,x
 		bne 	_ttCopy		
 		lda 	#IFT_LineBuffer & $FF
 		ldx 	#IFT_LineBuffer >> 8
 		jsr 	TokeniseString
 		nop
+		ldx 	#0
+_ttCompare:
+		lda 	TokeniseBuffer,x
+		cmp 	TokeniseTestOut,x
+_ttStop:bne 	_ttStop
+		inx
+		cpx 	#TokeniseTestOutEnd-TokeniseTestOut
+		bne 	_ttCompare				
 		#exit
 
-_Test:		.text 	'  1234 "abc" "xyzw" .407E-4 42 let right$(4)+repeat  < <=',0
-		
+		.include "tokentest.src"

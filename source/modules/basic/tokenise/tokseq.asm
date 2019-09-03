@@ -11,6 +11,43 @@
 
 ; *******************************************************************************************
 ;
+;					Tokenise REM string at (zGenPtr),y
+;
+; *******************************************************************************************
+	
+TokeniseREMString:
+		stx 	zTemp1 						; save position
+		lda 	#$FE 						; write marker
+		sta 	TokeniseBuffer,x 			
+		sta 	TokeniseBuffer+1,x 			; stops space removal.
+		inx 								; bump, and one space for the count.
+		inx
+_TSRSkip: 									; remove leading spaces.
+		lda 	(zGenPtr),y
+		iny
+		cmp 	#" "
+		beq 	_TSRSkip		
+		cmp 	#":"						; first char is a colon
+		beq 	SequenceExit 				; ... that's it.
+_TSRCopy:
+		sta 	TokeniseBuffer,x 			; write out
+		inx
+		lda 	(zGenPtr),y 				; get next
+		beq 	_TSRExit 					; zero is exit
+		iny 								; bump pointer
+		cmp 	#":"						; loop back if not colon.
+		bne 	_TSRCopy
+		;
+_TSRExit:
+		lda 	TokeniseBuffer-1,x 			; previous char space ?
+		cmp 	#" "
+		bne 	SequenceExit
+		dex 								; go back - will bump into $FE eventually.
+		bra 	_TSRExit
+
+
+; *******************************************************************************************
+;
 ;					Tokenise Quoted string at (zGenPtr),y
 ;
 ; *******************************************************************************************

@@ -1,0 +1,5 @@
+TokeniseTestIn:		
+		.text ' rem hello',0
+TokeniseTestOut:
+		.byte 	$FE,$07,$68,$65,$6C,$6C,$6F,$00
+TokeniseTestOutEnd:

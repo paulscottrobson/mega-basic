@@ -50,6 +50,13 @@ _TSNotConstant:
 		beq 	_TSQuotedString
 		cmp 	#'.' 						; decimal.
 		beq 	_TSDecimal
+		jsr 	TOKCapitalise 				; make U/C
+		cmp 	#"R" 						; is it R, if so check for REM ?
+		bne 	_TSNoRemCheck
+		jsr 	TOKCheckREM
+		bcs 	_TSMainLoop 				; and if REM okay, go back.
+_TSNoRemCheck:		
+		;
 		dey 								; point to character
 		;
 		jsr 	TokeniseKeyword 			; try to tokenise a keyword.
@@ -109,7 +116,30 @@ _TSQuotedString:
 _TSDecimal:		
 		jsr 	TokeniseDecimalString
 		bra 	_TSMainLoop
-
+;
+;		Check for REM, if so do it and return CS. (R) already checked.
+;
+TOKCheckREM:
+		lda 	(zGenPtr),y 				; check E
+		jsr 	TOKCapitalise
+		cmp 	#"E"
+		bne 	_TCRFail
+		iny
+		lda 	(zGenPtr),y 				; check M
+		dey
+		jsr 	TOKCapitalise
+		cmp 	#"M"
+		bne 	_TCRFail
+		;
+		iny									; point to first character
+		iny
+		jsr 	TokeniseREMString 			; tokenise REM
+		sec
+		rts
+		;		
+_TCRFail:
+		clc
+		rts		
 ;
 ;		Token capitaliser.
 ;
