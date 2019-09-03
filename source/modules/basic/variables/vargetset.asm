@@ -89,7 +89,7 @@ VariableSet:
 		cmp 	#token_Dollar
 		beq 	_VSBadType
 		;
-		.if 	hasFloat=1
+		.if 	hasFloat==1
 		cmp 	#token_Percent 				; type convert to float/int
 		beq 	_VSMakeInt
 		jsr 	FPUToFloat
@@ -135,7 +135,7 @@ _VSCopy:
 		bit 	XS_Type,x 					; if the result is non zero
 		bvc 	_VSExit
 		;
-		lda 	#00 						; zero exponent indicating 0.
+		lda 	#0 							; zero exponent indicating 0.
 		sta 	(zVarDataPtr),y
 		;
 _VSExit:

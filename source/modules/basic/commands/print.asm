@@ -35,7 +35,7 @@ _CPR_Number:
 		lda 	XS_Type 					; get type
 		lsr 	a
 		bcs 	_CPRInt 					; if msb set do as integer
-		.if 	hasFloat=1 
+		.if 	hasFloat==1 
 		jsr 	FPToString 					; call fp to str otherwise
 		.fi
 		bra 	_CPRNPrint

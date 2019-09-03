@@ -101,7 +101,7 @@ BinaryMakeInteger:
 		rts
 ;
 _BMIConvert:
-		.if 	hasFloat=1
+		.if 	hasFloat==1
 		jmp 	FPUToInteger 				; convert to integer		
 		.endif
 _BMIError:

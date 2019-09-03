@@ -32,13 +32,13 @@ VariableMemory = $3000
 	
 		* = $1000
 BasicProgram:		
-		.if loadTest = 1		
+		.if loadTest == 1		
 		.include "../basic/testcode/testcode.src"
 		.endif
-		.if loadTest = 2
+		.if loadTest == 2
 		.include "../basic/testcode/testing.src"
 		.endif
-		.if loadTest = 3
+		.if loadTest == 3
 		.include "../basic/testcode/testassign.src"
 		.endif
 

@@ -20,7 +20,6 @@ _ttCopy:inx
 		lda 	#IFT_LineBuffer & $FF
 		ldx 	#IFT_LineBuffer >> 8
 		jsr 	TokeniseString
-		nop
 		ldx 	#0
 _ttCompare:
 		lda 	TokeniseBuffer,x
@@ -29,6 +28,10 @@ _ttStop:bne 	_ttStop
 		inx
 		cpx 	#TokeniseTestOutEnd-TokeniseTestOut
 		bne 	_ttCompare				
+		jsr 	IFT_ClearScreen
+		lda 	#42
+		jsr 	IFT_PrintCharacter
 		#exit
+_ttWait:bra 	_ttWait
 
 		.include "tokentest.src"

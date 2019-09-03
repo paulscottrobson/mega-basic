@@ -146,7 +146,7 @@ _EVNotParenthesis:
 		;		Logical Not (e.g. integer one's complement)
 		;		
 		jsr 	EvaluateGetAtomX 			; get expression in parenthesis.
-		.if 	hasFloat=1
+		.if 	hasFloat==1
 		jsr 	FPUToInteger 				; make it an integer - if possible.
 		.endif
 		jsr 	NotInteger 					; do the not calculation
@@ -252,7 +252,7 @@ _EVEndInteger:
 ; *******************************************************************************************
 
 EVGetDecimal:
-		.if hasFloat = 1
+		.if hasFloat==1
 		lda 	#'.'							; put DP in NUM_Buffer
 		sta 	Num_Buffer
 		phx
@@ -348,7 +348,7 @@ EvaluateInteger:
 		ldx 	#0
 EvaluateIntegerX:
 		jsr 	EvaluateNumberX
-		.if 	hasFloat=1
+		.if 	hasFloat==1
 		jsr 	FPUToInteger
 		.endif
 		rts

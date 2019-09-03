@@ -20,7 +20,7 @@ Command_SYS: 	;; sys
 		lda 	XS_Mantissa+2
 		sta 	LocalVector+2
 		;
-		.if cpu="65816" 					; call the routine using long or short 
+		.if cpu=="65816" 					; call the routine using long or short 
 		jsl 	_CSYLocalCall 				; jump depending on 24/16 bit code address
 		.else
 		jsr 	_CSYLocalCall
@@ -28,7 +28,7 @@ Command_SYS: 	;; sys
 		rts
 
 _CSYLocalCall:
-		.if cpu="65816"						; long or short jump dependent on code
+		.if cpu=="65816"					; long or short jump dependent on code
 		jmp 	[LocalVector]		 		; address
 		.else
 		jmp 	(LocalVector)				

@@ -84,14 +84,14 @@ _EHAt:	.text 	" at ",0
 PrintROMMessage:
 		stx 	zLTemp1 					; save addres
 		sty 	zLTemp1+1
-		.if 	cpu="65816"					; 65816, make it 24 bit address.
+		.if 	cpu=="65816"				; 65816, make it 24 bit address.
 		phk 								; get current code page
 		pla
 		sta 	ZLTemp1+2 					; put into the 3rd byte so we can use
 		.endif 								; ld [xxx],y
 		ldy 	#0
 _PRMLoop:
-		.if 	cpu="65816" 				; get next character
+		.if 	cpu=="65816" 				; get next character
 		lda 	[zLTemp1],y 				; 65816
 		.else
 		lda 	(zLTemp1),y 				; 6502/4510

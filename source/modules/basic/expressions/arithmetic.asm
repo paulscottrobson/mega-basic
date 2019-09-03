@@ -113,7 +113,7 @@ BinaryMakeFloat:
 		rts
 ;
 _BMFConvert:
-		.if 	hasFloat=1
+		.if 	hasFloat==1
 		jmp 	FPUToFloat 					; convert to float, only float builds of course
 		.endif
 

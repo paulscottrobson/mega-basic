@@ -21,7 +21,7 @@ Unary_Str: 	;; str$(
 		lda 	XS_Type,x 					; get type
 		lsr 	a 							; bit 0 identifies an integer.
 		bcs 	_USInt 						; if msb set do as integer
-		.if 	hasFloat=1 
+		.if 	hasFloat==1 
 		jsr 	FPToString 					; call fp to str otherwise
 		.fi
 		bra 	_USDuplicate

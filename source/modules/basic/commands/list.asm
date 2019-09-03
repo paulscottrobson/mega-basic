@@ -183,7 +183,7 @@ _LICommandToken:
 _LITokenLoop: 								; if alpha token, then print space if
 		ldy 	#0 							; last character not a token.
 _LIFindEnd:
-		.if 	cpu="65816"					; find end next token
+		.if 	cpu=="65816"				; find end next token
 		lda 	[zLTemp1],y
 		.else
 		lda 	(zLTemp1),y 		
@@ -204,7 +204,7 @@ _LINoBump: 									; done the lot ?
 _LIFoundToken:
 		ldy 	#0
 _LIPrintToken:
-		.if 	cpu="65816"					; get next token
+		.if 	cpu=="65816"				; get next token
 		lda 	[zLTemp1],y
 		.else
 		lda 	(zLTemp1),y 		

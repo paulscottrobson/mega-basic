@@ -1,7 +1,6 @@
 TODO
 ====
-	- 	Handle REM code.
-
+	- 	Fix 
 	-	Tokeniser and automatic testing.
 
 	- 	direct execution. Set up a "faux program line" with a zero offset

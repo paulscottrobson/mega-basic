@@ -111,7 +111,7 @@ TIM_Execute:
 		lda 	TIM_A 						; restore AXYZ
 		ldx 	TIM_X
 		ldy 	TIM_Y
-		.if 	CPU="4510" 					; can we load Z ?
+		.if 	CPU=="4510" 				; can we load Z ?
 		ldz 	TIM_Z
 		.endif
 		plp 								; and PS Byte.
@@ -164,7 +164,7 @@ _TIMSR_NoSpace:
 
 _TIMSR_Label:
 		.text 	"    PC   IRQ  SR AC XR YR"
-		.if 	CPU="4510" 					
+		.if 	CPU=="4510" 					
 		.text 	" ZR"
 		.endif
 		.text 	" SP",13,".; "	
@@ -306,7 +306,7 @@ _TIMBreak:
 		plx
 		stx 	TIM_X
 		sty 	TIM_Y		
-		.if 	CPU="4510" 					; can we save Z ?
+		.if 	CPU=="4510" 				; can we save Z ?
 		stz 	TIM_Z
 		.endif
 		pla 								; get Status Register

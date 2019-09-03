@@ -134,7 +134,7 @@ class TestGenerator(BasicProgram):
 				self.add(code)
 
 if __name__ == "__main__":
-	bp = TestGenerator(100) # ,261102
+	bp = TestGenerator(100,831514) # ,261102
 	#bp.add("list")
 	bp.preamble()
 	for i in range(0,200):

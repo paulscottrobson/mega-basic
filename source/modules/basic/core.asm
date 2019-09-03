@@ -16,7 +16,7 @@ BASIC_Start:
 		jsr 	IF_Reset 					; set up and clear screen.
 		jsr 	IFT_ClearScreen
 		;
-		.if 	cpu="65816"
+		.if 	cpu=="65816"
 		lda 	#$5C 						; JMP Long opcode
 		.else
 		lda 	#$4C 						; JMP opcode

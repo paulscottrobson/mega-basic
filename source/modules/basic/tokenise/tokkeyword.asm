@@ -47,7 +47,7 @@ _TKWNoWrite:
 ; *******************************************************************************************
 
 loadTokenChar:	.macro 							; load (keywordTable),y
-		.if 	cpu="65816"
+		.if 	cpu=="65816"
 		lda 	[zLTemp1],y
 		.else
 		lda 	(zLTemp1),y
@@ -58,7 +58,7 @@ TKWScanTokenTable:
 		stx 	zLTemp1+1
 		sta 	zLTemp1+0 						; store at zLTemp1
 		;
-		.if 	cpu="65816" 					; yes, that problem again.
+		.if 	cpu=="65816" 					; yes, that problem again.
 		lda 	#KeywordText >> 16 				; 24 bit addresses in the 65816
 		sta 	zLTemp1+2 						; lovely.
 		.endif

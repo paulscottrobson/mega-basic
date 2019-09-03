@@ -16,7 +16,7 @@ Unary_Usr:	;; 	usr(
 		;
 		phx 								; save XY
 		phy
-		.if 	cpu="65816" 				; call the USR vector short or long
+		.if 	cpu=="65816" 				; call the USR vector short or long
 		jsl 	UserVector 					; with the parameter in the base mantissa
 		.else
 		jsr 	UserVector 					; call the USR function.
