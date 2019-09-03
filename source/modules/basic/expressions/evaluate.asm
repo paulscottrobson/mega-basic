@@ -336,7 +336,7 @@ EvaluateType:
 
 EvaluateNumber:	
 		ldx 	#0
-EvaluateNumberX:
+EvaluateNumberX:	
 		jsr 	EvaluateExpressionX
 		lda 	XS_Type,x 						; check type is 0/1
 		and 	#15 					

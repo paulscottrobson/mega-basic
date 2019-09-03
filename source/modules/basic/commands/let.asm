@@ -30,7 +30,7 @@ Command_LET: 	;; let
 		pla
 		sta 	zVarDataPtr
 		;
-		jsr 	VariableSet 				; set the value out.
+;		jsr 	VariableSet 				; set the value out.
 		rts
 
 

@@ -40,12 +40,12 @@ _VFNextIndex:
 		pha
 		lda 	zVarType 				
 		pha 
-		jsr 	EvaluateIntegerX 		; calculate the index.
+		jsr 	EvaluateInteger 		; calculate the index.
 		pla 							; restore and index.
 		sta 	zVarType
 		pla 	
 		sta 	zVarDataPtr+1
-		pla 	
+		pla 		
 		sta 	zVarDataPtr
 		;
 		jsr 	ArrayIndexFollow 		; do the index.
