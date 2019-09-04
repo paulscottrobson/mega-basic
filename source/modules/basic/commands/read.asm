@@ -93,7 +93,7 @@ READGetDataItem:
 		ora 	zCodePtr+1 	
 		bne 	_RGDIIsInitialised
 		;
-		#s_tostart 							; go to start
+		#s_tostart BasicProgram				; go to start
 		bra 	_RGDIFindData 				; locate next data from start and read that.
 		;
 		;		If pointing at a comma, it was DATA xxx,yyy,zzz so can skip and fetch.

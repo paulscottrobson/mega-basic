@@ -35,15 +35,33 @@ BASIC_Start:
 		jsr 	ResetRunStatus 				; clear everything (CLR command)
 		;
 		#ResetStack
-		.if 		loadTest!=0
+		.if 	loadTest!=0
 		jmp 	COMMAND_Run
 		.endif
 		;
-;		jsr 	Command_NEW 				; new command, will not return.
+		jsr 	Command_NEW 				; new command, will not return.
 WarmStart:
+		ldx 	#ReadyMsg & $FF 			; Print READY.
+		ldy 	#(ReadyMsg >> 8) & $FF
+		jsr 	PrintROMMessage
+ErrorStart:		
 		#ResetStack
+		jsr 	IFT_ReadLine 				; read line in.
 		;
-		; 	TODO: Input and execute command. Not this way (!)
-		;		
-		bra 	WarmStart
-		
+		lda 	#IFT_LineBuffer & $FF 		; tokenise it.
+		ldx 	#IFT_LineBuffer >> 8
+		jsr 	TokeniseString
+		;
+		lda 	TokeniseBuffer 				; what is first.
+		and 	#$C0 						; is it a number 4000-7FFF
+		cmp 	#$40
+		beq 	EditLine 					; if true, go to edit line.
+		#s_toStart TokeniseBuffer 			; reset pointer to token buffer.
+		#s_startLine 						; there's no preamble.
+		jmp 	RUN_NextCommand
+
+ReadyMsg:
+		.text 	"Ready.",13,0
+
+EditLine:
+		bra 	EditLine

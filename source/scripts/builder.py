@@ -94,10 +94,6 @@ class IntegerBasic(BuildDefinitionTIMOption):
 		self.addModule("integer.convert.*")
 		self.addModule("basic.testcode.*")
 
-		self.define("exitOnEnd",1)	
-		self.addModule("basic.testcode.*")
-		self.define("loadtest",1)	
-
 		self.boot("BASIC_Start")
 
 class FullBasic(IntegerBasic):
@@ -110,6 +106,13 @@ class FullBasic(IntegerBasic):
 		self.addModule("basic.expressions.floatonly.*")
 		#
 		self.boot("BASIC_Start")
+
+class RunDirectBasic(FullBasic):
+	def create(self):
+		FullBasic.create(self)
+		self.define("exitOnEnd",1)	
+		self.addModule("basic.testcode.*")
+		self.define("loadtest",1)	
 
 class ExpressionTestBasic(FullBasic):
 	def create(self):
@@ -136,6 +139,7 @@ BuildDefinition.Classes = {														# Class list
 		"assn": AssignmentTestBasic,
 		"full":	FullBasic,
 		"intb":	IntegerBasic,
+		"run":  RunDirectBasic,
 		"tokn": TokeniseTestBasic
 }
 

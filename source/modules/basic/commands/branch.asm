@@ -108,7 +108,7 @@ GotoChangeToLineNumberX:
 		ora 	XS_Mantissa+1,x
 		beq 	_GCTLFail 					; if so, no can do.
 		;
-		#s_toStart 							; back to start of program
+		#s_toStart BasicProgram				; back to start of program
 _GCTLLoop:		
 		#s_startLine 						; check offset = 0, if so fail as end of program
 		#s_get								; so get the offset and check it

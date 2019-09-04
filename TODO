@@ -1,7 +1,11 @@
 TODO
 ====
-	- 	direct execution. Set up a "faux program line" with a zero offset
-		and a zero line number. When running it check off end of zero offset line ?
+	-	Change tokeniser so the start of the buffer is $00 $00 $00 and adjust the
+		test routine, check it still works.
+
+	- 	Implement direct run.
+		-	Handle ERRORs (line number zero)
+		-	Handle End of Line (offset = 0 => will END ?)
 
 	- 	Why won't FM65/XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
 		NEW OLD and Editing will not work (!)
@@ -49,6 +53,7 @@ LoMem/HiMem crossover :)
 - 	Allocating variable space.
 - 	Allocating memory space for arrays.
 - 	Stack Frame Push.
+-	Token Buffer overflow.
 
 Updates to multi character tokens
 =================================

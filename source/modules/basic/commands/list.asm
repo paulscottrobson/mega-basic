@@ -12,7 +12,7 @@
 
 Command_LIST: 	;; list
 		jsr 	ListGetRange				; get any parameters
-		#s_toStart 							; start of program
+		#s_toStart BasicProgram				; start of program
 		lda 	#0 							; reset the indent & last indent
 		sta 	LastListIndent
 		sta 	ListIndent

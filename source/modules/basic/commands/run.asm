@@ -11,7 +11,7 @@
 
 Command_RUN: 	;; run
 		jsr 	ResetRunStatus 				; clear, reset stacks etc.
-		#s_tostart 							; go to the first line.
+		#s_toStart BasicProgram 			; start of program.
 		;
 		;		New line.
 		;	

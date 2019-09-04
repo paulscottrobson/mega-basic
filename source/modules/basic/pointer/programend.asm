@@ -19,7 +19,7 @@
 ; *******************************************************************************************
 
 UpdateProgramEnd:
-		#s_toStart 							; start of program
+		#s_toStart 	BasicProgram			; start of program
 _UPDLoop:		
 		#s_startLine 						; start of line.
 		#s_get 								; get the offset

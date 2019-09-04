@@ -70,7 +70,7 @@ _EHNoLine:									; if running in automatic mode, we
 		.if 	exitOnEnd != 0 				; stop dead on an error.
 		bra 	_EHNoLine
 		.endif
-		jmp 	WarmStart 					; normally warm start.
+		jmp 	ErrorStart 					; normally warm start, no message.
 
 _EHAt:	.text 	" at ",0		
 

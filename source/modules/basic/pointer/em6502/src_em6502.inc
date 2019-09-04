@@ -16,9 +16,9 @@
 ; *******************************************************************************************
 
 s_toStart:	.macro
-		lda 	#BasicProgram & $FF
+		lda 	#\1 & $FF
 		sta 	zCodePtr+0
-		lda 	#BasicProgram >> 8
+		lda 	#\1 >> 8
 		sta 	zCodePtr+1
 		lda 	#0
 		sta 	zCodePtr+2

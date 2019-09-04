@@ -17,7 +17,7 @@
 ; *******************************************************************************************
 
 Command_NEW: 	;; new
-		#s_toStart							; start of program memory
+		#s_toStart	BasicProgram			; start of program memory
 		#s_startLine 						; to start of line
 		lda 	#0 							; write a 0 there, null first offset
 		#s_put		
@@ -31,7 +31,7 @@ Command_NEW: 	;; new
 ; *******************************************************************************************
 		
 Command_OLD: ;; old
-		#s_toStart 							; first token of the program.
+		#s_toStart 	BasicProgram			; first token of the program.
 _COL_Find:
 		#s_get 								; get next and advance
 		#s_next
