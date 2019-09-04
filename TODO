@@ -31,7 +31,7 @@ Fixes
 
 - 	Proper insert/delete in line editing.
 - 	Add X to Monitor (warm start BASIC)
-- 	FP optimisations for 4510 extended and 65816
+- 	Int/FP optimisations for 4510 extended and 65816
 		- Anything in FPMacros (check XYZ usage for non shifts - may not be worth it)		
 		- Integer negation in fputils.asm
 		- Mantissa subtraction in fpdivide.asm
