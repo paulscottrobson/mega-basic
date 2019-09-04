@@ -13,6 +13,7 @@
 		.include "../basic/header/header.src"
 
 BASIC_Start:
+		#ResetStack
 		jsr 	IF_Reset 					; set up and clear screen.
 		jsr 	IFT_ClearScreen
 		;

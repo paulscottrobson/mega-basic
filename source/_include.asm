@@ -17,10 +17,10 @@ fatal: .macro
 	.endm
 cpu = "65816"
 hardware = "em65816"
-exitonend = 1
-autorun = 1
-loadtest = 2
-hasfloat = 1
+exitonend = 0
+autorun = 0
+loadtest = 0
+hasfloat = 0
 hasinteger = 1
 maxstring = 253
 	.include "modules/basic/pointer/em65816/src_em65816.inc"
@@ -99,13 +99,3 @@ maxstring = 253
 	.include "modules/integer/divide.asm"
 	.include "modules/integer/convert/inttostr.asm"
 	.include "modules/integer/convert/intfromstr.asm"
-	.include "modules/float/fpadd.asm"
-	.include "modules/float/fpdivide.asm"
-	.include "modules/float/fpmultiply.asm"
-	.include "modules/float/fpparts.asm"
-	.include "modules/float/fpcompare.asm"
-	.include "modules/float/fputils.asm"
-	.include "modules/float/convert/fptostr.asm"
-	.include "modules/float/convert/fpfromstr.asm"
-	.include "modules/basic/expressions/floatonly/rnd.asm"
-	.include "modules/basic/expressions/floatonly/int.asm"

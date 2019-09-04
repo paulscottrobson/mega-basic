@@ -1,9 +1,8 @@
 TODO
 ====
+	- 	INTB : Print A doesn't work.
+	
 	- 	Integer Default Issue. 
-
-	- 	Why won't FM65/XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
-		NEW OLD and Editing will not work (!)
 
 	- 	Code reviews complete.
 	
