@@ -32,18 +32,20 @@ _CPR_Loop:
 _CPR_Number:
 		lda 	#0 							; reset buffer index
 		sta 	NumBufX
+		tax
 		lda 	XS_Type 					; get type
-		lsr 	a
+		lsr 	a 							
 		bcs 	_CPRInt 					; if msb set do as integer
 		.if 	hasFloat==1 
-		jsr 	FPToString 					; call fp to str otherwise
+		jsr 	FPToString 					; do the floa
 		.fi
 		bra 	_CPRNPrint
 
 _CPR_GoNewLine:
 		jmp 	_CPR_NewLine
 
-_CPRInt:jsr 	IntToString		
+_CPRInt:
+		jsr 	IntToString		
 _CPRNPrint:
 		lda 	Num_Buffer 					; is first character -
 		cmp 	#"-"

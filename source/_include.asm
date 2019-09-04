@@ -17,9 +17,9 @@ fatal: .macro
 	.endm
 cpu = "65816"
 hardware = "em65816"
-exitonend = 1
-autorun = 1
-loadtest = 2
+exitonend = 0
+autorun = 0
+loadtest = 0
 hasfloat = 1
 hasinteger = 1
 maxstring = 253

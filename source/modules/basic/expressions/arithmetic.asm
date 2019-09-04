@@ -40,9 +40,17 @@ BinaryOp_Subtract: 	;; 	-
 BinaryOp_Multiply: 	;; 	*
 		BinaryChoose 	FPMultiply,MulInteger32
 		rts
-
+;
+;		Divide is different. We always do floats, because the result might
+;		be a float, cf the BBC Micro. IntegerBasic does Integer obviously
+;
 BinaryOp_Divide: 	;; 	/
-		BinaryChoose 	FPDivide,DivInteger32
+		.if hasFloat == 1
+		jsr 	BinaryMakeBothFloat 	
+		jsr 	FPDivide
+		.else
+		jsr 	DivInteger32
+		.endif
 		rts
 
 ; *******************************************************************************************
