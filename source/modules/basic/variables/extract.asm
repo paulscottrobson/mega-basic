@@ -20,13 +20,21 @@ VariableNameError:
 ; *******************************************************************************************
 
 VariableExtract:
+		phx 							; save X.		
+		;
+		;		Set the default type if none is specified.
+		;
+		.if hasFloat == 1
+		lda 	#token_hashlParen  		; set the type to #( e.g. real array.
+		.else
+		lda 	#token_percentlParen 	; no floats, use integer.
+		.endif
+		sta 	Var_Type 
+
+		sta 	Var_Hash 				; we initialise the hash with this. It doesn't matter
+		;
 		;
 		;		Read the variable into the VarBuffer (same as NumBuffer)
-		;
-		phx 							; save X.
-		lda 	#token_hashlParen  		; set the type to #( e.g. real array.
-		sta 	Var_Type 
-		sta 	Var_Hash 				; we initialise the hash with this. It doesn't matter
 		;
 		#s_get 							; get first character
 		cmp 	#0 						; first one must be A-Z

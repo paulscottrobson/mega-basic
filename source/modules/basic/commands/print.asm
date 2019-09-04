@@ -44,7 +44,7 @@ _CPR_Number:
 _CPR_GoNewLine:
 		jmp 	_CPR_NewLine
 
-_CPRInt:
+_CPRInt:		
 		jsr 	IntToString		
 _CPRNPrint:
 		lda 	Num_Buffer 					; is first character -
