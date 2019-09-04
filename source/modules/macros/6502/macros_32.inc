@@ -2,7 +2,7 @@
 ; *******************************************************************************************
 ;
 ;		Name : 		macros32.inc
-;		Purpose :	32 bit Macros
+;		Purpose :	32 bit Macros (6502)
 ;		Date :		18th August 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;

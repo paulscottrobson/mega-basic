@@ -34,9 +34,9 @@ VectorTable:
 	.word NotImplemented       & $FFFF ; $99 fn(
 	.word Unary_Abs            & $FFFF ; $9a abs(
 	.word Unary_Asc            & $FFFF ; $9b asc(
-	.word NotImplemented       & $FFFF ; $9c int(
+	.word Unary_Int            & $FFFF ; $9c int(
 	.word Unary_Peek           & $FFFF ; $9d peek(
-	.word NotImplemented       & $FFFF ; $9e rnd(
+	.word Unary_Rnd            & $FFFF ; $9e rnd(
 	.word Unary_Usr            & $FFFF ; $9f usr(
 	.word Unary_Left           & $FFFF ; $a0 left$(
 	.word Unary_Right          & $FFFF ; $a1 right$(

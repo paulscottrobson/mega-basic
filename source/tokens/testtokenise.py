@@ -68,4 +68,4 @@ TokeniseTestOutEnd:
 """.format(src,tokens)
 
 print(s)
-sys.stderr.write(src)
+#sys.stderr.write(src)

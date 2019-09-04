@@ -166,7 +166,7 @@ class TestGenerator(BasicProgram):
 
 
 if __name__ == "__main__":
-	bp = TestGenerator()
+	bp = TestGenerator(42)
 	for i in range(0,bp.getCount()):
 		bp.arithmeticTest(True)
 		bp.arithmeticTest(False)
@@ -174,5 +174,5 @@ if __name__ == "__main__":
 		bp.numberTest(i)
 		bp.stringTest(i)
 
-	bp.add('Print "Passed Arithmetic,Logical,Unary.":stop')
+	bp.add('Print "Passed Arithmetic,Logical,Unary.":end')
 	bp.export(sys.argv[1])
