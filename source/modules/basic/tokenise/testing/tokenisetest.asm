@@ -22,7 +22,7 @@ _ttCopy:inx
 		jsr 	TokeniseString
 		ldx 	#0
 _ttCompare:
-		lda 	TokeniseBuffer,x
+		lda 	TokeniseBuffer+3,x
 		cmp 	TokeniseTestOut,x
 _ttStop:bne 	_ttStop
 		inx

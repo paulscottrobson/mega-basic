@@ -329,6 +329,7 @@ _IFT_Found:
 		inx 								; forward to non-space
 		lda 	#0							; make it ASCIIZ
 		sta 	IFT_LineBuffer,x
+		jsr 	IFT_NewLine 				; go to next line.		
 		pla
 		ldx 	#IFT_LineBuffer & $FF 		; put address in YX
 		ldy 	#IFT_LineBuffer >> 8

@@ -18,8 +18,9 @@ python testtokenise.py >../modules/basic/tokenise/testing/tokentest.src
 popd
 
 64tass -X -Wall -b -q basic.asm  -L rom.lst -o rom.bin
-truncate rom.bin -s 131072
 if [ $? -eq 0 ]
 then
-	../../xemu/build/bin/xmega65.native -loadrom rom.bin -forcerom 1>/dev/null
+	../bin/m65816 rom.bin go
+	#python scripts/showxs.py
+	#python scripts/showv.py
 fi

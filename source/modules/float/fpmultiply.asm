@@ -4,6 +4,7 @@
 ;		Name : 		fpmultiply.asm
 ;		Purpose :	Floating Point Multiply
 ;		Date :		18th August 2019
+;		Review : 	4th September 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************
@@ -27,6 +28,8 @@ _FPM_Exit:
 		ply
 		pla
 		rts		
+		;
+		;		We're not multiplying by zero.
 		;
 _FPM_CalcExponent:		
 		clc
@@ -115,4 +118,3 @@ _FPCECarry:
 
 _FPCEOverflow:
 		jmp 	FP_Overflow		
-

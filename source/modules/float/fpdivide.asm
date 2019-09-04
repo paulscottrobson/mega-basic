@@ -4,6 +4,7 @@
 ;		Name : 		fpdivide.asm
 ;		Purpose :	Divide B into A (floating point)
 ;		Date :		18th August 2019
+;		Review : 	4th September 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************
@@ -30,7 +31,8 @@ _FPD_Exit:
 		ply
 		pla		
 		rts
-
+		;
+		;		Neither dividing by zero, nor dividing zero by something.
 		;
 _FPDCalculateExp:
 		lda 	XS2_Exponent,x 				; negate the 2nd exponent
@@ -42,6 +44,8 @@ _FPDCalculateExp:
 		adc 	#1
 		bcs 	_FPD_Overflow 				; which can overflow.
 		sta 	XS_Exponent,x
+		;
+		;		Now do the actual division
 		;
 		lda 	#0 							; clear result (kept in zLTemp1)
 		sta 	zLTemp1+0
@@ -87,10 +91,7 @@ _FPD_NoSubtract:
 _FPD_Rotates:
 		#lsr32x XS2_Mantissa 				; shift X2 right.
 
-		asl 	zLTemp1 					; rotate result round left
-		rol 	zLTemp1+1
-		rol 	zLTemp1+2
-		rol 	zLTemp1+3
+		asl32 	zLTemp1 					; rotate result round left
 		bcc 	_FPD_NoCarry
 		inc 	zLTemp1 					; if rotated out, set LSB.
 _FPD_NoCarry:						

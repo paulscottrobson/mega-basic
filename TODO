@@ -1,11 +1,6 @@
 TODO
 ====
-	-	Change tokeniser so the start of the buffer is $00 $00 $00 and adjust the
-		test routine, check it still works.
-
-	- 	Implement direct run.
-		-	Handle ERRORs (line number zero)
-		-	Handle End of Line (offset = 0 => will END ?)
+	- 	Integer Default Issue. 
 
 	- 	Why won't FM65/XEMU work with RAM < $8000 ? Copying !!!! This is okay for now.
 		NEW OLD and Editing will not work (!)

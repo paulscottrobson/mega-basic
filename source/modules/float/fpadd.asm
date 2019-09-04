@@ -4,6 +4,7 @@
 ;		Name : 		fpadd.asm
 ;		Purpose :	Floating Point Add/Subtract
 ;		Date :		18th August 2019
+;		Review : 	4th September 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************
@@ -36,7 +37,7 @@ FPAdd:
 		pla
 		rts
 ;
-;		-A +- B
+;		-(-A +- B)  => 	(A+B) , our add relies on LHS being +ve.
 ;
 _FPA_NegativeLHS:
 		lda 	XS_Type,x 					; flip sign of X1 and X2
@@ -63,6 +64,7 @@ FPAdd_Worker:
 		bvs 	_FPAWExit 					; no change.
 		bit 	XS_Type,x 					; if X1 is zero (e.g. 0 + X2)
 		bvc 	_FPAWMakeSame 				; then return X2, else make same exponent
+		;
 		jsr 	FPUCopyX2ToX1 				; copy X2 to X1
 _FPAWExit:		
 		jsr 	FPUNormalise 				; normalise the result.
@@ -84,6 +86,8 @@ _FPAWShiftA:
 		#lsr32x XS_Mantissa 				; and shift mantissa right 1
 		plx 								; restore original X
 		bra 	_FPAWMakeSame 				; keep going till exponents are the same.
+		;
+		;		Do the addition or subtraction depending on the sign of the RHS
 		;		
 _FPAW_DoArithmetic:		
 		bit 	XS2_Type,x 					; is it adding a negative to a positive
@@ -109,3 +113,4 @@ _FPAW_BNegative:
 		sta 	XS_Type,x
 _FPAWGoExit:		
 		jmp 	_FPAWExit
+

@@ -4,6 +4,7 @@
 ;		Name : 		fputils.asm
 ;		Purpose :	Floating Point Utilities
 ;		Date :		18th August 2019
+;		Review : 	4th September 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************
@@ -16,16 +17,16 @@
 ; *******************************************************************************************
 
 FPUCopyX2ToX1:
-		pha
+		pha									; save AXY
 		phx
 		phy
-		ldy 	#8
+		ldy 	#8 							; copy the whole mantissa
 _FPUC21:lda 	XS2_Mantissa,x
 		sta 	XS_Mantissa,x
 		inx
 		dey
 		bpl 	_FPUC21
-		ply
+		ply 								; restore and exit
 		plx
 		pla
 		rts
@@ -40,7 +41,7 @@ FPUSetInteger:
 		pha
 		sta 	XS_Mantissa,x 				; set the lowest byte.
 		and 	#$80 						; make this $00 or $FF dependent on MSB
-		bpl 	_FPUSIExtend
+		bpl 	_FPUSIExtend 				; so sign extend it into the mantissa
 		lda 	#$FF
 _FPUSIExtend:		
 		sta 	XS_Mantissa+1,x 			; copy into the rest of the mantissa
@@ -84,15 +85,18 @@ FPUNegateInteger:
 FPUToFloat:
 		pha
 		lda 	XS_Type,x					; exit if already float.
-		and 	#$0F
+		and 	#$0F 						; (e.g. type is zero)
 		beq 	_FPUFExit
-
+		;
+		;		Set type, and default exponent of 2^32
+		;
 		lda 	#0  						; zero the type byte, making it a float.
 		sta 	XS_Type,x
-
 		lda 	#128+32 					; and the exponent to 32, makes it * 2^32
 		sta 	XS_Exponent,x 				; x mantissa.
-
+		;
+		;		If -ve integer, negate it and set the sign bit.
+		;
 		lda 	XS_Mantissa+3,x 			; signed integer ?
 		bpl		_FPUFPositive
 		jsr 	FPUNegateInteger 			; negate the mantissa
@@ -125,7 +129,10 @@ FPUNormalise:
 		bit 	XS_Type,x 					; if float-zero, don't need to normalise it.
 		bvs 	_FPUNExit
 		lda 	XS_Exponent,x 				; if exponent is zero, then make it zero.
-		beq 	_FPUNSetZero
+		beq 	_FPUNSetZero 				; (e.g. the float value zero)
+		;
+		;		Normalising loop.
+		;		
 _FPUNLoop:
 		lda 	XS_Mantissa+3,x 			; bit 31 of mantissa set.
 		bmi 	_FPUNExit 					; if so, we are normalised.
@@ -134,7 +141,7 @@ _FPUNLoop:
 		;
 		dec 	XS_Exponent,x 				; decrement exponent
 		bne 	_FPUNLoop 		 			; go round again until bit 31 set.
-		;
+		; 									; if too small to normalise round to zero.
 _FPUNSetZero:
 		lda 	#$40
 		sta 	XS_Type,x 					; the result is now zero.
@@ -156,12 +163,15 @@ FPUToInteger:
 		;
 		bit 	XS_Type,x					; if zero, return zero.
 		bvs 	_FPUTOI_Zero		
-
+		;
 		lda 	XS_Exponent,x 				; if exponent 00-7F 
 		bpl 	_FPUToI_Zero 				; the integer value will be zero (< 1.0)
+		;
 		cmp 	#128+32 					; sign exponent >= 32, overflow.
-		bcs 	FP_Overflow
-		;									; inverse of the toFloat() operation.
+		bcs 	FP_Overflow 				; can't cope with that as an integer.
+		;									
+		; 		inverse of the toFloat() operation. shift back to exponent 32.
+		;
 _FPUToIToInteger:
 		lda 	XS_Exponent,x 				; keep right shifting until reached 2^32
 		cmp 	#128+32
@@ -169,6 +179,8 @@ _FPUToIToInteger:
 		inc 	XS_Exponent,X 				; increment Exponent
 		#lsr32x XS_Mantissa	 				; shift mantissa right
 		bra 	_FPUToIToInteger 			; keep going.
+		;
+		;		Apply sign in type to the integer value.
 		;
 _FPUToICheckSign:
 		lda 	XS_Type,x 					; check sign
@@ -208,7 +220,7 @@ FPUTimes10:
 		sta 	ZLTemp1+3
 		;
 		jsr 	_FPUT_LSR_ZLTemp1 			; divide ZLTemp1 by 4
-		jsr 	_FPUT_LSR_ZLTemp1
+		jsr 	_FPUT_LSR_ZLTemp1   		
 		;
 		clc
 		lda 	XS_Mantissa+0,x 			; add n/4 to n
@@ -252,11 +264,12 @@ FPUScale10A:
 		phy
 		cmp 	#0 							; if A = 0, nothing to scale
 		beq 	_FPUScaleExit
+		;
 		phx 								; save X
 		inx6 								; next slot in expression stack.
 		tay 								; save power scalar in Y.
 		lda 	#0
-		sta 	XS_Mantissa+0,x 			; set slot to 1.0		
+		sta 	XS_Mantissa+0,x 			; set slot to 1.0 in float.
 		sta 	XS_Mantissa+1,x
 		sta 	XS_Mantissa+2,x
 		sta 	XS_Type,x
@@ -265,14 +278,14 @@ FPUScale10A:
 		lda 	#$81
 		sta 	XS_Exponent,x
 		;
-		phy 								; save 10^n on stack.
+		phy 								; save 10^n (e.g. the scalar) on stack.
 		cpy 	#0
 		bpl 	_FPUSAbs 					; set Y = |Y|, we want to multiply that 1.0 x 10		
 		tya
 		eor 	#$FF
 		inc 	a
 		tay
-_FPUSAbs:
+_FPUSAbs: 									; multiply the 1.0 by 10 Y times
 		jsr 	FPUTimes10 
 		dey
 		bne 	_FPUSAbs 					; tos is now 10^|AC|
@@ -296,7 +309,7 @@ _FPUScaleExit:
 ; *******************************************************************************************
 
 FPUCopyToNext:
-		ldy 		#6
+		ldy 		#6 						
 		phx
 _FPUCopy1:
 		lda 	XS_Mantissa,x
@@ -324,3 +337,4 @@ _FPUCopy1:
 		bne 	_FPUCopy1
 		plx
 		rts
+		

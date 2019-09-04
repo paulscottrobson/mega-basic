@@ -4,6 +4,7 @@
 ;		Name : 		fpcompare.asm
 ;		Purpose :	Compare 2 FP Numbers
 ;		Date :		18th August 2019
+;		Review : 	4th September 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************
@@ -22,7 +23,9 @@
 FPCompare:
 		jsr 	FPFastCompare 				; fast compare try first
 		bcs 	_FPCExit 					; that worked.
-		
+		;
+		;		Can't do it easily - so we have to subtract.
+		;		
 		lda 	XS_Exponent,x 				; save the exponents on the stack
 		pha
 		lda 	XS2_Exponent,x
@@ -30,7 +33,7 @@ FPCompare:
 		;
 		jsr 	FPSubtract 					; calculate X1-X2
 		bit 	XS_Type,x 					; is the result zero ? (e.g. zero flag set)
-		bvs 	_FPCPullZero 				; if so, then return zero throwing saved exp
+		bvs 	_FPCPullZero 				; if so, then return zero throwing saved exponents
 		;
 		pla
 		sta 	ExpTemp						; save first exponent in temporary reg.
@@ -78,15 +81,19 @@ _FPCExit:
 
 FPFastCompare:
 		bit 	XS_Type,x 					; n1 is zero.
-		bvs 	_FPFLeftZero
-		bit 	XS2_Type,x 					; n2 is zero
-		lda 	XS_Type,x 					; if so, return sign bit of 1 (n-0)
+		bvs 	_FPFLeftZero 				; return invert sign of n2 (0-n2)
+		bit 	XS2_Type,x 					; n2 is zero ?
+		lda 	XS_Type,x 					; if so, return sign bit of n1 (n1-0)
 		bvs 	_FPFSignBit
+		;
+		;		Neither is zero. Now check the signs.
 		;
 		eor 	XS2_Type,x 					; eor 2 type bits. now know both non-zero
 		asl 	a 							; put in CS if different.
 		lda 	XS_Type,x 					; if signs different return sign of first
 		bcs 	_FPFSignBit
+		;
+		;		Same sign. So check the exponents
 		;
 		sec 								; same sign and not-zero. compare exponents
 		lda 	XS_Exponent,x 				; compare exponents. if the same, then fail.
@@ -122,4 +129,3 @@ _FPFSignBit:								; return 1 if A.7=0, else -1
 		lda 	#$FF
 		sec
 		rts
-;

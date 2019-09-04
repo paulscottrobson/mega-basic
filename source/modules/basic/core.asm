@@ -52,12 +52,11 @@ ErrorStart:
 		ldx 	#IFT_LineBuffer >> 8
 		jsr 	TokeniseString
 		;
-		lda 	TokeniseBuffer 				; what is first.
+		lda 	TokeniseBuffer+3 			; what is first.
 		and 	#$C0 						; is it a number 4000-7FFF
 		cmp 	#$40
 		beq 	EditLine 					; if true, go to edit line.
 		#s_toStart TokeniseBuffer 			; reset pointer to token buffer.
-		#s_startLine 						; there's no preamble.
 		jmp 	RUN_NextCommand
 
 ReadyMsg:

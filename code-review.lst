@@ -8,15 +8,8 @@ em65816.asm
 evaluate.asm
 extract.asm
 for.asm
-fpadd.asm
-fpcompare.asm
-fpdivide.asm
 fpfromstr.asm
-fpmultiply.asm
-fpparts.asm
-fptest.asm
 fptostr.asm
-fputils.asm
 get.asm
 if.asm
 input.asm
@@ -36,7 +29,7 @@ read.asm
 run.asm
 slice.asm
 stack.asm
-tim.asm
+tim.asm (needs rewriting, not 65816 compatible)
 val.asm (2nd version)
 varcreate.asm
 varfind.asm

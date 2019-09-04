@@ -19,7 +19,11 @@ TokeniseString:
 		sta 	zGenPtr 					; save source 
 		stx 	zGenPtr+1
 		ldy 	#0 							; source
-		ldx 	#0 							; target
+		ldx 	#3 							; target 
+		;
+		sty 	TokeniseBuffer+0 			; write three NULLs. So it looks like
+		sty 	TokeniseBuffer+1 			; there's a line number zero.
+		sty 	TokeniseBuffer+2
 		;
 		;		Main tokenising loop
 		;
