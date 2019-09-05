@@ -10,7 +10,6 @@ extract.asm
 for.asm
 fpfromstr.asm
 fptostr.asm
-get.asm
 if.asm
 input.asm
 interface_em6502.asm
@@ -18,17 +17,13 @@ interface_em65816.asm
 interface_mega65.asm
 interface_test.asm
 interface_tools.asm
-intfromstr.asm
-inttostr.asm
 let.asm
 list.asm
 mega65.asm
 print.asm
 programend.asm
 read.asm
-run.asm
 slice.asm
-stack.asm
 tim.asm (needs rewriting, not 65816 compatible)
 val.asm (2nd version)
 varcreate.asm

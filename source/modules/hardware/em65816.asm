@@ -28,9 +28,10 @@ Exit:	.macro
 		.endm
 
 HighMemory = $7F00
-VariableMemory = 0
+VariableMemory = $2000
 	
-		* = $1000
+		* = $12000
+
 BasicProgram:		
 		.if loadTest == 1		
 		.include "../basic/testcode/testcode.src"

@@ -4,6 +4,7 @@
 ;		Name : 		stack.asm
 ;		Purpose :	Stack Handler.
 ;		Date :		23rd August 2019
+;		Review : 	5th September 2019
 ;		Author : 	Paul Robson (paul@robsons.org.uk)
 ;
 ; *******************************************************************************************
@@ -30,8 +31,8 @@ StackReset:
 		lda 	#(BasicStack >> 8)
 		sta 	zBasicSP+1
 		ldy 	#0 							; reset stack top to $00 which cannot
-		tya 								; be a legal token.
-		sta 	(zBasicSP),y 	
+		tya 								; be a legal token, so any attempt to 
+		sta 	(zBasicSP),y 				; test it will cause an error.
 		ply
 		pla
 		rts
@@ -46,13 +47,15 @@ StackPushFrame:
 		pha
 		phy
 		inc 	a 							; one extra byte in frame, for the marker.
-		pha 								; save it.
-		and 	#$0F 						; lower 4 bits
-		clc 								; add to Basic Stack
+		pha 								; save it the framing byte.
+		and 	#$0F 						; lower 4 bits, which is the length.
+		;
+		clc 								; add to Basic Stack Pointer
 		adc 	zBasicSP 					
 		sta 	zBasicSP
 		bcc 	_SPFNoBump
 		inc 	zBasicSP+1
+		;
 _SPFNoBump: 								; put the frame marker on the top of the stack
 		ldy 	#0 							
 		pla
@@ -72,13 +75,13 @@ StackPopFrame:
 		phy
 		ldy 	#0 							; compare with top of stack using EOR
 		eor 	(zBasicSP),y
-		and 	#$F0 						; top 4 bits zero, match
-		bne 	SPFError 					; mixed structures 	
+		and 	#$F0 						; matches if the top 4 bits zero
+		bne 	SPFError 					; mixed structures 	(helpful message ...)
 		;
 		lda 	(zBasicSP),y 				; get size from byte
 		and 	#$0F
 		eor 	#$FF						; 2's complement
-		sec		
+		sec		 							; add to stack pointer.
 		adc 	zBasicSP
 		sta 	zBasicSP
 		bcs 	_SPFNoBump
@@ -100,12 +103,12 @@ SPFError:
 StackSavePosition:
 		#s_OffsetToA 						; get the position
 		phy
-		ldy 	#5
-		sta 	(zBasicSP),y
+		ldy 	#5 							
+		sta 	(zBasicSP),y 				; save offset
 
 		ldy 	#1
 		lda 	zCodePtr+0 					; 4 bytes, could reduce this for 65816/6502
-		sta 	(zBasicSP),y
+		sta 	(zBasicSP),y 				; this is the physical memory position.
 		iny
 		lda 	zCodePtr+1
 		sta 	(zBasicSP),y
@@ -140,7 +143,8 @@ StackRestorePosition:
 		lda 	(zBasicSP),y
 		sta 	zCodePtr+3
 		iny
-		lda 	(zBasicSP),y 				; offset
+		lda 	(zBasicSP),y 				; restore offset
 		ply 								; restore Y
 		#s_AToOffset 						; set up the offset.
 		rts
+

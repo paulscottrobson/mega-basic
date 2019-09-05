@@ -170,6 +170,6 @@ class BuildDefinition(object):
 #
 #		Physical locations of various things.
 #
-BuildDefinition.PROJECTROOT = "/home/paulr/Projects/6502-Basic"					# Root of project
+BuildDefinition.PROJECTROOT = "../"												# Root of project
 BuildDefinition.SOURCE = BuildDefinition.PROJECTROOT+"/source"					# Source Root
 BuildDefinition.MODULES = "modules"												# Modules here from source directory.
