@@ -37,7 +37,11 @@ BASIC_Start:
 		;
 		#ResetStack
 		.if 	loadTest!=0
+		.if 	loadRun!=0
 		jmp 	COMMAND_Run
+		.else
+		jmp 	WarmStart
+		.endif
 		.endif
 		;
 		jsr 	Command_NEW 				; new command, will not return.
@@ -56,12 +60,13 @@ ErrorStart:
 		lda 	TokeniseBuffer+3 			; what is first.
 		and 	#$C0 						; is it a number 4000-7FFF
 		cmp 	#$40
-		beq 	EditLine 					; if true, go to edit line.
+		beq 	EditLine 					; if true, go to edit line (delete/insert)
 		#s_toStart TokeniseBuffer 			; reset pointer to token buffer.
 		jmp 	RUN_NextCommand
 
 ReadyMsg:
 		.text 	"Ready.",13,0
 
-EditLine:
-		bra 	EditLine
+
+EditLine:	
+		jmp 	EditCode

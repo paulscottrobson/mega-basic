@@ -85,6 +85,7 @@ class IntegerBasic(BuildDefinitionTIMOption):
 		self.addModule("basic.expressions.number.*")
 		self.addModule("basic.expressions.string.*")
 		self.addModule("basic.memory.@c")
+		self.addModule("basic.program.*")
 		self.addModule("basic.pointer.*")	
 		self.addModule("basic.pointer.@h.*")
 		self.addModule("basic.stringmem.*")
@@ -133,6 +134,11 @@ class TokeniseTestBasic(FullBasic):
 		self.addModule("basic.tokenise.testing.*")
 		self.boot("TokeniseTest")
 
+class EditingTestBasic(RunDirectBasic):
+	def create(self):
+		RunDirectBasic.create(self)
+		self.define("loadrun",0)
+
 BuildDefinition.Classes = {														# Class list
 		"tim":	TIMOnlyTest,
 		"expr":	ExpressionTestBasic,
@@ -140,7 +146,8 @@ BuildDefinition.Classes = {														# Class list
 		"full":	FullBasic,
 		"intb":	IntegerBasic,
 		"run":  RunDirectBasic,
-		"tokn": TokeniseTestBasic
+		"tokn": TokeniseTestBasic,
+		"edit": EditingTestBasic
 }
 
 if __name__ == "__main__":

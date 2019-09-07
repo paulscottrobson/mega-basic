@@ -51,6 +51,7 @@ class BuildDefinition(object):
 		self.defines["exitonend"] = 0 											# if set to 1, exits on END command 						
 		self.defines["autorun"] = 0
 		self.defines["loadtest"] = 0		
+		self.defines["loadrun"] = 1 
 	#
 	#		Analyse the source requirements, add the various classes, macros.
 	#

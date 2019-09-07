@@ -129,3 +129,29 @@ _SEDouble:
 		inz
 _SEDone:	
 		.endm		
+
+; *******************************************************************************************
+;
+;							Copy to offset, Copy from offset
+;
+; *******************************************************************************************
+
+s_copyToOffset: .macro
+		phz
+		ldz 	#0 							; read at [zCodePtr]
+		nop
+		lda 	(zCodePtr),z 				; get at offset 0
+		plz
+		nop 								; write at [zCodePtr],z
+		sta 	(zCodePtr),z
+		.endm
+
+s_copyFromOffset: .macro
+		nop 								; read at [zCodePtr],z
+		lda 	(zCodePtr),z
+		phz
+		ldz 	#0 							; save at [zCodePtr],0
+		nop
+		sta 	(zCodePtr),z
+		plz
+		.endm

@@ -18,9 +18,9 @@ python testtokenise.py >../modules/basic/tokenise/testing/tokentest.src
 popd
 
 64tass -X -Wall -b -q basic.asm  -L rom.lst -o rom.bin
-truncate rom.bin -s 131072
 if [ $? -eq 0 ]
 then
-	../../mega65-core/src/tools/monitor_load -b ../documents/nexys4ddr.bit -p -R rom.bin -k ../documents/hickup.m65 
-	rm rom.lst rom.bin
+	../bin/m65816 rom.bin go
+	#python scripts/showxs.py
+	#python scripts/showv.py
 fi
