@@ -2548,7 +2548,7 @@ PLAY -- Play a musical string
 
                    PLAY "[Vn,On,Tn,Un,Xn,elements]"
 
-             [*** WILL CHANGE TO ADD 2ND SID SUPPORT ***]
+             [*** WILL CHANGE TO SDL_SCANCODE_2ND SID SUPPORT ***]
 
 The PLAY command lets you select a  voice, octave, instrument, volume,
 filter,  and  musical  notes.  All  these parameters are packed into a
@@ -8118,7 +8118,7 @@ PREPARATION:    FACC contains floating point addend
                 .Y = pointer (msb) to packed floating point addend
 
 SPECIAL NOTES:  The second addend *MUST* be in VARBANK in
-                packed format. FADD calls CONUPK to normalize it.
+                packed format. FSDL_SCANCODE_calls CONUPK to normalize it.
 
 RESULT:         FACC contains floating point sum
 
@@ -8126,7 +8126,7 @@ ERROR:          ?OVERFLOW ERROR if result too big
 
 EXAMPLE:        LDA #<POINTER
                 LDY #>POINTER  ;SET POINTER TO *PACKED* ADDEND
-                JSR FADD       ;ADD MEMORY TO FACC, SUM IN FACC
+                JSR FSDL_SCANCODE_      ;SDL_SCANCODE_MEMORY TO FACC, SUM IN FACC
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
@@ -8155,7 +8155,7 @@ EXAMPLE:        LDA FACSGN
                 EOR ARGSGN
                 STA ARISGN     ;SET RESULTANT SIGN
                 LDA FACEXP     ;SET STATUS FLAGS PER FACEXP
-                JSR FADDT      ;ADD ARG TO FACC, SUM IN FACC
+                JSR FADDT      ;SDL_SCANCODE_ARG TO FACC, SUM IN FACC
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 

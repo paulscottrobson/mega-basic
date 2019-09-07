@@ -182,7 +182,7 @@ FPDIV:  EXX             ;Er AC' nul?
         PUSH HL         ;Opret 6 bytes work-
         PUSH HL         ;space
         PUSH HL
-        ADD  IX,SP
+        SDL_SCANCODE_ IX,SP
 
         EXX             ;5 bytes
         LD   L,5
@@ -250,14 +250,14 @@ FPMUL:  EXX             ;Er AC' nul?
         RET  Z          ;Ja => Retur
 
         EXX             ;Adder exponenter
-        ADD  A,L
+        SDL_SCANCODE_ A,L
         EXX             ;Juster exponent og
         CALL EXPSGN     ;udregn fortegn
 
         PUSH BC         ;Gem AC
         PUSH DE
         PUSH HL
-        ADD  IX,SP      ;Peg IX til AC
+        SDL_SCANCODE_ IX,SP      ;Peg IX til AC
 
         CALL ZERO       ;Nulstil resultat
         EXX             ;5 bytes
@@ -317,11 +317,11 @@ MUL5A:  EX   AF,AF'     ;Gem status
 ;Juster exponent og udregn fortegn.
 
 EXPSGN: JR   C,EXPS1    ;Carry => EXPS1
-        ADD  A,EXPN     ;Juster exponent
+        SDL_SCANCODE_ A,EXPN     ;Juster exponent
         JR   C,EXPS2    ;Carry => EXPS2
         JR   EXPS3      ;Underflow
 
-EXPS1:  ADD  A,EXPN     ;Juster exponent
+EXPS1:  SDL_SCANCODE_ A,EXPN     ;Juster exponent
         JR   C,EXPS3    ;carry => Overflow
 
 EXPS2:  LD   L,A        ;Gem i exponent
@@ -378,7 +378,7 @@ LEFT:   RL   H
 
 ADDAC:  LD   A,H
         EXX
-        ADD  A,H
+        SDL_SCANCODE_ A,H
 AAC1:   EXX
         LD   H,A
         LD   A,E
@@ -592,9 +592,9 @@ SQR:    LD   A,L        ;Er AC nul?
         EXX
         CALL EQUAL      ;AC'=AC
         LD   A,L        ;Foerste iteration:
-        ADD  A,EXPN     ;halver exponenten
+        SDL_SCANCODE_ A,EXPN     ;halver exponenten
         SRA  A
-        ADD  A,EXPN
+        SDL_SCANCODE_ A,EXPN
         LD   L,A        ;Sammenligningsvaerdi
         SUB  20         ;er den halve exponent
         PUSH AF         ;Gem s.vaerdi
@@ -604,7 +604,7 @@ SQR1:   PUSH BC         ;Gem tallet
         PUSH DE
         PUSH HL
         CALL FPDIV      ;Divider med og adder
-        CALL FPADD      ;forrige gaet
+        CALL FPSDL_SCANCODE_     ;forrige gaet
         DEC  L          ;Halver
         PUSH BC         ;Gem dette gaet
         PUSH DE
@@ -869,7 +869,7 @@ LN1:    CALL FLOAT
         POP  HL         ;Hent resultat
         POP  DE
         POP  BC
-        CALL FPADD      ;Adder
+        CALL FPSDL_SCANCODE_     ;Adder
         LD   A,L
         CP   EXPN-25    ;LN(X)<3E-8 => LN(X)=0
         CALL C,ZERO
@@ -949,7 +949,7 @@ EXP1:   PUSH IX         ;Udregn 2^Z
         POP  IX
 
 EXP3:   POP  AF         ;Hent 2^INT(Y)
-        ADD  A,L        ;Udregn 2^Z*2^INT(Y)
+        SDL_SCANCODE_ A,L        ;Udregn 2^Z*2^INT(Y)
         LD   L,A
         JR   NC,EXP6    ;Ikke overflow => EXP6
 
@@ -1043,7 +1043,7 @@ ATN3:   LD   IX,ATNK-18 ;Peg IX til skalerings-
 ATN4:   EX   AF,AF'     ;Gem taeller
         EXX
         LD   DE,18      ;Peg til naeste saet
-        ADD  IX,DE
+        SDL_SCANCODE_ IX,DE
         CALL GETCIX     ;Hent oeverste endepkt.
         EXX
         CALL CMP        ;Er X i dette interval?
@@ -1054,7 +1054,7 @@ ATN4:   EX   AF,AF'     ;Gem taeller
 
         EXX             ;Juster IX
         LD   DE,12
-        ADD  IX,DE
+        SDL_SCANCODE_ IX,DE
         EXX
 
 ATN5:   EXX
@@ -1079,7 +1079,7 @@ ATN5:   EXX
         POP  IX
         EXX
         CALL GTNCIX     ;Hent K
-        CALL FPADD      ;Udregn K+ATN(Y)
+        CALL FPSDL_SCANCODE_     ;Udregn K+ATN(Y)
 
 ATN6:   POP  AF         ;Hent flagbyte
         RLA             ;Var X>1?
@@ -1172,7 +1172,7 @@ CALC1:  PUSH AF         ;Gang med Z
         PUSH DE
         PUSH HL
         CALL GTNCIX     ;Hent naeste konstant
-        CALL FPADD      ;Laeg til resultat
+        CALL FPSDL_SCANCODE_     ;Laeg til resultat
         EXX             ;Hent Z
         POP  HL
         POP  DE
@@ -1189,7 +1189,7 @@ CALC1:  PUSH AF         ;Gang med Z
 ;Saet AC lig den konstant IX peger paa.
 
 GTNCIX: LD   DE,6
-        ADD  IX,DE
+        SDL_SCANCODE_ IX,DE
 GETCIX: LD   C,(IX+0)
         LD   B,(IX+1)
         LD   E,(IX+2)
@@ -1354,7 +1354,7 @@ OUTN1:  PUSH IX         ;Gem IX,IY,AC,AC'
         PUSH HL
         EXX
         LD   IY,-13     ;Opret en 13 bytes
-        ADD  IY,SP      ;buffer paa stakken
+        SDL_SCANCODE_ IY,SP      ;buffer paa stakken
         LD   SP,IY
         EXX
         LD   E,A        ;Gem formatet
@@ -1386,22 +1386,22 @@ DIGITS: PUSH BC         ;Gem BC
         DEC  H
 SC1:    LD   L,A
         PUSH HL         ;HL=HL*77+5
-        ADD  HL,HL
-        ADD  HL,HL
+        SDL_SCANCODE_ HL,HL
+        SDL_SCANCODE_ HL,HL
         PUSH HL
-        ADD  HL,HL
+        SDL_SCANCODE_ HL,HL
         LD   D,H
         LD   E,L
-        ADD  HL,HL
-        ADD  HL,HL
-        ADD  HL,HL
-        ADD  HL,DE
+        SDL_SCANCODE_ HL,HL
+        SDL_SCANCODE_ HL,HL
+        SDL_SCANCODE_ HL,HL
+        SDL_SCANCODE_ HL,DE
         POP  DE
-        ADD  HL,DE
+        SDL_SCANCODE_ HL,DE
         POP  DE
-        ADD  HL,DE
+        SDL_SCANCODE_ HL,DE
         LD   DE,5
-        ADD  HL,DE
+        SDL_SCANCODE_ HL,DE
         LD   A,H        ;A=INT(HL/256)
         CP   -39
         JR   NZ,SC2
@@ -1438,7 +1438,7 @@ DIGI2:  EX   AF,AF'     ;Gem taeller
         RRA
         RRA
         AND  0FH
-        ADD  A,'0'
+        SDL_SCANCODE_ A,'0'
         INC  IY
         LD   (IY+0),A
         LD   A,B
@@ -1454,7 +1454,7 @@ DIGI2:  EX   AF,AF'     ;Gem taeller
         CALL LEFT
         EX   DE,HL
         EX   (SP),HL
-        ADD  HL,DE
+        SDL_SCANCODE_ HL,DE
         POP  DE
         EX   (SP),HL
         ADC  HL,DE
@@ -1484,7 +1484,7 @@ ROUND:  POP  DE         ;Hent format
         INC  A          ;afrundes fra
         BIT  0,D
         JR   NZ,ROU1
-        ADD  A,C
+        SDL_SCANCODE_ A,C
         JP   M,DZERO    ;Neg. => Udskriv 0
 
 ROU1:   CP   12         ;Max. nummer 11
@@ -1493,7 +1493,7 @@ ROU1:   CP   12         ;Max. nummer 11
 
 ROU2:   PUSH IY         ;Udregn adressen paa
         POP  HL         ;det ciffer der skal
-        ADD  A,L        ;afrundes
+        SDL_SCANCODE_ A,L        ;afrundes
         LD   L,A
         JR   NC,ROU3
         INC  H
@@ -1639,7 +1639,7 @@ OEX1:   CALL STOA
 OEX2:   INC  B
         SUB  10
         JR   NC,OEX2
-        ADD  A,10+'0'
+        SDL_SCANCODE_ A,10+'0'
         LD   (IX+0),B   ;Gem exponent
         INC  IX
         CALL STOA
@@ -1648,7 +1648,7 @@ POPA1:  OR   A          ;Nulstil carry
 POPALL: EX   AF,AF'     ;Gem status
         LD   (IX+0),0   ;Marker bufferslut
         LD   HL,13      ;Fjern talbuffer
-        ADD  HL,SP
+        SDL_SCANCODE_ HL,SP
         LD   SP,HL
         POP  HL         ;Hent AC',AC,IY,IX
         POP  DE
@@ -1694,13 +1694,13 @@ TF1:    PUSH AF         ;Gem flag
         LD   HL,-6      ;Udregn offset til
         LD   DE,6       ;konstant nummer A
         INC  A
-TF2:    ADD  HL,DE
+TF2:    SDL_SCANCODE_ HL,DE
         DEC  A
         JR   NZ,TF2
         EX   DE,HL
         PUSH IX         ;Gem IX
         LD   IX,CON10   ;Hent konstant
-        ADD  IX,DE
+        SDL_SCANCODE_ IX,DE
         CALL GETCIX
         POP  IX         ;Hent IX
         POP  AF         ;Hent exponent
@@ -1752,7 +1752,7 @@ MUL10:  LD   A,L
         LD   A,H
         CALL SRIGHT
         CALL SRIGHT
-        ADD  A,H
+        SDL_SCANCODE_ A,H
         LD   H,A
         EX   (SP),HL
         ADC  HL,DE
@@ -1769,7 +1769,7 @@ MUL10:  LD   A,L
         SCF
         RET  Z
 M10A:   LD   A,L
-        ADD  A,3
+        SDL_SCANCODE_ A,3
         LD   L,A
         RES  7,B
         RET
@@ -1856,11 +1856,11 @@ CNV6A:  JR   C,CNV6     ;Nej => CNV6
         INC  IX         ;Gang forrige ciffer
         LD   D,A        ;med 10 og laeg det
         LD   A,C        ;nye til
-        ADD  A,A
-        ADD  A,A
-        ADD  A,C
-        ADD  A,A
-        ADD  A,D
+        SDL_SCANCODE_ A,A
+        SDL_SCANCODE_ A,A
+        SDL_SCANCODE_ A,C
+        SDL_SCANCODE_ A,A
+        SDL_SCANCODE_ A,D
         LD   C,A
 
 CNV4C:  BIT  5,B        ;Negativt?
@@ -1884,7 +1884,7 @@ CNV6:   JP   ADD10      ;Hent AC'
 
 MFACT:  EXX
         LD   A,C
-        ADD  A,EXPN
+        SDL_SCANCODE_ A,EXPN
         CP   -37+EXPN   ;Tiexp.<-37?
         RET  C          ;Ja => Retur
         CP   38+EXPN    ;Tiexp.>37?

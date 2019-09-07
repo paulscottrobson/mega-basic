@@ -88,8 +88,9 @@ class TestGenerator(BasicProgram):
 		elif operator == "<>":
 			result = -1 if n1 != n2 else 0
 
-		if not useFloat:
+		if operator != "/" and not useFloat:
 			result = int(result)
+
 		self.add('assert ({0} {1} {2}) = {3} '.format(self.format(n1),operator,self.format(n2),self.format(result)))
 	#	
 	#		Testing and or xor
@@ -167,7 +168,7 @@ class TestGenerator(BasicProgram):
 
 if __name__ == "__main__":
 	bp = TestGenerator(42)
-	for i in range(0,bp.getCount()):
+	for i in range(0,bp.getCount()*0+1):
 		bp.arithmeticTest(True)
 		bp.arithmeticTest(False)
 		bp.logicalTest()
